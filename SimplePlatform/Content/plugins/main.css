@@ -1,0 +1,173 @@
+﻿* { box-sizing: border-box; outline: none !important; }
+html, body { height: 100%; }
+body { overflow-x: hidden; background: #f2f2f2; color: #333333; -webkit-font-smoothing: antialiased; font-weight: 300; position: relative; }
+a { color: #0bacd3; text-decoration: none; }
+input { line-height: normal; }
+button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0; }
+.gray-lighter-bg { color: #333333 !important; background-color: #eeeeee !important; }
+.bt { border-top: 1px solid #e3e3e3 !important; }
+
+/* --- Bootstrap ---  */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; }
+
+/* --  DropDown Menu -- */
+.dropdown-menu { padding: 0; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.175); border: 1px solid #efefef; }
+.dropdown-menu:after, .dropdown-menu:before { bottom: 100%; left: 50%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
+.dropdown-menu:before { border-bottom-color: #efefef; border-width: 11px; margin-left: -12px; }
+.dropdown-menu:after { border-color: rgba(255, 255, 255, 0); border-bottom-color: #fff; border-width: 10px; margin-left: -10px; }
+.dropdown-menu li { padding: 0; border-radius: 3px; }
+.dropdown-menu li a { padding: 8px 20px; color: #333333; transition: all; transition-duration: 0.4s; }
+.dropdown-menu li a i { margin-right: 10px; font-size: 16px; }
+.dropdown-menu > li > a { display: block; padding: 3px 20px; clear: both; font-weight: 400; line-height: 1.42857143; color: #333; white-space: nowrap; }
+
+/* ---- Nav Bar --- */
+.navbar-brand { float: left; padding: 15px 15px; font-size: 18px; line-height: 20px; height: 50px; }
+.navbar-nav > li > .dropdown-menu { margin-top: 0; border-top-right-radius: 0; border-top-left-radius: 0; }
+.nav > li > a:focus, .nav > li > a:hover { background-color: transparent; }
+.navbar .navbar-nav > li .dropdown-menu:before { border-bottom-color: #e5ebfc; }
+
+/* --  Customized Nav Bar --- */
+.page-navbar { width: 100%; float: left; position: absolute; left: 0; top: 0; z-index: 10; background-color: #ffffff; box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.15); }
+.page-navbar.header-fixed { position: fixed; }
+.page-navbar .navbar-no-collapse { width: auto; padding-right: 15px; padding-left: 15px; }
+.page-navbar .navbar-nav > li { border-radius: 0; }
+.page-navbar .navbar-nav > li > a { color: #333333; padding: 15px 20px; height: 50px; transition: background; transition-duration: 0.4s; }
+.page-navbar .navbar-nav > li > a:hover { background-color: #f7f9fe; }
+.page-navbar .navbar-nav > li.open > a { background-color: #f7f9fe; }
+.page-navbar .navbar-nav > li > a i { font-size: 20px; float: left; }
+.page-navbar .navbar-nav > li > a .badge { padding: 3px 5px 2px; position: absolute; top: 8px; right: 12px; }
+.page-navbar .navbar-nav > li .dropdown-menu { margin-top: 12px; }
+.page-navbar .navbar-nav > li .dropdown-menu:before { border-bottom-color: #e5ebfc; }
+.page-navbar .navbar-nav > li .dropdown-menu:after { border-color: rgba(255, 255, 255, 0); border-bottom-color: #f7f9fe; }
+.page-navbar .navbar-nav > li .dropdown-menu > li { border-radius: 0; }
+.page-navbar .navbar-nav > li .dropdown-menu > li a { padding: 10px 20px; }
+.page-navbar .navbar-nav > li .dropdown-menu > li a.dropdown-menu-header { background: #f7f9fe; font-weight: bold; border-bottom: 1px solid #e3e3e3; }
+.page-navbar .navbar-nav > li .dropdown-menu > li a.view-all { text-align: center; border-top: 1px solid #e3e3e3; background: #f7f9fe; }
+.page-navbar .navbar-brand.collapse-sidebar { width: 60px; }
+.page-navbar .navbar-brand { width: 210px; color: #4d4d4d; background-color: #303946; text-transform: uppercase; font-weight: bold; padding: 1px 15px; font-size: 21px; }
+.page-navbar .navbar-nav > li .dropdown-menu.dynamic-settings { min-width: 220px; }
+.page-navbar .navbar-nav > li .dropdown-menu.dynamic-settings .toggle-custom { padding: 5px 10px; }
+
+/* --  Panel Customization ---- */
+.panel.plain.panel-default .panel-heading { background-color: #ffffff; color: #333333; border: none; }
+.panel.plain.panel-default .panel-footer { background-color: #ffffff; color: #333333; border-top: none; border-left: none; border-right: none; }
+.panel-default > .panel-footer { color: #333333; background-color: #e8e8e8; border-color: #e5e5e5; border: 1px solid #e5e5e5; border-top: none; }
+
+/* --  Forms Control ---- Start */
+.form-horizontal .form-group .input-icon, .form-inline .form-group .input-icon, .form-horizontal .form-group .input-serach, .form-inline .form-group .input-serach { width: 100%; }
+.input-group .form-control { position: relative; z-index: 2; float: left; width: 100%; margin-bottom: 0; }
+.form-horizontal .form-group .input-icon .input-group-addon, .form-inline .form-group .input-icon .input-group-addon, .form-horizontal .form-group .input-serach .input-group-addon, .form-inline .form-group .input-serach .input-group-addon { position: relative; padding: 0; border: 0 none; width: 0; }
+.form-horizontal .form-group .input-icon .input-group-addon i, .form-inline .form-group .input-icon .input-group-addon i, .form-horizontal .form-group .input-serach .input-group-addon i, .form-inline .form-group .input-serach .input-group-addon i { position: absolute; top: 0; left: 0; bottom: 0; border: 0; z-index: 5; width: auto; display: inline-block; vertical-align: middle; text-align: center; padding: 6px 12px; background: transparent; line-height: 1.42857143; box-sizing: content-box; pointer-events: none; color: #cacaca; }
+.form-horizontal .form-group .input-icon .input-group-addon + .form-control, .form-inline .form-group .input-icon .input-group-addon + .form-control, .form-horizontal .form-group .input-serach .input-group-addon + .form-control, .form-inline .form-group .input-serach .input-group-addon + .form-control { padding-left: 35px; padding-right: 12px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
+
+/* --  Button Custom --- */
+.btn-default { color: #333333; background-color: #e8e8e8; border-color: #e8e8e8; }
+.btn-default:hover, .btn-default:focus; { background-color: #dbdbdb; border-color: #e8e8e8; }
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default { color: #333333; }
+
+/* --  CheckBox Custom --- */
+div.checkbox-custom { position: relative; margin-top: 8px; }
+div.checkbox-custom input[type=checkbox], div.checkbox-custom input[type=radio] { opacity: 0; position: absolute; top: 50%; left: 3px; margin: -6px 0 0 0; z-index: 2; cursor: pointer; }
+div.checkbox-custom input[type=checkbox]:checked, div.checkbox-custom input[type=radio]:checked, div.checkbox-custom input[type=checkbox]:focus, div.checkbox-custom input[type=radio]:focus { outline: none !important; }
+div.checkbox-custom label { cursor: pointer; margin-bottom: 0; text-align: left; line-height: 1.2; font-weight: normal; padding-left: 30px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+div.checkbox-custom input[type=checkbox] + label:before, div.checkbox-custom input[type=radio] + label:before { cursor: pointer; transition: all; transition-duration: 0.4s; content: ''; position: absolute; top: 50%; left: 0; margin-top: -10px; width: 19px; height: 18px; display: inline-block; background-color: #ffffff; border: 1px solid #cacaca; border-radius: 3px; color: #333333; }
+div.checkbox-custom input[type=checkbox]:checked + label:after, div.checkbox-custom input[type=radio]:checked + label:after { font-family: fontAwesome; display: inline-block; content: '\f00c'; position: absolute; top: 50%; left: 4px; margin-top: -6px; font-size: 11px; line-height: 1; width: 16px; height: 16px; color: #333333; }
+
+/* --  Toggle Custom --- */
+div.toggle-custom { position: relative; margin: 6px 0 10px; }
+div.toggle-custom label.toggle { width: 50px; position: relative; display: inline-block; padding: 0; height: 22px; vertical-align: top; min-height: 22px; margin-bottom: 0; font-weight: normal; cursor: pointer; }
+div.toggle-custom label.toggle:before { content: attr(data-on); left: 1px; }
+div.toggle-custom label.toggle:after { content: attr(data-off); right: 1px; }
+div.toggle-custom label.toggle:after, div.toggle-custom label.toggle:before { top: 1px; width: 25px; font-size: 10px; color: #333333; position: absolute; line-height: 22px; text-align: center; z-index: 1; }
+div.toggle-custom label.toggle input[type="checkbox"], div.toggle-custom label.toggle input[type="radio"] { margin: 0; opacity: 0; position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+div.toggle-custom label.toggle input[type="checkbox"]:checked + .button-checkbox, div.toggle-custom label.toggle input[type="radio"]:checked + .button-checkbox, div.toggle-custom label.toggle input[type="checkbox"]:checked + .button-radio, div.toggle-custom label.toggle input[type="radio"]:checked + .button-radio { border-color: #66c796; }
+div.toggle-custom label.toggle .button-checkbox, div.toggle-custom label.toggle .button-radio { background: #ffffff; border: 1px solid #e3e3e3; position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-radius: 3px; }
+div.toggle-custom label.toggle input[type="checkbox"] + .button-checkbox:after, div.toggle-custom label.toggle input[type="radio"] + .button-checkbox:after, div.toggle-custom label.toggle input[type="checkbox"] + .button-radio:after, div.toggle-custom label.toggle input[type="radio"] + .button-radio:after { content: ''; position: absolute; z-index: 2; display: block; top: 1px; bottom: 1px; left: 1px; width: 23px; background: #e3e3e3; transition: all; transition-duration: 0.4s; }
+div.toggle-custom label.toggle input[type="checkbox"]:checked + .button-checkbox:after, div.toggle-custom label.toggle input[type="radio"]:checked + .button-checkbox:after, div.toggle-custom label.toggle input[type="checkbox"]:checked + .button-radio:after, div.toggle-custom label.toggle input[type="radio"]:checked + .button-radio:after { left: 24px; background: #66c796; }
+div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; min-height: 22px; padding-left: 5px; padding-right: 10px; padding-top: 1px; margin-bottom: 0; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+/* --  Forms Control ---- End */
+
+/*  -- Separater Class */
+.seperator { text-align: center; width: 100%; display: inline-block; }
+.seperator strong { background: white; padding-left: 10px; padding-right: 10px; }
+.seperator hr { margin-top: -10px; }
+
+/* badge Danager */
+.badge-danger { background-color: #db5565; }
+
+.clearfix:before, .clearfix:after, .dl-horizontal dd:before, .dl-horizontal dd:after, .container:before, .container:after, .container-fluid:before, .container-fluid:after, .row:before, .row:after, .form-horizontal .form-group:before, .form-horizontal .form-group:after, .btn-toolbar:before, .btn-toolbar:after, .btn-group-vertical > .btn-group:before, .btn-group-vertical > .btn-group:after, .nav:before, .nav:after, .navbar:before, .navbar:after, .navbar-header:before, .navbar-header:after, .navbar-collapse:before, .navbar-collapse:after, .pager:before, .pager:after, .panel-body:before, .panel-body:after, .modal-footer:before, .modal-footer:after { content: " "; display: table; }
+
+/* -----------------------------------------
+   Responsive media queries
+----------------------------------------- */
+/* -----------------------------------------
+   Big screens
+----------------------------------------- */
+/* -----------------------------------------
+   Desktops
+----------------------------------------- */
+@media all and (max-width: 1366px) {
+    .custom-progressbar-legend { display: none; }
+}
+/* -----------------------------------------
+   Ipad 3/4
+----------------------------------------- */
+@media all and (max-width: 1280px) {
+}
+
+@media all and (max-width: 1199px) {
+}
+
+@media all and (max-width: 1024px) {
+}
+/* -----------------------------------------
+   Most Tablets and some phones
+----------------------------------------- */
+@media all and (max-width: 991px) {
+    .page-content #page-header .page-header { width: 100%; text-align: center; margin-bottom: 0; }
+    .navbar-brand .logo-sm { display: none; }
+    .form-group .row .input-icon, .form-group .row .input-group { margin-bottom: 10px; }
+}
+/* -----------------------------------------
+   Most phones
+----------------------------------------- */
+@media all and (max-width: 767px) {
+    .page-navbar .navbar-brand { width: 60px; text-align: center; }
+    .page-navbar .navbar-brand img { display: inline-block; }
+    #header .navbar-nav { margin: 0; height: 50px; float: left; }
+    #header .navbar-nav.navbar-right { float: right; }
+    #header .navbar-nav li { display: inline-block; }
+    #header .navbar-nav li.open .dropdown-menu { position: absolute; background-color: #ffffff; float: left; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.175); }
+    #header .navbar-nav li.open .dropdown-menu li { display: block; }
+}
+/* -----------------------------------------
+   Small devices
+----------------------------------------- */
+@media all and (max-width: 640px) {
+    .login-page .login-panel { margin-top: 50px; }
+}
+/* -----------------------------------------
+   Small devices most phones
+----------------------------------------- */
+@media all and (max-width: 500px) {
+    .page-navbar .navbar-brand { display: none; }
+    .page-navbar .navbar-nav > li > a { padding: 15px; }
+}
+/* -----------------------------------------
+   Small devices old phones
+----------------------------------------- */
+@media all and (max-width: 360px) {
+}
+/* -----------------------------------------
+   Crapy phones very old
+----------------------------------------- */
+@media all and (max-width: 320px) {
+    .page-navbar .navbar-no-collapse { padding-left: 5px; padding-right: 5px; }
+    /* ------------------ Login --------------------*/
+    .login-page > .login-container { width: 300px; }
+}
+/* -----------------------------------------
+   Print styles
+----------------------------------------- */
+@media print {
+}

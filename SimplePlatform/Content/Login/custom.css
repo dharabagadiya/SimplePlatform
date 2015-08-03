@@ -1,0 +1,4 @@
+﻿body { background: #f2f2f2; }
+/* Login Page Style */
+.login-page > .login-container { width: 400px; }
+.login-page .login-panel { margin-top: 100px; }

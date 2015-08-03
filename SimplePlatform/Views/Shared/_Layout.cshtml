@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>DashBoard</title>
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">
+    <!-- Force IE9 to render in normal mode -->
+    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+    <link href="~/Content/plugins/awesome-font/css/awesome-font.css" rel="stylesheet" />
+    <link href="~/Content/plugins/linea-font/font.css" rel="stylesheet" />
+    <link href="~/Content/plugins/animate.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/main.css" rel="stylesheet" />
+    <link href="~/Content/Common/custom.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    @Html.Partial("_Header")
+    @Html.Partial("_LeftPannel")
+    @RenderBody()
+    <script src="~/Scripts/jquery-1.11.3.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+</body>
+</html>
