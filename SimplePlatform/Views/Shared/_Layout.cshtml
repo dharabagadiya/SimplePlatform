@@ -8,7 +8,7 @@
     <!-- Force IE9 to render in normal mode -->
     <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
     <link href="~/Content/plugins/awesome-font/css/awesome-font.css" rel="stylesheet" />
-    <link href="~/Content/plugins/linea-font/font.css" rel="stylesheet" /> 
+    <link href="~/Content/plugins/linea-font/font.css" rel="stylesheet" />
     <link href="~/Content/plugins/foundation-icons/styles.css" rel="stylesheet" />
     <link href="~/Content/plugins/animate.min.css" rel="stylesheet" />
     <link href="~/Content/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -20,6 +20,7 @@
     @Html.Partial("_Header")
     @Html.Partial("_LeftPannel")
     @RenderBody()
+    <div id="divCommonModalPlaceHolder" class="modal fade"></div>
     <script src="~/Scripts/jquery-1.11.3.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
 </body>
