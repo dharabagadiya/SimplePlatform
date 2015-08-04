@@ -20,7 +20,6 @@ namespace DataModel
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
-
         public DbSet<Office> Offices { get; set; }
     }
 }

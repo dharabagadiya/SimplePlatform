@@ -156,6 +156,7 @@
     <Content Include="Content\plugins\foundation-icons\fonts\foundation-icons.ttf" />
     <Content Include="Content\plugins\foundation-icons\fonts\foundation-icons.woff" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
+    <Content Include="Scripts\Common\common.js" />
     <Content Include="Scripts\jquery-1.11.3.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
