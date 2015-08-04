@@ -1,19 +1,20 @@
 ﻿@model List<CustomAuthentication.Role>
 
-<form action="#" type="post">
+<form action="@Url.Action("Add", "User")" method="post">
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Add User</h4>
             </div>
             <div class="modal-body">
+                <p class="bg-danger" id="divCommonMessage">User Email ID already used.</p>
                 <div class="form-group">
                     <div class="col-sm-6">
                         <input type="text" name="FirstName" class="form-control" id="txtUserFirstName" placeholder="First Name" />
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="txtUserLastName" placeholder="Last Name" />
+                        <input type="text" class="form-control" name="LastName" id="txtUserLastName" placeholder="Last Name" />
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -25,7 +26,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <select class="form-control" id="dwnUserRole">
+                        <select class="form-control" id="dwnUserRoles">
                             <option value="-1">Select User Role</option>
                             @foreach (var role in Model)
                             {
@@ -37,7 +38,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary" id="btnAddUser">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
