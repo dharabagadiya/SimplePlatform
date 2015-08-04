@@ -9,7 +9,7 @@ using System.Data.Entity;
 
 namespace CustomAuthentication
 {
-    class CustomRoleProvider
+    public class CustomRoleProvider
     {
         readonly DataContext Context = new DataContext();
         public void CreateRole(string roleName, string description)
@@ -56,9 +56,9 @@ namespace CustomAuthentication
             }
 
         }
-        public List<string> GetAllRoles()
+        public List<Role> GetAllRoles()
         {
-            return Context.Roles.Select(Rl => Rl.RoleName).ToList();
+            return Context.Roles.ToList();
         }
         public bool IsUserInRole(string username, string roleName)
         {
@@ -71,5 +71,7 @@ namespace CustomAuthentication
             }
             return false;
         }
+
+
     }
 }

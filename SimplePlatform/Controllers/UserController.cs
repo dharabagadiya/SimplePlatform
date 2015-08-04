@@ -14,6 +14,9 @@ namespace SimplePlatform.Controllers
         }
 
         public PartialViewResult Add()
-        { return PartialView(); }
+        {
+            var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
+            return PartialView(customRoleProvider.GetAllRoles());
+        }
     }
 }

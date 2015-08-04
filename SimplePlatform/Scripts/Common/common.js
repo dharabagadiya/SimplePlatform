@@ -5,7 +5,11 @@ simplePlatform.ValidateModalUserForm = function (obj) {
         rules: {
             FirstName: {
                 required: true
-            }
+            },
+            LastName: {
+                required: true
+            },
+
         },
         highlight: function (label) {
             $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
