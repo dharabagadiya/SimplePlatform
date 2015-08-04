@@ -17,7 +17,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .dropdown-menu:after { border-color: rgba(255, 255, 255, 0); border-bottom-color: #fff; border-width: 10px; margin-left: -10px; }
 .dropdown-menu li { padding: 0; border-radius: 3px; }
 .dropdown-menu li a { padding: 8px 20px; color: #333333; transition: all; transition-duration: 0.4s; }
-.dropdown-menu li a i { margin-right: 10px; font-size: 16px; }
+.dropdown-menu li a i { margin-right: 5px; font-size: 16px; }
 .dropdown-menu > li > a { display: block; padding: 3px 20px; clear: both; font-weight: 400; line-height: 1.42857143; color: #333; white-space: nowrap; }
 
 /* ---- Nav Bar --- */
@@ -94,8 +94,12 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 
 /* badge Danager */
 .badge-danger { background-color: #db5565; }
-
 .clearfix:before, .clearfix:after, .dl-horizontal dd:before, .dl-horizontal dd:after, .container:before, .container:after, .container-fluid:before, .container-fluid:after, .row:before, .row:after, .form-horizontal .form-group:before, .form-horizontal .form-group:after, .btn-toolbar:before, .btn-toolbar:after, .btn-group-vertical > .btn-group:before, .btn-group-vertical > .btn-group:after, .nav:before, .nav:after, .navbar:before, .navbar:after, .navbar-header:before, .navbar-header:after, .navbar-collapse:before, .navbar-collapse:after, .pager:before, .pager:after, .panel-body:before, .panel-body:after, .modal-footer:before, .modal-footer:after { content: " "; display: table; }
+
+/* Modal Dialog Box */
+.modal-dialog { margin: 50px auto; }
+.modal-dialog .modal-header { padding-bottom: 10px; background: #e8e8e8; color: #333333; border-top-left-radius: 3px; border-top-right-radius: 3px; font-size: 16px; }
+.modal-dialog .modal-header .close { color: inherit; opacity: 1; }
 
 /* -----------------------------------------
    Responsive media queries

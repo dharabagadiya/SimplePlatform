@@ -1,5 +1,5 @@
-﻿using CustomAuthentication;
-using CustomAuthentication.Security;
+﻿
+#region Using Namespaces
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+#endregion
 
 namespace SimplePlatform
 {
@@ -19,7 +20,8 @@ namespace SimplePlatform
             GlobalFilters.Filters.Add(new HandleErrorAttribute());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            Database.SetInitializer<DataContext>(new DataContextInitilizer());
+            Database.SetInitializer<CustomAuthentication.DataContext>(new CustomAuthentication.DataContextInitilizer());
+            Database.SetInitializer<DataModel.DataContext>(new DataModel.DataContextInitilizer());
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)

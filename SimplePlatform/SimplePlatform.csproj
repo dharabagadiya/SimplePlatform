@@ -175,6 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,6 +196,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LeftPannel.cshtml" />
     <Content Include="Views\Office\Add.cshtml" />
+    <Content Include="Views\User\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -209,6 +211,10 @@
     <ProjectReference Include="..\CustomAuthentication\CustomAuthentication.csproj">
       <Project>{bfad8a8e-0154-4a4a-a7f1-8b744018d375}</Project>
       <Name>CustomAuthentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataModel\DataModel.csproj">
+      <Project>{f409e6ef-e952-4a7e-b962-8e42a18922c4}</Project>
+      <Name>DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

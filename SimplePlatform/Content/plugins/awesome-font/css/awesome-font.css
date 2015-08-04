@@ -562,4 +562,4 @@
 .fa-train:before { content: "\f238"; }
 .fa-subway:before { content: "\f239"; }
 .fa-medium:before { content: "\f23a"; }
-.fa { line-height: 22px; }
+.fa { line-height: 22px; width: 22px; text-align: center; }
