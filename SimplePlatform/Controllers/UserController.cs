@@ -18,5 +18,13 @@ namespace SimplePlatform.Controllers
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
             return PartialView(customRoleProvider.GetAllRoles());
         }
+
+        [HttpPost]
+        public JsonResult Add(string firstName, string lastName, string emildID, int userRoleID)
+        {
+            var customMembershipProvide = new CustomAuthentication.CustomMembershipProvider();
+            var status = customMembershipProvide.CreateUser(firstName, lastName, emildID, userRoleID);
+            return Json(status);
+        }
     }
 }

@@ -100,7 +100,7 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 
 /* Modal Dialog Box */
 .modal-dialog { margin: 50px auto; }
-.modal-dialog .modal-header { padding-bottom: 10px; background: #e8e8e8; color: #333333; border-top-left-radius: 3px; border-top-right-radius: 3px; font-size: 16px; }
+.modal-dialog .modal-header { padding-bottom: 10px; border-top-left-radius: 3px; border-top-right-radius: 3px; font-size: 16px; }
 .modal-dialog .modal-header .close { color: inherit; opacity: 1; }
 
 /* -----------------------------------------

@@ -52,6 +52,33 @@ namespace CustomAuthentication
             }
 
         }
+
+        public bool CreateUser(string firstName, string lastName, string emildID, int userRoleID)
+        {
+            try
+            {
+                if (Context.Users.Any(model => model.UserName.Equals(emildID, StringComparison.InvariantCultureIgnoreCase))) { return false; }
+                var roles = Context.Roles.Where(model => model.RoleId == userRoleID).ToList();
+                Context.Users.Add(new User
+                {
+                    UserName = emildID,
+                    Password = "12345",
+                    Email = emildID,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Roles = roles,
+                    CreateDate = DateTime.UtcNow,
+                });
+                Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
         public bool Authenticate(string username, string password)
         {
             var user = Context.Users.Where(model => (model.UserName.Equals(model.UserName) || model.Email.Equals(model.UserName)) && model.Password.Equals(password)).FirstOrDefault();
