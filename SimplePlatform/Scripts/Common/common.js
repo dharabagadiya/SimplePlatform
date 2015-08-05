@@ -72,6 +72,7 @@ simplePlatform.BindHeaderAddUserClickEvent = function () {
     var obj = $("#lnkAddUser");
     obj.off("click.lnkAddUser").on("click.lnkAddUser", $.proxy(function (event) {
         var currentObj = $(event.currentTarget);
+        $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             this.ValidateModalUserForm(dialogContentPlaceHolder);
             dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
