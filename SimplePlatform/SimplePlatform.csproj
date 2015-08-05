@@ -158,6 +158,7 @@
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.validate.js" />
     <Content Include="Scripts\Common\common.js" />
+    <Content Include="Scripts\global.js" />
     <Content Include="Scripts\jquery-1.11.3.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
