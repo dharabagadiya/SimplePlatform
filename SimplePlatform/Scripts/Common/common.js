@@ -1,63 +1,83 @@
 ﻿var simplePlatform = {};
 simplePlatform.ValidateModalUserForm = function (obj) {
-    obj.find("form").submit(function (event) {
-        event.preventDefault();
-        return false;
-    }).validate({
-        errorClass: 'help-block',
-        rules: {
-            FirstName: {
-                required: true
-            },
-            LastName: {
-                required: true
-            },
+    obj.find("form")
+    .bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
         },
-        highlight: function (label) {
-            $(label).closest('.form-group').removeClass('has-success').addClass('has-error');
-        },
-        success: function (label) {
-            $(label).closest('.form-group').removeClass('has-error');
-        },
-        submitHandler: function (form, event) {
-            var formObj = $(form);
-            var firstName = formObj.find("#txtUserFirstName").val();
-            var lastName = formObj.find("#txtUserLastName").val();
-            var emailID = formObj.find("#txtUserEmailAddress").val();
-            var userRoleID = formObj.find("#dwnUserRoles").val();
-            $.ajax({
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                url: formObj.attr('action'),
-                async: true,
-                data: JSON.stringify({ "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID }),
-                success: function (data) {
-                    var status = data;
-                    if (status) {
-                        obj.modal('hide');
-                    } else {
-                        obj.find("#divCommonMessage").removeClass("hidden");
+        fields: {
+            firstName: {
+                message: 'The username is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The username is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: 'The username must be more than 6 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: 'The username can only consist of alphabetical, number and underscore'
                     }
                 }
-            });
-            event.preventDefault();
-            return false;
+            },
+            lastName: {
+                message: 'The username is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The username is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: 'The username must be more than 6 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: 'The username can only consist of alphabetical, number and underscore'
+                    }
+                }
+            }
         }
+    }).on('success.form.bv', function (e) {
+        e.preventDefault();
+        var formObj = $(e.target);;
+        var firstName = formObj.find("#txtUserFirstName").val();
+        var lastName = formObj.find("#txtUserLastName").val();
+        var emailID = formObj.find("#txtUserEmailAddress").val();
+        var userRoleID = formObj.find("#dwnUserRoles").val();
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: "/User/Add",
+            async: false,
+            data: JSON.stringify({ "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    obj.modal('hide');
+                } else {
+                    obj.find("#divCommonMessage").removeClass("hidden");
+                }
+            }
+        });
     });
 };
 simplePlatform.BindHeaderAddUserClickEvent = function () {
     var obj = $("#lnkAddUser");
-    var dialogContentPlaceHolder = $("#divCommonModalPlaceHolder");
-    dialogContentPlaceHolder.on('show.bs.modal', $.proxy(function (event) {
-        dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
-        this.ValidateModalUserForm(dialogContentPlaceHolder);
+    obj.off("click.lnkAddUser").on("click.lnkAddUser", $.proxy(function (event) {
+        var currentObj = $(event.currentTarget);
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+            this.ValidateModalUserForm(dialogContentPlaceHolder);
+            dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+        }, this));
+        return false;
     }, this));
-    dialogContentPlaceHolder.on('shown.bs.modal', $.proxy(function (event) {
-        dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
-        this.ValidateModalUserForm(dialogContentPlaceHolder);
-    }, this));
-    obj.off("click.lnkAddUser").on("click.lnkAddUser", $.proxy(function () { }, this));
 };
 simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderAddUserClickEvent();
