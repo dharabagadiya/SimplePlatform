@@ -21,8 +21,12 @@
 </head>
 <body>
     @Html.Partial("_Header")
-    @Html.Partial("_LeftPannel")
-    @RenderBody()
+    <div id="wrapper">
+        @Html.Partial("_LeftPannel")
+        <div class="page-content right-sidebar-page clearfix collapsed-sidebar">
+            @RenderBody()
+        </div>
+    </div>
     <div id="divCommonModalPlaceHolder" class="modal fade"></div>
     <script src="~/Scripts/jquery-1.11.3.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>

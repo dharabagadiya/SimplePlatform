@@ -146,6 +146,19 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
     #header .navbar-nav li.open .dropdown-menu { position: absolute; background-color: #ffffff; float: left; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.175); }
     #header .navbar-nav li.open .dropdown-menu li { display: block; }
 }
+
+/* Page Content Setting */
+.page-content { min-height: 100%; padding-top: 50px; }
+.page-content.sidebar-page { margin-left: 210px; }
+.page-content.right-sidebar-page { margin-right: 210px; }
+.page-content.collapsed-sidebar { margin-left: 60px; }
+.page-content.full-page { margin-left: 0; margin-right: 0; }
+.page-content.overLap { margin-left: 0; }
+.page-content.rOverLap { margin-right: 0; }
+.page-content.offCanvas { width: 100%; margin-left: 210px; }
+.page-content .page-content-wrapper { float: left; width: 100%; height: auto; position: relative; overflow: hidden; }
+.page-content .page-content-inner { position: relative; padding: 0 20px; }
+
 /* -----------------------------------------
    Small devices
 ----------------------------------------- */
