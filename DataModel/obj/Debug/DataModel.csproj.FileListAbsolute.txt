@@ -1,0 +1,12 @@
+D:\Project\SimplePlatform\DataModel\bin\Debug\DataModel.dll.config
+D:\Project\SimplePlatform\DataModel\bin\Debug\DataModel.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\DataModel.pdb
+D:\Project\SimplePlatform\DataModel\bin\Debug\EntityFramework.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\EntityFramework.SqlServer.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\EntityFramework.xml
+D:\Project\SimplePlatform\DataModel\bin\Debug\EntityFramework.SqlServer.xml
+D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.Migrations.Simple_Platform_Office.resources
+D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.csproj.GenerateResource.Cache
+D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.dll
+D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.pdb
+D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.csprojResolveAssemblyReference.cache
