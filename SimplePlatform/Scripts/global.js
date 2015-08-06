@@ -162,7 +162,7 @@ function ConvertValueToThousandMillionsBillions(value) {
 function ShowDialogBox(dataModalPlaceHolder, dataModalURL, dataPayLoad, callbackFunction) {
     dataModalPlaceHolder.modal({ show: true });
     dataModalPlaceHolder.empty().load(dataModalURL, $.proxy(function () {
-        dataModalPlaceHolder.on('show.bs.modal', $.proxy(function (event) {
+        dataModalPlaceHolder.off('show.bs.modal').on('show.bs.modal', $.proxy(function (event) {
             callbackFunction(event, dataModalPlaceHolder);
         }, this)).modal("show");
     }, this))
