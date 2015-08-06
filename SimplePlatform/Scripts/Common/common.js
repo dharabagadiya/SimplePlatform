@@ -9,36 +9,46 @@ simplePlatform.ValidateModalUserForm = function (obj) {
         },
         fields: {
             firstName: {
-                message: 'The username is not valid',
+                message: 'The first name is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The username is required and cannot be empty'
+                        message: 'The first name cannot be empty'
                     },
                     stringLength: {
-                        min: 6,
-                        max: 30,
-                        message: 'The username must be more than 6 and less than 30 characters long'
+                        min: 3,
+                        max: 15,
+                        message: 'The first name must be more than 3 and less than 15 characters long'
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The username can only consist of alphabetical, number and underscore'
+                        message: 'The first name can containe a-z, A-Z, 0-9, or (_) only'
                     }
                 }
             },
             lastName: {
-                message: 'The username is not valid',
+                message: 'The last name is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The username is required and cannot be empty'
+                        message: 'The last name is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 6,
-                        max: 30,
-                        message: 'The username must be more than 6 and less than 30 characters long'
+                        min: 3,
+                        max: 15,
+                        message: 'The last name must be more than 3 and less than 15 characters long'
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The username can only consist of alphabetical, number and underscore'
+                        message: 'The last name can containe a-z, A-Z, 0-9, or (_) only'
+                    }
+                }
+            },
+            emailAddress: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
                     }
                 }
             }
