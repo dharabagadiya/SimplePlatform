@@ -200,7 +200,6 @@
     <Content Include="Views\Shared\_LeftPannel.cshtml" />
     <Content Include="Views\Office\Add.cshtml" />
     <Content Include="Views\User\Add.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
