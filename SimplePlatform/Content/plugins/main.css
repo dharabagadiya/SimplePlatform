@@ -103,6 +103,22 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 .modal-dialog .modal-header { padding-bottom: 10px; border-top-left-radius: 3px; border-top-right-radius: 3px; font-size: 16px; }
 .modal-dialog .modal-header .close { color: inherit; opacity: 1; }
 
+/* Page Content Setting */
+.page-content { min-height: 100%; padding-top: 50px; }
+.page-content.sidebar-page { margin-left: 210px; }
+.page-content.right-sidebar-page { margin-right: 0; }
+.page-content.collapsed-sidebar { margin-left: 60px; }
+.page-content.full-page { margin-left: 0; margin-right: 0; }
+.page-content.overLap { margin-left: 0; }
+.page-content.rOverLap { margin-right: 0; }
+.page-content.offCanvas { width: 100%; margin-left: 210px; }
+.page-content .page-content-wrapper { float: left; width: 100%; height: auto; position: relative; overflow: hidden; }
+.page-content .page-content-inner { position: relative; padding: 0 20px; }
+.page-content #page-header { background-color: #fcfcfc; margin-top: 1px; padding: 0 20px; margin-right: -20px; margin-left: -20px; margin-bottom: 20px; box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1); }
+.page-content #page-header .page-header { margin-top: 0px; margin-bottom: 0; border-bottom: none; float: left; margin-right: 20px; }
+.page-content #page-header .page-header h2 { margin-bottom: 5px; }
+.page-content #page-header .header-stats { float: right; padding: 20px; }
+
 /* -----------------------------------------
    Responsive media queries
 ----------------------------------------- */
@@ -146,19 +162,6 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
     #header .navbar-nav li.open .dropdown-menu { position: absolute; background-color: #ffffff; float: left; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.175); }
     #header .navbar-nav li.open .dropdown-menu li { display: block; }
 }
-
-/* Page Content Setting */
-.page-content { min-height: 100%; padding-top: 50px; }
-.page-content.sidebar-page { margin-left: 210px; }
-.page-content.right-sidebar-page { margin-right: 210px; }
-.page-content.collapsed-sidebar { margin-left: 60px; }
-.page-content.full-page { margin-left: 0; margin-right: 0; }
-.page-content.overLap { margin-left: 0; }
-.page-content.rOverLap { margin-right: 0; }
-.page-content.offCanvas { width: 100%; margin-left: 210px; }
-.page-content .page-content-wrapper { float: left; width: 100%; height: auto; position: relative; overflow: hidden; }
-.page-content .page-content-inner { position: relative; padding: 0 20px; }
-
 /* -----------------------------------------
    Small devices
 ----------------------------------------- */
