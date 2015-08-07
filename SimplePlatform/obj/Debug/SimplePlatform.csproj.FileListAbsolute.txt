@@ -41,5 +41,4 @@ D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Mvc.xml
 D:\Project\SimplePlatform\SimplePlatform\bin\Newtonsoft.Json.xml
 D:\Project\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.dll
 D:\Project\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.pdb
-D:\Project\SimplePlatform\SimplePlatform\bin\PagedList.dll
-D:\Project\SimplePlatform\SimplePlatform\bin\PagedList.xml
+D:\Project\SimplePlatform\SimplePlatform\bin\GridMvc.dll

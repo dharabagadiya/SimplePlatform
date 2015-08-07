@@ -25,3 +25,4 @@ D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.cs
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.dll
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.pdb
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csprojResolveAssemblyReference.cache
+D:\Project\SimplePlatform\CustomAuthentication\bin\Debug\GridMvc.dll

@@ -9,36 +9,53 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
         },
         fields: {
             name: {
-                message: 'The username is not valid',
+                message: 'The name is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The username is required and cannot be empty'
+                        message: 'The name is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 6,
+                        min: 5,
                         max: 30,
-                        message: 'The username must be more than 6 and less than 30 characters long'
+                        message: 'The name must be more than 5 and less than 30 characters long'
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The username can only consist of alphabetical, number and underscore'
+                        message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
                     }
                 }
             },
             contactNo: {
-                message: 'The username is not valid',
+                message: 'The Contact No is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The username is required and cannot be empty'
+                        message: 'The Contact No is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 6,
+                        min: 10,
+                        max: 10,
+                        message: 'The Contact No must be 10 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[1-9][0-9]{0,15}$/,
+                        message: 'The city can contain 0-9 only'
+                    }
+                }
+            },
+            city: {
+                message: 'The city is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The city is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
                         max: 30,
-                        message: 'The username must be more than 6 and less than 30 characters long'
+                        message: 'The city must be more than 3 and less than 30 characters long'
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The username can only consist of alphabetical, number and underscore'
+                        message: 'The city can contain a-z, A-Z, 0-9, or (_) only'
                     }
                 }
             }
@@ -49,6 +66,7 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
         var name = formObj.find("#txtName").val();
         var contactNo = formObj.find("#txtContactNo").val();
         var city = formObj.find("#txtCity").val();
+        debugger
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
