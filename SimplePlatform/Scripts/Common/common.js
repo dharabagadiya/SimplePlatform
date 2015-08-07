@@ -66,7 +66,6 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
         var name = formObj.find("#txtName").val();
         var contactNo = formObj.find("#txtContactNo").val();
         var city = formObj.find("#txtCity").val();
-        debugger
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
