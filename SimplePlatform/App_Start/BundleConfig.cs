@@ -41,7 +41,6 @@ namespace SimplePlatform
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/awesome-font/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/awesome-font", "*.css", true));
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/linea-font/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/linea-font", "*.css", true));
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/foundation-icons/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/foundation-icons", "*.css", true));
-            BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/bootstrap/css/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/bootstrap/css", "*.css"));
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/bootstrap/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/bootstrap", "*.css"));
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/DataTables/css/BASE_CONTROLLER_bundle").Include("~/Content/DataTables/css/dataTables.bootstrap.css"));
             
