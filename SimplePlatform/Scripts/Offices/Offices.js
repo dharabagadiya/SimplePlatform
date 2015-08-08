@@ -24,7 +24,7 @@ office.GetOfficeWidgetHTML = function (obj) {
     sb.append("<div class=\"panel panel-info tile panelClose panelRefresh\" id=\"dyn_0\">");
     sb.append("<div class=\"panel-heading\">");
     sb.append("<h4 class=\"panel-title\">" + obj.Name + "</h4>");
-    sb.append("<div class=\"panel-controls panel-controls-right\"><a href=\"#\" class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
+    sb.append("<div class=\"panel-controls panel-controls-right\"><a href=\"#\" class=\"panel-edit\"><i class=\"fa fa-circle-o\"></i></a><a href=\"#\" class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
     sb.append("</div>");
     sb.append("<div class=\"panel-body pt0\">");
     sb.append("<div class=\"progressbar-stats-1\">");
@@ -49,18 +49,113 @@ function BindOfficeWidgetClick(obj) {
         //alert("delete");
         office.DeletUserDetail(obj);
     });
+    obj.find(".panel-edit").off("click").on("click", function () { office.EditOfficeDetail(obj); });
 }
 office.OfficeWidget = function (dataObj) {
     if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { return; }
     $(".OfficeWidget").empty();
     for (var i = 0; i < dataObj.length; i++) {
-        var widget = $(this.GetOfficeWidgetHTML(dataObj[i])).data("office_detail", dataObj[i].ID);
+        var widget = $(this.GetOfficeWidgetHTML(dataObj[i])).data("office_detail", dataObj[i]);
         BindOfficeWidgetClick(widget);
         $(".OfficeWidget").append(widget);
     };
 }
+office.ValidateModalOfficeForm = function (obj) {
+    obj.find("form")
+    .bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            name: {
+                message: 'The name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The name is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 5,
+                        max: 30,
+                        message: 'The name must be more than 5 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                    }
+                }
+            },
+            contactNo: {
+                message: 'The Contact No is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The Contact No is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 10,
+                        max: 10,
+                        message: 'The Contact No must be 10 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[1-9][0-9]{0,15}$/,
+                        message: 'The city can contain 0-9 only'
+                    }
+                }
+            },
+            city: {
+                message: 'The city is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The city is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 30,
+                        message: 'The city must be more than 3 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: 'The city can contain a-z, A-Z, 0-9, or (_) only'
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function (e) {
+        e.preventDefault();
+        var formObj = $(e.target);
+        var id = formObj.find("#txtOfficeID").val();
+        var name = formObj.find("#txtName").val();
+        var contactNo = formObj.find("#txtContactNo").val();
+        var city = formObj.find("#txtCity").val();
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: office.options.UpdateURL,
+            async: false,
+            data: JSON.stringify({ "id": id, "name": name, "contactNo": contactNo, "city": city }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    obj.modal('hide');
+                } else {
+                    obj.find("#divCommonMessage").removeClass("hidden");
+                }
+            }
+        });
+    });
+};
+office.EditOfficeDetail = function (obj) {
+    var currentObj = obj;
+    var officeDetail = obj.data("office_detail");
+    $("#divCommonModalPlaceHolder").empty();
+    ShowDialogBox($("#divCommonModalPlaceHolder"), (office.options.EditViewURL + officeDetail.ID), null, $.proxy(function (event, dialogContentPlaceHolder) {
+        this.ValidateModalOfficeForm(dialogContentPlaceHolder);
+        dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+    }, this));
+};
 office.DeletUserDetail = function (obj) {
-    debugger
     var currentObj = obj;
     var officeDetail = obj.data("office_detail");
     $.ajax({
@@ -69,7 +164,7 @@ office.DeletUserDetail = function (obj) {
         type: "POST",
         url: office.options.DeleteURL,
         async: false,
-        data: JSON.stringify({ "id": officeDetail }),
+        data: JSON.stringify({ "id": officeDetail.ID }),
         success: function (data) {
             var status = data;
             if (status) {
