@@ -120,6 +120,9 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 .page-content #page-header .page-header h2 { margin-bottom: 10px; }
 .page-content #page-header .header-stats { float: right; padding: 20px; }
 
+/* Pagination */
+.pagination { margin: 10px 0; }
+
 /* -----------------------------------------
    Responsive media queries
 ----------------------------------------- */

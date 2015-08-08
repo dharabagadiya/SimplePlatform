@@ -1,33 +1,22 @@
-﻿var data = [{
-    "Id": 1,
-    "Name": "NGO",
-    "Fundraising": { "ActTotal": 5, "Total": 10 },
-    "Task": { "ActTotal": 5, "Total": 100 },
-    "Events": { "ActTotal": 5, "Total": 100 },
-    "BookingInProcess": { "ActTotal": 5, "Total": 100 },
-    "BookingConfirm": { "ActTotal": 5, "Total": 100 }
-}, {
-    "Id": 2,
-    "Name": "NGO",
-    "Fundraising": { "ActTotal": 5, "Total": 10 },
-    "Task": { "ActTotal": 5, "Total": 100 },
-    "Events": { "ActTotal": 5, "Total": 100 },
-    "BookingInProcess": { "ActTotal": 5, "Total": 100 },
-    "BookingConfirm": { "ActTotal": 5, "Total": 100 }
-}, {
-    "Id": 3,
-    "Name": "NGO",
-    "Fundraising": { "ActTotal": 5, "Total": 10 },
-    "Task": { "ActTotal": 5, "Total": 100 },
-    "Events": { "ActTotal": 5, "Total": 100 },
-    "BookingInProcess": { "ActTotal": 5, "Total": 100 },
-    "BookingConfirm": { "ActTotal": 5, "Total": 100 }
-}]
-var office = {};
+﻿var office = {};
 office.options = {
     EditViewURL: "/Offices/Edit/",
     UpdateURL: "/Offices/Update",
-    DeleteURL: "/Offices/Delete"
+    DeleteURL: "/Offices/Delete",
+    GetOffices: "/Offices/GetOffices",
+    pageSize: 3,
+    totalPageSize: 10,
+    currentPage: 1,
+    totalRecords: 10
+};
+
+office.GetOfficeGridPagination = function (obj) {
+    obj.find("ul").bootstrapPaginator({
+        currentPage: office.options.currentPage,
+        totalPages: office.options.totalPageSize,
+        bootstrapMajorVersion: 3,
+        onPageChanged: function (e, oldPage, newPage) { office.GetOfficesData(newPage, office.options.pageSize); }
+    });
 };
 office.GetOfficeWidgetHTML = function (obj) {
     var sb = new StringBuilder();
@@ -61,11 +50,11 @@ function BindOfficeWidgetClick(obj) {
         office.DeletUserDetail(obj);
     });
 }
-office.OfficeWidget = function () {
+office.OfficeWidget = function (dataObj) {
+    if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { return; }
     $(".OfficeWidget").empty();
-    for (var i = 0; i < data.length; i++) {
-        var widget = $(this.GetOfficeWidgetHTML(data[i])).data("office_detail", data[i].Id);
-        //widget.data("office_detail", data[i].Id);
+    for (var i = 0; i < dataObj.length; i++) {
+        var widget = $(this.GetOfficeWidgetHTML(dataObj[i])).data("office_detail", dataObj[i].ID);
         BindOfficeWidgetClick(widget);
         $(".OfficeWidget").append(widget);
     };
@@ -91,7 +80,23 @@ office.DeletUserDetail = function (obj) {
         }
     });
 };
-
-$(document).ready(function () {
-    office.OfficeWidget();
-});
+office.GetOfficesData = function (pageNo, pageSize) {
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        url: office.options.GetOffices,
+        async: true,
+        data: JSON.stringify({ "pageNo": pageNo, "pageSize": pageSize }),
+        success: function (data) {
+            office.options.totalPageSize = Math.ceil(data.totalRecord / data.pageSize);
+            office.options.totalRecords = data.totalRecord;
+            office.options.pageSize = data.pageSize;
+            office.options.currentPage = data.currentPage;
+            office.OfficeWidget(data.offices);
+            office.GetOfficeGridPagination($(".divOfficesGridPaging"));
+            $(".divOfficesGridPagingDetail").find(".dataTables_info").empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
+        }
+    });
+};
+$(document).ready(function () { office.GetOfficesData(1, office.options.pageSize); });

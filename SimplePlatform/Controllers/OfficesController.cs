@@ -18,6 +18,29 @@ namespace SimplePlatform.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult GetOffices(int pageNo = 1, int pageSize = 3)
+        {
+            var totalRecord = Context.Offices.Count();
+            var offices = Context.Offices.Select(modal => new
+            {
+                ID = modal.ID,
+                Name = modal.Name,
+                Fundraising = new { ActTotal = 5, Total = 10 },
+                Task = new { ActTotal = 5, Total = 100 },
+                Events = new { ActTotal = 5, Total = 100 },
+                BookingInProcess = new { ActTotal = 5, Total = 100 },
+                BookingConfirm = new { ActTotal = 5, Total = 100 }
+            }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new
+            {
+                totalRecord = totalRecord,
+                currentPage = pageNo,
+                pageSize = pageSize,
+                offices = offices
+            });
+        }
+
         public PartialViewResult Add()
         {
             return PartialView();

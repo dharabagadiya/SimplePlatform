@@ -192,6 +192,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Offices\Offices.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrapValidator.js" />
+    <Content Include="Scripts\Plugins\bootstrap-paginator.js" />
     <Content Include="Scripts\Plugins\bootstrap.js" />
     <Content Include="Scripts\Plugins\bootstrap.min.js" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.eot" />
