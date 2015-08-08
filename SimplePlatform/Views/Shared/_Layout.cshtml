@@ -43,50 +43,6 @@
     <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
     <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
     <script src="~/Scripts/Common/common.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var table = $('#myDataTable').dataTable({
-                renderer: {
-                    "header": "bootstrap",
-                    "pageButton": "bootstrap"
-                },
-                "ajax": {
-                    "url": "@Url.Action("GetUsers", "User")",
-                    "type": "POST"
-                },
-                "displayLength": 25,
-                responsive: true,
-                "deferRender": true,
-                "columns": [{ "data": "firstName" }, { "data": "lastName" }, { "data": "userRoles" }, {
-                    "data": "createDate"
-                }, {
-                    "data": null,
-                    "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
-                        var currentObj = $(cell);
-                        currentObj.css({ "text-align": "center" }).data(rowData);
-                        currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { alert(1); });
-                    },
-                    render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i></a>'; },
-                    "orderable": false,
-                    "width": '2%'
-                }, {
-                    "data": null,
-                    "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
-                        var currentObj = $(cell);
-                        currentObj.css({ "text-align": "center" }).data(rowData);
-                        currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { alert(1); });
-                    },
-                    render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
-                    "orderable": false,
-                    "width": '2%'
-                }]
-            });
-            table.removeClass('display').addClass('table table-striped table-bordered');
-            //setInterval(function () {
-            //    table.api().ajax.reload(null, false); // user paging is not reset on reload
-            //}, 3000)
-        });
-
-    </script>
+    <script src="~/Scripts/Users/users.js"></script>
 </body>
 </html>
