@@ -2,6 +2,7 @@
 #region Using Namespaces
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -22,6 +23,8 @@ namespace CustomAuthentication
         public String LastName { get; set; }
         public Boolean IsActive { get; set; }
         public DateTime CreateDate { get; set; }
+        [DefaultValue(false)]
+        public bool IsDeleted { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }
 }
