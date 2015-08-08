@@ -61,7 +61,6 @@ D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\CustomAuthentication.dl
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataModel.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.SqlServer.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Grid.Mvc.Ajax.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Web.Infrastructure.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Helpers.dll

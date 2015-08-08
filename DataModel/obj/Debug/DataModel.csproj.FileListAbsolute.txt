@@ -10,12 +10,12 @@ D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.csproj.GenerateResource.
 D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.dll
 D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.pdb
 D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.csprojResolveAssemblyReference.cache
+D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.xml
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\DataModel.dll.config
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\DataModel.dll
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\DataModel.pdb
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.dll
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.SqlServer.dll
-D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.xml
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.SqlServer.xml
 D:\Test Project\VS2015\SimplePlatform\DataModel\obj\Debug\DataModel.csprojResolveAssemblyReference.cache
 D:\Test Project\VS2015\SimplePlatform\DataModel\obj\Debug\DataModel.Migrations.Simple_Platform_Office.resources
