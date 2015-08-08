@@ -1,0 +1,26 @@
+﻿<form action="#" type="post">
+    <input type="hidden" id="txtOfficeID" value="@Model.ID" />
+    <div class="modal-dialog divUserModalDialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Edit Office</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" value="@Model.Name"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" name="contactNo" value="@Model.ContactNo"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="txtCity" placeholder="City" name="city" value="@Model.City"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnSaveOffice">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>

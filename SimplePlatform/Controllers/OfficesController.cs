@@ -46,6 +46,12 @@ namespace SimplePlatform.Controllers
             return PartialView();
         }
 
+        public PartialViewResult Edit(int id)
+        {
+            var Office = Context.Offices.Where(ofc => ofc.ID == id).FirstOrDefault();
+            return PartialView(Office);
+        }
+
         [HttpPost]
         public JsonResult Add(string name, string contactNo, string city)
         {
@@ -67,12 +73,30 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
+        public JsonResult Update(int id, string name, string contactNo, string city)
+        {
+            try
+            {
+                var office = Context.Offices.Where(model => model.ID == id).FirstOrDefault();
+                if (office == null) { return Json(false); }
+                office.Name = name;
+                office.ContactNo = contactNo;
+                office.City = city;
+                Context.SaveChanges();
+                return Json(true);
+            }
+            catch
+            {
+                return Json(false);
+            }
+        }
+        [HttpPost]
         public JsonResult Delete(int id)
         {
             var Office = Context.Offices.Where(ofc => ofc.ID == id).FirstOrDefault();
             if (Office != null)
             {
-                Context.Offices.Remove(Office);
+                Office.IsDeleted = true;
                 Context.SaveChanges();
                 return Json(true);
             }
