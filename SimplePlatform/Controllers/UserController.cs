@@ -6,10 +6,12 @@ using System.Web.Mvc;
 
 namespace SimplePlatform.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         public ActionResult Index()
         {
+            BundleConfig.AddScript("~/Scripts/Users", "users.js", ControllerName);
+
             return View();
         }
 
