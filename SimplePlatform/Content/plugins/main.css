@@ -117,7 +117,7 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 .page-content .page-content-inner { position: relative; padding: 0 20px; }
 .page-content #page-header { background-color: #fcfcfc; margin-top: 1px; padding: 0 20px; margin-right: -20px; margin-left: -20px; margin-bottom: 20px; box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1); }
 .page-content #page-header .page-header { margin-top: 0px; margin-bottom: 0; border-bottom: none; float: left; margin-right: 20px; }
-.page-content #page-header .page-header h2 { margin-bottom: 5px; }
+.page-content #page-header .page-header h2 { margin-bottom: 10px; }
 .page-content #page-header .header-stats { float: right; padding: 20px; }
 
 /* -----------------------------------------
