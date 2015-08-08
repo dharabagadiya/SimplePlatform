@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -65,6 +70,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -72,6 +81,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -158,6 +171,7 @@
     <Content Include="Content\plugins\animate.min.css" />
     <Content Include="Content\plugins\awesome-font\css\awesome-font.css" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\plugins\bootstrap\bootstrapValidator.css" />
     <Content Include="Content\plugins\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\plugins\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Content\plugins\bootstrap\css\bootstrap.css" />
@@ -179,8 +193,9 @@
     <Content Include="Content\plugins\main.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrapValidator.js" />
+    <Content Include="Scripts\Plugins\bootstrap.js" />
+    <Content Include="Scripts\Plugins\bootstrap.min.js" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.woff" />
@@ -212,48 +227,49 @@
     <Content Include="Content\plugins\foundation-icons\fonts\foundation-icons.woff" />
     <Content Include="Content\DataTables\css\dataTables.responsive.scss" />
     <Content Include="Content\DataTables\css\dataTables.jqueryui.scss" />
-    <None Include="Scripts\jquery-1.11.3.intellisense.js" />
-    <Content Include="Scripts\bootstrap.validate.js" />
+    <None Include="Scripts\Plugins\jquery-1.11.3.intellisense.js" />
+    <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrap.validate.js" />
     <Content Include="Scripts\Common\common.js" />
-    <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
-    <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
-    <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
-    <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.colVis.js" />
-    <Content Include="Scripts\DataTables\dataTables.colVis.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
-    <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
-    <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.foundation.js" />
-    <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
-    <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
-    <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.responsive.js" />
-    <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.scroller.js" />
-    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.tableTools.js" />
-    <Content Include="Scripts\DataTables\dataTables.tableTools.min.js" />
-    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
-    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
-    <Content Include="Scripts\global.js" />
-    <Content Include="Scripts\jquery-1.11.3.js" />
-    <Content Include="Scripts\jquery-1.11.3.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables-autoFill.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.colVis.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.colVis.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.tableTools.js" />
+    <Content Include="Scripts\DataTables\Extentions\dataTables.tableTools.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.js" />
+    <Content Include="Scripts\DataTables\dataTables.min.js" />
+    <Content Include="Scripts\Plugins\global.js" />
+    <Content Include="Scripts\Plugins\jquery-1.11.3.js" />
+    <Content Include="Scripts\Plugins\jquery-1.11.3.min.js" />
+    <None Include="Scripts\Plugins\jQuery-Validator\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Plugins\jQuery-Validator\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\Plugins\jQuery-Validator\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.js" />
+    <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.min.js" />
+    <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login\login.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Plugins\modernizr-2.6.2.js" />
     <Content Include="Scripts\Users\users.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -274,7 +290,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\jquery-1.11.3.min.map" />
+    <Content Include="Scripts\Plugins\jquery-1.11.3.min.map" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
