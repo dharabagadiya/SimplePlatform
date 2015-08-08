@@ -85,12 +85,12 @@ namespace CustomAuthentication
             if (user == null) { return false; }
             else { InitializeUserSession(user); return true; };
         }
-        public bool DeleteUser(string username)
+        public bool DeleteUser(int id)
         {
-            var User = Context.Users.FirstOrDefault(Usr => Usr.UserName == username);
+            var User = Context.Users.FirstOrDefault(Usr => Usr.UserId == id);
             if (User != null)
             {
-                Context.Users.Remove(User);
+                User.IsDeleted = true;
                 Context.SaveChanges();
                 return true;
             }
@@ -99,7 +99,27 @@ namespace CustomAuthentication
                 return false;
             }
         }
+        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID)
+        {
+            try
+            {
+                var user = Context.Users.Where(model => model.UserId == id).FirstOrDefault();
+                if (user == null) { return false; }
+                var roles = Context.Roles.Where(model => model.RoleId == userRoleID).ToList();
+                user.UserName = emildID;
+                user.Email = emildID;
+                user.FirstName = firstName;
+                user.LastName = lastName;
+                Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
         public List<User> GetUsers()
-        { return Context.Users.ToList(); }
+        { return Context.Users.Where(modal => modal.IsDeleted == false).ToList(); }
     }
 }
