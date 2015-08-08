@@ -124,7 +124,6 @@
     <Content Include="Content\DataTables\css\dataTables.fixedHeader.css" />
     <Content Include="Content\DataTables\css\dataTables.fixedHeader.min.css" />
     <Content Include="Content\DataTables\css\dataTables.foundation.css" />
-    <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
     <Content Include="Content\DataTables\css\dataTables.keyTable.css" />
     <Content Include="Content\DataTables\css\dataTables.keyTable.min.css" />
     <Content Include="Content\DataTables\css\dataTables.responsive.css" />
@@ -173,10 +172,7 @@
     <Content Include="Content\plugins\awesome-font\css\awesome-font.css" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\plugins\bootstrap\bootstrapValidator.css" />
-    <Content Include="Content\plugins\bootstrap\css\bootstrap-theme.css" />
-    <Content Include="Content\plugins\bootstrap\css\bootstrap-theme.min.css" />
-    <Content Include="Content\plugins\bootstrap\css\bootstrap.css" />
-    <Content Include="Content\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\plugins\bootstrap\bootstrap.css" />
     <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\plugins\foundation-icons\fonts\foundation-icons.svg" />
     <Content Include="Content\plugins\foundation-icons\styles.css" />
@@ -225,8 +221,6 @@
     <Content Include="Content\plugins\foundation-icons\fonts\foundation-icons.eot" />
     <Content Include="Content\plugins\foundation-icons\fonts\foundation-icons.ttf" />
     <Content Include="Content\plugins\foundation-icons\fonts\foundation-icons.woff" />
-    <Content Include="Content\DataTables\css\dataTables.responsive.scss" />
-    <Content Include="Content\DataTables\css\dataTables.jqueryui.scss" />
     <None Include="Scripts\Plugins\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrap.validate.js" />
     <Content Include="Scripts\Common\common.js" />

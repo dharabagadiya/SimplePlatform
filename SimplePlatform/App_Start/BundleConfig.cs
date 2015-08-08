@@ -35,16 +35,18 @@ namespace SimplePlatform
 
             BUNDLE_COLLECTION.Add(new ScriptBundle("~/Scripts/Plugins/BASE_CONTROLLER_bundle").IncludeDirectory("~/Scripts/Plugins", "*.js", true));
             BUNDLE_COLLECTION.Add(new ScriptBundle("~/Scripts/DataTables/BASE_CONTROLLER_bundle").IncludeDirectory("~/Scripts/DataTables", "*.js"));
-            BUNDLE_COLLECTION.Add(new ScriptBundle("~/Scripts/DataTables/Extentions/BASE_CONTROLLER_bundle").IncludeDirectory("~/Scripts/DataTables/Extentions", "*.js", true));
+            BUNDLE_COLLECTION.Add(new ScriptBundle("~/Scripts/DataTables/Extentions/BASE_CONTROLLER_bundle").Include("~/Scripts/DataTables/Extentions/dataTables.bootstrap.js"));
             BUNDLE_COLLECTION.Add(new ScriptBundle("~/Scripts/Common/BASE_CONTROLLER_bundle").IncludeDirectory("~/Scripts/Common", "*.js", true));
-
 
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/awesome-font/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/awesome-font", "*.css", true));
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/linea-font/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/linea-font", "*.css", true));
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/foundation-icons/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/foundation-icons", "*.css", true));
-            BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/bootstrap/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/bootstrap", "*.css", true));
+            BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/bootstrap/css/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/bootstrap/css", "*.css"));
+            BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/bootstrap/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins/bootstrap", "*.css"));
+            BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/DataTables/css/BASE_CONTROLLER_bundle").Include("~/Content/DataTables/css/dataTables.bootstrap.css"));
+            
+
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Plugins/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Plugins", "*.css"));
-            BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/DataTables/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/DataTables", "*.css", true));
             BUNDLE_COLLECTION.Add(new StyleBundle("~/Content/Common/BASE_CONTROLLER_bundle").IncludeDirectory("~/Content/Common", "*.css", true));
             #endregion
 
