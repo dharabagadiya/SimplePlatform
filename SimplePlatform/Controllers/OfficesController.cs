@@ -13,6 +13,7 @@ namespace SimplePlatform.Controllers
         public ActionResult Index()
         {
             BundleConfig.AddStyle("/Offices", "Offices.css", ControllerName);
+            BundleConfig.AddScript("~/Scripts/Offices", "Offices.js", ControllerName);
             return View();
         }
 
