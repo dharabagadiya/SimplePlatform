@@ -48,6 +48,7 @@ D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csprojResolveAssemblyReference.cache
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Migrations.CustomAuthentication_Init.resources
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csproj.GenerateResource.Cache
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.dll

@@ -230,3 +230,13 @@ SimplePlatform/bin/SimplePlatform.dll
 *.dll
 SimplePlatform/bin/SimplePlatform.pdb
 *.pdb
+*.pdb
+CustomAuthentication/bin/Debug/CustomAuthentication.dll
+*.pdb
+*.dll
+*.dll
+*.dll
+SimplePlatform/bin/DataModel.pdb
+*.pdb
+SimplePlatform/bin/CustomAuthentication.dll
+*.pdb
