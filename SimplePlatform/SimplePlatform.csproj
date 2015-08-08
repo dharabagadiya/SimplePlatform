@@ -168,6 +168,7 @@
     <Content Include="Content\DataTables\swf\copy_csv_xls_pdf.swf" />
     <Content Include="Content\Images\Common\logosm.png" />
     <Content Include="Content\Login\custom.css" />
+    <Content Include="Content\Offices\Offices.css" />
     <Content Include="Content\plugins\animate.min.css" />
     <Content Include="Content\plugins\awesome-font\css\awesome-font.css" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.svg" />
@@ -193,6 +194,7 @@
     <Content Include="Content\plugins\main.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Offices\Offices.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrapValidator.js" />
     <Content Include="Scripts\Plugins\bootstrap.js" />
     <Content Include="Scripts\Plugins\bootstrap.min.js" />
@@ -201,8 +203,6 @@
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\plugins\awesome-font\fonts\FontAwesome.otf" />
-    <Content Include="Content\plugins\bootstrap\css\bootstrap-theme.css.map" />
-    <Content Include="Content\plugins\bootstrap\css\bootstrap.css.map" />
     <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
@@ -266,7 +266,9 @@
     <Content Include="Scripts\Login\login.js" />
     <Content Include="Scripts\Plugins\modernizr-2.6.2.js" />
     <Content Include="Scripts\Users\users.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -274,7 +276,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\OfficeController.cs" />
+    <Compile Include="Controllers\OfficesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -290,14 +292,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\Plugins\jquery-1.11.3.min.map" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LeftPannel.cshtml" />
-    <Content Include="Views\Office\Add.cshtml" />
+    <Content Include="Views\Offices\Add.cshtml" />
     <Content Include="Views\User\Add.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Offices\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

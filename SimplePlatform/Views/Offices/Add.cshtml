@@ -1,0 +1,27 @@
+﻿
+
+<form action="@Url.Action("Add", "Office")" type="post">
+    <div class="modal-dialog divUserModalDialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Office</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" name="contactNo"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="txtCity" placeholder="City" name="city"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnAddOffice">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
