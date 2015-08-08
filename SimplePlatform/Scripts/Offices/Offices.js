@@ -24,6 +24,11 @@
     "BookingConfirm": { "ActTotal": 5, "Total": 100 }
 }]
 var office = {};
+office.options = {
+    EditViewURL: "/Offices/Edit/",
+    UpdateURL: "/Offices/Update",
+    DeleteURL: "/Offices/Delete"
+};
 office.GetOfficeWidgetHTML = function (obj) {
     var sb = new StringBuilder();
     sb.append("<div class=\"col-lg-3 col-md-6 col-sm-6 col-xs-12\">");
@@ -52,14 +57,43 @@ office.GetOfficeWidgetHTML = function (obj) {
     sb.append("</div>");
     return sb.toString();
 }
-
+function BindOfficeWidgetClick(obj) {
+    obj.find(".panel-close").off("click").on("click", function () {
+        //alert("delete");
+        office.DeletUserDetail(obj);
+    });
+}
 office.OfficeWidget = function () {
-    var widgets = null;
     $(".OfficeWidget").empty();
     for (var i = 0; i < data.length; i++) {
-        $(".OfficeWidget").append($(this.GetOfficeWidgetHTML(data[i])));
+        var widget = $(this.GetOfficeWidgetHTML(data[i])).data("office_detail", data[i].Id);
+        //widget.data("office_detail", data[i].Id);
+        BindOfficeWidgetClick(widget);
+        $(".OfficeWidget").append(widget);
     };
 }
+office.DeletUserDetail = function (obj) {
+    debugger
+    var currentObj = obj;
+    var officeDetail = obj.data("office_detail");
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        url: office.options.DeleteURL,
+        async: false,
+        data: JSON.stringify({ "id": officeDetail }),
+        success: function (data) {
+            var status = data;
+            if (status) {
+                //$('#myDataTable').dataTable().api().ajax.reload(null, false);
+                office.OfficeWidget();
+            } else {
+            }
+        }
+    });
+};
+
 $(document).ready(function () {
     office.OfficeWidget();
 });

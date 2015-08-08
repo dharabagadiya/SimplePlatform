@@ -70,7 +70,7 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
-            url: "/Office/Add",
+            url: "/Offices/Add",
             async: false,
             data: JSON.stringify({ "name": name, "contactNo": contactNo, "city": city }),
             success: function (data) {

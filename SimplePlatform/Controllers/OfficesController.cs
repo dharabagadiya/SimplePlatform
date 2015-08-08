@@ -10,6 +10,7 @@ namespace SimplePlatform.Controllers
     public class OfficesController : BaseController
     {
         // GET: Office
+        DataContext Context = new DataContext();
         public ActionResult Index()
         {
             BundleConfig.AddStyle("/Offices", "Offices.css", ControllerName);
@@ -27,7 +28,6 @@ namespace SimplePlatform.Controllers
         {
             try
             {
-                DataContext Context = new DataContext();
                 Context.Offices.Add(new Office
                 {
                     Name = name,
@@ -37,7 +37,24 @@ namespace SimplePlatform.Controllers
                 var status = Context.SaveChanges();
                 return Json(true);
             }
-            catch {
+            catch
+            {
+                return Json(false);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            var Office = Context.Offices.Where(ofc => ofc.ID == id).FirstOrDefault();
+            if (Office != null)
+            {
+                Context.Offices.Remove(Office);
+                Context.SaveChanges();
+                return Json(true);
+            }
+            else
+            {
                 return Json(false);
             }
         }
