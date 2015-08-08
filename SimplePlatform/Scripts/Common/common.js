@@ -168,6 +168,7 @@ simplePlatform.ValidateModalUserForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
+                    $('#myDataTable').dataTable().api().ajax.reload(null, false);
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }

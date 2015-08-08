@@ -14,6 +14,9 @@
     <link href="~/Content/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet" />
     <link href="~/Content/plugins/main.css" rel="stylesheet" />
+
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+
     <link href="~/Content/Common/custom.css" rel="stylesheet" />
 
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
@@ -24,7 +27,11 @@
     <div id="wrapper">
         @Html.Partial("_LeftPannel")
         <div class="page-content right-sidebar-page clearfix collapsed-sidebar">
-            @RenderBody()
+            <div class="page-content-wrapper">
+                <div class="page-content-inner">
+                    @RenderBody()
+                </div>
+            </div>
         </div>
     </div>
     <div id="divCommonModalPlaceHolder" class="modal fade"></div>
@@ -33,6 +40,9 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
     <script src="~/Scripts/Common/common.js"></script>
+    <script src="~/Scripts/Users/users.js"></script>
 </body>
 </html>

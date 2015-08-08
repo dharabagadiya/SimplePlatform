@@ -61,6 +61,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .form-horizontal .form-group .input-icon .input-group-addon i, .form-inline .form-group .input-icon .input-group-addon i, .form-horizontal .form-group .input-serach .input-group-addon i, .form-inline .form-group .input-serach .input-group-addon i { position: absolute; top: 0; left: 0; bottom: 0; border: 0; z-index: 5; width: auto; display: inline-block; vertical-align: middle; text-align: center; padding: 6px 12px; background: transparent; line-height: 1.42857143; box-sizing: content-box; pointer-events: none; color: #cacaca; }
 .form-horizontal .form-group .input-icon .input-group-addon + .form-control, .form-inline .form-group .input-icon .input-group-addon + .form-control, .form-horizontal .form-group .input-serach .input-group-addon + .form-control, .form-inline .form-group .input-serach .input-group-addon + .form-control { padding-left: 35px; padding-right: 12px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
 .help-block { margin-bottom: 0; }
+.form-control-feedback { margin-right: 15px; }
 
 /* --  Button Custom --- */
 .btn-default { color: #333333; background-color: #e8e8e8; border-color: #e8e8e8; }
@@ -102,6 +103,22 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 .modal-dialog { margin: 50px auto; }
 .modal-dialog .modal-header { padding-bottom: 10px; border-top-left-radius: 3px; border-top-right-radius: 3px; font-size: 16px; }
 .modal-dialog .modal-header .close { color: inherit; opacity: 1; }
+
+/* Page Content Setting */
+.page-content { min-height: 100%; padding-top: 50px; }
+.page-content.sidebar-page { margin-left: 210px; }
+.page-content.right-sidebar-page { margin-right: 0; }
+.page-content.collapsed-sidebar { margin-left: 60px; }
+.page-content.full-page { margin-left: 0; margin-right: 0; }
+.page-content.overLap { margin-left: 0; }
+.page-content.rOverLap { margin-right: 0; }
+.page-content.offCanvas { width: 100%; margin-left: 210px; }
+.page-content .page-content-wrapper { float: left; width: 100%; height: auto; position: relative; overflow: hidden; }
+.page-content .page-content-inner { position: relative; padding: 0 20px; }
+.page-content #page-header { background-color: #fcfcfc; margin-top: 1px; padding: 0 20px; margin-right: -20px; margin-left: -20px; margin-bottom: 20px; box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1); }
+.page-content #page-header .page-header { margin-top: 0px; margin-bottom: 0; border-bottom: none; float: left; margin-right: 20px; }
+.page-content #page-header .page-header h2 { margin-bottom: 5px; }
+.page-content #page-header .header-stats { float: right; padding: 20px; }
 
 /* -----------------------------------------
    Responsive media queries
@@ -146,19 +163,6 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
     #header .navbar-nav li.open .dropdown-menu { position: absolute; background-color: #ffffff; float: left; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.175); }
     #header .navbar-nav li.open .dropdown-menu li { display: block; }
 }
-
-/* Page Content Setting */
-.page-content { min-height: 100%; padding-top: 50px; }
-.page-content.sidebar-page { margin-left: 210px; }
-.page-content.right-sidebar-page { margin-right: 210px; }
-.page-content.collapsed-sidebar { margin-left: 60px; }
-.page-content.full-page { margin-left: 0; margin-right: 0; }
-.page-content.overLap { margin-left: 0; }
-.page-content.rOverLap { margin-right: 0; }
-.page-content.offCanvas { width: 100%; margin-left: 210px; }
-.page-content .page-content-wrapper { float: left; width: 100%; height: auto; position: relative; overflow: hidden; }
-.page-content .page-content-inner { position: relative; padding: 0 20px; }
-
 /* -----------------------------------------
    Small devices
 ----------------------------------------- */

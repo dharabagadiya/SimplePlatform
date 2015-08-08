@@ -52,6 +52,7 @@ namespace CustomAuthentication
             }
 
         }
+
         public bool CreateUser(string firstName, string lastName, string emildID, int userRoleID)
         {
             try
@@ -77,6 +78,7 @@ namespace CustomAuthentication
             }
 
         }
+
         public bool Authenticate(string username, string password)
         {
             var user = Context.Users.Where(model => (model.UserName.Equals(model.UserName) || model.Email.Equals(model.UserName)) && model.Password.Equals(password)).FirstOrDefault();

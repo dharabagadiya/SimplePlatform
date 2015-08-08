@@ -1,10 +1,7 @@
 ﻿
 #region Using Namespaces
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 #endregion
 
 namespace CustomAuthentication
