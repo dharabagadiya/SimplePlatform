@@ -1,6 +1,6 @@
 ﻿@{var users = (List<CustomAuthentication.User>)ViewData["Users"];  }
 <form action="#" type="post">
-    <input type="hidden" id="txtOfficeID" value="@Model.ID" />
+    <input type="hidden" id="txtOfficeID" value="@Model.OfficeId" />
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="SelectUserRole">Select User</label>
-                    <select class="form-control" id="dwnUserRoles">
+                    <select class="form-control" id="dwnUserID">
                         <option value="-1">Select User</option>
                         @foreach (var role in users)
                         {

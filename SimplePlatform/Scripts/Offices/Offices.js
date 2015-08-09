@@ -138,13 +138,14 @@ office.ValidateModalOfficeForm = function (obj) {
         var name = formObj.find("#txtName").val();
         var contactNo = formObj.find("#txtContactNo").val();
         var city = formObj.find("#txtCity").val();
+        var userID = formObj.find("#dwnUserID").val();
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
             url: office.options.UpdateURL,
             async: false,
-            data: JSON.stringify({ "id": id, "name": name, "contactNo": contactNo, "city": city }),
+            data: JSON.stringify({ "id": id, "name": name, "contactNo": contactNo, "city": city, "userID": userID }),
             success: function (data) {
                 var status = data;
                 if (status) {
