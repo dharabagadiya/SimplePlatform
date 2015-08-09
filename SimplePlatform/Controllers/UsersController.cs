@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SimplePlatform.Controllers
 {
-    public class UserController : BaseController
+    public class UsersController : BaseController
     {
         public ActionResult Index()
         {

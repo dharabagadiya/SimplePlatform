@@ -161,7 +161,7 @@ simplePlatform.ValidateModalUserForm = function (obj) {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
-            url: "/User/Add",
+            url: "/Users/Add",
             async: false,
             data: JSON.stringify({ "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID }),
             success: function (data) {

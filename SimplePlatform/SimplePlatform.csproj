@@ -276,7 +276,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfficesController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -296,10 +296,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LeftPannel.cshtml" />
     <Content Include="Views\Offices\Add.cshtml" />
-    <Content Include="Views\User\Add.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Users\Add.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Offices\Index.cshtml" />
-    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Offices\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

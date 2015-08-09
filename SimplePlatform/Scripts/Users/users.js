@@ -1,8 +1,8 @@
 ﻿var users = {};
 users.options = {
-    EditViewURL: "/User/Edit/",
-    UpdateURL: "/User/Update",
-    DeleteURL: "/User/Delete"
+    EditViewURL: "/Users/Edit/",
+    UpdateURL: "/Users/Update",
+    DeleteURL: "/Users/Delete"
 };
 users.ValidateModalUserForm = function (obj) {
     obj.find("form")
@@ -123,7 +123,7 @@ $(document).ready(function () {
             "pageButton": "bootstrap"
         },
         "ajax": {
-            "url": "/user/GetUsers",
+            "url": "/Users/GetUsers",
             "type": "POST"
         },
         "displayLength": 25,
