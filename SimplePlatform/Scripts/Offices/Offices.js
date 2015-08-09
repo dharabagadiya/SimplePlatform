@@ -36,7 +36,6 @@ office.GetOfficeWidgetHTML = function (obj) {
     sb.append("</div>");
     sb.append("<div class=\"row\">");
     sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Booking <span class=\"pull-right\"><span class=\"badge\">" + obj.BookingInProcess.ActTotal + "</span> of " + obj.BookingInProcess.Total + "</span></div></div>");
-    //sb.append("<div class=\"col-md-6\">Booking " + obj.BookingConfirm.ActTotal + " of " + obj.BookingConfirm.Total + "</div>");
     sb.append("</div>");
     sb.append("</div>");
     sb.append("</div>");
@@ -45,10 +44,7 @@ office.GetOfficeWidgetHTML = function (obj) {
     return sb.toString();
 }
 office.BindOfficeWidgetClick = function (obj) {
-    obj.find(".panel-close").off("click").on("click", function () {
-        //alert("delete");
-        office.DeletUserDetail(obj);
-    });
+    obj.find(".panel-close").off("click").on("click", function () { office.DeletUserDetail(obj); });
     obj.find(".panel-edit").off("click").on("click", function () { office.EditOfficeDetail(obj); });
 }
 office.OfficeWidget = function (dataObj) {
@@ -59,9 +55,10 @@ office.OfficeWidget = function (dataObj) {
         this.BindOfficeWidgetClick(widget);
         $(".OfficeWidget").append(widget);
     };
-    $(".OfficeWidget").find('.animated-bar .progress-bar').waypoint(function (direction) {
-        $(this).progressbar({ display_text: 'none' });
-    }, { offset: 'bottom-in-view' });
+    this.GetOfficeGridPagination($(".divOfficesGridPaging"));
+    $(".divOfficesGridPagingDetail").find(".dataTables_info").empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
+    $(".OfficeWidget").find('.animated-bar .progress-bar').waypoint(function (direction) { $(this).progressbar({ display_text: 'none' }); }, { offset: 'bottom-in-view' });
+
 };
 office.ValidateModalOfficeForm = function (obj) {
     obj.find("form")
@@ -171,7 +168,6 @@ office.DeletUserDetail = function (obj) {
         success: function (data) {
             var status = data;
             if (status) {
-                //$('#myDataTable').dataTable().api().ajax.reload(null, false);
                 office.OfficeWidget();
             } else {
             }
@@ -192,8 +188,6 @@ office.GetOfficesData = function (pageNo, pageSize) {
             office.options.pageSize = data.pageSize;
             office.options.currentPage = data.currentPage;
             office.OfficeWidget(data.offices);
-            office.GetOfficeGridPagination($(".divOfficesGridPaging"));
-            $(".divOfficesGridPagingDetail").find(".dataTables_info").empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
         }
     });
 };
