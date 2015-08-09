@@ -167,3 +167,13 @@ function ShowDialogBox(dataModalPlaceHolder, dataModalURL, dataPayLoad, callback
         }, this)).modal("show");
     }, this))
 };
+function ShowUserAlert(message) {
+    if ($("#divUserAlert").length > 0) $("#divUserAlert").alert('close');
+    var sb = new StringBuilder();
+    sb.append("<div id=\"divUserAlert\" class=\"alert alert-info alert-dismissible divUserAlert\" role=\"alert\">");
+    sb.append("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>");
+    sb.append("<strong>Heads up!</strong>&nbsp;" + message);
+    sb.append("</div>");
+    $("body").prepend($(sb.toString()));
+    setTimeout(function () { $("#divUserAlert").alert('close'); }, 4000);
+};

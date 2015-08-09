@@ -9,8 +9,6 @@ namespace SimplePlatform.Controllers
 {
     public class OfficesController : BaseController
     {
-        // GET: Office
-        DataContext Context = new DataContext();
         public ActionResult Index()
         {
             BundleConfig.AddStyle("/Offices", "Offices.css", ControllerName);
@@ -21,8 +19,10 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult GetOffices(int pageNo = 1, int pageSize = 3)
         {
-            var totalRecord = Context.Offices.Count();
-            var offices = Context.Offices.Select(modal => new
+            var officesManager = new OfficeMananer();
+            var offices = officesManager.GetOffices();
+            var totalRecord = offices.Count();
+            var filteredOffices = offices.Select(modal => new
             {
                 ID = modal.ID,
                 Name = modal.Name,
@@ -37,7 +37,7 @@ namespace SimplePlatform.Controllers
                 totalRecord = totalRecord,
                 currentPage = pageNo,
                 pageSize = pageSize,
-                offices = offices
+                offices = filteredOffices
             });
         }
 
@@ -48,62 +48,29 @@ namespace SimplePlatform.Controllers
 
         public PartialViewResult Edit(int id)
         {
-            var Office = Context.Offices.Where(ofc => ofc.ID == id).FirstOrDefault();
-            return PartialView(Office);
+            var officesManager = new OfficeMananer();
+            return PartialView(officesManager.GetOffice(id));
         }
 
         [HttpPost]
         public JsonResult Add(string name, string contactNo, string city)
         {
-            try
-            {
-                Context.Offices.Add(new Office
-                {
-                    Name = name,
-                    ContactNo = contactNo,
-                    City = city
-                });
-                var status = Context.SaveChanges();
-                return Json(true);
-            }
-            catch
-            {
-                return Json(false);
-            }
+            var officesManager = new OfficeMananer();
+            return Json(officesManager.Add(name, contactNo, city));
         }
 
         [HttpPost]
         public JsonResult Update(int id, string name, string contactNo, string city)
         {
-            try
-            {
-                var office = Context.Offices.Where(model => model.ID == id).FirstOrDefault();
-                if (office == null) { return Json(false); }
-                office.Name = name;
-                office.ContactNo = contactNo;
-                office.City = city;
-                Context.SaveChanges();
-                return Json(true);
-            }
-            catch
-            {
-                return Json(false);
-            }
+            var officesManager = new OfficeMananer();
+            return Json(officesManager.Update(id, name, contactNo, city));
         }
+
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var Office = Context.Offices.Where(ofc => ofc.ID == id).FirstOrDefault();
-            if (Office != null)
-            {
-                Office.IsDeleted = true;
-                Context.SaveChanges();
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
+            var officesManager = new OfficeMananer();
+            return Json(officesManager.Delete(id));
         }
     }
 }
