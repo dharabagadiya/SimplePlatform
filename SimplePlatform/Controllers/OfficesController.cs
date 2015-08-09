@@ -62,17 +62,17 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(string name, string contactNo, string city)
+        public JsonResult Add(string name, string contactNo, string city, int userID)
         {
             var officesManager = new OfficeMananer();
-            return Json(officesManager.Add(name, contactNo, city, 1));
+            return Json(officesManager.Add(name, contactNo, city, userID));
         }
 
         [HttpPost]
-        public JsonResult Update(int id, string name, string contactNo, string city)
+        public JsonResult Update(int id, string name, string contactNo, string city, int userID)
         {
             var officesManager = new OfficeMananer();
-            return Json(officesManager.Update(id, name, contactNo, city, 1));
+            return Json(officesManager.Update(id, name, contactNo, city, userID));
         }
 
         [HttpPost]
@@ -82,7 +82,8 @@ namespace SimplePlatform.Controllers
             return Json(officesManager.Delete(id));
         }
 
-        public ActionResult Detail(int id) {
+        public ActionResult Detail(int id)
+        {
             return View();
         }
     }
