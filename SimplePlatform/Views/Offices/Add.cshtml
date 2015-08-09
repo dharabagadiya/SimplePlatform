@@ -1,4 +1,4 @@
-﻿
+﻿@model List<CustomAuthentication.User>
 
 <form action="@Url.Action("Add", "Office")" type="post">
     <div class="modal-dialog divUserModalDialog">
@@ -10,15 +10,26 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="Name">Name</label>
-                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name"/>
+                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
                 </div>
                 <div class="form-group">
                     <label for="ContactNo">Contact No</label>
-                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" name="contactNo"/>
+                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" name="contactNo" />
                 </div>
                 <div class="form-group">
                     <label for="City">City</label>
-                    <input type="text" class="form-control" id="txtCity" placeholder="City" name="city"/>
+                    <input type="text" class="form-control" id="txtCity" placeholder="City" name="city" />
+                </div>
+                <div class="form-group">
+                    <label for="SelectUserRole">Select User</label>
+                    <select class="form-control" id="dwnUserRoles">
+                        <option value="-1">Select User</option>
+                        @foreach (var role in Model)
+                        {
+                            <option value="@role.UserId">@role.FirstName @role.LastName</option>
+                        }
+                    </select>
+                    <div class="clearfix"></div>
                 </div>
             </div>
             <div class="modal-footer">

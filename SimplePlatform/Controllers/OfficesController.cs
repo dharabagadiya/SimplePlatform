@@ -43,11 +43,20 @@ namespace SimplePlatform.Controllers
 
         public PartialViewResult Add()
         {
-            return PartialView();
+            var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
+            var roleID = customRoleProvider.GetRole("Offices");
+            var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
+            var Users = customMembershipProvider.GetUsers(roleID.RoleId);
+            return PartialView(Users);
         }
 
         public PartialViewResult Edit(int id)
         {
+            var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
+            var roleID = customRoleProvider.GetRole("Offices");
+            var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
+            var Users = customMembershipProvider.GetUsers(roleID.RoleId);
+            ViewData["Users"] = Users;
             var officesManager = new OfficeMananer();
             return PartialView(officesManager.GetOffice(id));
         }
