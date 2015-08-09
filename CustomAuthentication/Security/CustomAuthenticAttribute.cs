@@ -26,6 +26,7 @@ namespace CustomAuthentication.Security
                 newUser.LastName = serializeModel.LastName;
                 newUser.roles = serializeModel.roles;
                 HttpContext.Current.User = newUser;
+                HttpContext.Current.Session["User"] = new CustomMembershipProvider().GetUser(newUser.UserId);
             }
         }
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)

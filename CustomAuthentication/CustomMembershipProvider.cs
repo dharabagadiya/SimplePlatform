@@ -27,6 +27,7 @@ namespace CustomAuthentication
             var authTicket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(15), false, JsonConvert.SerializeObject(serializeModel));
             var encTicket = FormsAuthentication.Encrypt(authTicket);
             var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+            HttpContext.Current.Session["User"] = user;
             HttpContext.Current.Response.Cookies.Add(faCookie);
         }
         #endregion
@@ -121,6 +122,8 @@ namespace CustomAuthentication
         }
         public List<User> GetUsers()
         { return Context.Users.Where(modal => modal.IsDeleted == false).ToList(); }
+        public User GetUser(int id)
+        { return Context.Users.Where(modal => modal.IsDeleted == false && modal.UserId == id).FirstOrDefault(); }
         public List<User> GetUsers(int roleID)
         { return Context.Users.Where(modal => modal.Roles.Any(roleModel => roleModel.RoleId == roleID)).ToList(); }
     }

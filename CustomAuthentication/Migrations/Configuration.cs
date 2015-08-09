@@ -20,6 +20,7 @@ namespace CustomAuthentication.Migrations
             userRoles.Add(new Role { RoleName = "Admin" });
             userRoles.Add(new Role { RoleName = "Offices" });
             userRoles.Add(new Role { RoleName = "Speakers" });
+            userRoles.Add(new Role { RoleName = "Employee" });
             context.Roles.AddRange(userRoles);
             // Admin Default User Created --- Please Dnt Delete
             var user = new User { UserName = "admin", Email = "admin@gmail.com", FirstName = "Admin", Password = "123456", IsActive = true, CreateDate = DateTime.UtcNow, Roles = new List<Role>() };
