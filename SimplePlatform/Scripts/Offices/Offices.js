@@ -4,7 +4,7 @@ office.options = {
     UpdateURL: "/Offices/Update",
     DeleteURL: "/Offices/Delete",
     GetOffices: "/Offices/GetOffices",
-    pageSize: 3,
+    pageSize: 6,
     totalPageSize: 10,
     currentPage: 1,
     totalRecords: 10
@@ -20,7 +20,7 @@ office.GetOfficeGridPagination = function (obj) {
 };
 office.GetOfficeWidgetHTML = function (obj) {
     var sb = new StringBuilder();
-    sb.append("<div class=\"col-lg-3 col-md-6 col-sm-6 col-xs-12\">");
+    sb.append("<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">");
     sb.append("<div class=\"panel panel-info tile panelClose panelRefresh\" id=\"dyn_0\">");
     sb.append("<div class=\"panel-heading\">");
     sb.append("<h4 class=\"panel-title\">" + obj.Name + "</h4>");
