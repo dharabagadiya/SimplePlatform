@@ -10,16 +10,19 @@ namespace DataModel
     public class OfficeMananer
     {
         private DataContext Context = new DataContext();
-        public bool Add(string name, string contactNo, string city)
+        public bool Add(string name, string contactNo, string city, int userID)
         {
             try
             {
+                var users = Context.Users.Where(model => model.UserId == userID).ToList();
+                if (users == null || users.Count <= 0) { return false; }
                 if (Context.Offices.Any(model => model.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))) { return false; }
                 Context.Offices.Add(new Modal.Office
                 {
                     Name = name,
                     ContactNo = contactNo,
-                    City = city
+                    City = city,
+                    Users = users
                 });
                 var status = Context.SaveChanges();
                 return true;
@@ -29,15 +32,18 @@ namespace DataModel
                 return false;
             }
         }
-        public bool Update(int id, string name, string contactNo, string city)
+        public bool Update(int id, string name, string contactNo, string city, int userID)
         {
             try
             {
+                var users = Context.Users.Where(model => model.UserId == userID).ToList();
+                if (users == null || users.Count <= 0) { return false; }
                 var office = Context.Offices.Where(model => model.OfficeId == id).FirstOrDefault();
                 if (office == null) { return false; }
                 office.Name = name;
                 office.ContactNo = contactNo;
                 office.City = city;
+                office.Users = users;
                 Context.SaveChanges();
                 return true;
             }
@@ -54,7 +60,8 @@ namespace DataModel
             Context.SaveChanges();
             return true;
         }
-        public Modal.Office GetOffice(int id) {
+        public Modal.Office GetOffice(int id)
+        {
             return Context.Offices.Where(modal => modal.OfficeId == id).FirstOrDefault();
         }
         public List<Modal.Office> GetOffices()
