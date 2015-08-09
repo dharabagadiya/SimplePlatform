@@ -4,7 +4,8 @@ office.options = {
     UpdateURL: "/Offices/Update",
     DeleteURL: "/Offices/Delete",
     GetOffices: "/Offices/GetOffices",
-    pageSize: 6,
+    OfficeDetailPage: function (id) { return ("/Offices/Detail/" + id); },
+    pageSize: 9,
     totalPageSize: 10,
     currentPage: 1,
     totalRecords: 10
@@ -48,8 +49,13 @@ office.GetOfficeWidgetHTML = function (obj) {
     return sb.toString();
 }
 office.BindOfficeWidgetClick = function (obj) {
-    obj.find(".panel-close").off("click").on("click", function () { office.DeletUserDetail(obj); });
-    obj.find(".panel-edit").off("click").on("click", function () { office.EditOfficeDetail(obj); });
+    obj.find(".panel-close").off("click.panel-close").on("click.panel-close", function (event) { event.stopPropagation(); office.DeletUserDetail(obj); });
+    obj.find(".panel-edit").off("click.panel-edit").on("click.panel-edit", function (event) { event.stopPropagation(); office.EditOfficeDetail(obj); });
+    obj.off("click.office_widget").on("click.office_widget", function () {
+        var currentObj = $(this);
+        var officeDetail = currentObj.data("office_detail")
+        window.location.href = office.options.OfficeDetailPage(officeDetail.ID);
+    });
 }
 office.OfficeWidget = function (dataObj) {
     if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { this.NoOfficeRecordFound(); return; }
