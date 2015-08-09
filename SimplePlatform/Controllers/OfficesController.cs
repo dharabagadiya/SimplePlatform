@@ -24,7 +24,7 @@ namespace SimplePlatform.Controllers
             var totalRecord = offices.Count();
             var filteredOffices = offices.Select(modal => new
             {
-                ID = modal.ID,
+                ID = modal.OfficeId,
                 Name = modal.Name,
                 Fundraising = new { ActTotal = 5, Total = 10 },
                 Task = new { ActTotal = 5, Total = 100 },

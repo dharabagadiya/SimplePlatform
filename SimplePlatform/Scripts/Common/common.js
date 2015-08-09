@@ -1,5 +1,7 @@
 ﻿var simplePlatform = {};
+simplePlatform.ValidateModalOfficeForm = function (obj) {
 
+};
 simplePlatform.BindHeaderAddTaskClickEvent = function () {
     var obj = $("#lnkAddTasks");
     obj.off("click.lnkAddTasks").on("click.lnkAddTasks", $.proxy(function (event) {
