@@ -60,7 +60,8 @@
       <DependentUpon>201508082015182_Data_Modal_Office_IsDeleted.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Office.cs" />
+    <Compile Include="Modal\Office.cs" />
+    <Compile Include="OfficeMananer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
