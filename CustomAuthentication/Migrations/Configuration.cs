@@ -18,7 +18,7 @@ namespace CustomAuthentication.Migrations
             // Default Roles --- No Changes In Role List
             var userRoles = new List<Role>();
             userRoles.Add(new Role { RoleName = "Admin" });
-            userRoles.Add(new Role { RoleName = "Offices FSMS" });
+            userRoles.Add(new Role { RoleName = "Offices" });
             userRoles.Add(new Role { RoleName = "Speakers" });
             context.Roles.AddRange(userRoles);
             // Admin Default User Created --- Please Dnt Delete

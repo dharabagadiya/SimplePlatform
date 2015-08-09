@@ -60,6 +60,12 @@ namespace CustomAuthentication
         {
             return Context.Roles.ToList();
         }
+        public Role GetRole(string roleName)
+        {
+            Role Role = null;
+            Role = Context.Roles.FirstOrDefault(Rl => Rl.RoleName == roleName);
+            return Role;
+        }
         public bool IsUserInRole(string username, string roleName)
         {
             User User = Context.Users.FirstOrDefault(Usr => Usr.UserName == username);
@@ -71,7 +77,5 @@ namespace CustomAuthentication
             }
             return false;
         }
-
-
     }
 }

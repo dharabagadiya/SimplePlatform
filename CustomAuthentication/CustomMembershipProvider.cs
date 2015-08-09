@@ -121,5 +121,7 @@ namespace CustomAuthentication
         }
         public List<User> GetUsers()
         { return Context.Users.Where(modal => modal.IsDeleted == false).ToList(); }
+        public List<User> GetUsers(int roleID)
+        { return Context.Users.Where(modal => modal.Roles.Any(roleModel => roleModel.RoleId == roleID)).ToList(); }
     }
 }
