@@ -17,7 +17,9 @@ namespace DataModel
 
         public List<User> GetUsers()
         { return Context.Users.Where(modal => modal.IsDeleted == false).ToList(); }
+        public User GetUser(int id)
+        { return Context.Users.Where(modal => modal.IsDeleted == false && modal.UserId == id).FirstOrDefault(); }
         public List<User> GetUsers(int roleID)
-        { return Context.Users.Where(modal => modal.Roles.Any(roleModel => roleModel.RoleId == roleID)).ToList(); }
+        { return Context.Users.Where(modal => modal.IsDeleted == false && modal.Roles.Any(roleModel => roleModel.RoleId == roleID)).ToList(); }
     }
 }
