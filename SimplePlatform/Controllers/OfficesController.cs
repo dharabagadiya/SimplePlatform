@@ -65,14 +65,14 @@ namespace SimplePlatform.Controllers
         public JsonResult Add(string name, string contactNo, string city)
         {
             var officesManager = new OfficeMananer();
-            return Json(officesManager.Add(name, contactNo, city));
+            return Json(officesManager.Add(name, contactNo, city, 1));
         }
 
         [HttpPost]
         public JsonResult Update(int id, string name, string contactNo, string city)
         {
             var officesManager = new OfficeMananer();
-            return Json(officesManager.Update(id, name, contactNo, city));
+            return Json(officesManager.Update(id, name, contactNo, city, 1));
         }
 
         [HttpPost]

@@ -6,16 +6,25 @@ using System.Web.Mvc;
 
 namespace SimplePlatform.Controllers
 {
-    public class TasksController : Controller
+    public class TasksController : BaseController
     {
-        public ActionResult Index()
-        { return View(); }
-
-        public PartialViewResult Add()
+        public ActionResult Index(int id = 0)
         {
-            var officeManager = new DataModel.OfficeMananer();
-            var offices = officeManager.GetOffices();
+            return View();
+        }
+
+        public ActionResult Add()
+        {
+            var userManager = new DataModel.UserManager();
+            var user = userManager.GetUser(UserDetail.UserId);
+            var offices = user.Offices.ToList();
             ViewData["Offices"] = offices;
+            if (IsAdmin)
+            {
+                var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
+                var role = customRoleProvider.GetRole("Employee");
+                ViewData["Employee"] = userManager.GetUsers(role.RoleId);
+            }
             return PartialView();
         }
     }

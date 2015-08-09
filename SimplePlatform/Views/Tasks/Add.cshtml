@@ -1,0 +1,43 @@
+﻿@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+
+<form action="@Url.Action("Add", "Tasks")" type="post">
+    <div class="modal-dialog divUserModalDialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Task</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
+                </div>
+                <div class="form-group">
+                    <label for="dtDueDate">Due Date</label>
+                    <div class="input-group input-icon">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input type="text" class="form-control" id="txtDueDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtDescription">Description</label>
+                    <textarea class="form-control" rows="5" name="txtDescription" id="txtDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="SelectOffice">Select Office</label>
+                    <select class="form-control" id="dwnUserRoles">
+                        @foreach (var office in offices)
+                        {
+                            <option value="@office.OfficeId">@office.Name</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnAddOffice">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
