@@ -10,12 +10,12 @@ namespace DataModel.Modal
 {
     public class Office
     {
-        [Key]
-        public int ID { get; set; }
+        public int OfficeId { get; set; }
         public String Name { get; set; }
         public String ContactNo { get; set; }
         public String City { get; set; }
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

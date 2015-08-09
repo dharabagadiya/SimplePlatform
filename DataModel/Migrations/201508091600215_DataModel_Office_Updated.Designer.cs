@@ -7,13 +7,13 @@ namespace DataModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class DataModal_UserRole_Added : IMigrationMetadata
+    public sealed partial class DataModel_Office_Updated : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DataModal_UserRole_Added));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DataModel_Office_Updated));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508091319202_DataModal_UserRole_Added"; }
+            get { return "201508091600215_DataModel_Office_Updated"; }
         }
         
         string IMigrationMetadata.Source

@@ -33,7 +33,7 @@ namespace DataModel
         {
             try
             {
-                var office = Context.Offices.Where(model => model.ID == id).FirstOrDefault();
+                var office = Context.Offices.Where(model => model.OfficeId == id).FirstOrDefault();
                 if (office == null) { return false; }
                 office.Name = name;
                 office.ContactNo = contactNo;
@@ -48,19 +48,30 @@ namespace DataModel
         }
         public bool Delete(int id)
         {
-            var Office = Context.Offices.Where(ofc => ofc.ID == id).FirstOrDefault();
+            var Office = Context.Offices.Where(ofc => ofc.OfficeId == id).FirstOrDefault();
             if (Office == null) { return false; }
             Office.IsDeleted = true;
             Context.SaveChanges();
             return true;
         }
         public Modal.Office GetOffice(int id) {
-            return Context.Offices.Where(modal => modal.ID == id).FirstOrDefault();
+            return Context.Offices.Where(modal => modal.OfficeId == id).FirstOrDefault();
         }
         public List<Modal.Office> GetOffices()
         {
             return Context.Offices.Where(modal => modal.IsDeleted == false).ToList();
         }
-       
+        public static void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Modal.User>()
+                .HasMany(u => u.Offices)
+                .WithMany(r => r.Users)
+                .Map(model =>
+                {
+                    model.ToTable("UserOffices");
+                    model.MapLeftKey("OfficeId");
+                    model.MapRightKey("UserId");
+                });
+        }
     }
 }

@@ -20,8 +20,7 @@ namespace DataModel
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Ignore<User>();
-            modelBuilder.Ignore<Role>();
+            OfficeMananer.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

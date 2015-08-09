@@ -59,9 +59,13 @@
     <Compile Include="Migrations\201508082015182_Data_Modal_Office_IsDeleted.Designer.cs">
       <DependentUpon>201508082015182_Data_Modal_Office_IsDeleted.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201508091319202_DataModal_UserRole_Added.cs" />
-    <Compile Include="Migrations\201508091319202_DataModal_UserRole_Added.Designer.cs">
-      <DependentUpon>201508091319202_DataModal_UserRole_Added.cs</DependentUpon>
+    <Compile Include="Migrations\201508091600215_DataModel_Office_Updated.cs" />
+    <Compile Include="Migrations\201508091600215_DataModel_Office_Updated.Designer.cs">
+      <DependentUpon>201508091600215_DataModel_Office_Updated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508091610049_DataTable_User_Migration.cs" />
+    <Compile Include="Migrations\201508091610049_DataTable_User_Migration.Designer.cs">
+      <DependentUpon>201508091610049_DataTable_User_Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Office.cs" />
@@ -82,8 +86,11 @@
     <EmbeddedResource Include="Migrations\201508082015182_Data_Modal_Office_IsDeleted.resx">
       <DependentUpon>201508082015182_Data_Modal_Office_IsDeleted.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508091319202_DataModal_UserRole_Added.resx">
-      <DependentUpon>201508091319202_DataModal_UserRole_Added.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508091600215_DataModel_Office_Updated.resx">
+      <DependentUpon>201508091600215_DataModel_Office_Updated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508091610049_DataTable_User_Migration.resx">
+      <DependentUpon>201508091610049_DataTable_User_Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
