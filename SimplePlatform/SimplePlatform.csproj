@@ -176,6 +176,7 @@
     <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\plugins\foundation-icons\fonts\foundation-icons.svg" />
     <Content Include="Content\plugins\foundation-icons\styles.css" />
+    <Content Include="Content\plugins\jquery-ui.min.css" />
     <Content Include="Content\plugins\linea-font\arrow\fonts\linea-arrows-10.svg" />
     <Content Include="Content\plugins\linea-font\arrow\styles.css" />
     <Content Include="Content\plugins\linea-font\basic\fonts\linea-basic-10.svg" />
@@ -193,6 +194,7 @@
     <Content Include="Scripts\Offices\Offices.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrapValidator.js" />
     <Content Include="Scripts\Plugins\bootstrap-paginator.js" />
+    <Content Include="Scripts\Plugins\bootstrap-progressbar.js" />
     <Content Include="Scripts\Plugins\bootstrap.js" />
     <Content Include="Scripts\Plugins\bootstrap.min.js" />
     <Content Include="Content\plugins\awesome-font\fonts\fontawesome-webfont.eot" />
@@ -259,9 +261,9 @@
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login\login.js" />
-    <Content Include="Scripts\Plugins\jquery.waypoints.js" />
     <Content Include="Scripts\Plugins\modernizr-2.6.2.js" />
     <Content Include="Scripts\Plugins\progressbar.js" />
+    <Content Include="Scripts\Plugins\waypoints.js" />
     <Content Include="Scripts\Users\users.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
