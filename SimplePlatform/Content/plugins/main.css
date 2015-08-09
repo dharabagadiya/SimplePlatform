@@ -3,6 +3,7 @@ html, body { height: 100%; }
 body { overflow-x: hidden; background: #f2f2f2; color: #333333; -webkit-font-smoothing: antialiased; font-weight: 300; position: relative; }
 a { color: #0bacd3; text-decoration: none; }
 input { line-height: normal; }
+textarea { resize: none; }
 button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0; }
 .gray-lighter-bg { color: #333333 !important; background-color: #eeeeee !important; }
 .bt { border-top: 1px solid #e3e3e3 !important; }
@@ -62,6 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .form-horizontal .form-group .input-icon .input-group-addon + .form-control, .form-inline .form-group .input-icon .input-group-addon + .form-control, .form-horizontal .form-group .input-serach .input-group-addon + .form-control, .form-inline .form-group .input-serach .input-group-addon + .form-control { padding-left: 35px; padding-right: 12px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
 .help-block { margin-bottom: 0; }
 .form-control-feedback { margin-right: 15px; }
+.input-group-addon { padding: 5px 12px; }
 
 /* --  Button Custom --- */
 .btn-default { color: #333333; background-color: #e8e8e8; border-color: #e8e8e8; }
@@ -122,6 +124,11 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 
 /* Pagination */
 .pagination { margin: 10px 0; }
+
+/* Date Picker */
+.datepicker-dropdown { padding: 4px; }
+.datepicker-dropdown.datepicker-orient-top:before { top: -21px; left: 16px; }
+.datepicker-dropdown.datepicker-orient-top:after { top: -19px; left: 15px; }
 
 /* -----------------------------------------
    Responsive media queries

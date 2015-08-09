@@ -1,4 +1,19 @@
 ﻿var simplePlatform = {};
+
+simplePlatform.BindHeaderAddTaskClickEvent = function () {
+    var obj = $("#lnkAddTasks");
+    obj.off("click.lnkAddTasks").on("click.lnkAddTasks", $.proxy(function (event) {
+        var currentObj = $(event.currentTarget);
+        $("#divCommonModalPlaceHolder").empty();
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+            dialogContentPlaceHolder.find('#txtDueDate').datepicker({ todayHighlight: true });
+            //this.ValidateModalOfficeForm(dialogContentPlaceHolder);
+            //dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+        }, this));
+        return false;
+    }, this));
+};
+
 simplePlatform.ValidateModalOfficeForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -77,6 +92,7 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
+                    if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }
@@ -191,6 +207,7 @@ simplePlatform.BindHeaderAddUserClickEvent = function () {
 simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderAddUserClickEvent();
     this.BindHeaderAddOfficeClickEvent();
+    this.BindHeaderAddTaskClickEvent();
 };
 $(document).ready(function () {
     simplePlatform.BindHeaderAddClickEvents();

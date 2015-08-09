@@ -81,5 +81,9 @@ namespace SimplePlatform.Controllers
             var officesManager = new OfficeMananer();
             return Json(officesManager.Delete(id));
         }
+
+        public ActionResult Detail(int id) {
+            return View();
+        }
     }
 }

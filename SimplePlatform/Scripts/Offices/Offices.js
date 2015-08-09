@@ -4,14 +4,19 @@ office.options = {
     UpdateURL: "/Offices/Update",
     DeleteURL: "/Offices/Delete",
     GetOffices: "/Offices/GetOffices",
-    pageSize: 6,
+    OfficeDetailPage: function (id) { return ("/Offices/Detail/" + id); },
+    pageSize: 9,
     totalPageSize: 10,
     currentPage: 1,
     totalRecords: 10
 };
-
+office.NoOfficeRecordFound = function () {
+    $(".divOfficesGridPagingDetail").hide();
+    $(".divOfficesGridPaging").hide();
+    $(".OfficeWidget").empty().append("<div class=\"row\"><div class=\"col-md-12 text-center\">No offices found.</div></div>");
+};
 office.GetOfficeGridPagination = function (obj) {
-    obj.find("ul").bootstrapPaginator({
+    obj.show().find("ul").bootstrapPaginator({
         currentPage: office.options.currentPage,
         totalPages: office.options.totalPageSize,
         bootstrapMajorVersion: 3,
@@ -44,11 +49,16 @@ office.GetOfficeWidgetHTML = function (obj) {
     return sb.toString();
 }
 office.BindOfficeWidgetClick = function (obj) {
-    obj.find(".panel-close").off("click").on("click", function () { office.DeletUserDetail(obj); });
-    obj.find(".panel-edit").off("click").on("click", function () { office.EditOfficeDetail(obj); });
+    obj.find(".panel-close").off("click.panel-close").on("click.panel-close", function (event) { event.stopPropagation(); office.DeletUserDetail(obj); });
+    obj.find(".panel-edit").off("click.panel-edit").on("click.panel-edit", function (event) { event.stopPropagation(); office.EditOfficeDetail(obj); });
+    obj.off("click.office_widget").on("click.office_widget", function () {
+        var currentObj = $(this);
+        var officeDetail = currentObj.data("office_detail")
+        window.location.href = office.options.OfficeDetailPage(officeDetail.ID);
+    });
 }
 office.OfficeWidget = function (dataObj) {
-    if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { return; }
+    if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { this.NoOfficeRecordFound(); return; }
     $(".OfficeWidget").empty();
     for (var i = 0; i < dataObj.length; i++) {
         var widget = $(this.GetOfficeWidgetHTML(dataObj[i])).data("office_detail", dataObj[i]);
@@ -56,7 +66,7 @@ office.OfficeWidget = function (dataObj) {
         $(".OfficeWidget").append(widget);
     };
     this.GetOfficeGridPagination($(".divOfficesGridPaging"));
-    $(".divOfficesGridPagingDetail").find(".dataTables_info").empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
+    $(".divOfficesGridPagingDetail").show().find(".dataTables_info").show().empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
     $(".OfficeWidget").find('.animated-bar .progress-bar').waypoint(function (direction) { $(this).progressbar({ display_text: 'none' }); }, { offset: 'bottom-in-view' });
 
 };
@@ -168,7 +178,7 @@ office.DeletUserDetail = function (obj) {
         success: function (data) {
             var status = data;
             if (status) {
-                office.OfficeWidget();
+                office.ReloadOfficeCurrentPageData();
             } else {
             }
         }
@@ -191,4 +201,7 @@ office.GetOfficesData = function (pageNo, pageSize) {
         }
     });
 };
+office.ReloadOfficeCurrentPageData = function () {
+    this.GetOfficesData(this.options.currentPage, this.options.pageSize);
+}
 $(document).ready(function () { office.GetOfficesData(1, office.options.pageSize); });

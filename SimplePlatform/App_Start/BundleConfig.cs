@@ -32,7 +32,6 @@ namespace SimplePlatform
             BUNDLE_COLLECTION = bundles;
 
             #region Public Plugins
-
             BUNDLE_COLLECTION.Add(new ScriptBundle("~/Scripts/Plugins/BASE_CONTROLLER_bundle").IncludeDirectory("~/Scripts/Plugins", "*.js", true));
             BUNDLE_COLLECTION.Add(new ScriptBundle("~/Scripts/DataTables/BASE_CONTROLLER_bundle").IncludeDirectory("~/Scripts/DataTables", "*.js"));
             BUNDLE_COLLECTION.Add(new ScriptBundle("~/Scripts/DataTables/Extentions/BASE_CONTROLLER_bundle").Include("~/Scripts/DataTables/Extentions/dataTables.bootstrap.js"));
