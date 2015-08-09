@@ -9,9 +9,13 @@ office.options = {
     currentPage: 1,
     totalRecords: 10
 };
-
+office.NoOfficeRecordFound = function () {
+    $(".divOfficesGridPagingDetail").hide();
+    $(".divOfficesGridPaging").hide();
+    $(".OfficeWidget").empty().append("<div class=\"row\"><div class=\"col-md-12 text-center\">No offices found.</div></div>");
+};
 office.GetOfficeGridPagination = function (obj) {
-    obj.find("ul").bootstrapPaginator({
+    obj.show().find("ul").bootstrapPaginator({
         currentPage: office.options.currentPage,
         totalPages: office.options.totalPageSize,
         bootstrapMajorVersion: 3,
@@ -48,7 +52,7 @@ office.BindOfficeWidgetClick = function (obj) {
     obj.find(".panel-edit").off("click").on("click", function () { office.EditOfficeDetail(obj); });
 }
 office.OfficeWidget = function (dataObj) {
-    if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { return; }
+    if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { this.NoOfficeRecordFound(); return; }
     $(".OfficeWidget").empty();
     for (var i = 0; i < dataObj.length; i++) {
         var widget = $(this.GetOfficeWidgetHTML(dataObj[i])).data("office_detail", dataObj[i]);
@@ -56,7 +60,7 @@ office.OfficeWidget = function (dataObj) {
         $(".OfficeWidget").append(widget);
     };
     this.GetOfficeGridPagination($(".divOfficesGridPaging"));
-    $(".divOfficesGridPagingDetail").find(".dataTables_info").empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
+    $(".divOfficesGridPagingDetail").show().find(".dataTables_info").show().empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
     $(".OfficeWidget").find('.animated-bar .progress-bar').waypoint(function (direction) { $(this).progressbar({ display_text: 'none' }); }, { offset: 'bottom-in-view' });
 
 };
@@ -168,7 +172,7 @@ office.DeletUserDetail = function (obj) {
         success: function (data) {
             var status = data;
             if (status) {
-                office.OfficeWidget();
+                office.ReloadOfficeCurrentPageData();
             } else {
             }
         }
@@ -191,4 +195,7 @@ office.GetOfficesData = function (pageNo, pageSize) {
         }
     });
 };
+office.ReloadOfficeCurrentPageData = function () {
+    this.GetOfficesData(this.options.currentPage, this.options.pageSize);
+}
 $(document).ready(function () { office.GetOfficesData(1, office.options.pageSize); });

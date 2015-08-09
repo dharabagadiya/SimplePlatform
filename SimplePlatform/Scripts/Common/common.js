@@ -77,6 +77,7 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
+                    if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }
