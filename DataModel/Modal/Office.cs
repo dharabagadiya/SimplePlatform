@@ -10,6 +10,10 @@ namespace DataModel.Modal
 {
     public class Office
     {
+        public Office()
+        {
+            Tasks = new List<Task>();
+        }
         public int OfficeId { get; set; }
         public String Name { get; set; }
         public String ContactNo { get; set; }
@@ -17,5 +21,6 @@ namespace DataModel.Modal
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
     }
 }
