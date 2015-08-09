@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201508091718135_DataModel_Task_Office_Mapping.Designer.cs">
       <DependentUpon>201508091718135_DataModel_Task_Office_Mapping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508091731217_DataTable_Task_Modal_Updated.cs" />
+    <Compile Include="Migrations\201508091731217_DataTable_Task_Modal_Updated.Designer.cs">
+      <DependentUpon>201508091731217_DataTable_Task_Modal_Updated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Office.cs" />
     <Compile Include="Modal\Role.cs" />
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508091718135_DataModel_Task_Office_Mapping.resx">
       <DependentUpon>201508091718135_DataModel_Task_Office_Mapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508091731217_DataTable_Task_Modal_Updated.resx">
+      <DependentUpon>201508091731217_DataTable_Task_Modal_Updated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
