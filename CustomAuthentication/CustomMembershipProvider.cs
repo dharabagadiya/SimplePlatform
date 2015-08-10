@@ -4,6 +4,7 @@ using CustomAuthentication.Security;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -126,5 +127,17 @@ namespace CustomAuthentication
         { return Context.Users.Where(modal => modal.IsDeleted == false && modal.UserId == id).FirstOrDefault(); }
         public List<User> GetUsers(int roleID)
         { return Context.Users.Where(modal => modal.Roles.Any(roleModel => roleModel.RoleId == roleID)).ToList(); }
+        public static void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Roles)
+                .WithMany(r => r.Users)
+                .Map(model =>
+                {
+                    model.ToTable("UserRoles");
+                    model.MapLeftKey("UserId");
+                    model.MapRightKey("RoleId");
+                });
+        }
     }
 }
