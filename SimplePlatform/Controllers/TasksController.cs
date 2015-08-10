@@ -15,15 +15,16 @@ namespace SimplePlatform.Controllers
 
         public ActionResult Add()
         {
-            var userManager = new DataModel.UserManager();
-            var user = userManager.GetUser(UserDetail.UserId);
+            var userDetailManager = new DataModel.UserDetailManager();
+            var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = user.Offices.ToList();
             ViewData["Offices"] = offices;
             if (IsAdmin)
             {
                 var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
+                var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
                 var role = customRoleProvider.GetRole("Employee");
-                ViewData["Employee"] = userManager.GetUsers(role.RoleId);
+                ViewData["Employee"] = customMembershipProvider.GetUsers(role.RoleId);
             }
             return PartialView();
         }

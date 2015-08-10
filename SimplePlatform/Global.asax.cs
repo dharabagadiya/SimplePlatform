@@ -22,7 +22,6 @@ namespace SimplePlatform
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Database.SetInitializer<CustomAuthentication.DataContext>(new CustomAuthentication.DataContextInitilizer());
             Database.SetInitializer<DataModel.DataContext>(new DataModel.DataContextInitilizer());
         }
 
