@@ -27,7 +27,7 @@ namespace DataModel.Migrations
             var user = new CustomAuthentication.User { UserName = "admin", Email = "admin@gmail.com", FirstName = "Admin", Password = "123456", IsActive = true, CreateDate = DateTime.UtcNow, Roles = new List<Role>() };
             user.Roles.Add(userRoles.Find(model => model.RoleName.Equals("Admin", StringComparison.InvariantCultureIgnoreCase)));
             if (context.Users.Any(model => model.UserName == user.UserName)) { return; }
-            context.Users.Add(user);
+            context.UsersDetail.Add(new Modal.UserDetail { User = user });
             context.SaveChanges();
         }
     }

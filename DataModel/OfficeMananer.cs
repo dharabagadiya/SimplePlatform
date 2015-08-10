@@ -76,8 +76,8 @@ namespace DataModel
                 .Map(model =>
                 {
                     model.ToTable("UserOffices");
-                    model.MapLeftKey("OfficeId");
-                    model.MapRightKey("UserId");
+                    model.MapLeftKey("UserId");
+                    model.MapRightKey("OfficeId");
                 });
         }
     }

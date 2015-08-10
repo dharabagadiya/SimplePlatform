@@ -3,7 +3,7 @@ namespace DataModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DataModal_Integration : DbMigration
+    public partial class DataModel_Initigration : DbMigration
     {
         public override void Up()
         {
@@ -76,14 +76,14 @@ namespace DataModel.Migrations
                 "dbo.UserOffices",
                 c => new
                     {
-                        OfficeId = c.Int(nullable: false),
                         UserId = c.Int(nullable: false),
+                        OfficeId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.OfficeId, t.UserId })
-                .ForeignKey("dbo.UserDetails", t => t.OfficeId, cascadeDelete: true)
-                .ForeignKey("dbo.Offices", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.OfficeId)
-                .Index(t => t.UserId);
+                .PrimaryKey(t => new { t.UserId, t.OfficeId })
+                .ForeignKey("dbo.UserDetails", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Offices", t => t.OfficeId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.OfficeId);
             
             CreateTable(
                 "dbo.UserRoles",
@@ -106,13 +106,13 @@ namespace DataModel.Migrations
             DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.Tasks", "UsersDetail_UserId", "dbo.UserDetails");
-            DropForeignKey("dbo.UserOffices", "UserId", "dbo.Offices");
-            DropForeignKey("dbo.UserOffices", "OfficeId", "dbo.UserDetails");
+            DropForeignKey("dbo.UserOffices", "OfficeId", "dbo.Offices");
+            DropForeignKey("dbo.UserOffices", "UserId", "dbo.UserDetails");
             DropForeignKey("dbo.Tasks", "Office_OfficeId", "dbo.Offices");
             DropIndex("dbo.UserRoles", new[] { "RoleId" });
             DropIndex("dbo.UserRoles", new[] { "UserId" });
-            DropIndex("dbo.UserOffices", new[] { "UserId" });
             DropIndex("dbo.UserOffices", new[] { "OfficeId" });
+            DropIndex("dbo.UserOffices", new[] { "UserId" });
             DropIndex("dbo.UserDetails", new[] { "UserId" });
             DropIndex("dbo.Tasks", new[] { "UsersDetail_UserId" });
             DropIndex("dbo.Tasks", new[] { "Office_OfficeId" });

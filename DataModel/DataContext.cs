@@ -22,7 +22,7 @@ namespace DataModel
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             CustomAuthentication.CustomMembershipProvider.OnModelCreating(modelBuilder);
-            UserDetailManager.OnModelCreating(modelBuilder);
+            UserManager.OnModelCreating(modelBuilder);
             OfficeMananer.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
