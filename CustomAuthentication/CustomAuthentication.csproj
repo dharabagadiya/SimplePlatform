@@ -86,6 +86,7 @@
     <Compile Include="CustomRoleProvider.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
+    <Compile Include="IUserDetail.cs" />
     <Compile Include="Migrations\201508021704111_CustomAuthentication_Init.cs" />
     <Compile Include="Migrations\201508021704111_CustomAuthentication_Init.Designer.cs">
       <DependentUpon>201508021704111_CustomAuthentication_Init.cs</DependentUpon>
