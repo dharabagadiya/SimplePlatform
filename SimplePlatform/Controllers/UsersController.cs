@@ -31,8 +31,8 @@ namespace SimplePlatform.Controllers
         public PartialViewResult Edit(int id)
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
-            var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
-            var user = customMembershipProvider.GetUsers().Where(modal => modal.UserId == id).FirstOrDefault();
+            var userManager = new DataModel.UserManager();
+            var user = userManager.GetUserDetail(id).User;
             ViewData["UserRoles"] = customRoleProvider.GetAllRoles();
             return PartialView(user);
         }
@@ -40,24 +40,24 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Add(string firstName, string lastName, string emildID, int userRoleID)
         {
-            var customMembershipProvide = new CustomAuthentication.CustomMembershipProvider();
-            var status = customMembershipProvide.CreateUser(firstName, lastName, emildID, userRoleID);
+            var userManager = new DataModel.UserManager();
+            var status = userManager.CreateUser(firstName, lastName, emildID, userRoleID);
             return Json(status);
         }
 
         [HttpPost]
         public JsonResult Update(int id, string firstName, string lastName, string emildID, int userRoleID)
         {
-            var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
-            var status = customMembershipProvider.UpdateUser(id, firstName, lastName, emildID, userRoleID);
+            var userManager = new DataModel.UserManager();
+            var status = userManager.UpdateUser(id, firstName, lastName, emildID, userRoleID);
             return Json(status);
         }
 
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
-            var status = customMembershipProvider.DeleteUser(id);
+            var userManager = new DataModel.UserManager();
+            var status = userManager.DeleteUser(id);
             return Json(status);
         }
     }

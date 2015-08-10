@@ -15,7 +15,7 @@ namespace SimplePlatform.Controllers
 
         public ActionResult Add()
         {
-            var userDetailManager = new DataModel.UserDetailManager();
+            var userDetailManager = new DataModel.UserManager();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = user.Offices.ToList();
             ViewData["Offices"] = offices;
