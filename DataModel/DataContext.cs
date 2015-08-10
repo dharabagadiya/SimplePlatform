@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using DataModel.Modal;
+using CustomAuthentication;
 #endregion
 
 namespace DataModel
@@ -20,10 +21,13 @@ namespace DataModel
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            CustomAuthentication.CustomMembershipProvider.OnModelCreating(modelBuilder);
+            UserDetailManager.OnModelCreating(modelBuilder);
             OfficeMananer.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<UserDetail> UsersDetail { get; set; }
         public DbSet<Office> Offices { get; set; }
         public DbSet<Task> Tasks { get; set; }
     }

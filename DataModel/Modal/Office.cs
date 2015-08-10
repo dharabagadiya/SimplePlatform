@@ -20,7 +20,7 @@ namespace DataModel.Modal
         public String City { get; set; }
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<UserDetail> UsersDetail { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace DataModel
     public class DataContextInitilizer : CreateDatabaseIfNotExists<DataContext>
     {
         protected override void Seed(DataContext context)
-        { }
+        {
+            Database.SetInitializer<CustomAuthentication.DataContext>(new CustomAuthentication.DataContextInitilizer());
+        }
     }
 }

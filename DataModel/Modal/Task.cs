@@ -13,6 +13,6 @@ namespace DataModel.Modal
         public DateTime DueDate { get; set; }
         public String Description { get; set; }
         public virtual Office Office { get; set; }
-        public virtual User User { get; set; }
+        public virtual UserDetail UsersDetail { get; set; }
     }
 }

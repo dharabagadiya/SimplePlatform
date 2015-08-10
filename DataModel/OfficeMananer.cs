@@ -14,7 +14,7 @@ namespace DataModel
         {
             try
             {
-                var users = Context.Users.Where(model => model.UserId == userID).ToList();
+                var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
                 if (users == null || users.Count <= 0) { return false; }
                 if (Context.Offices.Any(model => model.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))) { return false; }
                 Context.Offices.Add(new Modal.Office
@@ -22,7 +22,7 @@ namespace DataModel
                     Name = name,
                     ContactNo = contactNo,
                     City = city,
-                    Users = users
+                    UsersDetail = users
                 });
                 var status = Context.SaveChanges();
                 return true;
@@ -36,14 +36,14 @@ namespace DataModel
         {
             try
             {
-                var users = Context.Users.Where(model => model.UserId == userID).ToList();
+                var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
                 if (users == null || users.Count <= 0) { return false; }
                 var office = Context.Offices.Where(model => model.OfficeId == id).FirstOrDefault();
                 if (office == null) { return false; }
                 office.Name = name;
                 office.ContactNo = contactNo;
                 office.City = city;
-                office.Users = users;
+                office.UsersDetail = users;
                 Context.SaveChanges();
                 return true;
             }
@@ -70,9 +70,9 @@ namespace DataModel
         }
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Modal.User>()
+            modelBuilder.Entity<Modal.UserDetail>()
                 .HasMany(u => u.Offices)
-                .WithMany(r => r.Users)
+                .WithMany(r => r.UsersDetail)
                 .Map(model =>
                 {
                     model.ToTable("UserOffices");

@@ -7,13 +7,13 @@ namespace DataModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Data_Modal_Office_IsDeleted : IMigrationMetadata
+    public sealed partial class DataModal_Integration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Data_Modal_Office_IsDeleted));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DataModal_Integration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508082015182_Data_Modal_Office_IsDeleted"; }
+            get { return "201508100224242_DataModal_Integration"; }
         }
         
         string IMigrationMetadata.Source

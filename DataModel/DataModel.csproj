@@ -51,62 +51,32 @@
   <ItemGroup>
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
-    <Compile Include="Migrations\201508040145104_Simple_Platform_Office.cs" />
-    <Compile Include="Migrations\201508040145104_Simple_Platform_Office.Designer.cs">
-      <DependentUpon>201508040145104_Simple_Platform_Office.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508082015182_Data_Modal_Office_IsDeleted.cs" />
-    <Compile Include="Migrations\201508082015182_Data_Modal_Office_IsDeleted.Designer.cs">
-      <DependentUpon>201508082015182_Data_Modal_Office_IsDeleted.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508091600215_DataModel_Office_Updated.cs" />
-    <Compile Include="Migrations\201508091600215_DataModel_Office_Updated.Designer.cs">
-      <DependentUpon>201508091600215_DataModel_Office_Updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508091610049_DataTable_User_Migration.cs" />
-    <Compile Include="Migrations\201508091610049_DataTable_User_Migration.Designer.cs">
-      <DependentUpon>201508091610049_DataTable_User_Migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508091718135_DataModel_Task_Office_Mapping.cs" />
-    <Compile Include="Migrations\201508091718135_DataModel_Task_Office_Mapping.Designer.cs">
-      <DependentUpon>201508091718135_DataModel_Task_Office_Mapping.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508091731217_DataTable_Task_Modal_Updated.cs" />
-    <Compile Include="Migrations\201508091731217_DataTable_Task_Modal_Updated.Designer.cs">
-      <DependentUpon>201508091731217_DataTable_Task_Modal_Updated.cs</DependentUpon>
+    <Compile Include="Migrations\201508100224242_DataModal_Integration.cs" />
+    <Compile Include="Migrations\201508100224242_DataModal_Integration.Designer.cs">
+      <DependentUpon>201508100224242_DataModal_Integration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Office.cs" />
-    <Compile Include="Modal\Role.cs" />
     <Compile Include="Modal\Task.cs" />
-    <Compile Include="Modal\User.cs" />
+    <Compile Include="Modal\UserDetail.cs" />
     <Compile Include="OfficeMananer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskManager.cs" />
-    <Compile Include="UserManager.cs" />
+    <Compile Include="UserDetailManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508040145104_Simple_Platform_Office.resx">
-      <DependentUpon>201508040145104_Simple_Platform_Office.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508082015182_Data_Modal_Office_IsDeleted.resx">
-      <DependentUpon>201508082015182_Data_Modal_Office_IsDeleted.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508091600215_DataModel_Office_Updated.resx">
-      <DependentUpon>201508091600215_DataModel_Office_Updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508091610049_DataTable_User_Migration.resx">
-      <DependentUpon>201508091610049_DataTable_User_Migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508091718135_DataModel_Task_Office_Mapping.resx">
-      <DependentUpon>201508091718135_DataModel_Task_Office_Mapping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508091731217_DataTable_Task_Modal_Updated.resx">
-      <DependentUpon>201508091731217_DataTable_Task_Modal_Updated.cs</DependentUpon>
+    <ProjectReference Include="..\CustomAuthentication\CustomAuthentication.csproj">
+      <Project>{bfad8a8e-0154-4a4a-a7f1-8b744018d375}</Project>
+      <Name>CustomAuthentication</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508100224242_DataModal_Integration.resx">
+      <DependentUpon>201508100224242_DataModal_Integration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

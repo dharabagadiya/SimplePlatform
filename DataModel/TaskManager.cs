@@ -10,6 +10,8 @@ namespace DataModel
     public class TaskManager
     {
         public static void OnModelCreating(DbModelBuilder modelBuilder)
-        { }
+        {
+
+        }
     }
 }
