@@ -110,6 +110,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Plugins\chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\Plugins\chosen\chosen-sprite.png" />
+    <Content Include="Content\Plugins\chosen\chosen.min.css" />
     <Content Include="Content\Common\custom.css" />
     <Content Include="Content\DataTables\css\dataTables.autoFill.css" />
     <Content Include="Content\DataTables\css\dataTables.autoFill.min.css" />
@@ -252,6 +255,7 @@
     <Content Include="Scripts\DataTables\Extentions\dataTables.tableTools.min.js" />
     <Content Include="Scripts\DataTables\dataTables.js" />
     <Content Include="Scripts\DataTables\dataTables.min.js" />
+    <Content Include="Scripts\Plugins\chosen\chosen.min.js" />
     <Content Include="Scripts\Plugins\global.js" />
     <Content Include="Scripts\Plugins\jquery-1.11.3.js" />
     <Content Include="Scripts\Plugins\jquery-1.11.3.min.js" />

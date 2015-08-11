@@ -16,8 +16,9 @@ namespace SimplePlatform.Controllers
         public ActionResult Add()
         {
             var userDetailManager = new DataModel.UserManager();
+            var officeMananer = new DataModel.OfficeMananer();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
-            var offices = user.Offices.ToList();
+            var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
             ViewData["Offices"] = offices;
             if (IsAdmin)
             {

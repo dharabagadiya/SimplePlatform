@@ -14,9 +14,11 @@
                 </div>
                 <div class="form-group">
                     <label for="dtDueDate">Due Date</label>
-                    <div class="input-group input-icon">
+                    <div class="input-group input-icon input-daterange" id="datepicker">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" class="form-control" id="txtDueDate">
+                        <input type="text" class="form-control" id="txtDueDateStart" name="txtDueDateStart" readonly="readonly">
+                        <span class="input-group-addon">to</span>
+                        <input type="text" class="form-control" id="txtDueDateEnd" name="txtDueDateEnd" readonly="readonly">
                     </div>
                 </div>
                 <div class="form-group">
@@ -25,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label for="SelectOffice">Select Office</label>
-                    <select class="form-control" id="dwnUserRoles">
+                    <select class="form-control" id="dwnOffices">
                         @foreach (var office in offices)
                         {
                             <option value="@office.OfficeId">@office.Name</option>

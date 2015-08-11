@@ -14,6 +14,12 @@ function GetPosXY(obj) { return { "eWidth": obj.width(), "eHeight": obj.height()
 /* Date Object Extension */
 Date.prototype.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 Date.prototype.shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+Date.prototype.mmddyyyy = function () {
+    var yyyy = this.getFullYear().toString();
+    var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
+    var dd = this.getDate().toString();
+    return (mm + "/" + dd + "/" + yyyy); // padding
+};
 Date.prototype.getMonthName = function () { return this.monthNames[this.getMonth()]; };
 Date.prototype.getShortMonthName = function () { return this.getMonthName().substr(0, 3); };
 Date.prototype.getYear = function () { return this.getFullYear().toString().substr(2, 2); };
