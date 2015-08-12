@@ -55,6 +55,10 @@
     <Compile Include="Migrations\201508101754013_DataModel_Initigration.Designer.cs">
       <DependentUpon>201508101754013_DataModel_Initigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508121915566_DataModel_Task_Updated.cs" />
+    <Compile Include="Migrations\201508121915566_DataModel_Task_Updated.Designer.cs">
+      <DependentUpon>201508121915566_DataModel_Task_Updated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Office.cs" />
     <Compile Include="Modal\Task.cs" />
@@ -77,6 +81,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201508101754013_DataModel_Initigration.resx">
       <DependentUpon>201508101754013_DataModel_Initigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508121915566_DataModel_Task_Updated.resx">
+      <DependentUpon>201508121915566_DataModel_Task_Updated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
