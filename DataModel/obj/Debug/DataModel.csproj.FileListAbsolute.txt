@@ -5,7 +5,6 @@ D:\Project\SimplePlatform\DataModel\bin\Debug\EntityFramework.dll
 D:\Project\SimplePlatform\DataModel\bin\Debug\EntityFramework.SqlServer.dll
 D:\Project\SimplePlatform\DataModel\bin\Debug\EntityFramework.xml
 D:\Project\SimplePlatform\DataModel\bin\Debug\EntityFramework.SqlServer.xml
-D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.Migrations.Simple_Platform_Office.resources
 D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.csproj.GenerateResource.Cache
 D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.dll
 D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.pdb
@@ -21,3 +20,19 @@ D:\Test Project\VS2015\SimplePlatform\DataModel\obj\Debug\DataModel.Migrations.S
 D:\Test Project\VS2015\SimplePlatform\DataModel\obj\Debug\DataModel.csproj.GenerateResource.Cache
 D:\Test Project\VS2015\SimplePlatform\DataModel\obj\Debug\DataModel.dll
 D:\Test Project\VS2015\SimplePlatform\DataModel\obj\Debug\DataModel.pdb
+D:\Project\SimplePlatform\DataModel\obj\Debug\DataModel.Migrations.DataModel_Initigration.resources
+D:\Project\SimplePlatform\DataModel\bin\Debug\CustomAuthentication.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.Mvc.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\Newtonsoft.Json.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.WebPages.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.Razor.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Project\SimplePlatform\DataModel\bin\Debug\CustomAuthentication.pdb
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.Mvc.xml
+D:\Project\SimplePlatform\DataModel\bin\Debug\Newtonsoft.Json.xml
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.WebPages.xml
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.Razor.xml
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Project\SimplePlatform\DataModel\bin\Debug\System.Web.WebPages.Deployment.xml

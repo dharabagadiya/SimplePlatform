@@ -22,7 +22,6 @@ namespace DataModel
                     StartDate = startDate,
                     EndDate = endDate,
                     Description = description,
-                    Office = officeID
                 });
                 var status = Context.SaveChanges();
                 return true;
