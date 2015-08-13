@@ -279,6 +279,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfficesController.cs" />
@@ -310,6 +311,7 @@
     <Content Include="Views\Offices\Edit.cshtml" />
     <Content Include="Views\Offices\Detail.cshtml" />
     <Content Include="Views\Tasks\Add.cshtml" />
+    <Content Include="Views\Events\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
