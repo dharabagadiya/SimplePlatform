@@ -27,7 +27,7 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                     }
                 }
             }
-        }).on('success.form.bv', function (e) {
+        }).off("success.form.bv").on('success.form.bv', function (e) {
             e.preventDefault();
             var formObj = $(e.target);;
             var name = formObj.find("#txtName").val();
@@ -41,16 +41,11 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
                 url: "/Tasks/Add",
-                async: true,
+                async: false,
                 data: JSON.stringify({ "name": name, "startDate": startDate, "endDate": endDate, "description": description, "officeID": officeID, "userID": userID }),
                 success: function (data) {
                     var status = data;
-                    if (status) {
-                        obj.modal('hide');
-                        if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
-                    } else {
-                        obj.find("#divCommonMessage").removeClass("hidden");
-                    }
+                    if (status) { obj.modal('hide'); } else { }
                 }
             });
         });

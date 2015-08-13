@@ -45,8 +45,8 @@ namespace SimplePlatform.Controllers
         public JsonResult Add(string name, string startDate, string endDate, string description, int officeID, int userID)
         {
             var taskManager = new DataModel.TaskManager();
-            taskManager.Add(name, startDate, endDate, description, officeID, userID);
-            return Json(null);
+            var status = taskManager.Add(name, startDate, endDate, description, officeID, userID);
+            return Json(status);
         }
     }
 }
