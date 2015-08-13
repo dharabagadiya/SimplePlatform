@@ -51,11 +51,13 @@
   <ItemGroup>
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
+    <Compile Include="EventManager.cs" />
     <Compile Include="Migrations\201508101754013_DataModel_Initigration.cs" />
     <Compile Include="Migrations\201508101754013_DataModel_Initigration.Designer.cs">
       <DependentUpon>201508101754013_DataModel_Initigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Modal\Event.cs" />
     <Compile Include="Modal\Office.cs" />
     <Compile Include="Modal\Task.cs" />
     <Compile Include="Modal\UserDetail.cs" />

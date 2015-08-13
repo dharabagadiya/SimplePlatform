@@ -30,5 +30,6 @@ namespace DataModel
         public DbSet<UserDetail> UsersDetail { get; set; }
         public DbSet<Office> Offices { get; set; }
         public DbSet<Task> Tasks { get; set; }
+        public DbSet<Event> Events { get; set; }
     }
 }
