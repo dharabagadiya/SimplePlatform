@@ -1,72 +1,5 @@
 ﻿var simplePlatform = {};
-simplePlatform.ValidateModalEventForm = function (obj) {
-    obj.find("form")
-        .bootstrapValidator({
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                name: {
-                    message: 'The name is not valid',
-                    validators: {
-                        notEmpty: {
-                            message: 'The name is required and cannot be empty'
-                        },
-                        stringLength: {
-                            min: 5,
-                            max: 30,
-                            message: 'The name must be more than 5 and less than 30 characters long'
-                        },
-                        regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
-                        }
-                    }
-                }
-            }
-        }).on('success.form.bv', function (e) {
-            e.preventDefault();
-            var formObj = $(e.target);;
-            var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val();
-            var endDates = formObj.find("#txtDueDateEnd").val();
-            var description = formObj.find("#txtDescription").val();
-            var officeID = formObj.find("#dwnOffices").val();
-            $.ajax({
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                url: "/Events/Add",
-                async: false,
-                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "officeID": officeID }),
-                success: function (data) {
-                    var status = data;
-                    if (status) {
-                        obj.modal('hide');
-                        if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
-                    } else {
-                        obj.find("#divCommonMessage").removeClass("hidden");
-                    }
-                }
-            });
-        });
-};
-simplePlatform.BindHeaderAddEventClickEvent = function () {
-    var obj = $("#lnkAddEvents");
-    obj.off("click.lnkAddEvents").on("click.lnkAddEvents", $.proxy(function (event) {
-        var currentObj = $(event.currentTarget);
-        $("#divCommonModalPlaceHolder").empty();
-        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
-            this.ValidateModalTaskForm(dialogContentPlaceHolder);
-        }, this));
-        return false;
-    }, this));
-};
+simplePlatform
 simplePlatform.ValidateModalTaskForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({
@@ -94,31 +27,27 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                     }
                 }
             }
-        }).on('success.form.bv', function (e) {
+        }).off("success.form.bv").on('success.form.bv', function (e) {
             e.preventDefault();
             var formObj = $(e.target);;
             var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val();
-            var endDates = formObj.find("#txtDueDateEnd").val();
+            var startDate = formObj.find("#txtDueDateStart").val();
+            var endDate = formObj.find("#txtDueDateEnd").val();
             var description = formObj.find("#txtDescription").val();
-            var officeID = formObj.find("#dwnOffices").val();
-            //$.ajax({
-            //    dataType: "json",
-            //    contentType: "application/json; charset=utf-8",
-            //    type: "POST",
-            //    url: "/Offices/Add",
-            //    async: false,
-            //    data: JSON.stringify({ "name": name, "contactNo": contactNo, "city": city, "userID": userID }),
-            //    success: function (data) {
-            //        var status = data;
-            //        if (status) {
-            //            obj.modal('hide');
-            //            if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
-            //        } else {
-            //            obj.find("#divCommonMessage").removeClass("hidden");
-            //        }
-            //    }
-            //});
+            var officeID = formObj.find("#hdnOfficeID").val();
+            var userID = formObj.find("#hdnUserID").val();
+            $.ajax({
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                url: "/Tasks/Add",
+                async: false,
+                data: JSON.stringify({ "name": name, "startDate": startDate, "endDate": endDate, "description": description, "officeID": officeID, "userID": userID }),
+                success: function (data) {
+                    var status = data;
+                    if (status) { obj.modal('hide'); } else { }
+                }
+            });
         });
 };
 simplePlatform.BindHeaderAddTaskClickEvent = function () {
@@ -130,6 +59,13 @@ simplePlatform.BindHeaderAddTaskClickEvent = function () {
             dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
             dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
             dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
+            dialogContentPlaceHolder.find("#dwnOffices").chosen({ width: "100%" }).unbind("change").bind("change", function () {
+                var groupObj = $(this.options[this.selectedIndex]).closest('optgroup');
+                var officeID = 0, userID = 0;
+                if (groupObj.length > 0) { officeID = groupObj.attr("id"); userID = $(this).val(); } else { officeID = $(this).val(); }
+                dialogContentPlaceHolder.find("#hdnOfficeID").val(officeID);
+                dialogContentPlaceHolder.find("#hdnUserID").val(userID);
+            }).change();
             this.ValidateModalTaskForm(dialogContentPlaceHolder);
         }, this));
         return false;
@@ -330,7 +266,6 @@ simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderAddUserClickEvent();
     this.BindHeaderAddOfficeClickEvent();
     this.BindHeaderAddTaskClickEvent();
-    this.BindHeaderAddEventClickEvent();
 };
 $(document).ready(function () {
     simplePlatform.BindHeaderAddClickEvents();

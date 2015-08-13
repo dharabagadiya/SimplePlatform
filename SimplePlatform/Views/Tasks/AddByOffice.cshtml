@@ -1,8 +1,6 @@
 ﻿@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
 
 <form action="@Url.Action("Add", "Tasks")" type="post">
-    <input type="hidden" id="hdnOfficeID" />
-    <input type="hidden" id="hdnUserID" />
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -12,7 +10,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="Name">Name</label>
-                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
+                     <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
                 </div>
                 <div class="form-group">
                     <label for="dtDueDate">Due Date</label>
@@ -29,14 +27,18 @@
                 </div>
                 <div class="form-group">
                     <label for="SelectOffice">Select Office</label>
-                    <select class="form-control" id="dwnOffices">
+                    <select data-placeholder="Select User" id="dwnOffices" class="chosen-select form-control">
                         @foreach (var office in offices)
                         {
-                            <option value="@office.OfficeId">@office.Name</option>
+                            <optgroup label="@office.Name" id="@office.OfficeId">
+                                @foreach (var user in office.UsersDetail)
+                                {
+                                    <option value="@user.User.UserId">@user.User.FirstName @user.User.FirstName</option>
+                                }
+                            </optgroup>
                         }
                     </select>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" id="btnAddOffice">Add</button>

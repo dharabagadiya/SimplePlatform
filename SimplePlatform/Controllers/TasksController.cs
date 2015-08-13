@@ -15,6 +15,17 @@ namespace SimplePlatform.Controllers
 
         public ActionResult Add()
         {
+            if (!IsAdmin) { return RedirectToAction("AddByOffice"); }
+            var userDetailManager = new DataModel.UserManager();
+            var officeMananer = new DataModel.OfficeMananer();
+            var user = userDetailManager.GetUserDetail(UserDetail.UserId);
+            var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
+            ViewData["Offices"] = offices;
+            return PartialView();
+        }
+
+        public ActionResult AddByOffice()
+        {
             var userDetailManager = new DataModel.UserManager();
             var officeMananer = new DataModel.OfficeMananer();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
@@ -28,6 +39,14 @@ namespace SimplePlatform.Controllers
                 ViewData["Employee"] = customMembershipProvider.GetUsers(role.RoleId);
             }
             return PartialView();
+        }
+
+        [HttpPost]
+        public JsonResult Add(string name, string startDate, string endDate, string description, int officeID, int userID)
+        {
+            var taskManager = new DataModel.TaskManager();
+            var status = taskManager.Add(name, startDate, endDate, description, officeID, userID);
+            return Json(status);
         }
     }
 }
