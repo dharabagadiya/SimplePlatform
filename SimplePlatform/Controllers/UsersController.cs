@@ -17,14 +17,16 @@ namespace SimplePlatform.Controllers
 
         public JsonResult GetUsers()
         {
-            var customMembershipProvide = new CustomAuthentication.CustomMembershipProvider();
-            var users = customMembershipProvide.GetUsers().Select(modal => new { id = modal.UserId, firstName = modal.FirstName, lastName = modal.LastName, createDate = modal.CreateDate.ToString("dd-MM-yyyy"), userRoles = string.Join(", ", modal.Roles.Select(roleModal => roleModal.RoleName).ToArray()), userRolesID = string.Join(", ", modal.Roles.Select(roleModal => roleModal.RoleId).ToArray()) }).ToList();
+            var userManager = new DataModel.UserManager();
+            var users = userManager.GetUsersDetails().Where(model => !model.User.Roles.Any(roleModel => roleModel.RoleId == 1)).Select(modal => new { id = modal.UserId, firstName = modal.User.FirstName, lastName = modal.User.LastName, createDate = modal.User.CreateDate.ToString("dd-MM-yyyy"), userRoles = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleName).ToArray()), userRolesID = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleId).ToArray()), userOfficesID = string.Join(", ", modal.Offices.Select(officeModel => officeModel.OfficeId).ToArray()) }).ToList();
             return Json(new { data = users });
         }
 
         public PartialViewResult Add()
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
+            var officeMananer = new DataModel.OfficeMananer();
+            ViewData["Offices"] = officeMananer.GetOffices();
             return PartialView(customRoleProvider.GetAllRoles());
         }
 
@@ -34,22 +36,24 @@ namespace SimplePlatform.Controllers
             var userManager = new DataModel.UserManager();
             var user = userManager.GetUserDetail(id).User;
             ViewData["UserRoles"] = customRoleProvider.GetAllRoles();
+            var officeMananer = new DataModel.OfficeMananer();
+            ViewData["Offices"] = officeMananer.GetOffices();
             return PartialView(user);
         }
 
         [HttpPost]
-        public JsonResult Add(string firstName, string lastName, string emildID, int userRoleID)
+        public JsonResult Add(string firstName, string lastName, string emildID, int userRoleID, int officeID)
         {
             var userManager = new DataModel.UserManager();
-            var status = userManager.CreateUser(firstName, lastName, emildID, userRoleID);
+            var status = userManager.CreateUser(firstName, lastName, emildID, userRoleID, officeID);
             return Json(status);
         }
 
         [HttpPost]
-        public JsonResult Update(int id, string firstName, string lastName, string emildID, int userRoleID)
+        public JsonResult Update(int id, string firstName, string lastName, string emildID, int userRoleID, int officesID)
         {
             var userManager = new DataModel.UserManager();
-            var status = userManager.UpdateUser(id, firstName, lastName, emildID, userRoleID);
+            var status = userManager.UpdateUser(id, firstName, lastName, emildID, userRoleID, officesID);
             return Json(status);
         }
 

@@ -16,12 +16,12 @@ namespace SimplePlatform.Controllers
     {
         #region Private Members
         private static readonly string ADMIN_ROLE = "Admin";
-        private CustomAuthentication.User user { get; set; }
+        private DataModel.Modal.UserDetail user { get; set; }
         private bool isAdmin { get; set; }
         #endregion
 
         #region Public Members
-        public CustomAuthentication.User UserDetail { get { return user; } }
+        public DataModel.Modal.UserDetail UserDetail { get { return user; } }
         public bool IsAdmin { get { return isAdmin; } }
         public string ControllerName { get; set; }
         public string Script { get { return ViewData["View_Script"].ToString(); } set { ViewData["View_Script"] += value; } }
@@ -36,8 +36,10 @@ namespace SimplePlatform.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             #region User Specific Settings
-            user = (CustomAuthentication.User)(Session["User"]);
-            isAdmin = user.Roles.Any(model => model.RoleName.Equals(ADMIN_ROLE, StringComparison.InvariantCultureIgnoreCase));
+            var sessionUser = (CustomAuthentication.User)(Session["User"]);
+            var userManager = new DataModel.UserManager();
+            user = userManager.GetUserDetail(sessionUser.UserId);
+            isAdmin = user.User.Roles.Any(model => model.RoleName.Equals(ADMIN_ROLE, StringComparison.InvariantCultureIgnoreCase));
             #endregion
 
             ControllerName = filterContext.RouteData.Values["controller"].ToString();

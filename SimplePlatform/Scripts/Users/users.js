@@ -66,13 +66,14 @@ users.ValidateModalUserForm = function (obj) {
         var lastName = formObj.find("#txtUserLastName").val();
         var emailID = formObj.find("#txtUserEmailAddress").val();
         var userRoleID = formObj.find("#dwnUserRoles").val();
+        var officesID = formObj.find("#dwnOfficeList").length > 0 ? formObj.find("#dwnOfficeList").val() : 0;
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
             url: users.options.UpdateURL,
             async: false,
-            data: JSON.stringify({ "id": id, "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID }),
+            data: JSON.stringify({ "id": id, "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID, "officesID": officesID }),
             success: function (data) {
                 var status = data;
                 if (status) {
@@ -93,6 +94,7 @@ users.EditUserDetail = function (obj) {
         this.ValidateModalUserForm(dialogContentPlaceHolder);
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
         dialogContentPlaceHolder.find("#dwnUserRoles").val(userDetail.userRolesID);
+        dialogContentPlaceHolder.find("#dwnOfficeList").val(userDetail.userOfficesID);
     }, this));
 };
 users.DeletUserDetail = function (obj) {

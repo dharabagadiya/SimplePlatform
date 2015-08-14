@@ -67,6 +67,7 @@ simplePlatform.BindHeaderAddEventClickEvent = function () {
         return false;
     }, this));
 };
+
 simplePlatform.ValidateModalTaskForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({
@@ -138,6 +139,7 @@ simplePlatform.BindHeaderAddTaskClickEvent = function () {
         return false;
     }, this));
 };
+
 simplePlatform.ValidateModalOfficeForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -298,18 +300,20 @@ simplePlatform.ValidateModalUserForm = function (obj) {
         var lastName = formObj.find("#txtUserLastName").val();
         var emailID = formObj.find("#txtUserEmailAddress").val();
         var userRoleID = formObj.find("#dwnUserRoles").val();
+        var officeID = formObj.find("#dwnOfficeList").length > 0 ? formObj.find("#dwnOfficeList").val() : 0;
+        if (IsNullOrEmpty(officeID)) { officeID = 0; }
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
             url: "/Users/Add",
             async: false,
-            data: JSON.stringify({ "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID }),
+            data: JSON.stringify({ "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID, "officeID": officeID }),
             success: function (data) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                    $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                    if ($('#myDataTable').length > 0) $('#myDataTable').dataTable().api().ajax.reload(null, false);
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }

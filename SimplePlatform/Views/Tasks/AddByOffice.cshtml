@@ -1,6 +1,9 @@
 ﻿@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+@{ var userID = (int)ViewData["UserID"]; }
 
 <form action="@Url.Action("Add", "Tasks")" type="post">
+    <input type="hidden" id="hdnOfficeID" />
+    <input type="hidden" id="hdnUserID" />
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -10,7 +13,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="Name">Name</label>
-                     <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
+                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
                 </div>
                 <div class="form-group">
                     <label for="dtDueDate">Due Date</label>
@@ -31,7 +34,7 @@
                         @foreach (var office in offices)
                         {
                             <optgroup label="@office.Name" id="@office.OfficeId">
-                                @foreach (var user in office.UsersDetail)
+                                @foreach (var user in office.UsersDetail.Where(model => model.UserId != userID))
                                 {
                                     <option value="@user.User.UserId">@user.User.FirstName @user.User.FirstName</option>
                                 }

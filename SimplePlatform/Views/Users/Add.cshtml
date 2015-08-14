@@ -1,4 +1,5 @@
 ﻿@model List<CustomAuthentication.Role>
+@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
 
 <form action="@Url.Action("Add", "Users")" method="post">
     <div class="modal-dialog divUserModalDialog">
@@ -40,6 +41,22 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                @if (offices != null && offices.Count > 0)
+                {
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="SelectUserRole">Select Office</label>
+                            <select class="form-control" id="dwnOfficeList">
+                                <option value="-1">Select Office</option>
+                                @foreach (var office in offices)
+                                {
+                                    <option value="@office.OfficeId">@office.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" id="btnAddUser">Add</button>
