@@ -19,14 +19,15 @@ namespace DataModel
             modelBuilder.Entity<UserDetail>().HasRequired(e => e.User).WithRequiredDependent(model => (UserDetail)model.UserDetail);
         }
 
-        public bool CreateUser(string firstName, string lastName, string emildID, int userRoleID)
+        public bool CreateUser(string firstName, string lastName, string emildID, int userRoleID, int officeID)
         {
             try
             {
                 if (Context.Users.Any(model => model.UserName.Equals(emildID, StringComparison.InvariantCultureIgnoreCase))) { return false; }
+                var offices = Context.Offices.Where(model => model.OfficeId == officeID).ToList();
                 var roles = Context.Roles.Where(model => model.RoleId == userRoleID).ToList();
-                var user = new CustomAuthentication.User { UserName = emildID, Password = "12345", Email = emildID, FirstName = firstName, LastName = lastName, Roles = roles, CreateDate = DateTime.UtcNow };
-                Context.UsersDetail.Add(new UserDetail { User = user });
+                var user = new User { UserName = emildID, Password = "12345", Email = emildID, FirstName = firstName, LastName = lastName, Roles = roles, CreateDate = DateTime.UtcNow };
+                Context.UsersDetail.Add(new UserDetail { User = user, Offices = offices });
                 Context.SaveChanges();
                 return true;
             }
@@ -35,20 +36,23 @@ namespace DataModel
                 return false;
             }
         }
-        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID)
+        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID, int officeID)
         {
             try
             {
                 var userDetail = GetUserDetail(id);
                 if (userDetail == null) { return false; }
                 userDetail.User.Roles.Remove(userDetail.User.Roles.FirstOrDefault());
+                userDetail.Offices.Remove(userDetail.Offices.FirstOrDefault());
                 Context.SaveChanges();
                 var roles = Context.Roles.Where(model => model.RoleId == userRoleID).ToList();
+                var offices = Context.Offices.Where(model => model.OfficeId == officeID).ToList();
                 userDetail.User.UserName = emildID;
                 userDetail.User.Email = emildID;
                 userDetail.User.FirstName = firstName;
                 userDetail.User.LastName = lastName;
                 userDetail.User.Roles = roles;
+                userDetail.Offices = offices;
                 Context.SaveChanges();
                 return true;
             }
@@ -74,7 +78,7 @@ namespace DataModel
         }
         public List<User> GetUsers(int roleID)
         { return Context.Users.Where(modal => modal.Roles.Any(roleModel => roleModel.RoleId == roleID)).ToList(); }
-        public List<UserDetail> GetUsersDetail()
+        public List<UserDetail> GetUsersDetails()
         { return Context.UsersDetail.ToList(); }
         public UserDetail GetUserDetail(int id)
         { return Context.UsersDetail.Where(modal => modal.UserId == id).FirstOrDefault(); }
