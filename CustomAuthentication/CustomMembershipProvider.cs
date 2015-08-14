@@ -83,7 +83,7 @@ namespace CustomAuthentication
 
         public bool Authenticate(string username, string password)
         {
-            var user = Context.Users.Where(model => (model.UserName.Equals(model.UserName) || model.Email.Equals(model.UserName)) && model.Password.Equals(password)).FirstOrDefault();
+            var user = Context.Users.Where(model => (model.UserName.Equals(username) || model.Email.Equals(username)) && model.Password.Equals(password)).FirstOrDefault();
             if (user == null) { return false; }
             else { InitializeUserSession(user); return true; };
         }
