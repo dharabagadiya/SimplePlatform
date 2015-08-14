@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace SimplePlatform.Controllers
 {
-    [CustomAuthorize(Roles = "Admin")]
+    [CustomAuthorize(Roles = "Admin, Offices")]
     public class HomeController : BaseController
     {
         public ActionResult Index()
