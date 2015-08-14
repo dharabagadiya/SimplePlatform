@@ -38,5 +38,8 @@ namespace DataModel
                 return false;
             }
         }
+
+        public List<Modal.Task> GetTasks()
+        { return Context.Tasks.ToList(); }
     }
 }
