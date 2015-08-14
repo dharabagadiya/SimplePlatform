@@ -14,6 +14,5 @@ namespace DataModel.Modal
         public DateTime EndDate { get; set; }
         public String Description { get; set; }
         public virtual Office Office { get; set; }
-        public virtual UserDetail UsersDetail { get; set; }
     }
 }

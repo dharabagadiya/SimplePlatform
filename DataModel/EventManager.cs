@@ -16,12 +16,14 @@ namespace DataModel
                 //var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
                 //if (users == null || users.Count <= 0) { return false; }
                 //if (Context.Offices.Any(model => model.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))) { return false; }
+                var office = Context.Offices.Where(model => model.OfficeId == officeID).FirstOrDefault();
                 Context.Events.Add(new Modal.Event
                 {
                     Name = name,
                     StartDate = startDate,
                     EndDate = endDate,
                     Description = description,
+                    Office = office
                 });
                 var status = Context.SaveChanges();
                 return true;
