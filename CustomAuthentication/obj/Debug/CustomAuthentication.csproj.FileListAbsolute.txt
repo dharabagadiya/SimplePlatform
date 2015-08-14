@@ -24,8 +24,6 @@ D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Mi
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csproj.GenerateResource.Cache
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.dll
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.pdb
-D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csprojResolveAssemblyReference.cache
-D:\Project\SimplePlatform\CustomAuthentication\bin\Debug\GridMvc.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.dll.config
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.pdb
@@ -52,3 +50,4 @@ D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthe
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csproj.GenerateResource.Cache
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.pdb
+D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Migrations.CustomAuthentication_User_Delete_Column.resources
