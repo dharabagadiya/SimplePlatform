@@ -8,9 +8,18 @@ namespace SimplePlatform.Controllers
 {
     public class TasksController : BaseController
     {
-        public ActionResult Index(int id = 0)
+        public ActionResult Index()
         {
+            BundleConfig.AddScript("~/Scripts/Tasks", "tasks.js", ControllerName);
+
             return View();
+        }
+
+        public JsonResult GetTasks()
+        {
+            var taskManager = new DataModel.TaskManager();
+            var task = taskManager.GetTasks().Select(model => new { ID = model.TaskId, Title = model.Name, DueDate = model.EndDate.ToString("dd-MM-yyyy"), AssignTo = (model.UsersDetail == null ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName)) }).ToList();
+            return Json(new { data = task });
         }
 
         public ActionResult Add()
