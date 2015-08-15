@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace DataModel.Modal
 {
-    public class Event
+    public class Convention
     {
-        public int EventId { get; set; }
+        public int ConventionId { get; set; }
         public String Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public String Description { get; set; }
-        public virtual Office Office { get; set; }
         public bool IsDeleted { get; set; }
+        public virtual ICollection<UserDetail> UsersDetail { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 }
