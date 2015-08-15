@@ -195,6 +195,7 @@
     <Content Include="Content\Plugins\main.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Events\Events.js" />
     <Content Include="Scripts\Offices\Offices.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrapValidator.js" />
     <Content Include="Scripts\Plugins\Bootstrap-Datepicker\bootstrap_datepicker.js" />
@@ -306,6 +307,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LeftPannel.cshtml" />
     <Content Include="Views\Offices\Add.cshtml" />
+    <Content Include="Views\Users\Add.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Offices\Index.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
@@ -314,6 +316,8 @@
     <Content Include="Views\Tasks\Add.cshtml" />
     <Content Include="Views\Tasks\AddByOffice.cshtml" />
     <Content Include="Views\Events\Add.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Tasks\Edit.cshtml" />
     <None Include="Web.Debug.config">

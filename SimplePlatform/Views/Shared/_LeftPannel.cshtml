@@ -18,7 +18,7 @@
                     <a href="@Url.Action("", "Offices")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-bank"></i><span class="txt">Offices</span></a>
                 </li>
                 <li class="hasSub">
-                    <a href="#" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-th-list"></i><span class="txt">Events</span></a>
+                    <a href="@Url.Action("", "Events")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-th-list"></i><span class="txt">Events</span></a>
                 </li>
                 @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
                 {

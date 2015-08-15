@@ -62,12 +62,11 @@ simplePlatform.BindHeaderAddEventClickEvent = function () {
             dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
             dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
             dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
-            this.ValidateModalTaskForm(dialogContentPlaceHolder);
+            this.ValidateModalEventForm(dialogContentPlaceHolder);
         }, this));
         return false;
     }, this));
 };
-
 simplePlatform.ValidateModalTaskForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({
@@ -139,7 +138,6 @@ simplePlatform.BindHeaderAddTaskClickEvent = function () {
         return false;
     }, this));
 };
-
 simplePlatform.ValidateModalOfficeForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({

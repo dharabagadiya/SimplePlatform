@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataModel.Modal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,5 +34,9 @@ namespace DataModel
                 return false;
             }
         }
+        public List<Event> GetEvents()
+        { return Context.Events.ToList(); }
+        public Event GetEventDetail(int id)
+        { return Context.Events.Where(modal => modal.EventId == id).FirstOrDefault(); }
     }
 }
