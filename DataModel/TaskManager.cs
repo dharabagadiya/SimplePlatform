@@ -28,7 +28,9 @@ namespace DataModel
                     EndDate = Convert.ToDateTime(endDates),
                     Description = description,
                     Office = office,
-                    UsersDetail = userDetail
+                    UsersDetail = userDetail,
+                    CreateDate = DateTime.Now,
+                    UpdateDate = DateTime.Now
                 });
                 Context.SaveChanges();
                 return true;
@@ -39,7 +41,53 @@ namespace DataModel
             }
         }
 
+        public bool Update(int taskID, string name, string startDates, string endDates, string description, int officeID, int userID)
+        {
+            try
+            {
+                var task = GetTask(taskID);
+                if (task == null) { return false; }
+                Modal.Office office = null;
+                Modal.UserDetail userDetail = null;
+                if (userID != 0) { userDetail = Context.UsersDetail.Where(modal => modal.UserId == userID).FirstOrDefault(); }
+                office = Context.Offices.Where(modal => modal.OfficeId == officeID).FirstOrDefault();
+                task.Name = name;
+                task.StartDate = Convert.ToDateTime(startDates);
+                task.EndDate = Convert.ToDateTime(endDates);
+                task.Description = description;
+                task.Office = office;
+                task.UsersDetail = userDetail;
+                task.UpdateDate = DateTime.Now;
+                Context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+        public bool Delete(int taskID)
+        {
+            try
+            {
+                var task = GetTask(taskID);
+                if (task == null) { return false; }
+                task.IsDeleted = true;
+                Context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public List<Modal.Task> GetTasks()
-        { return Context.Tasks.ToList(); }
+        { return Context.Tasks.Where(model => model.IsDeleted == false).ToList(); }
+
+        public Modal.Task GetTask(int id)
+        { return Context.Tasks.Where(model => model.TaskId == id && model.IsDeleted == false).FirstOrDefault(); }
     }
 }
