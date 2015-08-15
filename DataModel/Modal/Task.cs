@@ -16,6 +16,7 @@ namespace DataModel.Modal
         public String Description { get; set; }
         public virtual Office Office { get; set; }
         public virtual UserDetail UsersDetail { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
         public DateTime CreateDate { get; set; }
