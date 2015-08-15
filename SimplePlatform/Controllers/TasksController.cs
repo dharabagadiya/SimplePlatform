@@ -22,7 +22,7 @@ namespace SimplePlatform.Controllers
             List<DataModel.Modal.Task> taskList;
             if (IsAdmin)
             {
-                taskList = taskManager.GetTasks().ToList();
+                taskList = taskManager.GetTasks().Where(model => model.UsersDetail == null).ToList();
             }
             else if (isOfficeAdmin)
             {
@@ -39,7 +39,9 @@ namespace SimplePlatform.Controllers
                 ID = model.TaskId,
                 Title = model.Name,
                 DueDate = model.EndDate.ToString("dd-MM-yyyy"),
-                AssignTo = (model.UsersDetail == null ? model.Office.Name : (model.UsersDetail.UserId == UserDetail.UserId) ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName))
+                AssignTo = (model.UsersDetail == null ? model.Office.Name : (model.UsersDetail.UserId == UserDetail.UserId) ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName)),
+                OfficeID = model.Office.OfficeId,
+                UserID = (model.UsersDetail == null ? 0 : model.UsersDetail.UserId),
             }).ToList();
             return Json(new { data = tasks });
         }
@@ -47,20 +49,15 @@ namespace SimplePlatform.Controllers
         public ActionResult Add()
         {
             if (!IsAdmin) { return RedirectToAction("AddByOffice"); }
-            var userDetailManager = new DataModel.UserManager();
             var officeMananer = new DataModel.OfficeMananer();
-            var user = userDetailManager.GetUserDetail(UserDetail.UserId);
-            var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
+            var offices = IsAdmin ? officeMananer.GetOffices() : UserDetail.Offices.ToList();
             ViewData["Offices"] = offices;
             return PartialView();
         }
 
         public ActionResult AddByOffice()
         {
-            var userDetailManager = new DataModel.UserManager();
-            var officeMananer = new DataModel.OfficeMananer();
-            var user = userDetailManager.GetUserDetail(UserDetail.UserId);
-            var offices = user.Offices.ToList();
+            var offices = UserDetail.Offices.ToList();
             ViewData["Offices"] = offices;
             ViewData["UserID"] = UserDetail.UserId;
             return PartialView();
@@ -71,6 +68,30 @@ namespace SimplePlatform.Controllers
         {
             var taskManager = new DataModel.TaskManager();
             var status = taskManager.Add(name, startDate, endDate, description, officeID, userID);
+            return Json(status);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var officeMananer = new DataModel.OfficeMananer();
+            var taskManager = new DataModel.TaskManager();
+            var task = taskManager.GetTask(id);
+            var offices = IsAdmin ? officeMananer.GetOffices() : UserDetail.Offices.ToList();
+            ViewData["Offices"] = offices;
+            return PartialView(task);
+        }
+
+        public JsonResult Update(int taskID, string name, string startDate, string endDate, string description, int officeID, int userID)
+        {
+            var taskManager = new DataModel.TaskManager();
+            var status = taskManager.Update(taskID, name, startDate, endDate, description, officeID, userID);
+            return Json(status);
+        }
+
+        public JsonResult Delete(int id)
+        {
+            var taskManager = new DataModel.TaskManager();
+            var status = taskManager.Delete(id);
             return Json(status);
         }
     }

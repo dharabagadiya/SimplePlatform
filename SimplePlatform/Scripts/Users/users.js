@@ -116,8 +116,6 @@ users.DeletUserDetail = function (obj) {
         }
     });
 };
-
-
 $(document).ready(function () {
     $('#myDataTable').dataTable({
         renderer: {

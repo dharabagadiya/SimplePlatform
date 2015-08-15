@@ -315,6 +315,7 @@
     <Content Include="Views\Tasks\AddByOffice.cshtml" />
     <Content Include="Views\Events\Add.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
+    <Content Include="Views\Tasks\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
