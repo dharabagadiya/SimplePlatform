@@ -1,0 +1,24 @@
+﻿@model DataModel.Modal.Task
+
+<div class="panel panel-default panel-primary toggle panelMove panelClose panelRefresh btlr0 bblr0">
+    <div class="panel-heading btlr0 bblr0">
+        <h4 class="panel-title">@Model.Name</h4>
+        <div class="pull-right"><i class="fa fa-calendar"></i>Due Date : @Model.EndDate.ToString("MM-dd-yyyy")</div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+        <div class="col-lg-12 ui-commentWindow">
+            <h3><i class="fa fa-comments-o lblue"></i>&nbsp; Comments</h3>
+            <div class="chat-content">
+            </div>
+            <div class="chat-input-box">
+                <div class="form-group">
+                    <label for="txtDescription">You Comment</label>
+                    <textarea class="form-control" rows="5" name="txtDescription" id="txtDescription"></textarea>
+                </div>
+                <button type="button" class="btn btn-lblue pull-right" data-dismiss="modal">Save</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

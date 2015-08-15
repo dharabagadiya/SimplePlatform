@@ -2,7 +2,8 @@
 tasks.options = {
     EditViewURL: "/Tasks/Edit/",
     UpdateURL: "/Tasks/Update",
-    DeleteURL: "/Tasks/Delete"
+    DeleteURL: "/Tasks/Delete",
+    DetailURL: function (id) { return ("/Tasks/GetDetail/" + id); }
 };
 tasks.ValidateModalTaskForm = function (obj) {
     obj.find("form")
@@ -99,8 +100,28 @@ tasks.DeletUserDetail = function (obj) {
         }
     });
 };
+tasks.GetTaskDetail = function (dataObj) {
+    var taskID = dataObj.pluck("ID")[0];
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: tasks.options.DetailURL(taskID),
+        success: function (data) {
+            $("#divTaskDetailContainer").empty().html(data);
+        }
+    });
+};
+tasks.BindTaskRowClickEvent = function (obj) {
+    obj.DataTable().off("select.dt").on("select.dt", function (e, dt, type, indexes) {
+        if (type === 'row') {
+            var dataObj = obj.DataTable().rows(indexes).data();
+            tasks.GetTaskDetail(dataObj);
+        }
+    });
+};
 $(document).ready(function () {
-    $('#userTaskList').dataTable({
+    var dataTable = $('#userTaskList').dataTable({
+        "select": "single",
         renderer: {
             "header": "bootstrap",
             "pageButton": "bootstrap"
@@ -138,5 +159,8 @@ $(document).ready(function () {
                 "width": '2%'
             }
         ]
-    }).removeClass('display').addClass('table table-striped table-bordered');
+    });
+
+    $('#userTaskList').removeClass('display').addClass('table table-striped table-bordered');
+    tasks.BindTaskRowClickEvent($('#userTaskList'));
 });

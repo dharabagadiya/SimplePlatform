@@ -94,5 +94,12 @@ namespace SimplePlatform.Controllers
             var status = taskManager.Delete(id);
             return Json(status);
         }
+
+        public PartialViewResult GetDetail(int id)
+        {
+            var taskManager = new DataModel.TaskManager();
+            var task = taskManager.GetTask(id);
+            return PartialView(task);
+        }
     }
 }
