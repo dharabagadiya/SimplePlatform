@@ -35,8 +35,34 @@ namespace DataModel
             }
         }
         public List<Event> GetEvents()
-        { return Context.Events.ToList(); }
+        { return Context.Events.Where(model => model.IsDeleted == false).ToList(); }
         public Event GetEventDetail(int id)
         { return Context.Events.Where(modal => modal.EventId == id).FirstOrDefault(); }
+        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID)
+        {
+            try
+            {
+                var eventDetail = Context.Events.Where(model => model.EventId == eventID).FirstOrDefault();
+                if (eventDetail == null) return false;
+                eventDetail.Name = name;
+                eventDetail.StartDate = startDate;
+                eventDetail.EndDate = endDate;
+                eventDetail.Description = description;
+                Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool Delete(int id)
+        {
+            var eventDetail = Context.Events.Where(model => model.EventId == id).FirstOrDefault();
+            if (eventDetail == null) { return false; }
+            eventDetail.IsDeleted = true;
+            Context.SaveChanges();
+            return true;
+        }
     }
 }

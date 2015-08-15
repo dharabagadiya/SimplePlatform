@@ -16,8 +16,8 @@ namespace SimplePlatform.Controllers
         }
         public ActionResult Add()
         {
-            var userDetailManager = new DataModel.UserManager();
-            var officeMananer = new DataModel.OfficeMananer();
+            var userDetailManager = new UserManager();
+            var officeMananer = new OfficeMananer();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
             ViewData["Offices"] = offices;
@@ -44,14 +44,26 @@ namespace SimplePlatform.Controllers
         }
         public PartialViewResult Edit(int id)
         {
-            var userDetailManager = new DataModel.UserManager();
-            var officeMananer = new DataModel.OfficeMananer();
+            var userDetailManager = new UserManager();
+            var officeMananer = new OfficeMananer();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
             ViewData["Offices"] = offices;
             var eventManager = new EventManager();
             var eventDetail = eventManager.GetEventDetail(id);
             return PartialView(eventDetail);
+        }
+        [HttpPost]
+        public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int officeID,int eventID)
+        {
+            var eventManager = new EventManager();
+            return Json(eventManager.Update(name, startDate, endDate, description, officeID, eventID));
+        }
+        public JsonResult Delete(int id)
+        {
+            var eventManager = new EventManager();
+            var status = eventManager.Delete(id);
+            return Json(status);
         }
     }
 }

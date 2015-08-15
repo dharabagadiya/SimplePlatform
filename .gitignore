@@ -240,3 +240,4 @@ SimplePlatform/bin/DataModel.pdb
 *.pdb
 SimplePlatform/bin/CustomAuthentication.dll
 *.pdb
+*.js

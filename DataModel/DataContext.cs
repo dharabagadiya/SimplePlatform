@@ -24,6 +24,7 @@ namespace DataModel
             CustomAuthentication.CustomMembershipProvider.OnModelCreating(modelBuilder);
             UserManager.OnModelCreating(modelBuilder);
             OfficeMananer.OnModelCreating(modelBuilder);
+            ConventionManager.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -31,5 +32,6 @@ namespace DataModel
         public DbSet<Office> Offices { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<Convention> Conventions { get; set; }
     }
 }
