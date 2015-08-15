@@ -53,29 +53,9 @@
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
     <Compile Include="EventManager.cs" />
-    <Compile Include="Migrations\201508101754013_DataModel_Initigration.cs" />
-    <Compile Include="Migrations\201508101754013_DataModel_Initigration.Designer.cs">
-      <DependentUpon>201508101754013_DataModel_Initigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508121915566_DataModel_Task_Updated.cs" />
-    <Compile Include="Migrations\201508121915566_DataModel_Task_Updated.Designer.cs">
-      <DependentUpon>201508121915566_DataModel_Task_Updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508141653287_DataModel_Event_Added.cs" />
-    <Compile Include="Migrations\201508141653287_DataModel_Event_Added.Designer.cs">
-      <DependentUpon>201508141653287_DataModel_Event_Added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508150501142_DataModel_Task_Changed.cs" />
-    <Compile Include="Migrations\201508150501142_DataModel_Task_Changed.Designer.cs">
-      <DependentUpon>201508150501142_DataModel_Task_Changed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508150636468_DataModel_Task_Model_Updated.cs" />
-    <Compile Include="Migrations\201508150636468_DataModel_Task_Model_Updated.Designer.cs">
-      <DependentUpon>201508150636468_DataModel_Task_Model_Updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508151054337_201508150423_DataModel_Event_add_isdelete.cs" />
-    <Compile Include="Migrations\201508151054337_201508150423_DataModel_Event_add_isdelete.Designer.cs">
-      <DependentUpon>201508151054337_201508150423_DataModel_Event_add_isdelete.cs</DependentUpon>
+    <Compile Include="Migrations\201508151846406_DataModel_Initial_DataModel.cs" />
+    <Compile Include="Migrations\201508151846406_DataModel_Initial_DataModel.Designer.cs">
+      <DependentUpon>201508151846406_DataModel_Initial_DataModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Convention.cs" />
@@ -100,30 +80,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508101754013_DataModel_Initigration.resx">
-      <DependentUpon>201508101754013_DataModel_Initigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508121915566_DataModel_Task_Updated.resx">
-      <DependentUpon>201508121915566_DataModel_Task_Updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508141653287_DataModel_Event_Added.resx">
-      <DependentUpon>201508141653287_DataModel_Event_Added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508150501142_DataModel_Task_Changed.resx">
-      <DependentUpon>201508150501142_DataModel_Task_Changed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508150636468_DataModel_Task_Model_Updated.resx">
-      <DependentUpon>201508150636468_DataModel_Task_Model_Updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508151054337_201508150423_DataModel_Event_add_isdelete.resx">
-      <DependentUpon>201508151054337_201508150423_DataModel_Event_add_isdelete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508150958380_DataModel_Comment_Added.resx">
-      <DependentUpon>201508150958380_DataModel_Comment_Added.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="obj\" />
+    <EmbeddedResource Include="Migrations\201508151846406_DataModel_Initial_DataModel.resx">
+      <DependentUpon>201508151846406_DataModel_Initial_DataModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
