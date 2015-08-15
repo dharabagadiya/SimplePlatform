@@ -114,9 +114,9 @@ $(document).ready(function () {
         "deferRender": true,
         "autoWidth": false,
         "columns": [
-            { "data": "Title", "width": '80%' },
-            { "data": "AssignTo", "width": '10%' },
-            { "data": "DueDate", "width": '6%' }, {
+            { "data": "Title", "width": "45em" },
+            { "data": "AssignTo" },
+            { "data": "DueDate" }, {
                 "data": null,
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                     var currentObj = $(cell);

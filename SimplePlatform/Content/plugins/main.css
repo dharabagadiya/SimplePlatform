@@ -7,6 +7,13 @@ textarea { resize: none; }
 button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0; }
 .gray-lighter-bg { color: #333333 !important; background-color: #eeeeee !important; }
 .bt { border-top: 1px solid #e3e3e3 !important; }
+.p0 { padding: 0 !important; }
+.bbrr0 { border-bottom-right-radius: 0 !important; }
+.btrr0 { border-top-right-radius: 0 !important; }
+.bblr0 { border-bottom-left-radius: 0 !important; }
+.btlr0 { border-top-left-radius: 0 !important; }
+.borderRightColorNone { border-right-color: transparent !important; }
+.borderLeftColorNone { border-left-color: transparent !important; }
 
 /* --- Bootstrap ---  */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; }

@@ -1,4 +1,5 @@
-﻿<aside id="sidebar" class="page-sidebar hidden-md hidden-sm hidden-xs collapse-sidebar">
+﻿@model  DataModel.Modal.UserDetail
+<aside id="sidebar" class="page-sidebar hidden-md hidden-sm hidden-xs collapse-sidebar">
     <div class="sidebar-inner">
         <div class="sidebar-scrollarea">
             <div class="sidebar-panel">
@@ -19,9 +20,12 @@
                 <li class="hasSub">
                     <a href="#" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-th-list"></i><span class="txt">Events</span></a>
                 </li>
-                <li class="hasSub">
-                    <a href="@Url.Action("", "Users")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-user"></i><span class="txt">Users</span></a>
-                </li>
+                @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
+                {
+                    <li class="hasSub">
+                        <a href="@Url.Action("", "Users")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-user"></i><span class="txt">Users</span></a>
+                    </li>
+                }
                 <li class="hasSub">
                     <a href="@Url.Action("", "Tasks")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-tasks"></i> <span class="txt">Tasks</span></a>
                 </li>

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@{ var userDetail = (DataModel.Modal.UserDetail)ViewData["UserDetail"]; }
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -12,7 +13,7 @@
 <body>
     @Html.Partial("_Header")
     <div id="wrapper">
-        @Html.Partial("_LeftPannel")
+        @Html.Partial("_LeftPannel", userDetail);
         <div class="page-content right-sidebar-page clearfix collapsed-sidebar">
             <div class="page-content-wrapper">
                 <div class="page-content-inner">

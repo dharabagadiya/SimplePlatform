@@ -28,7 +28,6 @@ namespace SimplePlatform.Controllers
         public string StartupScript { get { return ViewData["View_StartupScript"].ToString(); } set { ViewData["View_StartupScript"] += value; } }
         #endregion
 
-
         #region Protected Ovveride Methods
         protected override void OnAuthentication(AuthenticationContext filterContext)
         { }
@@ -44,6 +43,7 @@ namespace SimplePlatform.Controllers
 
             ControllerName = filterContext.RouteData.Values["controller"].ToString();
             ViewData["Controller_Name"] = ControllerName;
+            ViewData["UserDetail"] = UserDetail;
             Script = string.Empty;
             StartupScript = string.Empty;
             base.OnActionExecuting(filterContext);
