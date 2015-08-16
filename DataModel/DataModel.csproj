@@ -54,9 +54,9 @@
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
     <Compile Include="EventManager.cs" />
-    <Compile Include="Migrations\201508151846406_DataModel_Initial_DataModel.cs" />
-    <Compile Include="Migrations\201508151846406_DataModel_Initial_DataModel.Designer.cs">
-      <DependentUpon>201508151846406_DataModel_Initial_DataModel.cs</DependentUpon>
+    <Compile Include="Migrations\201508161118515_DataModel_Initial_DataModel.cs" />
+    <Compile Include="Migrations\201508161118515_DataModel_Initial_DataModel.Designer.cs">
+      <DependentUpon>201508161118515_DataModel_Initial_DataModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Convention.cs" />
@@ -84,8 +84,8 @@
     <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508151846406_DataModel_Initial_DataModel.resx">
-      <DependentUpon>201508151846406_DataModel_Initial_DataModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508161118515_DataModel_Initial_DataModel.resx">
+      <DependentUpon>201508161118515_DataModel_Initial_DataModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
