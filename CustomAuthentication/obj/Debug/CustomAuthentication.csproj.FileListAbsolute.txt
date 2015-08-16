@@ -24,6 +24,7 @@ D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Mi
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csproj.GenerateResource.Cache
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.dll
 D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.pdb
+D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Migrations.CustomAuthentication_User_Delete_Column.resources
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.dll.config
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.pdb
@@ -47,7 +48,7 @@ D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Razor.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Migrations.CustomAuthentication_Init.resources
+D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Migrations.CustomAuthentication_User_Delete_Column.resources
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csproj.GenerateResource.Cache
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.pdb
-D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Migrations.CustomAuthentication_User_Delete_Column.resources

@@ -41,6 +41,11 @@ D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Mvc.xml
 D:\Project\SimplePlatform\SimplePlatform\bin\Newtonsoft.Json.xml
 D:\Project\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.dll
 D:\Project\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.pdb
+D:\Project\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.dll
+D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.dll
+D:\Project\SimplePlatform\SimplePlatform\bin\WebGrease.dll
+D:\Project\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.pdb
+D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\csc.exe
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -89,8 +94,3 @@ D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Newtonsoft.Json.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.csprojResolveAssemblyReference.cache
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.pdb
-D:\Project\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.dll
-D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.dll
-D:\Project\SimplePlatform\SimplePlatform\bin\WebGrease.dll
-D:\Project\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.pdb
-D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.xml
