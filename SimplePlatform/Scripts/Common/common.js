@@ -67,6 +67,7 @@ simplePlatform.BindHeaderAddEventClickEvent = function () {
         return false;
     }, this));
 };
+
 simplePlatform.ValidateModalTaskForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({
@@ -112,7 +113,12 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                 data: JSON.stringify({ "name": name, "startDate": startDate, "endDate": endDate, "description": description, "officeID": officeID, "userID": userID }),
                 success: function (data) {
                     var status = data;
-                    if (status) { obj.modal('hide'); } else { }
+                    if (status) {
+                        obj.modal('hide');
+                        if (tasks.ReloadTaskList != undefined) {
+                            tasks.ReloadTaskList();
+                        }
+                    } else { }
                 }
             });
         });
@@ -138,6 +144,7 @@ simplePlatform.BindHeaderAddTaskClickEvent = function () {
         return false;
     }, this));
 };
+
 simplePlatform.ValidateModalOfficeForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -311,7 +318,7 @@ simplePlatform.ValidateModalUserForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                    if ($('#myDataTable').length > 0) $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                    if ($('#myDataTable').length > 0) $('#myDataTable').dataTable().api().ajax.reload();
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }

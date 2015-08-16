@@ -1,4 +1,5 @@
 ﻿@model DataModel.Modal.Task
+@{ var userDetail = (DataModel.Modal.UserDetail)ViewData["UserDetail"]; }
 
 <div class="panel panel-default panel-primary toggle panelMove panelClose panelRefresh btlr0 bblr0">
     <div class="panel-heading btlr0 bblr0">
@@ -7,16 +8,28 @@
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        <div class="col-lg-12 ui-commentWindow">
+        <div class="col-lg-12 ui-commentWindow" data-id="@Model.TaskId">
             <h3><i class="fa fa-comments-o lblue"></i>&nbsp; Comments</h3>
             <div class="chat-content">
+                @foreach (var comment in Model.Comments)
+                {
+                    var isCurrentUser = comment.UserDetail.UserId == userDetail.UserId;
+                    <div class="chat-box @(isCurrentUser ? "chat-out"  : "chat-in")">
+                        <div class="message col-lg-10 @(isCurrentUser ? "col-lg-offset-2"  : "")">
+                            <h5 class="@(isCurrentUser ? "pull-left"  : "pull-right")">@comment.UpdateDate.ToString("MMM dd,yyyy")</h5>
+                            <div class="clearfix"></div>
+                            <p>@comment.CommentText</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
             </div>
             <div class="chat-input-box">
                 <div class="form-group">
                     <label for="txtDescription">You Comment</label>
-                    <textarea class="form-control" rows="5" name="txtDescription" id="txtDescription"></textarea>
+                    <textarea class="form-control" rows="5" name="txtComment" id="txtComment"></textarea>
                 </div>
-                <button type="button" class="btn btn-lblue pull-right" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-lblue pull-right" id="btnAddComment">Save</button>
                 <div class="clearfix"></div>
             </div>
         </div>

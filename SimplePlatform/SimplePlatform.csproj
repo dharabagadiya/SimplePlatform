@@ -270,6 +270,7 @@
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login\login.js" />
+    <Content Include="Scripts\Plugins\jquery.nicescroll.js" />
     <Content Include="Scripts\Plugins\modernizr-2.6.2.js" />
     <Content Include="Scripts\Plugins\progressbar.js" />
     <Content Include="Scripts\Plugins\waypoints.js" />
@@ -284,6 +285,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -332,6 +334,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Comments\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CustomAuthentication\CustomAuthentication.csproj">
