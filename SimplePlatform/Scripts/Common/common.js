@@ -160,7 +160,6 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
         });
 };
 simplePlatform.BindHeaderAddConventionClickEvent = function () {
-    debugger
     var obj = $("#lnkAddConventions");
     obj.off("click.lnkAddConventions").on("click.lnkAddConventions", $.proxy(function (event) {
         var currentObj = $(event.currentTarget);
