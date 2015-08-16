@@ -2,6 +2,7 @@
 @{ var events = (List<DataModel.Modal.Event>)ViewData["Events"]; }
 @{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }
 @{ var conventions = (List<DataModel.Modal.Convention>)ViewData["Convention"]; }
+@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
 
 <form action="@Url.Action("Add", "Users")" method="post">
     <div class="modal-dialog divUserModalDialog">
@@ -25,7 +26,7 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <label for="EmailAddress">Email Address</label>
-                        <input type="email" class="form-control" id="txtUserEmailAddress" placeholder="Email Address" />
+                        <input type="email" class="form-control" name="emailAddress" id="txtUserEmailAddress" placeholder="Email Address" />
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -42,11 +43,26 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="divEventList">
+                <div class="divOfficeList divVisitTypeControl" data-id="1">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="SelectUserRole">Select Office</label>
+                            <select class="form-control" id="dwnOffices">
+                                <option value="-1">Select Office</option>
+                                @foreach (var office in offices)
+                                {
+                                    <option value="@office.OfficeId">@office.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="divEventList divVisitTypeControl" data-id="2">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label for="SelectUserRole">Select Event</label>
-                            <select class="form-control" id="dwnPeopleVistiType">
+                            <select class="form-control" id="dwnEvetns">
                                 <option value="-1">Select Visit Type</option>
                                 @foreach (var eventDetail in events)
                                 {
@@ -59,7 +75,7 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label for="SelectUserRole">Select FSM</label>
-                            <select class="form-control" id="dwnPeopleVistiType">
+                            <select class="form-control" id="dwnFSMList">
                                 <option value="-1">Select Visit Type</option>
                                 @foreach (var user in users)
                                 {
@@ -70,7 +86,7 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="divConventList">
+                <div class="divConventList divVisitTypeControl" data-id="3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label for="SelectUserRole">Select Conventions</label>
@@ -78,7 +94,7 @@
                                 <option value="-1">Select Conventions</option>
                                 @foreach (var convention in conventions)
                                 {
-                                    <option value="@convention.ConventionId">@convention.Name</option>
+                                <option value="@convention.ConventionId">@convention.Name</option>
                                 }
                             </select>
                         </div>

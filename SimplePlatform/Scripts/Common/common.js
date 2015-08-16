@@ -1,15 +1,105 @@
 ﻿var simplePlatform = {};
-
+simplePlatform.ValidateModalAudienceForm = function (obj) {
+    obj.find("form")
+    .bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            firstName: {
+                message: 'The first name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The first name cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 15,
+                        message: 'The first name must be more than 3 and less than 15 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: 'The first name can containe a-z, A-Z, 0-9, or (_) only'
+                    }
+                }
+            },
+            lastName: {
+                message: 'The last name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The last name is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 15,
+                        message: 'The last name must be more than 3 and less than 15 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: 'The last name can containe a-z, A-Z, 0-9, or (_) only'
+                    }
+                }
+            },
+            emailAddress: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+                }
+            }
+        }
+    }).off('success.form.bv').on('success.form.bv', function (e) {
+        e.preventDefault();
+        var formObj = $(e.target);;
+        var firstName = formObj.find("#txtUserFirstName").val();
+        var lastName = formObj.find("#txtUserLastName").val();
+        var emailID = formObj.find("#txtUserEmailAddress").val();
+        var visitTypeID = formObj.find("#dwnPeopleVistiType").val();
+        var officeID = formObj.find("#dwnOffices").val();
+        var eventID = formObj.find("#dwnEvetns").val();
+        var fsmID = formObj.find("#dwnFSMList").val();
+        var convensionID = formObj.find("#dwnConvensions").val();
+        if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
+        if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
+        if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
+        if (IsNullOrEmpty(convensionID) && convensionID <= 0) { convensionID = 0; }
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: "/Audiences/Add",
+            async: false,
+            data: JSON.stringify({ "firstName": firstName, "lastName": lastName, "emailID": emailID, "visitTypeID": visitTypeID, "officeID": officeID, "eventID": eventID, "fsmID": fsmID, "convensionID": convensionID }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    obj.modal('hide');
+                } else {
+                }
+            }
+        });
+    });
+};
+simplePlatform.BindHeaderAddAudienceDropDownChangeEvent = function (obj) {
+    obj.find("#dwnPeopleVistiType").off("change.dwnPeopleVistiType").on("change.dwnPeopleVistiType", function () {
+        obj.find(".divVisitTypeControl").hide();
+        obj.find(".divVisitTypeControl[data-id='" + $(this).val() + "']").show();
+    });
+    obj.find("#dwnPeopleVistiType").val(1).change();
+};
 simplePlatform.BindHeaderAddAudienceClickEvent = function () {
     var obj = $("#lnkAddAudiences");
     obj.off("click.lnkAddAudiences").on("click.lnkAddAudiences", $.proxy(function (event) {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            //dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
-            //dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
-            //dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
-            //this.ValidateModalConventionForm(dialogContentPlaceHolder);
+            simplePlatform.BindHeaderAddAudienceDropDownChangeEvent(dialogContentPlaceHolder);
+            this.ValidateModalAudienceForm(dialogContentPlaceHolder);
         }, this));
         return false;
     }, this));
