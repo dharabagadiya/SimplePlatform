@@ -1,45 +1,45 @@
-﻿@model DataModel.Modal.Event
-@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+﻿@model List<CustomAuthentication.User>
 
-<form action="#" type="post">
-    <input type="hidden" id="hdnEventID" value="@Model.EventId"/>
+<form action="@Url.Action("Add", "Conventions")" type="post">
+    <input type="hidden" id="hdnOfficeID" />
+    <input type="hidden" id="hdnUserID" />
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edit Event</h4>
+                <h4 class="modal-title">Add Convention</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="Name">Name</label>
-                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" value="@Model.Name" />
+                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
                 </div>
                 <div class="form-group">
                     <label for="dtDueDate">Due Date</label>
                     <div class="input-group input-icon input-daterange" id="datepicker">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" class="form-control" id="txtDueDateStart" name="txtDueDateStart" readonly="readonly" value="@Model.StartDate">
+                        <input type="text" class="form-control" id="txtDueDateStart" name="txtDueDateStart" readonly="readonly">
                         <span class="input-group-addon">to</span>
-                        <input type="text" class="form-control" id="txtDueDateEnd" name="txtDueDateEnd" readonly="readonly" value="@Model.EndDate">
+                        <input type="text" class="form-control" id="txtDueDateEnd" name="txtDueDateEnd" readonly="readonly">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtDescription">Description</label>
-                    <textarea class="form-control" rows="5" name="txtDescription" id="txtDescription">@Model.Description</textarea>
+                    <textarea class="form-control" rows="5" name="txtDescription" id="txtDescription"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="SelectOffice">Select Office</label>
-                    <select class="form-control" id="dwnOffices">
-                        @foreach (var office in offices)
+                    <label for="SelectOffice">Select User</label>
+                    <select class="form-control" id="dwnUserId">
+                        @foreach (var role in Model)
                         {
-                            <option value="@office.OfficeId">@office.Name</option>
+                            <option value="@role.UserId">@role.FirstName @role.LastName</option>
                         }
                     </select>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="btnEditEvent">Save</button>
+                <button type="submit" class="btn btn-primary" id="btnAddConvention">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>

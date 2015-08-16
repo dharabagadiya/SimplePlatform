@@ -1,10 +1,10 @@
-﻿var events = {};
-events.options = {
-    EditViewURL: "/Events/Edit/",
-    UpdateURL: "/Events/Update",
-    DeleteURL: "/Events/Delete"
+﻿var conventions = {};
+conventions.options = {
+    EditViewURL: "/Conventions/Edit/",
+    UpdateURL: "/Conventions/Update",
+    DeleteURL: "/Conventions/Delete"
 };
-events.ValidateModalEventForm = function (obj) {
+conventions.ValidateModalConventionForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({
             feedbackIcons: {
@@ -38,15 +38,15 @@ events.ValidateModalEventForm = function (obj) {
             var startDates = formObj.find("#txtDueDateStart").val();
             var endDates = formObj.find("#txtDueDateEnd").val();
             var description = formObj.find("#txtDescription").val();
-            var eventID = formObj.find("#hdnEventID").val();
-            var officeID = formObj.find("#dwnOffices").val();
+            var userID = formObj.find("#dwnUserId").val();
+            var conventionID = formObj.find("#hdnConventionID").val();
             $.ajax({
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
-                url: events.options.UpdateURL,
+                url: conventions.options.UpdateURL,
                 async: false,
-                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "officeID": officeID, "eventID": eventID }),
+                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userID": userID, "conventionID": conventionID }),
                 success: function (data) {
                     var status = data;
                     if (status) {
@@ -59,25 +59,25 @@ events.ValidateModalEventForm = function (obj) {
             });
         });
 };
-events.EditEventDetail = function (obj) {
+conventions.EditConventionDetail = function (obj) {
     var currentObj = obj;
-    var EventDetail = obj.data("event_detail");
+    var conventionDetail = obj.data("convention_detail");
     $("#divCommonModalPlaceHolder").empty();
-    ShowDialogBox($("#divCommonModalPlaceHolder"), (events.options.EditViewURL + EventDetail.id), null, $.proxy(function (event, dialogContentPlaceHolder) {
-        this.ValidateModalEventForm(dialogContentPlaceHolder);
+    ShowDialogBox($("#divCommonModalPlaceHolder"), (conventions.options.EditViewURL + conventionDetail.id), null, $.proxy(function (event, dialogContentPlaceHolder) {
+        this.ValidateModalConventionForm(dialogContentPlaceHolder);
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };
-events.DeletEventDetail = function (obj) {
+conventions.DeletConventionDetail = function (obj) {
     var currentObj = obj;
-    var EventDetail = obj.data("event_detail");
+    var conventionDetail = obj.data("convention_detail");
     $.ajax({
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         type: "POST",
-        url: events.options.DeleteURL,
+        url: conventions.options.DeleteURL,
         async: false,
-        data: JSON.stringify({ "id": EventDetail.id }),
+        data: JSON.stringify({ "id": conventionDetail.id }),
         success: function (data) {
             var status = data;
             if (status) {
@@ -94,7 +94,7 @@ $(document).ready(function () {
             "pageButton": "bootstrap"
         },
         "ajax": {
-            "url": "/Events/GetEvents",
+            "url": "/Conventions/GetConventions",
             "type": "POST"
         },
         "displayLength": 25,
@@ -106,8 +106,8 @@ $(document).ready(function () {
             "data": null,
             "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                 var currentObj = $(cell);
-                currentObj.css({ "text-align": "center" }).data("event_detail", rowData);
-                currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { events.EditEventDetail($(this)); });
+                currentObj.css({ "text-align": "center" }).data("convention_detail", rowData);
+                currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { conventions.EditConventionDetail($(this)); });
             },
             render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i></a>'; },
             "orderable": false,
@@ -116,8 +116,8 @@ $(document).ready(function () {
             "data": null,
             "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                 var currentObj = $(cell);
-                currentObj.css({ "text-align": "center" }).data("event_detail", rowData);
-                currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { events.DeletEventDetail($(this)); });
+                currentObj.css({ "text-align": "center" }).data("convention_detail", rowData);
+                currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { conventions.DeletConventionDetail($(this)); });
             },
             render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
             "orderable": false,
