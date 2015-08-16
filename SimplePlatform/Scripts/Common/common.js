@@ -1,4 +1,20 @@
 ﻿var simplePlatform = {};
+
+simplePlatform.BindHeaderAddAudienceClickEvent = function () {
+    var obj = $("#lnkAddAudiences");
+    obj.off("click.lnkAddAudiences").on("click.lnkAddAudiences", $.proxy(function (event) {
+        var currentObj = $(event.currentTarget);
+        $("#divCommonModalPlaceHolder").empty();
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+            //dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
+            //dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
+            //dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
+            //this.ValidateModalConventionForm(dialogContentPlaceHolder);
+        }, this));
+        return false;
+    }, this));
+};
+
 simplePlatform.ValidateModalConventionForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({
@@ -411,6 +427,7 @@ simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderAddTaskClickEvent();
     this.BindHeaderAddEventClickEvent();
     this.BindHeaderAddConventionClickEvent();
+    this.BindHeaderAddAudienceClickEvent();
 };
 $(document).ready(function () {
     simplePlatform.BindHeaderAddClickEvents();
