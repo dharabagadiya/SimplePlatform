@@ -17,5 +17,6 @@ namespace DataModel.Modal
         public virtual ICollection<UserDetail> UsersDetail { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
+        public virtual ICollection<Audience> Audiences { get; set; }
     }
 }

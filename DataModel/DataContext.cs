@@ -25,6 +25,7 @@ namespace DataModel
             UserManager.OnModelCreating(modelBuilder);
             OfficeMananer.OnModelCreating(modelBuilder);
             ConventionManager.OnModelCreating(modelBuilder);
+            VisitTypeManager.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -34,5 +35,8 @@ namespace DataModel
         public DbSet<Event> Events { get; set; }
         public DbSet<Convention> Conventions { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<VisitType> VisitTypes { get; set; }
+        public DbSet<Audience> Audiences { get; set; }
+        public DbSet<ConvensionBooking> ConvensionBookings { get; set; }
     }
 }
