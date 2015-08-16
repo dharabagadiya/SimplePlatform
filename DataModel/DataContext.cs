@@ -34,5 +34,8 @@ namespace DataModel
         public DbSet<Event> Events { get; set; }
         public DbSet<Convention> Conventions { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<VisitType> VisitTypes { get; set; }
+        public DbSet<Audience> Audiences { get; set; }
+        public DbSet<ConvensionBooking> ConvensionBookings { get; set; }
     }
 }

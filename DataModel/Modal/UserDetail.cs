@@ -17,5 +17,6 @@ namespace DataModel.Modal
         public virtual ICollection<Office> Offices { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Convention> Conventions { get; set; }
+        public virtual ICollection<Audience> Audience { get; set; }
     }
 }
