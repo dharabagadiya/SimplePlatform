@@ -33,5 +33,6 @@ namespace DataModel
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Convention> Conventions { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
