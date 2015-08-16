@@ -64,5 +64,7 @@ namespace DataModel
             Context.SaveChanges();
             return true;
         }
+        public List<Event> GetActiveEvents()
+        { return Context.Events.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0).ToList(); }
     }
 }
