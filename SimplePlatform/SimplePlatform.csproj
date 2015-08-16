@@ -270,7 +270,7 @@
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login\login.js" />
-    <Content Include="Scripts\Plugins\jquery.nicescroll.min.js" />
+    <Content Include="Scripts\Plugins\jquery.nicescroll.js" />
     <Content Include="Scripts\Plugins\modernizr-2.6.2.js" />
     <Content Include="Scripts\Plugins\progressbar.js" />
     <Content Include="Scripts\Plugins\waypoints.js" />
