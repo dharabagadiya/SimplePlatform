@@ -23,6 +23,12 @@ namespace DataModel.Migrations
             userRoles.Add(new Role { RoleName = "Speakers" });
             userRoles.Add(new Role { RoleName = "Employee" });
             context.Roles.AddRange(userRoles);
+            // Default Visit Types --- No Changes In Role List
+            var visitTypes = new List<Modal.VisitType>();
+            visitTypes.Add(new Modal.VisitType { VisitTypeName = "Office" });
+            visitTypes.Add(new Modal.VisitType { VisitTypeName = "Event" });
+            visitTypes.Add(new Modal.VisitType { VisitTypeName = "Convension" });
+            context.VisitTypes.AddRange(visitTypes);
             // Admin Default User Created --- Please Dnt Delete
             var user = new CustomAuthentication.User { UserName = "admin", Email = "admin@gmail.com", FirstName = "Admin", Password = "123456", IsActive = true, CreateDate = DateTime.UtcNow, Roles = new List<Role>() };
             user.Roles.Add(userRoles.Find(model => model.RoleName.Equals("Admin", StringComparison.InvariantCultureIgnoreCase)));

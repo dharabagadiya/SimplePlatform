@@ -76,8 +76,8 @@ namespace DataModel
                 return false;
             }
         }
-        public List<User> GetUsers(int roleID)
-        { return Context.Users.Where(modal => modal.Roles.Any(roleModel => roleModel.RoleId == roleID)).ToList(); }
+        public List<UserDetail> GetUsers(int roleID)
+        { return Context.UsersDetail.Where(model => model.User.Roles.Any(roleModel => roleModel.RoleId == roleID) && model.User.IsDeleted == false).ToList(); }
         public List<UserDetail> GetUsersDetails()
         { return Context.UsersDetail.Where(model => model.User.IsDeleted == false).ToList(); }
         public UserDetail GetUserDetail(int id)

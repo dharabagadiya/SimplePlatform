@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudienceManager.cs" />
     <Compile Include="CommentManager.cs" />
     <Compile Include="Migrations\201508161129394_DataModel_Initial_DataModel1.cs" />
     <Compile Include="Migrations\201508161129394_DataModel_Initial_DataModel1.Designer.cs">
