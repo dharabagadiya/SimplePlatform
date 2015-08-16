@@ -34,10 +34,10 @@ namespace SimplePlatform.Controllers
             return PartialView();
         }
         [HttpPost]
-        public JsonResult Add(string name, DateTime startDate, DateTime endDate, string description, int officeID)
+        public JsonResult Add(string name, DateTime startDate, DateTime endDate, string description, int officeID,int conventionID)
         {
             var eventManager = new EventManager();
-            return Json(eventManager.Add(name, startDate, endDate, description, officeID));
+            return Json(eventManager.Add(name, startDate, endDate, description, officeID, conventionID));
         }
         public JsonResult GetEvents()
         {
@@ -52,15 +52,18 @@ namespace SimplePlatform.Controllers
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
             ViewData["Offices"] = offices;
+            var conventionManager = new ConventionManager();
+            var conventions = conventionManager.GetConventions();
+            ViewData["Conventions"] = conventions;
             var eventManager = new EventManager();
             var eventDetail = eventManager.GetEventDetail(id);
             return PartialView(eventDetail);
         }
         [HttpPost]
-        public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID)
+        public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID,int conventionID)
         {
             var eventManager = new EventManager();
-            return Json(eventManager.Update(name, startDate, endDate, description, officeID, eventID));
+            return Json(eventManager.Update(name, startDate, endDate, description, officeID, eventID, conventionID));
         }
         public JsonResult Delete(int id)
         {

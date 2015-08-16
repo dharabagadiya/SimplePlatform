@@ -63,6 +63,10 @@
     <Compile Include="Migrations\201508161118515_DataModel_Initial_DataModel.Designer.cs">
       <DependentUpon>201508161118515_DataModel_Initial_DataModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508161212535_DataModel_Convention_Event.cs" />
+    <Compile Include="Migrations\201508161212535_DataModel_Convention_Event.Designer.cs">
+      <DependentUpon>201508161212535_DataModel_Convention_Event.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Audience.cs" />
     <Compile Include="Modal\Convention.cs" />
@@ -97,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508161129394_DataModel_Initial_DataModel1.resx">
       <DependentUpon>201508161129394_DataModel_Initial_DataModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508161212535_DataModel_Convention_Event.resx">
+      <DependentUpon>201508161212535_DataModel_Convention_Event.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
