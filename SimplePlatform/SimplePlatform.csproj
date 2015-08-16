@@ -196,6 +196,7 @@
     <Content Include="Content\Plugins\main.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Conventions\Convention.js" />
     <Content Include="Scripts\DataTables\Extentions\dataTables.select.js" />
     <Content Include="Scripts\Events\Events.js" />
     <Content Include="Scripts\Offices\Offices.js" />
@@ -325,6 +326,9 @@
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Tasks\Edit.cshtml" />
+    <Content Include="Views\Conventions\Index.cshtml" />
+    <Content Include="Views\Conventions\Add.cshtml" />
+    <Content Include="Views\Conventions\Edit.cshtml" />
     <Content Include="Views\Tasks\GetDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

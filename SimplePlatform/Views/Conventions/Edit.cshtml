@@ -1,8 +1,8 @@
-﻿@model DataModel.Modal.Event
-@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+﻿@model DataModel.Modal.Convention
+@{ var users = (List<CustomAuthentication.User>)ViewData["Users"]; }
 
 <form action="#" type="post">
-    <input type="hidden" id="hdnEventID" value="@Model.EventId"/>
+    <input type="hidden" id="hdnConventionID" value="@Model.ConventionId" />
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -28,11 +28,11 @@
                     <textarea class="form-control" rows="5" name="txtDescription" id="txtDescription">@Model.Description</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="SelectOffice">Select Office</label>
-                    <select class="form-control" id="dwnOffices">
-                        @foreach (var office in offices)
+                    <label for="SelectOffice">Select User</label>
+                    <select class="form-control" id="dwnUserId">
+                        @foreach (var user in users)
                         {
-                            <option value="@office.OfficeId">@office.Name</option>
+                            <option value="@user.UserId">@user.FirstName @user.LastName</option>
                         }
                     </select>
                 </div>
