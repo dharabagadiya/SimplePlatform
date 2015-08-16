@@ -15,5 +15,6 @@ namespace DataModel.Modal
         public String Description { get; set; }
         public virtual Office Office { get; set; }
         public bool IsDeleted { get; set; }
+        public virtual Convention convention { get; set; }
     }
 }

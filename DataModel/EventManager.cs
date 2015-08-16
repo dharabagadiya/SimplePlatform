@@ -1,6 +1,7 @@
 ﻿using DataModel.Modal;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace DataModel
     public class EventManager
     {
         private DataContext Context = new DataContext();
-        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int officeID)
+        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int officeID,int conventionID)
         {
             try
             {
@@ -18,13 +19,15 @@ namespace DataModel
                 //if (users == null || users.Count <= 0) { return false; }
                 //if (Context.Offices.Any(model => model.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))) { return false; }
                 var office = Context.Offices.Where(model => model.OfficeId == officeID).FirstOrDefault();
+                var convention = Context.Conventions.Where(model => model.ConventionId == conventionID).FirstOrDefault();
                 Context.Events.Add(new Modal.Event
                 {
                     Name = name,
                     StartDate = startDate,
                     EndDate = endDate,
                     Description = description,
-                    Office = office
+                    Office = office,
+                    convention= convention
                 });
                 var status = Context.SaveChanges();
                 return true;
@@ -38,16 +41,20 @@ namespace DataModel
         { return Context.Events.Where(model => model.IsDeleted == false).ToList(); }
         public Event GetEventDetail(int id)
         { return Context.Events.Where(modal => modal.EventId == id).FirstOrDefault(); }
-        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID)
+        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID,int conventionID)
         {
             try
             {
                 var eventDetail = Context.Events.Where(model => model.EventId == eventID).FirstOrDefault();
+                var office = Context.Offices.Where(model => model.OfficeId == officeID).FirstOrDefault();
+                var convention = Context.Conventions.Where(model => model.ConventionId == conventionID).FirstOrDefault();
                 if (eventDetail == null) return false;
                 eventDetail.Name = name;
                 eventDetail.StartDate = startDate;
                 eventDetail.EndDate = endDate;
                 eventDetail.Description = description;
+                eventDetail.Office = office;
+                eventDetail.convention = convention;
                 Context.SaveChanges();
                 return true;
             }
@@ -66,5 +73,8 @@ namespace DataModel
         }
         public List<Event> GetActiveEvents()
         { return Context.Events.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0).ToList(); }
+        public static void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+        }
     }
 }

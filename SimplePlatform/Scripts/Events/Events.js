@@ -40,13 +40,14 @@ events.ValidateModalEventForm = function (obj) {
             var description = formObj.find("#txtDescription").val();
             var eventID = formObj.find("#hdnEventID").val();
             var officeID = formObj.find("#dwnOffices").val();
+            var conventionID = formObj.find("#dwnConvention").val();
             $.ajax({
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
                 url: events.options.UpdateURL,
                 async: false,
-                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "officeID": officeID, "eventID": eventID }),
+                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "officeID": officeID, "eventID": eventID, "conventionID": conventionID }),
                 success: function (data) {
                     var status = data;
                     if (status) {
@@ -65,6 +66,8 @@ events.EditEventDetail = function (obj) {
     $("#divCommonModalPlaceHolder").empty();
     ShowDialogBox($("#divCommonModalPlaceHolder"), (events.options.EditViewURL + EventDetail.id), null, $.proxy(function (event, dialogContentPlaceHolder) {
         this.ValidateModalEventForm(dialogContentPlaceHolder);
+        $("#dwnOffices").val($("#hdnOfficeID").val());
+        $("#dwnConvention").val($("#hdnConventionID").val());
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };
