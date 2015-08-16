@@ -55,15 +55,18 @@ namespace DataModel
         {
             try
             {
-                var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
                 var conventionDetail = Context.Conventions.Where(model => model.ConventionId == conventionID).FirstOrDefault();
+                conventionDetail.UsersDetail.Remove(conventionDetail.UsersDetail.FirstOrDefault());
+                Context.SaveChanges();
+                var userDetail = GetUserDetail(userID);
+                if (userDetail == null) { return false; }
                 if (conventionDetail == null) return false;
                 conventionDetail.Name = name;
                 conventionDetail.StartDate = startDate;
                 conventionDetail.EndDate = endDate;
                 conventionDetail.Description = description;
                 conventionDetail.UpdateDate = DateTime.Now;
-                conventionDetail.UsersDetail = users;
+                conventionDetail.UsersDetail = new List<UserDetail> { userDetail };
                 Context.SaveChanges();
                 return true;
             }
@@ -80,5 +83,7 @@ namespace DataModel
             Context.SaveChanges();
             return true;
         }
+        public UserDetail GetUserDetail(int id)
+        { return Context.UsersDetail.Where(modal => modal.UserId == id).FirstOrDefault(); }
     }
 }

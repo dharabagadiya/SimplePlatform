@@ -21,6 +21,9 @@ namespace SimplePlatform.Controllers
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
             ViewData["Offices"] = offices;
+            var conventionManager = new ConventionManager();
+            var conventions = conventionManager.GetConventions();
+            ViewData["Conventions"] = conventions;
             if (IsAdmin)
             {
                 var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
@@ -54,7 +57,7 @@ namespace SimplePlatform.Controllers
             return PartialView(eventDetail);
         }
         [HttpPost]
-        public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int officeID,int eventID)
+        public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID)
         {
             var eventManager = new EventManager();
             return Json(eventManager.Update(name, startDate, endDate, description, officeID, eventID));
