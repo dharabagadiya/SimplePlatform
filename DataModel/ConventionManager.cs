@@ -85,5 +85,7 @@ namespace DataModel
         }
         public UserDetail GetUserDetail(int id)
         { return Context.UsersDetail.Where(modal => modal.UserId == id).FirstOrDefault(); }
+        public List<Convention> GetActiveConventions()
+        { return Context.Conventions.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0).ToList(); }
     }
 }
