@@ -22,5 +22,6 @@ namespace DataModel.Modal
         public bool IsDeleted { get; set; }
         public virtual ICollection<UserDetail> UsersDetail { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Audience> Audiences { get; set; }
     }
 }

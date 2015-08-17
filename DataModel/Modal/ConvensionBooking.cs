@@ -9,6 +9,7 @@ namespace DataModel.Modal
     public class ConvensionBooking
     {
         public int ConvensionBookingID { get; set; }
+        public int AudienceID { get; set; }
         public float Amount { get; set; }
         public virtual Audience Audience { get; set; }
         public bool IsBooked { get; set; }

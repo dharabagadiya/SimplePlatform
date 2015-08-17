@@ -27,6 +27,7 @@ namespace DataModel
             ConventionManager.OnModelCreating(modelBuilder);
             VisitTypeManager.OnModelCreating(modelBuilder);
 			EventManager.OnModelCreating(modelBuilder);
+            AudienceManager.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

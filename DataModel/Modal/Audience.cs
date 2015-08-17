@@ -13,10 +13,14 @@ namespace DataModel.Modal
     {
         public int AudienceID { get; set; }
         public string Name { get; set; }
-        public string EMailID { get; set; }
+        public DateTime VisitDate { get; set; }
+        public string Contact { get; set; }
         public virtual Convention Convention { get; set; }
         public virtual VisitType VisitType { get; set; }
         public virtual UserDetail UserDetail { get; set; }
+        public virtual ConvensionBooking ConvensionBooking { get; set; }
+        public virtual Office Office { get; set; }
+        public virtual Event Event { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
