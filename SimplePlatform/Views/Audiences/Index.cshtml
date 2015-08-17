@@ -1,0 +1,129 @@
+﻿@{ var events = (List<DataModel.Modal.Event>)ViewData["Events"]; }
+@{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }
+@{ var conventions = (List<DataModel.Modal.Convention>)ViewData["Convention"]; }
+@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+
+@{
+    ViewBag.Title = "Audiences";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div id="page-header" class="clearfix">
+            <div class="page-header">
+                <h2>Audiences</h2>
+            </div>
+        </div>
+        <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+            <div class="panel-heading">
+                <h4 class="panel-title">Make Booking</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12" id="divAudienceBulkInsert">
+                    <form action="@Url.Action("Add", "Audiences")" method="post">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Contact</th>
+                                    <th>Visit Type</th>
+                                    <th>FSM</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="audienceDetailRow">
+                                    <th class="col-lg-2">
+                                        <div class="form-group">
+                                            <input type="text" name="Name" class="form-control" id="txtUserFirstName" placeholder="Name" />
+                                        </div>
+                                    </th>
+                                    <th class="col-lg-2">
+                                        <div class="form-group">
+                                            <input type="text" name="VisitDate" class="form-control txtVisitDate" placeholder="Select Date" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                        </div>
+                                    </th>
+                                    <th class="col-lg-2">
+                                        <div class="form-group">
+                                            <input type="text" name="Contact" class="form-control" id="txtContact" placeholder="Contact" />
+                                        </div>
+                                    </th>
+                                    <th class="col-lg-2">
+                                        <div class="form-group">
+                                            <select data-placeholder="Select User" id="dwnVisitType" class="chosen-select form-control dwnVisitType">
+                                                <optgroup label="Offices" id="1">
+                                                    @foreach (var office in offices)
+                                                    {
+                                                        <option value="@office.OfficeId">@office.Name</option>
+                                                    }
+                                                </optgroup>
+                                                <optgroup label="Events" id="2">
+                                                    @foreach (var eventDetail in events)
+                                                    {
+                                                        <option value="@eventDetail.EventId">@eventDetail.Name</option>
+                                                    }
+                                                </optgroup>
+                                                <optgroup label="Conventions" id="3">
+                                                    @foreach (var convention in conventions)
+                                                    {
+                                                        <option value="@convention.ConventionId">@convention.Name</option>
+                                                    }
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </th>
+                                    <th class="col-lg-2">
+                                        <div class="form-group">
+                                            <select id="dwnFSMList" class="chosen-select form-control dwnFSMList">
+                                                @foreach (var user in users)
+                                                {
+                                                    <option value="@user.UserId">@user.User.FirstName @user.User.LastName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </th>
+                                    <th class="col-lg-1">
+                                        <div class="form-group">
+                                            <select id="dwnBookStatus" class="chosen-select form-control dwnBookStatus">
+                                                <option value="0">In Process</option>
+                                                <option value="1">Booked</option>
+                                            </select>
+                                        </div>
+                                    </th>
+                                    <th class="col-lg-1">
+                                        <div class="form-group">
+                                            <input type="text" name="firstName" class="form-control" id="txtUserFirstName" placeholder="0.00" />
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-primary pull-right" id="btnAddUsers">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+            <div class="panel-heading">
+                <h4 class="panel-title">Audiences List</h4>
+            </div>
+            <div class="panel-body">
+                <table id="audienceList" class="display">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email ID</th>
+                            <th>Visit Type</th>
+                            <th>Convention/Event</th>
+                            <th>Booking Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
