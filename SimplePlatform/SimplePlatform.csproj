@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\Offices\Detail.css" />
     <Content Include="Content\Plugins\chosen\chosen-sprite%402x.png" />
     <Content Include="Content\Plugins\chosen\chosen-sprite.png" />
     <Content Include="Content\Plugins\chosen\chosen.css" />
@@ -200,6 +201,7 @@
     <Content Include="Scripts\Conventions\Convention.js" />
     <Content Include="Scripts\DataTables\Extentions\dataTables.select.js" />
     <Content Include="Scripts\Events\Events.js" />
+    <Content Include="Scripts\Offices\Detail.js" />
     <Content Include="Scripts\Offices\Offices.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrapValidator.js" />
     <Content Include="Scripts\Plugins\Bootstrap-Datepicker\bootstrap_datepicker.js" />
@@ -262,6 +264,7 @@
     <Content Include="Scripts\DataTables\dataTables.min.js" />
     <Content Include="Scripts\Plugins\chosen\chosen.js" />
     <Content Include="Scripts\Plugins\global.js" />
+    <Content Include="Scripts\Plugins\highcharts.js" />
     <Content Include="Scripts\Plugins\jquery-1.11.3.js" />
     <Content Include="Scripts\Plugins\jquery-1.11.3.min.js" />
     <None Include="Scripts\Plugins\jQuery-Validator\jquery.validate-vsdoc.js" />
