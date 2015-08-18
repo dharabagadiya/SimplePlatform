@@ -104,7 +104,6 @@ simplePlatform.BindHeaderAddAudienceClickEvent = function () {
         return false;
     }, this));
 };
-
 simplePlatform.ValidateModalConventionForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({
@@ -132,9 +131,9 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                     }
                 }
             }
-        }).on('success.form.bv', function (e) {
+        }).off('success.form.bv').on('success.form.bv', function (e) {
             e.preventDefault();
-            var formObj = $(e.target);;
+            var formObj = $(e.target);
             var name = formObj.find("#txtName").val();
             var startDates = formObj.find("#txtDueDateStart").val();
             var endDates = formObj.find("#txtDueDateEnd").val();

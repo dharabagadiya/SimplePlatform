@@ -24,17 +24,19 @@ namespace SimplePlatform.Controllers
 
         public JsonResult GetAudiences()
         {
-            //var audienceManager = new DataModel.AudienceManager();
-            //var users = audienceManager.GetAudiences().Select(model => new
-            //{
-            //    ID = model.AudienceID,
-            //    Name = model.FirstName + " " + model.LastName,
-            //    EmailID = model.EMailID,
-            //    VisitType = model.VisitType.VisitTypeName,
-            //    ConventionEventName = (model.Event == null ? (model.Convention == null ? "-" : model.Convention.Name) : model.Event.Name),
-            //    Status = model.ConvensionBooking == null ?  "-" : model.ConvensionBooking.IsBooked ?  "Booked" :  "In Process"
-            //}).ToList();
-            return Json(null);
+            var audienceManager = new DataModel.AudienceManager();
+            var users = audienceManager.GetAudiences().Select(model => new
+            {
+                ID = model.AudienceID,
+                Name = model.Name,
+                Contact = model.Contact,
+                VisitDate = model.VisitDate.ToString("MMM dd,yyyy"),
+                VisitType = model.VisitType.VisitTypeName,
+                EventName = (model.Event == null ? "-" : model.Event.Name),
+                ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
+                Status = model.ConvensionBooking == null ? "-" : model.ConvensionBooking.IsBooked ? "Booked" : "In Process"
+            }).ToList();
+            return Json(new { data = users });
         }
 
         public PartialViewResult Add()
@@ -53,10 +55,11 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(string firstName, string lastName, string emailID, int visitTypeID, int officeID, int eventID, int fsmID, int convensionID)
+        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int fsmID, int bookingStatus, float donationAmount)
         {
             var audienceManager = new DataModel.AudienceManager();
-            //var status = audienceManager.Add(firstName, lastName, emailID, visitTypeID, officeID, eventID, fsmID, convensionID);
+            var visitDateTime = Convert.ToDateTime(visitDate);
+            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, bookingStatus == 1, donationAmount);
             return Json(false);
         }
     }

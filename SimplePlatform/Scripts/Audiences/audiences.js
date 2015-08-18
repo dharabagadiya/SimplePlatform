@@ -1,5 +1,60 @@
 ﻿var audiences = {};
 audiences.options = {
+    AddDataURL: "/Audiences/Add"
+};
+audiences.AddAudienceAjaxCall = function (obj, containerObj) {
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        url: audiences.options.AddDataURL,
+        async: false,
+        data: JSON.stringify(obj),
+        success: function (data) {
+            containerObj.find(".txtUserName").val("");
+            containerObj.find(".txtContact").val("");
+            containerObj.find(".txtContact").val("");
+            containerObj.find(".dwnFSMList").val(0);
+            containerObj.find(".dwnBookStatus").val(0);
+            containerObj.find(".txtDonationAmount").val(0);
+        }
+    });
+};
+audiences.SubmitBulkInsertForm = function (obj) {
+    var ajaxSubmit = [];
+    obj.find(".audienceDetailRow").each(function () {
+        var formObj = $(this);
+        var name = formObj.find(".txtUserName").val();
+        var visitDate = formObj.find(".txtVisitDate").val();
+        var contact = formObj.find(".txtContact").val();
+        var visitType = parseInt(formObj.find("#hdnVisitType").val());
+        var fsmID = parseInt(formObj.find(".dwnFSMList").val());
+        var placeID = parseInt(formObj.find("#hdnVisitPlaceID").val());
+        var officeID = 0;
+        var eventID = 0;
+        var convensionID = 0;
+        var donationAmount = parseFloat(formObj.find(".txtDonationAmount").val());
+        var bookingStatus = parseFloat(formObj.find(".dwnBookStatus").val());
+        if (visitType == 1) { officeID = placeID; }
+        else if (visitType == 2) { eventID = placeID; }
+        else if (visitType == 3) { convensionID = placeID; }
+        if (!IsNullOrEmpty(name) || !IsNullOrEmpty(contact) || !(officeID == 0 && eventID == 0 && convensionID == 0)) {
+            var dataObj = {
+                name: name,
+                visitDate: visitDate,
+                contact: contact,
+                visitType: visitType,
+                officeID: officeID,
+                eventID: eventID,
+                convensionID: convensionID,
+                fsmID: fsmID,
+                bookingStatus: bookingStatus,
+                donationAmount: donationAmount
+            };
+            ajaxSubmit.push(audiences.AddAudienceAjaxCall(dataObj, formObj));
+        }
+    });
+    $.when(ajaxSubmit).done(function () { window.location.reload(); });
 };
 audiences.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
@@ -41,35 +96,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
         }
     }).off('success.form.bv').on('success.form.bv', function (e) {
         e.preventDefault();
-        alert(1);
-        //var formObj = $(e.target);;
-        //var firstName = formObj.find("#txtUserFirstName").val();
-        //var lastName = formObj.find("#txtUserLastName").val();
-        //var emailID = formObj.find("#txtUserEmailAddress").val();
-        //var visitTypeID = formObj.find("#dwnPeopleVistiType").val();
-        //var officeID = formObj.find("#dwnOffices").val();
-        //var eventID = formObj.find("#dwnEvetns").val();
-        //var fsmID = formObj.find("#dwnFSMList").val();
-        //var convensionID = formObj.find("#dwnConvensions").val();
-        //if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
-        //if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
-        //if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
-        //if (IsNullOrEmpty(convensionID) && convensionID <= 0) { convensionID = 0; }
-        //$.ajax({
-        //    dataType: "json",
-        //    contentType: "application/json; charset=utf-8",
-        //    type: "POST",
-        //    url: "/Audiences/Add",
-        //    async: false,
-        //    data: JSON.stringify({ "firstName": firstName, "lastName": lastName, "emailID": emailID, "visitTypeID": visitTypeID, "officeID": officeID, "eventID": eventID, "fsmID": fsmID, "convensionID": convensionID }),
-        //    success: function (data) {
-        //        var status = data;
-        //        if (status) {
-        //            obj.modal('hide');
-        //        } else {
-        //        }
-        //    }
-        //});
+        audiences.SubmitBulkInsertForm(obj);
     });
 };
 audiences.LoadQuickBooking = function () {
@@ -77,11 +104,19 @@ audiences.LoadQuickBooking = function () {
     for (var i = 1 ; i < 3; i++) { audienceDetailRow.after(audienceDetailRow.clone()); }
     $(".btnAddUsers").off("click.btnAddUsers").on("click.btnAddUsers", $.proxy(function () { }, this));
     $(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
-    $(".dwnVisitType").chosen({ width: "100%" });
+    $(".dwnVisitType").each(function () {
+        $(this).chosen({ width: "100%" }).off("change").on("change", function () {
+            var rowObj = $(this).closest(".audienceDetailRow");
+            var groupObj = $(this.options[this.selectedIndex]).closest('optgroup');
+            var visitType = 0, placeID = 0;
+            if (groupObj.length > 0) { visitType = groupObj.attr("id"); placeID = $(this).val(); } else { placeID = $(this).val(); }
+            rowObj.find("#hdnVisitType").val(visitType);
+            rowObj.find("#hdnVisitPlaceID").val(placeID);
+        }).change();
+    });
     $(".dwnFSMList").chosen({ width: "100%" });
     $(".dwnBookStatus").chosen({ width: "100%" });
     audiences.ValidateModalAudienceForm($("#divAudienceBulkInsert"));
-
 };
 audiences.LoadAudienceList = function () {
     $('#audienceList').dataTable({
@@ -98,9 +133,11 @@ audiences.LoadAudienceList = function () {
         "deferRender": true,
         "columns": [
             { "data": "Name" },
-            { "data": "EmailID" },
+            { "data": "Contact" },
+            { "data": "VisitDate" },
             { "data": "VisitType" },
-            { "data": "ConventionEventName" },
+            { "data": "EventName" },
+            { "data": "ConventionName" },
             { "data": "Status", "width": '10%' },
             {
                 "data": null,

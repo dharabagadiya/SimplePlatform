@@ -75,7 +75,7 @@ tasks.EditTaskDetail = function (obj) {
             if (groupObj.length > 0) { officeID = groupObj.attr("id"); userID = $(this).val(); } else { officeID = $(this).val(); }
             dialogContentPlaceHolder.find("#hdnOfficeID").val(officeID);
             dialogContentPlaceHolder.find("#hdnUserID").val(userID);
-        })
+        });
         if (taskDetail.UserID == 0) { dialogContentPlaceHolder.find("#dwnOffices").val(taskDetail.OfficeID); }
         else { dialogContentPlaceHolder.find("#dwnOffices").find("optgroup[id='" + taskDetail.OfficeID + "']").find("option[value='" + taskDetail.UserID + "']"); }
         dialogContentPlaceHolder.find("#dwnOffices").trigger("chosen:updated");

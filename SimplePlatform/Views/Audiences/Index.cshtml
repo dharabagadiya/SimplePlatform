@@ -29,14 +29,17 @@
                                     <th>Contact</th>
                                     <th>Visit Type</th>
                                     <th>FSM</th>
+                                    <th>Booking Status</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="audienceDetailRow">
                                     <th class="col-lg-2">
+                                        <input type="hidden" id="hdnVisitType" />
+                                        <input type="hidden" id="hdnVisitPlaceID" />
                                         <div class="form-group">
-                                            <input type="text" name="Name" class="form-control" id="txtUserFirstName" placeholder="Name" />
+                                            <input type="text" name="Name" class="form-control txtUserName" id="txtUserName" placeholder="Name" />
                                         </div>
                                     </th>
                                     <th class="col-lg-2">
@@ -46,7 +49,7 @@
                                     </th>
                                     <th class="col-lg-2">
                                         <div class="form-group">
-                                            <input type="text" name="Contact" class="form-control" id="txtContact" placeholder="Contact" />
+                                            <input type="text" name="Contact" class="form-control txtContact" id="txtContact" placeholder="Contact" />
                                         </div>
                                     </th>
                                     <th class="col-lg-2">
@@ -76,6 +79,7 @@
                                     <th class="col-lg-2">
                                         <div class="form-group">
                                             <select id="dwnFSMList" class="chosen-select form-control dwnFSMList">
+                                                <option value="0">Select FSM</option>
                                                 @foreach (var user in users)
                                                 {
                                                     <option value="@user.UserId">@user.User.FirstName @user.User.LastName</option>
@@ -93,7 +97,7 @@
                                     </th>
                                     <th class="col-lg-1">
                                         <div class="form-group">
-                                            <input type="text" name="firstName" class="form-control" id="txtUserFirstName" placeholder="0.00" />
+                                            <input type="text" name="firstName" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
                                         </div>
                                     </th>
                                 </tr>
@@ -113,9 +117,11 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Email ID</th>
+                            <th>Contact</th>
+                            <th>Visit Date</th>
                             <th>Visit Type</th>
-                            <th>Convention/Event</th>
+                            <th>Event Name</th>
+                            <th>Convention Name</th>
                             <th>Booking Status</th>
                             <th>Edit</th>
                             <th>Delete</th>
