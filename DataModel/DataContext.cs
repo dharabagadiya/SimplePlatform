@@ -26,7 +26,7 @@ namespace DataModel
             OfficeMananer.OnModelCreating(modelBuilder);
             ConventionManager.OnModelCreating(modelBuilder);
             VisitTypeManager.OnModelCreating(modelBuilder);
-			EventManager.OnModelCreating(modelBuilder);
+            EventManager.OnModelCreating(modelBuilder);
             AudienceManager.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
@@ -40,5 +40,6 @@ namespace DataModel
         public DbSet<VisitType> VisitTypes { get; set; }
         public DbSet<Audience> Audiences { get; set; }
         public DbSet<ConvensionBooking> ConvensionBookings { get; set; }
+        public DbSet<Target> Targets { get; set; }
     }
 }

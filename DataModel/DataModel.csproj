@@ -55,6 +55,10 @@
     <Compile Include="Migrations\201508181825281_DataModel_Initial.Designer.cs">
       <DependentUpon>201508181825281_DataModel_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508181923084_DataModel_Targets_Model_Added.cs" />
+    <Compile Include="Migrations\201508181923084_DataModel_Targets_Model_Added.Designer.cs">
+      <DependentUpon>201508181923084_DataModel_Targets_Model_Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modal\ConvensionBooking.cs" />
     <Compile Include="ConventionManager.cs" />
     <Compile Include="DataContext.cs" />
@@ -66,6 +70,7 @@
     <Compile Include="Modal\Comment.cs" />
     <Compile Include="Modal\Event.cs" />
     <Compile Include="Modal\Office.cs" />
+    <Compile Include="Modal\Target.cs" />
     <Compile Include="Modal\Task.cs" />
     <Compile Include="Modal\UserDetail.cs" />
     <Compile Include="Modal\VisitType.cs" />
@@ -91,6 +96,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201508181825281_DataModel_Initial.resx">
       <DependentUpon>201508181825281_DataModel_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508181923084_DataModel_Targets_Model_Added.resx">
+      <DependentUpon>201508181923084_DataModel_Targets_Model_Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

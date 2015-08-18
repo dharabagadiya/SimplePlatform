@@ -13,6 +13,7 @@ namespace DataModel.Modal
         public Office()
         {
             Tasks = new List<Task>();
+            Targets = new List<Target>();
         }
         public int OfficeId { get; set; }
         public String Name { get; set; }
@@ -23,5 +24,6 @@ namespace DataModel.Modal
         public virtual ICollection<UserDetail> UsersDetail { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Audience> Audiences { get; set; }
+        public virtual ICollection<Target> Targets { get; set; }
     }
 }
