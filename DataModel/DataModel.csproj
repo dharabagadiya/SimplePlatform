@@ -51,39 +51,15 @@
   <ItemGroup>
     <Compile Include="AudienceManager.cs" />
     <Compile Include="CommentManager.cs" />
-    <Compile Include="Migrations\201508161129394_DataModel_Initial_DataModel1.cs" />
-    <Compile Include="Migrations\201508161129394_DataModel_Initial_DataModel1.Designer.cs">
-      <DependentUpon>201508161129394_DataModel_Initial_DataModel1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508161411462_DataModel_Audience_DataModel.cs" />
-    <Compile Include="Migrations\201508161411462_DataModel_Audience_DataModel.Designer.cs">
-      <DependentUpon>201508161411462_DataModel_Audience_DataModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508161420312_DataModel_Audience_Updated.cs" />
-    <Compile Include="Migrations\201508161420312_DataModel_Audience_Updated.Designer.cs">
-      <DependentUpon>201508161420312_DataModel_Audience_Updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508171607582_DataModel_Audience_Model.cs" />
-    <Compile Include="Migrations\201508171607582_DataModel_Audience_Model.Designer.cs">
-      <DependentUpon>201508171607582_DataModel_Audience_Model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508171954288_DataModel_Audience_Updated1.cs" />
-    <Compile Include="Migrations\201508171954288_DataModel_Audience_Updated1.Designer.cs">
-      <DependentUpon>201508171954288_DataModel_Audience_Updated1.cs</DependentUpon>
+    <Compile Include="Migrations\201508181825281_DataModel_Initial.cs" />
+    <Compile Include="Migrations\201508181825281_DataModel_Initial.Designer.cs">
+      <DependentUpon>201508181825281_DataModel_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Modal\ConvensionBooking.cs" />
     <Compile Include="ConventionManager.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
     <Compile Include="EventManager.cs" />
-    <Compile Include="Migrations\201508161118515_DataModel_Initial_DataModel.cs" />
-    <Compile Include="Migrations\201508161118515_DataModel_Initial_DataModel.Designer.cs">
-      <DependentUpon>201508161118515_DataModel_Initial_DataModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508161212535_DataModel_Convention_Event.cs" />
-    <Compile Include="Migrations\201508161212535_DataModel_Convention_Event.Designer.cs">
-      <DependentUpon>201508161212535_DataModel_Convention_Event.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Audience.cs" />
     <Compile Include="Modal\Convention.cs" />
@@ -113,26 +89,8 @@
     <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508161118515_DataModel_Initial_DataModel.resx">
-      <DependentUpon>201508161118515_DataModel_Initial_DataModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508161129394_DataModel_Initial_DataModel1.resx">
-      <DependentUpon>201508161129394_DataModel_Initial_DataModel1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508161212535_DataModel_Convention_Event.resx">
-      <DependentUpon>201508161212535_DataModel_Convention_Event.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508161411462_DataModel_Audience_DataModel.resx">
-      <DependentUpon>201508161411462_DataModel_Audience_DataModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508161420312_DataModel_Audience_Updated.resx">
-      <DependentUpon>201508161420312_DataModel_Audience_Updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508171607582_DataModel_Audience_Model.resx">
-      <DependentUpon>201508171607582_DataModel_Audience_Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508171954288_DataModel_Audience_Updated1.resx">
-      <DependentUpon>201508171954288_DataModel_Audience_Updated1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508181825281_DataModel_Initial.resx">
+      <DependentUpon>201508181825281_DataModel_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,11 +17,6 @@ namespace DataModel
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Modal.ConvensionBooking>().HasKey(e => e.AudienceID);
-
-            // Configure StudentId as FK for StudentAddress
-            modelBuilder.Entity<Modal.Audience>()
-                        .HasOptional(s => s.ConvensionBooking) // Mark StudentAddress is optional for Student
-                        .WithRequired(ad => ad.Audience); // Create inverse relationship
         }
 
         public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, bool isBooked, float amount)
@@ -37,7 +32,7 @@ namespace DataModel
                 eventDetail = Context.Events.Where(model => model.EventId == eventID && model.IsDeleted == false).FirstOrDefault();
                 userDetail = Context.UsersDetail.Where(model => model.UserId == fsmID && model.User.IsDeleted == false).FirstOrDefault();
                 convention = Context.Conventions.Where(model => model.ConventionId == conventionID && model.IsDeleted == false).FirstOrDefault();
-                Context.Audiences.Add(new Modal.Audience
+                var audience = new Modal.Audience
                 {
                     Name = name,
                     Contact = contact,
@@ -48,9 +43,9 @@ namespace DataModel
                     UserDetail = userDetail,
                     Convention = convention,
                     CreateDate = DateTime.Now,
-                    UpdateDate = DateTime.Now,
-                    ConvensionBooking = new Modal.ConvensionBooking { Amount = amount, IsBooked = isBooked, CreateDate = DateTime.Now, UpdateDate = DateTime.Now }
-                });
+                    UpdateDate = DateTime.Now
+                };
+                Context.ConvensionBookings.Add(new Modal.ConvensionBooking { Audience = audience, Amount = amount, IsBooked = isBooked, CreateDate = DateTime.Now, UpdateDate = DateTime.Now });
                 Context.SaveChanges();
                 return true;
             }
