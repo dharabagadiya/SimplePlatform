@@ -1,4 +1,5 @@
 ﻿var simplePlatform = {};
+
 simplePlatform.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -8,11 +9,11 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            firstName: {
-                message: 'The first name is not valid',
+            Name: {
+                message: 'The name is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The first name cannot be empty'
+                        message: 'The name is required and cannot be empty'
                     },
                     stringLength: {
                         min: 3,
@@ -25,30 +26,20 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
                     }
                 }
             },
-            lastName: {
-                message: 'The last name is not valid',
+            Contact: {
+                message: 'The Contact is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The last name is required and cannot be empty'
+                        message: 'The Contact is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 3,
-                        max: 15,
-                        message: 'The last name must be more than 3 and less than 15 characters long'
+                        min: 10,
+                        max: 10,
+                        message: 'The Contact must be 10 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The last name can containe a-z, A-Z, 0-9, or (_) only'
-                    }
-                }
-            },
-            emailAddress: {
-                validators: {
-                    notEmpty: {
-                        message: 'The email address is required'
-                    },
-                    emailAddress: {
-                        message: 'The input is not a valid email address'
+                        regexp: /^[1-9][0-9]{0,15}$/,
+                        message: 'The Contact can contain 0-9 only'
                     }
                 }
             }
@@ -56,31 +47,48 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
     }).off('success.form.bv').on('success.form.bv', function (e) {
         e.preventDefault();
         var formObj = $(e.target);;
-        var firstName = formObj.find("#txtUserFirstName").val();
-        var lastName = formObj.find("#txtUserLastName").val();
-        var emailID = formObj.find("#txtUserEmailAddress").val();
+        var name = formObj.find("#txtName").val();
+        var contact = formObj.find("#txtContact").val();
+        var visitDate = formObj.find(".txtVisitDate").val();
         var visitTypeID = formObj.find("#dwnPeopleVistiType").val();
         var officeID = formObj.find("#dwnOffices").val();
         var eventID = formObj.find("#dwnEvetns").val();
+        var conventionID = formObj.find("#dwnConvensions").val();
         var fsmID = formObj.find("#dwnFSMList").val();
-        var convensionID = formObj.find("#dwnConvensions").val();
+        var bookingStatus = formObj.find("#dwnBookStatus").val();
+        var gsbAmount = formObj.find("#txtGSBAmount").val();
+        var donationAmount = formObj.find("#txtDonationAmount").val();
         if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
         if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
         if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
-        if (IsNullOrEmpty(convensionID) && convensionID <= 0) { convensionID = 0; }
+        if (IsNullOrEmpty(conventionID) && conventionID <= 0) { conventionID = 0; }
+        if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
+        if (IsNullOrEmpty(donationAmount) && donationAmount <= 0) { donationAmount = 0; }
+        var dataObj = {
+            name: name,
+            visitDate: visitDate,
+            contact: contact,
+            visitType: visitTypeID,
+            officeID: officeID,
+            eventID: eventID,
+            convensionID: conventionID,
+            fsmID: fsmID,
+            bookingStatus: bookingStatus,
+            gsbAmount: gsbAmount,
+            donationAmount: donationAmount
+        };
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
             url: "/Audiences/Add",
             async: false,
-            data: JSON.stringify({ "firstName": firstName, "lastName": lastName, "emailID": emailID, "visitTypeID": visitTypeID, "officeID": officeID, "eventID": eventID, "fsmID": fsmID, "convensionID": convensionID }),
+            data: JSON.stringify(dataObj),
             success: function (data) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                } else {
-                }
+                } else { }
             }
         });
     });
@@ -92,6 +100,7 @@ simplePlatform.BindHeaderAddAudienceDropDownChangeEvent = function (obj) {
     });
     obj.find("#dwnPeopleVistiType").val(1).change();
 };
+
 simplePlatform.BindHeaderAddAudienceClickEvent = function () {
     var obj = $("#lnkAddAudiences");
     obj.off("click.lnkAddAudiences").on("click.lnkAddAudiences", $.proxy(function (event) {
@@ -99,6 +108,7 @@ simplePlatform.BindHeaderAddAudienceClickEvent = function () {
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             simplePlatform.BindHeaderAddAudienceDropDownChangeEvent(dialogContentPlaceHolder);
+            dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
             this.ValidateModalAudienceForm(dialogContentPlaceHolder);
         }, this));
         return false;
