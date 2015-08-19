@@ -59,6 +59,10 @@
     <Compile Include="Migrations\201508181923084_DataModel_Targets_Model_Added.Designer.cs">
       <DependentUpon>201508181923084_DataModel_Targets_Model_Added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508191550522_DataModel_Audience_GSBAmount_Added.cs" />
+    <Compile Include="Migrations\201508191550522_DataModel_Audience_GSBAmount_Added.Designer.cs">
+      <DependentUpon>201508191550522_DataModel_Audience_GSBAmount_Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modal\ConvensionBooking.cs" />
     <Compile Include="ConventionManager.cs" />
     <Compile Include="DataContext.cs" />
@@ -99,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508181923084_DataModel_Targets_Model_Added.resx">
       <DependentUpon>201508181923084_DataModel_Targets_Model_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508191550522_DataModel_Audience_GSBAmount_Added.resx">
+      <DependentUpon>201508191550522_DataModel_Audience_GSBAmount_Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

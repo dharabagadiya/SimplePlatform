@@ -16,6 +16,7 @@ namespace DataModel.Modal
         public string Name { get; set; }
         public DateTime VisitDate { get; set; }
         public string Contact { get; set; }
+        public float GSBAmount { get; set; }
         public virtual Convention Convention { get; set; }
         public virtual VisitType VisitType { get; set; }
         public virtual UserDetail UserDetail { get; set; }

@@ -19,7 +19,7 @@ namespace DataModel
             modelBuilder.Entity<Modal.ConvensionBooking>().HasKey(e => e.AudienceID);
         }
 
-        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, bool isBooked, float amount)
+        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, bool isBooked, float GSBAmount, float amount)
         {
             try
             {
@@ -42,6 +42,7 @@ namespace DataModel
                     Event = eventDetail,
                     UserDetail = userDetail,
                     Convention = convention,
+                    GSBAmount = GSBAmount,
                     CreateDate = DateTime.Now,
                     UpdateDate = DateTime.Now
                 };
