@@ -297,6 +297,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfficesController.cs" />
+    <Compile Include="Controllers\TargetsController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -337,6 +338,7 @@
     <Content Include="Views\Tasks\GetDetail.cshtml" />
     <Content Include="Views\Audiences\Add.cshtml" />
     <Content Include="Views\Audiences\Index.cshtml" />
+    <Content Include="Views\Targets\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
