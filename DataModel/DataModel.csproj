@@ -68,6 +68,14 @@
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
     <Compile Include="EventManager.cs" />
+    <Compile Include="Migrations\201508161118515_DataModel_Initial_DataModel.cs" />
+    <Compile Include="Migrations\201508161118515_DataModel_Initial_DataModel.Designer.cs">
+      <DependentUpon>201508161118515_DataModel_Initial_DataModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508161212535_DataModel_Convention_Event.cs" />
+    <Compile Include="Migrations\201508161212535_DataModel_Convention_Event.Designer.cs">
+      <DependentUpon>201508161212535_DataModel_Convention_Event.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Audience.cs" />
     <Compile Include="Modal\Convention.cs" />

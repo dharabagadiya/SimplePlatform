@@ -1,5 +1,4 @@
 ﻿var simplePlatform = {};
-
 simplePlatform.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -100,7 +99,6 @@ simplePlatform.BindHeaderAddAudienceDropDownChangeEvent = function (obj) {
     });
     obj.find("#dwnPeopleVistiType").val(1).change();
 };
-
 simplePlatform.BindHeaderAddAudienceClickEvent = function () {
     var obj = $("#lnkAddAudiences");
     obj.off("click.lnkAddAudiences").on("click.lnkAddAudiences", $.proxy(function (event) {
