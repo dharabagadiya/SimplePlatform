@@ -30,6 +30,7 @@
                                     <th>Visit Type</th>
                                     <th>FSM</th>
                                     <th>Booking Status</th>
+                                    <th>GSB Amount</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -42,7 +43,7 @@
                                             <input type="text" name="Name" class="form-control txtUserName" id="txtUserName" placeholder="Name" />
                                         </div>
                                     </th>
-                                    <th class="col-lg-2">
+                                    <th class="col-lg-1">
                                         <div class="form-group">
                                             <input type="text" name="VisitDate" class="form-control txtVisitDate" placeholder="Select Date" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
                                         </div>
@@ -97,7 +98,12 @@
                                     </th>
                                     <th class="col-lg-1">
                                         <div class="form-group">
-                                            <input type="text" name="firstName" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
+                                            <input type="text" name="GSBAmount" class="form-control txtGSBAmount" id="txtGSBAmount" placeholder="0.00" />
+                                        </div>
+                                    </th>
+                                    <th class="col-lg-1">
+                                        <div class="form-group">
+                                            <input type="text" name="DonationAmount" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
                                         </div>
                                     </th>
                                 </tr>
@@ -123,6 +129,8 @@
                             <th>Event Name</th>
                             <th>Convention Name</th>
                             <th>Booking Status</th>
+                            <th>GSM (in $)</th>
+                            <th>Donation (in $)</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>

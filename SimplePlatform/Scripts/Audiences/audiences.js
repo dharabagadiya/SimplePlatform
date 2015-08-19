@@ -16,6 +16,7 @@ audiences.AddAudienceAjaxCall = function (obj, containerObj) {
             containerObj.find(".txtContact").val("");
             containerObj.find(".dwnFSMList").val(0);
             containerObj.find(".dwnBookStatus").val(0);
+            containerObj.find(".txtGSBAmount").val(0);
             containerObj.find(".txtDonationAmount").val(0);
         }
     });
@@ -33,6 +34,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
         var officeID = 0;
         var eventID = 0;
         var convensionID = 0;
+        var gsbAmount = parseFloat(formObj.find(".txtGSBAmount").val());
         var donationAmount = parseFloat(formObj.find(".txtDonationAmount").val());
         var bookingStatus = parseFloat(formObj.find(".dwnBookStatus").val());
         if (visitType == 1) { officeID = placeID; }
@@ -49,6 +51,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
                 convensionID: convensionID,
                 fsmID: fsmID,
                 bookingStatus: bookingStatus,
+                gsbAmount: gsbAmount,
                 donationAmount: donationAmount
             };
             ajaxSubmit.push(audiences.AddAudienceAjaxCall(dataObj, formObj));
@@ -139,6 +142,8 @@ audiences.LoadAudienceList = function () {
             { "data": "EventName" },
             { "data": "ConventionName" },
             { "data": "Status", "width": '10%' },
+            { "data": "GSBAmount", "width": '8%' },
+            { "data": "DonationAmount", "width": '10%' },
             {
                 "data": null,
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {

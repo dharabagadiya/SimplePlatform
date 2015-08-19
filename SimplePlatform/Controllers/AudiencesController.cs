@@ -34,7 +34,9 @@ namespace SimplePlatform.Controllers
                 VisitType = model.VisitType.VisitTypeName,
                 EventName = (model.Event == null ? "-" : model.Event.Name),
                 ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
-                Status = model.ConvensionBooking == null ? "-" : model.ConvensionBooking.IsBooked ? "Booked" : "In Process"
+                Status = model.ConvensionBooking == null ? "-" : model.ConvensionBooking.IsBooked ? "Booked" : "In Process",
+                GSBAmount  = model.GSBAmount,
+                DonationAmount  = model.ConvensionBooking.Amount
             }).ToList();
             return Json(new { data = users });
         }
@@ -55,11 +57,11 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int fsmID, int bookingStatus, float donationAmount)
+        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataModel.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, bookingStatus == 1, donationAmount);
+            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, bookingStatus == 1, gsbAmount, donationAmount);
             return Json(false);
         }
     }
