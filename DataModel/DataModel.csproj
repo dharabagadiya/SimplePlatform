@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201508201619278_DataModel_Event_City_Added.Designer.cs">
       <DependentUpon>201508201619278_DataModel_Event_City_Added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508201850009_DataModel_Audience_Model_Wrong_ColumnName.cs" />
+    <Compile Include="Migrations\201508201850009_DataModel_Audience_Model_Wrong_ColumnName.Designer.cs">
+      <DependentUpon>201508201850009_DataModel_Audience_Model_Wrong_ColumnName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modal\ConvensionBooking.cs" />
     <Compile Include="ConventionManager.cs" />
     <Compile Include="DataContext.cs" />
@@ -121,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508201619278_DataModel_Event_City_Added.resx">
       <DependentUpon>201508201619278_DataModel_Event_City_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508201850009_DataModel_Audience_Model_Wrong_ColumnName.resx">
+      <DependentUpon>201508201850009_DataModel_Audience_Model_Wrong_ColumnName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
