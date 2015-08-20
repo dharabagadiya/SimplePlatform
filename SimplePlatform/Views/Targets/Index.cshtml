@@ -16,7 +16,7 @@
                 <h4 class="panel-title">Add Offices Targets</h4>
             </div>
             <div class="panel-body">
-                <div class="col-lg-12" id="divAudienceBulkInsert">
+                <div class="col-lg-12" id="divTargetBulkInsert">
                     <form action="@Url.Action("Add", "Audiences")" method="post">
                         <table class="table table-bordered">
                             <thead>
@@ -24,46 +24,47 @@
                                     <th>Office</th>
                                     <th>Due Date</th>
                                     <th>Booking Target</th>
-                                    <th>Fund Raising Target</th>
-                                    <th>GSB Target</th>
+                                    <th>Fund Raising Target(in $)</th>
+                                    <th>GSB Target(in $)</th>
                                     <th>Arrivals Targets</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="officeTagrgetRow">
+                                <tr class="divTargetBulkInsertRow">
                                     <th class="col-lg-2">
                                         <div class="form-group">
                                             <select id="dwnOffices" class="chosen-select form-control dwnOffices">
+                                                <option value="0">Select Office</option>
                                                 @foreach (var office in offices)
                                                 {
-                                                <option value="@office.OfficeId">@office.Name</option>
+                                                    <option value="@office.OfficeId">@office.Name</option>
                                                 }
                                             </select>
                                         </div>
                                     </th>
                                     <th class="col-lg-2">
                                         <div class="form-group">
-                                            <input type="text" name="VisitDate" class="form-control txtVisitDate" placeholder="Select Date" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                            <input type="text" name="VisitDate" class="form-control txtDueDate" placeholder="Select Date" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
                                         </div>
                                     </th>
                                     <th class="col-lg-2">
                                         <div class="form-group">
-                                            <input type="text" name="firstName" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
+                                            <input type="text" name="Amount" class="form-control txtBookingTarget" id="txtBookingTarget" placeholder="0" />
                                         </div>
                                     </th>
                                     <th class="col-lg-2">
                                         <div class="form-group">
-                                            <input type="text" name="firstName" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
+                                            <input type="text" name="Amount" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
                                         </div>
                                     </th>
                                     <th class="col-lg-2">
                                         <div class="form-group">
-                                            <input type="text" name="firstName" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
+                                            <input type="text" name="Amount" class="form-control txtGSBAmountTarget" id="txtGSBAmountTarget" placeholder="0.00" />
                                         </div>
                                     </th>
                                     <th class="col-lg-2">
                                         <div class="form-group">
-                                            <input type="text" name="firstName" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
+                                            <input type="text" name="Amount" class="form-control txtArrivalTargets" id="txtArrivalTargets" placeholder="0" />
                                         </div>
                                     </th>
                                 </tr>

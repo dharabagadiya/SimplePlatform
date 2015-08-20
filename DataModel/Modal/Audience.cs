@@ -24,7 +24,7 @@ namespace DataModel.Modal
         public virtual Office Office { get; set; }
         public virtual Event Event { get; set; }
         [DefaultValue(false)]
-        public bool IsAuttended { get; set; }
+        public bool IsAttended { get; set; }
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
         public DateTime CreateDate { get; set; }

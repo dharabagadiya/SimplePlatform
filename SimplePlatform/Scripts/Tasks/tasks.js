@@ -82,7 +82,7 @@ tasks.EditTaskDetail = function (obj) {
         this.ValidateModalTaskForm(dialogContentPlaceHolder);
     }, this));
 };
-tasks.DeletUserDetail = function (obj) {
+tasks.DeletTaskDetail = function (obj) {
     var currentObj = obj;
     var taskDetail = obj.data("task_detail");
     $.ajax({
@@ -221,7 +221,7 @@ tasks.ReloadTaskList = function () {
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                     var currentObj = $(cell);
                     currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
-                    currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { tasks.DeletUserDetail($(this)); });
+                    currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { tasks.DeletTaskDetail($(this)); });
                 },
                 render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
                 "orderable": false,
