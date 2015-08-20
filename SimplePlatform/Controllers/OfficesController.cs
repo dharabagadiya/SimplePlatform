@@ -88,5 +88,18 @@ namespace SimplePlatform.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public JsonResult GetTasks(int officeID)
+        {
+            var officesManager = new OfficeMananer();
+            var tasks = officesManager.GetTasks(officeID).Select(model => new
+            {
+                ID = model.TaskId,
+                Name = model.Name,
+                EndDate = model.EndDate.ToString("dd-MM-yyyy"),
+                Description=model.Description
+            }).ToList();
+            return Json(tasks);
+        }
     }
 }

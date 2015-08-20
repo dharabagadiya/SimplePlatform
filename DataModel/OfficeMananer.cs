@@ -68,6 +68,10 @@ namespace DataModel
         {
             return Context.Offices.Where(modal => modal.IsDeleted == false).ToList();
         }
+        public List<Modal.Task> GetTasks(int officeID)
+        {
+            return Context.Tasks.Where(model => model.Office.OfficeId == officeID && model.UsersDetail == null).OrderByDescending(model => model.EndDate).ToList();
+        }
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Modal.UserDetail>()
