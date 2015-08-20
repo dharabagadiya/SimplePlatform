@@ -24,6 +24,7 @@ namespace DataModel
             {
                 Modal.Office office = null;
                 office = Context.Offices.Where(model => model.OfficeId == officeID && model.IsDeleted == false).FirstOrDefault();
+                if (office == null) { return false; }
                 office.Targets.Add(new Modal.Target
                 {
                     DueDate = dueDate,
@@ -49,6 +50,7 @@ namespace DataModel
             {
                 var office = Context.Offices.Where(model => model.OfficeId == officeID && model.IsDeleted == false).FirstOrDefault();
                 var target = Context.Targets.Where(model => model.TargetId == targetID && model.IsDeleted == false).FirstOrDefault();
+                if (target == null) { return false; }
                 target.DueDate = dueDate;
                 target.Booking = bookingTargets;
                 target.FundRaising = fundRaisingAmount;
@@ -65,9 +67,25 @@ namespace DataModel
             }
         }
 
+        public bool Delete(int id)
+        {
+            try
+            {
+                var target = Context.Targets.Where(model => model.TargetId == id).FirstOrDefault();
+                target.UpdateDate = DateTime.Now;
+                target.IsDeleted = true;
+                Context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public Modal.Target GetTarget(int id)
         {
-            return Context.Targets.Where(model => model.TargetId == id).FirstOrDefault();
+            return Context.Targets.Where(model => model.TargetId == id && model.IsDeleted == false).FirstOrDefault();
         }
     }
 }
