@@ -41,13 +41,14 @@ events.ValidateModalEventForm = function (obj) {
             var eventID = formObj.find("#hdnEventID").val();
             var officeID = formObj.find("#dwnOffices").val();
             var conventionID = formObj.find("#dwnConvention").val();
+            var city = formObj.find("#txtCity").val();
             $.ajax({
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
                 url: events.options.UpdateURL,
                 async: false,
-                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "officeID": officeID, "eventID": eventID, "conventionID": conventionID }),
+                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "officeID": officeID, "eventID": eventID, "conventionID": conventionID, "city": city }),
                 success: function (data) {
                     var status = data;
                     if (status) {
@@ -103,9 +104,8 @@ $(document).ready(function () {
         "displayLength": 25,
         responsive: true,
         "deferRender": true,
-        "columns": [{ "data": "name" }, { "data": "startDate" }, { "data": "endDate" }, {
-            "data": "description"
-        }, {
+        "columns": [{ "data": "name" }, { "data": "startDate" }, { "data": "endDate" }, { "data": "description" }, { "data": "city" },
+            {
             "data": null,
             "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                 var currentObj = $(cell);
