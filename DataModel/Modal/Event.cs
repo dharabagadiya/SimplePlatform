@@ -13,6 +13,7 @@ namespace DataModel.Modal
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public String Description { get; set; }
+        public String City { get; set; }
         public virtual Office Office { get; set; }
         public bool IsDeleted { get; set; }
         public virtual Convention convention { get; set; }

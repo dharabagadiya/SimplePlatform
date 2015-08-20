@@ -7,13 +7,13 @@ namespace DataModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class DataModel_Initial_DataModel : IMigrationMetadata
+    public sealed partial class DataModel_Event_City_Added : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DataModel_Initial_DataModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DataModel_Event_City_Added));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508161118515_DataModel_Initial_DataModel"; }
+            get { return "201508201619278_DataModel_Event_City_Added"; }
         }
         
         string IMigrationMetadata.Source
