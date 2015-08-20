@@ -62,5 +62,12 @@ namespace SimplePlatform.Controllers
             return Json(status);
         }
 
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            var targetManager = new DataModel.TargetManager();
+            var status = targetManager.Delete(id);
+            return Json(status);
+        }
     }
 }

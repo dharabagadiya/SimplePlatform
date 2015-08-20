@@ -2,7 +2,8 @@
 targets.options = {
     AddDataURL: "/Targets/Add",
     EditDataURL: function (id) { return ("/Targets/Edit/" + id); },
-    UpdateDataURL: "/Targets/Update"
+    UpdateDataURL: "/Targets/Update",
+    DeleteURL: "/Targets/Delete"
 };
 targets.AddTargetsAjaxCall = function (obj, containerObj) {
     $.ajax({
@@ -79,7 +80,6 @@ targets.LoadQuickTargetSetting = function () {
     $(".txtDueDate").datepicker({ autoclose: true, todayHighlight: true });
     targets.ValidateModalTargetForm($("#divTargetBulkInsert"));
 };
-
 targets.ValidateModalEditTargetForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -145,6 +145,22 @@ targets.EditTargetDetail = function (obj) {
         targets.ValidateModalEditTargetForm(dialogContentPlaceHolder);
     }, this));
 };
+targets.DeletTaskDetail = function (obj) {
+    var currentObj = obj;
+    var targetDetail = obj.data("target_detail");
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        url: targets.options.DeleteURL,
+        async: false,
+        data: JSON.stringify({ "id": targetDetail.ID }),
+        success: function (data) {
+            var status = data;
+            if (status) { window.location.reload(); } else { }
+        }
+    });
+};
 targets.LoadTagetsList = function () {
     $('#targetList').dataTable({
         renderer: {
@@ -179,8 +195,8 @@ targets.LoadTagetsList = function () {
                 "data": null,
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                     var currentObj = $(cell);
-                    currentObj.css({ "text-align": "center" }).data("audience_detail", rowData);
-                    currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { audiences.DeletAudienceDetail($(this)); });
+                    currentObj.css({ "text-align": "center" }).data("target_detail", rowData);
+                    currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { targets.DeletTaskDetail($(this)); });
                 },
                 render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
                 "orderable": false,
