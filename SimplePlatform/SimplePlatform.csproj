@@ -203,6 +203,7 @@
     <Content Include="Scripts\Events\Events.js" />
     <Content Include="Scripts\Offices\Detail.js" />
     <Content Include="Scripts\Offices\Offices.js" />
+    <Content Include="Scripts\Offices\targets.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrapValidator.js" />
     <Content Include="Scripts\Plugins\Bootstrap-Datepicker\bootstrap_datepicker.js" />
     <Content Include="Scripts\Plugins\bootstrap-paginator.js" />

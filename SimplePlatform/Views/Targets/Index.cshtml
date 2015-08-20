@@ -36,7 +36,7 @@
                                             <select id="dwnOffices" class="chosen-select form-control dwnOffices">
                                                 @foreach (var office in offices)
                                                 {
-                                                    <option value="@office.OfficeId">@office.Name</option>
+                                                <option value="@office.OfficeId">@office.Name</option>
                                                 }
                                             </select>
                                         </div>
@@ -72,6 +72,28 @@
                         <button type="submit" class="btn btn-primary pull-right" id="btnAddUsers">Add</button>
                     </form>
                 </div>
+            </div>
+        </div>
+        <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+            <div class="panel-heading">
+                <h4 class="panel-title">Targets List</h4>
+            </div>
+            <div class="panel-body">
+                <table id="targetList" class="display" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Due Date</th>
+                            <th>Booking</th>
+                            <th>FundRaising</th>
+                            <th>GSB</th>
+                            <th>Arrivals</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </div>
