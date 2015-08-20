@@ -28,7 +28,7 @@ namespace SimplePlatform.Controllers
             {
                 ID = model.TargetId,
                 OfficeName = model.Office.Name,
-                DueDate = model.DueDate,
+                DueDate = model.DueDate.ToString("MMM dd,yyyy"),
                 Booking = model.Booking,
                 FundRaising = model.FundRaising,
                 GSB = model.GSB,
@@ -36,5 +36,31 @@ namespace SimplePlatform.Controllers
             }).ToList();
             return Json(new { data = targets });
         }
+
+        public JsonResult Add(int officeID, string dueDate, int bookingTargets, float fundRaisingAmount, float gsbAmount, int arrivalTargets)
+        {
+            var targetManager = new DataModel.TargetManager();
+            var dueDateDateTime = Convert.ToDateTime(dueDate);
+            var status = targetManager.Add(officeID, dueDateDateTime, bookingTargets, fundRaisingAmount, gsbAmount, arrivalTargets);
+            return Json(status);
+        }
+
+        public PartialViewResult Edit(int id)
+        {
+            var officeManager = new DataModel.OfficeMananer();
+            ViewData["Offices"] = officeManager.GetOffices();
+            var targetManager = new DataModel.TargetManager();
+            var target = targetManager.GetTarget(id);
+            return PartialView(target);
+        }
+
+        public JsonResult Update(int targetID, int officeID, string dueDate, int bookingTargets, float fundRaisingAmount, float gsbAmount, int arrivalTargets)
+        {
+            var targetManager = new DataModel.TargetManager();
+            var dueDateDateTime = Convert.ToDateTime(dueDate);
+            var status = targetManager.Update(targetID, officeID, dueDateDateTime, bookingTargets, fundRaisingAmount, gsbAmount, arrivalTargets);
+            return Json(status);
+        }
+
     }
 }

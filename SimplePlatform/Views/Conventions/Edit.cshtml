@@ -28,7 +28,7 @@
                     <textarea class="form-control" rows="5" name="txtDescription" id="txtDescription">@Model.Description</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="SelectOffice">Select User</label>
+                    <label for="SelectOffice">Select Speaker</label>
                     <select class="form-control" id="dwnUserId">
                         @foreach (var user in users)
                         {
@@ -36,7 +36,6 @@
                         }
                     </select>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" id="btnEditEvent">Save</button>
