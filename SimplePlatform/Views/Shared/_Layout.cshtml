@@ -24,5 +24,11 @@
     </div>
     <div id="divCommonModalPlaceHolder" class="modal fade"></div>
     @Scripts.Render(BundleConfig.GetScriptsBundlePath(ViewData["Controller_Name"].ToString()).ToArray())
+    <script type="text/javascript">
+        @Html.Raw(ViewData["View_Script"].ToString())
+        $(document).ready(function () {
+            @ViewData["View_StartupScript"].ToString()
+        });
+    </script>
 </body>
 </html>
