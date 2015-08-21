@@ -28,6 +28,10 @@ namespace CustomAuthentication.Security
                 HttpContext.Current.User = newUser;
                 HttpContext.Current.Session["User"] = new CustomMembershipProvider().GetUser(newUser.UserId);
             }
+            else
+            {
+                filterContext.Result = new HttpUnauthorizedResult();
+            }
         }
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)
         {
