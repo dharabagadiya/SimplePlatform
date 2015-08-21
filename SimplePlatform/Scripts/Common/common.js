@@ -216,13 +216,14 @@ simplePlatform.ValidateModalEventForm = function (obj) {
             var description = formObj.find("#txtDescription").val();
             var officeID = formObj.find("#dwnOffices").val();
             var conventionID = formObj.find("#dwnConvention").val();
+            var city = formObj.find("#txtCity").val();
             $.ajax({
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
                 url: "/Events/Add",
                 async: false,
-                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "officeID": officeID, "conventionID": conventionID }),
+                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "officeID": officeID, "conventionID": conventionID, "city": city }),
                 success: function (data) {
                     var status = data;
                     if (status) {

@@ -11,7 +11,7 @@ namespace DataModel
     public class EventManager
     {
         private DataContext Context = new DataContext();
-        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int officeID,int conventionID)
+        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int officeID, int conventionID, string city)
         {
             try
             {
@@ -27,7 +27,8 @@ namespace DataModel
                     EndDate = endDate,
                     Description = description,
                     Office = office,
-                    convention= convention
+                    convention = convention,
+                    City = city
                 });
                 var status = Context.SaveChanges();
                 return true;
@@ -41,7 +42,7 @@ namespace DataModel
         { return Context.Events.Where(model => model.IsDeleted == false).ToList(); }
         public Event GetEventDetail(int id)
         { return Context.Events.Where(modal => modal.EventId == id).FirstOrDefault(); }
-        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID,int conventionID)
+        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID, int conventionID,string city)
         {
             try
             {
@@ -55,6 +56,7 @@ namespace DataModel
                 eventDetail.Description = description;
                 eventDetail.Office = office;
                 eventDetail.convention = convention;
+                eventDetail.City = city;
                 Context.SaveChanges();
                 return true;
             }
