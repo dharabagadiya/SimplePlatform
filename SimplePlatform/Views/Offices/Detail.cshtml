@@ -1,55 +1,58 @@
 ﻿@model DataModel.Modal.Office
 
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "Office Detail";
 }
 
 <div class="row">
-    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-        <div class="panel panel-default plain btrr0 bbrr0 panelRefresh" data-mh="payments" id="dyn_4" style="height: 324px;">
-            <div class="panel-heading">
-                <h4 class="panel-title"><i class="fa fa-dollar"></i> Payment received</h4>
-                <div class="panel-controls panel-controls-right"><a href="#" class="panel-refresh"><i class="fa fa-circle-o"></i></a></div>
-            </div>
-            <div class="panel-body">
-                <div id="StockChartContainer"></div>
+    <div class="col-lg-12">
+        <div id="page-header" class="clearfix">
+            <div class="page-header">
+                <h2>Office Detail</h2>
             </div>
         </div>
-    </div>
-    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-        <div class="panel panel-default plain" id="dyn_6">
-            <div class="panel-heading">
-                <h4 class="panel-title"><i class="glyphicon glyphicon-user"></i> Booking</h4>
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default plain btrr0 bbrr0 panelRefresh" data-mh="payments" id="dyn_4" style="height: 324px;">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-dollar"></i> Payment received</h4>
+                    <div class="panel-controls panel-controls-right"><a href="#" class="panel-refresh"><i class="fa fa-circle-o"></i></a></div>
+                </div>
+                <div class="panel-body">
+                    <div id="StockChartContainer"></div>
+                </div>
             </div>
-            <div class="panel-body">
-                <div class="text-center">
-                    <div id="customer-exp" class="custom-progressbar blue" style="width:244px;height:244px;">
-                        <div class="percent">
-                            80<span>%</span>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default plain" id="dyn_6">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="glyphicon glyphicon-user"></i> Booking</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div id="customer-exp" class="custom-progressbar blue" style="width:244px;height:244px;">
+                            <div class="percent">
+                                80<span>%</span>
+                            </div>
+                            <div class="description">satisfaction</div>
                         </div>
-                        <div class="description">satisfaction</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-lg-8 col-md-12"></div>
-    <div class="col-lg-4 col-md-12">
-        <!-- col-lg-4 start here -->
-        <div class="panel panel-default plain toggle panelMove panelClose panelRefresh" id="dyn_13">
-            <!-- Start .panel -->
-            <div class="panel-heading">
-                <h4 class="panel-title"><i class="fa fa-comments"></i>Tasks</h4>
-                <div class="panel-controls panel-controls-right"><a href="#" class="panel-refresh"><i class="fa fa-circle-o"></i></a><a href="#" class="toggle panel-minimize"><i class="fa fa-angle-up"></i></a><a href="#" class="panel-close"><i class="fa fa-times"></i></a></div>
+        <div class="col-lg-8 col-md-12"></div>
+        <div class="col-lg-4 col-md-12">
+            <!-- col-lg-4 start here -->
+            <div class="panel panel-default plain toggle panelMove panelClose panelRefresh" id="dyn_13">
+                <!-- Start .panel -->
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-comments"></i>Tasks</h4>
+                    <div class="panel-controls panel-controls-right"><a href="#" class="panel-refresh"><i class="fa fa-circle-o"></i></a><a href="#" class="toggle panel-minimize"><i class="fa fa-angle-up"></i></a><a href="#" class="panel-close"><i class="fa fa-times"></i></a></div>
+                </div>
+                <div class="panel-body ">
+                    <ul class="list-group recent-comments taskWidget"></ul>
+                </div>
             </div>
-            <div class="panel-body ">
-                <ul class="list-group recent-comments taskWidget"></ul>
-            </div>
+            <!-- End .panel -->
         </div>
-        <!-- End .panel -->
     </div>
 </div>
