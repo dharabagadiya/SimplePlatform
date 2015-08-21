@@ -17,6 +17,11 @@ namespace DataModel
         {
             return Context.Targets.Where(modal => modal.IsDeleted == false).ToList();
         }
+        public List<Modal.Target> GetTargets(List<Modal.Office> offices)
+        {
+            var officesID = offices.Select(model => model.OfficeId).ToList();
+            return Context.Targets.Where(modal => modal.IsDeleted == false && officesID.Contains(modal.Office.OfficeId)).ToList();
+        }
 
         public bool Add(int officeID, DateTime dueDate, int bookingTargets, float fundRaisingAmount, float gsbAmount, int arrivalTargets)
         {
@@ -86,6 +91,21 @@ namespace DataModel
         public Modal.Target GetTarget(int id)
         {
             return Context.Targets.Where(model => model.TargetId == id && model.IsDeleted == false).FirstOrDefault();
+        }
+
+        public object GetFundingTargets(List<Modal.Office> offices, int year)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var targets = GetTargets(offices).ToList();
+            var targetSeriesData = targets.OrderBy(model => model.DueDate).Select(model => new object[] { (model.DueDate - startYear).TotalMilliseconds, model.FundRaising }).ToList();
+            return new { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
+        }
+        public object GetBookingTargets(List<Modal.Office> offices, int year)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var targets = GetTargets(offices).ToList();
+            var targetSeriesData = targets.OrderBy(model => model.DueDate).Select(model => new object[] { (model.DueDate - startYear).TotalMilliseconds, model.Booking }).ToList();
+            return new { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
     }
 }
