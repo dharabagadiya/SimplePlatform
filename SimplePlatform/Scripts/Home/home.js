@@ -14,7 +14,7 @@ home.LoadFundRaisingChart = function (data) {
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { month: '%b %e, %Y' },
-            title: { text: "Due Date" }
+            title: { text: "" }
         },
         yAxis: {
             min: 0,
@@ -35,7 +35,7 @@ home.LoadBookingChart = function (data) {
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { month: '%b %e, %Y' },
-            title: { text: "Due Date" }
+            title: { text: "" }
         },
         yAxis: {
             min: 0,
@@ -56,7 +56,7 @@ home.LoadGSBChart = function (data) {
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { month: '%b %e, %Y' },
-            title: { text: "Due Date" }
+            title: { text: "" }
         },
         yAxis: {
             min: 0,
@@ -77,7 +77,7 @@ home.LoadArrivalChart = function (data) {
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { month: '%b %e, %Y' },
-            title: { text: "Due Date" }
+            title: { text: "" }
         },
         yAxis: {
             min: 0,
@@ -135,4 +135,3 @@ home.DoPageSetting = function () {
     this.GetGSBTargetData();
     this.GetArrivalTargetData();
 };
- 
