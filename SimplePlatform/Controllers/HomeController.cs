@@ -24,8 +24,10 @@ namespace SimplePlatform.Controllers
         {
             var dataSeries = new List<object>();
             var targetManager = new DataModel.TargetManager();
+            var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
             dataSeries.Add(targetManager.GetFundingTargets(offices.ToList(), DateTime.Now.Year));
+            dataSeries.Add(audienceManager.GetFundingTargets(offices.ToList(), DateTime.Now.Year));
             return Json(dataSeries);
         }
 
@@ -35,6 +37,24 @@ namespace SimplePlatform.Controllers
             var targetManager = new DataModel.TargetManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
             dataSeries.Add(targetManager.GetBookingTargets(offices.ToList(), DateTime.Now.Year));
+            return Json(dataSeries);
+        }
+
+        public JsonResult GetGSBTargets()
+        {
+            var dataSeries = new List<object>();
+            var targetManager = new DataModel.TargetManager();
+            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
+            dataSeries.Add(targetManager.GetGSBTargets(offices.ToList(), DateTime.Now.Year));
+            return Json(dataSeries);
+        }
+
+        public JsonResult GetArrivalTargets()
+        {
+            var dataSeries = new List<object>();
+            var targetManager = new DataModel.TargetManager();
+            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
+            dataSeries.Add(targetManager.GetArrivalTargets(offices.ToList(), DateTime.Now.Year));
             return Json(dataSeries);
         }
     }
