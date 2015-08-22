@@ -2,7 +2,7 @@
 home.options = {
     FundRaisingURL: "/Home/GetFundRaisingTargets",
     BookingURL: "/Home/GetBookingTargets",
-    GSBDataURL: "/Home/GetBookingTargets",
+    GSBDataURL: "/Home/GetGSBTargets",
     ArrivalDataURL: "/Home/GetArrivalTargets"
 };
 home.LoadFundRaisingChart = function (data) {
@@ -11,17 +11,17 @@ home.LoadFundRaisingChart = function (data) {
         chart: {},
         title: { text: "" },
         subtitle: { text: "" },
-
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { month: '%b %e, %Y' },
             title: { text: "Due Date" }
         },
         yAxis: {
+            min: 0,
             title: { text: 'Target Amount (in $)' }
         },
         credits: { enabled: false },
-        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e. %b}: {point.y:.2f} m' },
+        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e, %b} : {point.y:.2f}$' },
         plotOptions: { spline: { marker: { enabled: true } } },
         series: data
     });
@@ -32,17 +32,17 @@ home.LoadBookingChart = function (data) {
         chart: {},
         title: { text: "" },
         subtitle: { text: "" },
-
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { month: '%b %e, %Y' },
             title: { text: "Due Date" }
         },
         yAxis: {
+            min: 0,
             title: { text: 'No. of Booking' }
         },
         credits: { enabled: false },
-        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e. %b}: {point.y:.2f} m' },
+        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e, %b} : {point.y:.2f}$' },
         plotOptions: { spline: { marker: { enabled: true } } },
         series: data
     });
@@ -53,17 +53,17 @@ home.LoadGSBChart = function (data) {
         chart: {},
         title: { text: "" },
         subtitle: { text: "" },
-
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { month: '%b %e, %Y' },
             title: { text: "Due Date" }
         },
         yAxis: {
+            min: 0,
             title: { text: 'Target Amount (in $)' }
         },
         credits: { enabled: false },
-        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e. %b}: {point.y:.2f} m' },
+        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e, %b} : {point.y:.2f}$' },
         plotOptions: { spline: { marker: { enabled: true } } },
         series: data
     });
@@ -80,15 +80,15 @@ home.LoadArrivalChart = function (data) {
             title: { text: "Due Date" }
         },
         yAxis: {
+            min: 0,
             title: { text: 'No. of Arrival' }
         },
         credits: { enabled: false },
-        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e. %b}: {point.y:.2f} m' },
+        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e, %b} : {point.y:.2f}$' },
         plotOptions: { spline: { marker: { enabled: true } } },
         series: data
     });
 };
-
 home.GetFundRaisingData = function () {
     $.ajax({
         dataType: "json",

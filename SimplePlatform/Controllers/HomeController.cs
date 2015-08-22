@@ -27,7 +27,7 @@ namespace SimplePlatform.Controllers
             var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
             dataSeries.Add(targetManager.GetFundingTargets(offices.ToList(), DateTime.Now.Year));
-            dataSeries.Add(audienceManager.GetFundingTargets(offices.ToList(), DateTime.Now.Year));
+            dataSeries.Add(audienceManager.GetFundingTargetsAchived(offices.ToList(), DateTime.Now.Year));
             return Json(dataSeries);
         }
 
@@ -35,8 +35,10 @@ namespace SimplePlatform.Controllers
         {
             var dataSeries = new List<object>();
             var targetManager = new DataModel.TargetManager();
+            var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
             dataSeries.Add(targetManager.GetBookingTargets(offices.ToList(), DateTime.Now.Year));
+            dataSeries.Add(audienceManager.GetBookingTargetsAchived(offices.ToList(), DateTime.Now.Year));
             return Json(dataSeries);
         }
 
@@ -44,8 +46,10 @@ namespace SimplePlatform.Controllers
         {
             var dataSeries = new List<object>();
             var targetManager = new DataModel.TargetManager();
+            var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
             dataSeries.Add(targetManager.GetGSBTargets(offices.ToList(), DateTime.Now.Year));
+            dataSeries.Add(audienceManager.GetGSBTargetsAchived(offices.ToList(), DateTime.Now.Year));
             return Json(dataSeries);
         }
 
@@ -53,8 +57,10 @@ namespace SimplePlatform.Controllers
         {
             var dataSeries = new List<object>();
             var targetManager = new DataModel.TargetManager();
+            var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
             dataSeries.Add(targetManager.GetArrivalTargets(offices.ToList(), DateTime.Now.Year));
+            dataSeries.Add(audienceManager.GetArrivalTargetsAchived(offices.ToList(), DateTime.Now.Year));
             return Json(dataSeries);
         }
     }
