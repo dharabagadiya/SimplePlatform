@@ -20,7 +20,8 @@ namespace DataModel.Modal
         public virtual Convention Convention { get; set; }
         public virtual VisitType VisitType { get; set; }
         public virtual UserDetail UserDetail { get; set; }
-        public virtual ConvensionBooking ConvensionBooking { get; set; }
+        public float Amount { get; set; }
+        public bool IsBooked { get; set; }
         public virtual Office Office { get; set; }
         public virtual Event Event { get; set; }
         [DefaultValue(false)]

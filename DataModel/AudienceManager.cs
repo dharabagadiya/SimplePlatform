@@ -36,9 +36,7 @@ namespace DataModel
         private DataContext Context = new DataContext();
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Modal.ConvensionBooking>().HasKey(e => e.AudienceID);
-        }
+        { }
 
         public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, bool isBooked, float GSBAmount, float amount)
         {
@@ -53,7 +51,7 @@ namespace DataModel
                 eventDetail = Context.Events.Where(model => model.EventId == eventID && model.IsDeleted == false).FirstOrDefault();
                 userDetail = Context.UsersDetail.Where(model => model.UserId == fsmID && model.User.IsDeleted == false).FirstOrDefault();
                 convention = Context.Conventions.Where(model => model.ConventionId == conventionID && model.IsDeleted == false).FirstOrDefault();
-                var audience = new Modal.Audience
+                Context.Audiences.Add(new Modal.Audience
                 {
                     Name = name,
                     Contact = contact,
@@ -65,9 +63,10 @@ namespace DataModel
                     Convention = convention,
                     GSBAmount = GSBAmount,
                     CreateDate = DateTime.Now,
-                    UpdateDate = DateTime.Now
-                };
-                Context.ConvensionBookings.Add(new Modal.ConvensionBooking { Audience = audience, Amount = amount, IsBooked = isBooked, CreateDate = DateTime.Now, UpdateDate = DateTime.Now });
+                    UpdateDate = DateTime.Now,
+                    Amount = amount,
+                    IsBooked = isBooked
+                });
                 Context.SaveChanges();
                 return true;
             }
@@ -102,9 +101,8 @@ namespace DataModel
                 audience.Convention = convention;
                 audience.GSBAmount = GSBAmount;
                 audience.UpdateDate = DateTime.Now;
-                audience.ConvensionBooking.Amount = amount;
-                audience.ConvensionBooking.IsBooked = isBooked;
-                audience.ConvensionBooking.UpdateDate = DateTime.Now;
+                audience.Amount = amount;
+                audience.IsBooked = isBooked;
                 Context.SaveChanges();
                 return true;
             }
@@ -147,11 +145,11 @@ namespace DataModel
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
 
-            var audiencesSeriesData = audiences.Where(model => model.ConvensionBooking.IsBooked)
-                .GroupBy(model => GetIso8601WeekOfYear(model.ConvensionBooking.UpdateDate))
+            var audiencesSeriesData = audiences.Where(model => model.IsBooked)
+                .GroupBy(model => GetIso8601WeekOfYear(model.UpdateDate))
                 .Select(model => new object[] {
-                                           (model.LastOrDefault().ConvensionBooking.UpdateDate - startYear).TotalMilliseconds,
-                                           model.Sum(tempModel => tempModel.ConvensionBooking.Amount)
+                                           (model.LastOrDefault().UpdateDate - startYear).TotalMilliseconds,
+                                           model.Sum(tempModel => tempModel.Amount)
                                        }).ToList();
             return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
