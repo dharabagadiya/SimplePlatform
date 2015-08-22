@@ -145,7 +145,7 @@ namespace DataModel
             return Context.Audiences.Where(modal => modal.IsDeleted == false && officesID.Contains(modal.Office.OfficeId)).ToList();
         }
 
-        public object GetFundingTargets(List<Modal.Office> offices, int year)
+        public object GetFundingTargetsAchived(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
@@ -154,6 +154,42 @@ namespace DataModel
                 .OrderBy(model => model.VisitDate)
                 .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
                 .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Sum(tempModel => tempModel.Amount) }).ToList();
+            return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+        }
+
+        public object GetBookingTargetsAchived(List<Modal.Office> offices, int year)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var audiences = GetAudiences(offices).ToList();
+            var audiencesSeriesData = audiences
+                .Where(model => model.VisitDate.Year == year && model.IsBooked == true)
+                .OrderBy(model => model.VisitDate)
+                .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
+                .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Sum(tempModel => tempModel.GSBAmount) }).ToList();
+            return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+        }
+
+        public object GetGSBTargetsAchived(List<Modal.Office> offices, int year)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var audiences = GetAudiences(offices).ToList();
+            var audiencesSeriesData = audiences
+                .Where(model => model.VisitDate.Year == year)
+                .OrderBy(model => model.VisitDate)
+                .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
+                .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Count() }).ToList();
+            return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+        }
+
+        public object GetArrivalTargetsAchived(List<Modal.Office> offices, int year)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var audiences = GetAudiences(offices).ToList();
+            var audiencesSeriesData = audiences
+                .Where(model => model.VisitDate.Year == year && model.IsAttended == true)
+                .OrderBy(model => model.VisitDate)
+                .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
+                .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Count() }).ToList();
             return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
     }
