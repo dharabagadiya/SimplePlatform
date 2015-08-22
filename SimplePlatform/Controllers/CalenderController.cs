@@ -12,6 +12,9 @@ namespace SimplePlatform.Controllers
         public ActionResult Index()
         {
             BundleConfig.AddScript("~/Scripts/Calender", "Calender.js", ControllerName);
+
+            BundleConfig.AddStyle("/Calender", "calender.css", ControllerName);
+
             return View();
         }
     }

@@ -11,7 +11,7 @@
     <div class="col-lg-12">
         <div id="page-header" class="clearfix">
             <div class="page-header">
-                <h2>Audiences</h2>
+                <h2>Calender</h2>
             </div>
         </div>
         <div class="panel panel-default toggle panelMove panelClose panelRefresh">
@@ -74,13 +74,13 @@
                                                 <optgroup label="Events" id="2">
                                                     @foreach (var eventDetail in events)
                                                     {
-                                                    <option value="@eventDetail.EventId">@eventDetail.Name</option>
+                                                        <option value="@eventDetail.EventId">@eventDetail.Name</option>
                                                     }
                                                 </optgroup>
                                                 <optgroup label="Conventions" id="3">
                                                     @foreach (var convention in conventions)
                                                     {
-                                                    <option value="@convention.ConventionId">@convention.Name</option>
+                                                        <option value="@convention.ConventionId">@convention.Name</option>
                                                     }
                                                 </optgroup>
                                             </select>
