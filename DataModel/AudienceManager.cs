@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,25 @@ namespace DataModel
 {
     public class AudienceManager
     {
+        private static Calendar cal = CultureInfo.InvariantCulture.Calendar;
+
+        // This presumes that weeks start with Monday.
+        // Week 1 is the 1st week of the year with a Thursday in it.
+        public static int GetIso8601WeekOfYear(DateTime time)
+        {
+            // Seriously cheat.  If its Monday, Tuesday or Wednesday, then it'll 
+            // be the same week# as whatever Thursday, Friday or Saturday are,
+            // and we always get those right
+            DayOfWeek day = cal.GetDayOfWeek(time);
+            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
+            {
+                time = time.AddDays(3);
+            }
+
+            // Return the week of our adjusted day
+            return cal.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        }
+
         private DataContext Context = new DataContext();
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
@@ -112,6 +133,27 @@ namespace DataModel
         }
 
         public List<Modal.Audience> GetAudiences() { return Context.Audiences.Where(model => model.IsDeleted == false).ToList(); }
+
         public Modal.Audience GetAudience(int id) { return Context.Audiences.Where(model => model.AudienceID == id && model.IsDeleted == false).FirstOrDefault(); }
+
+        public List<Modal.Audience> GetAudiences(List<Modal.Office> offices)
+        {
+            var officesID = offices.Select(model => model.OfficeId).ToList();
+            return Context.Audiences.Where(modal => modal.IsDeleted == false && officesID.Contains(modal.Office.OfficeId)).ToList();
+        }
+
+        public object GetFundingTargets(List<Modal.Office> offices, int year)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var audiences = GetAudiences(offices).ToList();
+
+            var audiencesSeriesData = audiences.Where(model => model.ConvensionBooking.IsBooked)
+                .GroupBy(model => GetIso8601WeekOfYear(model.ConvensionBooking.UpdateDate))
+                .Select(model => new object[] {
+                                           (model.LastOrDefault().ConvensionBooking.UpdateDate - startYear).TotalMilliseconds,
+                                           model.Sum(tempModel => tempModel.ConvensionBooking.Amount)
+                                       }).ToList();
+            return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+        }
     }
 }

@@ -100,11 +100,28 @@ namespace DataModel
             var targetSeriesData = targets.OrderBy(model => model.DueDate).Select(model => new object[] { (model.DueDate - startYear).TotalMilliseconds, model.FundRaising }).ToList();
             return new { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
+
         public object GetBookingTargets(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var targets = GetTargets(offices).ToList();
             var targetSeriesData = targets.OrderBy(model => model.DueDate).Select(model => new object[] { (model.DueDate - startYear).TotalMilliseconds, model.Booking }).ToList();
+            return new { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
+        }
+
+        public object GetGSBTargets(List<Modal.Office> offices, int year)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var targets = GetTargets(offices).ToList();
+            var targetSeriesData = targets.OrderBy(model => model.DueDate).Select(model => new object[] { (model.DueDate - startYear).TotalMilliseconds, model.GSB }).ToList();
+            return new { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
+        }
+
+        public object GetArrivalTargets(List<Modal.Office> offices, int year)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var targets = GetTargets(offices).ToList();
+            var targetSeriesData = targets.OrderBy(model => model.DueDate).Select(model => new object[] { (model.DueDate - startYear).TotalMilliseconds, model.Arrivals }).ToList();
             return new { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
     }
