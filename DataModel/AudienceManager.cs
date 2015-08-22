@@ -16,21 +16,26 @@ namespace DataModel
     {
         private static Calendar cal = CultureInfo.InvariantCulture.Calendar;
 
-        // This presumes that weeks start with Monday.
-        // Week 1 is the 1st week of the year with a Thursday in it.
         public static int GetIso8601WeekOfYear(DateTime time)
         {
-            // Seriously cheat.  If its Monday, Tuesday or Wednesday, then it'll 
-            // be the same week# as whatever Thursday, Friday or Saturday are,
-            // and we always get those right
-            DayOfWeek day = cal.GetDayOfWeek(time);
+            var day = cal.GetDayOfWeek(time);
             if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
             {
                 time = time.AddDays(3);
             }
-
-            // Return the week of our adjusted day
             return cal.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        }
+        public static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
+        {
+            DateTime jan1 = new DateTime(year, 1, 1);
+            int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
+            DateTime firstThursday = jan1.AddDays(daysOffset);
+            var cal = CultureInfo.CurrentCulture.Calendar;
+            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            var weekNum = weekOfYear;
+            if (firstWeek <= 1) { weekNum -= 1; }
+            var result = firstThursday.AddDays(weekNum * 7);
+            return result.AddDays(-3);
         }
 
         private DataContext Context = new DataContext();
@@ -144,13 +149,11 @@ namespace DataModel
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
-
-            var audiencesSeriesData = audiences.Where(model => model.IsBooked)
-                .GroupBy(model => GetIso8601WeekOfYear(model.UpdateDate))
-                .Select(model => new object[] {
-                                           (model.LastOrDefault().UpdateDate - startYear).TotalMilliseconds,
-                                           model.Sum(tempModel => tempModel.Amount)
-                                       }).ToList();
+            var audiencesSeriesData = audiences
+                .Where(model => model.VisitDate.Year == year)
+                .OrderBy(model => model.VisitDate)
+                .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
+                .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Sum(tempModel => tempModel.Amount) }).ToList();
             return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
     }
