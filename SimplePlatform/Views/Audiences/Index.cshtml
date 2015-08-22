@@ -27,6 +27,7 @@
                                     <th>Name</th>
                                     <th>Date</th>
                                     <th>Contact</th>
+                                    <th>Office</th>
                                     <th>Visit Type</th>
                                     <th>FSM</th>
                                     <th>Booking Status</th>
@@ -43,41 +44,49 @@
                                             <input type="text" name="Name" class="form-control txtUserName" id="txtUserName" placeholder="Name" />
                                         </div>
                                     </th>
-                                    <th class="col-lg-1">
+                                    <td class="col-lg-1">
                                         <div class="form-group">
                                             <input type="text" name="VisitDate" class="form-control txtVisitDate" placeholder="Select Date" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
                                         </div>
-                                    </th>
-                                    <th class="col-lg-2">
+                                    </td>
+                                    <td class="col-lg-2">
                                         <div class="form-group">
                                             <input type="text" name="Contact" class="form-control txtContact" id="txtContact" placeholder="Contact" />
                                         </div>
-                                    </th>
-                                    <th class="col-lg-2">
+                                    </td>
+                                    <td class="col-lg-2">
+                                        <div class="form-group">
+                                            <select id="dwnOffices" class="chosen-select form-control dwnOffices">
+                                                <option value="0">Select Office</option>
+                                                @foreach (var office in offices)
+                                                {
+                                                    <option value="@office.OfficeId">@office.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td class="col-lg-2">
                                         <div class="form-group">
                                             <select data-placeholder="Select User" id="dwnVisitType" class="chosen-select form-control dwnVisitType">
                                                 <optgroup label="Offices" id="1">
-                                                    @foreach (var office in offices)
-                                                    {
-                                                        <option value="@office.OfficeId">@office.Name</option>
-                                                    }
+                                                    <option value="0">Office</option>
                                                 </optgroup>
                                                 <optgroup label="Events" id="2">
                                                     @foreach (var eventDetail in events)
                                                     {
-                                                        <option value="@eventDetail.EventId">@eventDetail.Name</option>
+                                                    <option value="@eventDetail.EventId">@eventDetail.Name</option>
                                                     }
                                                 </optgroup>
                                                 <optgroup label="Conventions" id="3">
                                                     @foreach (var convention in conventions)
                                                     {
-                                                        <option value="@convention.ConventionId">@convention.Name</option>
+                                                    <option value="@convention.ConventionId">@convention.Name</option>
                                                     }
                                                 </optgroup>
                                             </select>
                                         </div>
-                                    </th>
-                                    <th class="col-lg-2">
+                                    </td>
+                                    <th class="col-lg-1">
                                         <div class="form-group">
                                             <select id="dwnFSMList" class="chosen-select form-control dwnFSMList">
                                                 <option value="0">Select FSM</option>
@@ -88,24 +97,24 @@
                                             </select>
                                         </div>
                                     </th>
-                                    <th class="col-lg-1">
+                                    <td class="col-lg-1">
                                         <div class="form-group">
                                             <select id="dwnBookStatus" class="chosen-select form-control dwnBookStatus">
                                                 <option value="0">In Process</option>
                                                 <option value="1">Booked</option>
                                             </select>
                                         </div>
-                                    </th>
-                                    <th class="col-lg-1">
+                                    </td>
+                                    <td class="col-lg-1">
                                         <div class="form-group">
                                             <input type="text" name="GSBAmount" class="form-control txtGSBAmount" id="txtGSBAmount" placeholder="0.00" />
                                         </div>
-                                    </th>
-                                    <th class="col-lg-1">
+                                    </td>
+                                    <td class="col-lg-1">
                                         <div class="form-group">
                                             <input type="text" name="DonationAmount" class="form-control txtDonationAmount" id="txtDonationAmount" placeholder="0.00" />
                                         </div>
-                                    </th>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -34,14 +34,19 @@ audiences.SubmitBulkInsertForm = function (obj) {
         var visitType = parseInt(formObj.find("#hdnVisitType").val());
         var fsmID = parseInt(formObj.find(".dwnFSMList").val());
         var placeID = parseInt(formObj.find("#hdnVisitPlaceID").val());
-        var officeID = 0;
+        var officeID = parseInt(formObj.find("#dwnOffices").val());
         var eventID = 0;
         var convensionID = 0;
-        var gsbAmount = parseFloat(formObj.find(".txtGSBAmount").val());
-        var donationAmount = parseFloat(formObj.find(".txtDonationAmount").val());
-        var bookingStatus = parseFloat(formObj.find(".dwnBookStatus").val());
-        if (visitType == 1) { officeID = placeID; }
-        else if (visitType == 2) { eventID = placeID; }
+        var gsbAmount = formObj.find(".txtGSBAmount").val();
+        var donationAmount = formObj.find(".txtDonationAmount").val();
+        var bookingStatus = formObj.find(".dwnBookStatus").val();
+        if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
+        if (IsNullOrEmpty(donationAmount)) { donationAmount = 0; }
+        if (IsNullOrEmpty(bookingStatus)) { bookingStatus = 0; }
+        gsbAmount = parseFloat(gsbAmount);
+        donationAmount = parseFloat(donationAmount);
+        bookingStatus = parseFloat(bookingStatus);
+        if (visitType == 2) { eventID = placeID; }
         else if (visitType == 3) { convensionID = placeID; }
         if (!IsNullOrEmpty(name) || !IsNullOrEmpty(contact) || !(officeID == 0 && eventID == 0 && convensionID == 0)) {
             var dataObj = {
@@ -62,7 +67,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
     });
     $.when(ajaxSubmit).done(function () { window.location.reload(); });
 };
-audiences.ValidateModalAudienceForm = function (obj) {
+audiences.ValidateModalAudienceQuickForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
         feedbackIcons: {
@@ -122,7 +127,8 @@ audiences.LoadQuickBooking = function () {
     });
     $(".dwnFSMList").chosen({ width: "100%" });
     $(".dwnBookStatus").chosen({ width: "100%" });
-    audiences.ValidateModalAudienceForm($("#divAudienceBulkInsert"));
+    $(".dwnOffices").chosen({ width: "100%" });
+    audiences.ValidateModalAudienceQuickForm($("#divAudienceBulkInsert"));
 };
 audiences.ValidateModalAudienceForm = function (obj) {
     obj.find("form")

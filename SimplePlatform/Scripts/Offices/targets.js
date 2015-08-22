@@ -77,7 +77,7 @@ targets.ValidateModalTargetForm = function (obj) {
 targets.LoadQuickTargetSetting = function () {
     var tagetsRowDetails = $(".divTargetBulkInsertRow");
     for (var i = 1 ; i < 4; i++) { tagetsRowDetails.after(tagetsRowDetails.clone()); }
-    $(".txtDueDate").datepicker({ autoclose: true, todayHighlight: true });
+    $(".txtDueDate").datepicker({ daysOfWeekDisabled: "1,2,3,4,5", autoclose: true, todayHighlight: true });
     targets.ValidateModalTargetForm($("#divTargetBulkInsert"));
 };
 targets.ValidateModalEditTargetForm = function (obj) {
@@ -140,7 +140,7 @@ targets.EditTargetDetail = function (obj) {
     var targetDetail = obj.data("target_detail");
     $("#divCommonModalPlaceHolder").empty();
     ShowDialogBox($("#divCommonModalPlaceHolder"), targets.options.EditDataURL(targetDetail.ID), null, $.proxy(function (event, dialogContentPlaceHolder) {
-        dialogContentPlaceHolder.find(".txtDueDate").datepicker({ autoclose: true, todayHighlight: true });
+        dialogContentPlaceHolder.find(".txtDueDate").datepicker({ daysOfWeekDisabled: "1,2,3,4,5", autoclose: true, todayHighlight: true });
         dialogContentPlaceHolder.find("#dwnOffices").val(dialogContentPlaceHolder.find("#hdnOfficesID").val()).change();
         targets.ValidateModalEditTargetForm(dialogContentPlaceHolder);
     }, this));

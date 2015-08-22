@@ -12,7 +12,7 @@
     <input type="hidden" id="hdnEventID" value="@(Model.Event ==  null ? 0 : Model.Event.EventId)" />
     <input type="hidden" id="hdnConventionID" value="@(Model.Convention == null? 0 :  Model.Convention.ConventionId)" />
     <input type="hidden" id="hdnFSMID" value="@(Model.UserDetail == null ?  0 : Model.UserDetail.UserId)" />
-    <input type="hidden" id="hdnBookinStatus" value="@(Model.ConvensionBooking.IsBooked ?  1 : 0)" />
+    <input type="hidden" id="hdnBookinStatus" value="@(Model.IsBooked ?  1 : 0)" />
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="divOfficeList divVisitTypeControl" data-id="1">
+                <div class="divOfficeList" data-id="1">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label for="SelectUserRole">Select Office</label>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="EmailAddress">Donation Amount</label>
-                        <input type="text" name="amount" class="form-control" id="txtDonationAmount" placeholder="0.00" value="@Model.ConvensionBooking.Amount" />
+                        <input type="text" name="amount" class="form-control" id="txtDonationAmount" placeholder="0.00" value="@Model.Amount" />
                     </div>
                     <div class="clearfix"></div>
                 </div>
