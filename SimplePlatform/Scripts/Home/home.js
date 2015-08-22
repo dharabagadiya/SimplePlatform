@@ -135,3 +135,4 @@ home.DoPageSetting = function () {
     this.GetGSBTargetData();
     this.GetArrivalTargetData();
 };
+ 
