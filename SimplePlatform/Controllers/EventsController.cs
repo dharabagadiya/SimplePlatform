@@ -42,7 +42,7 @@ namespace SimplePlatform.Controllers
         public JsonResult GetEvents()
         {
             var eventManager = new EventManager();
-            var events = eventManager.GetEvents().Select(modal => new { id = modal.EventId, name = modal.Name, startDate = modal.StartDate.ToString("dd-MM-yyyy"), endDate = modal.EndDate.ToString("dd-MM-yyyy"), description = modal.Description, city = modal.City }).ToList();
+            var events = eventManager.GetEvents().Select(modal => new { id = modal.EventId, name = modal.Name, startDate = modal.StartDate.ToString("dd-MM-yyyy HH:mm"), endDate = modal.EndDate.ToString("dd-MM-yyyy HH:mm"), description = modal.Description, city = modal.City }).ToList();
             return Json(new { data = events });
         }
         public PartialViewResult Edit(int id)

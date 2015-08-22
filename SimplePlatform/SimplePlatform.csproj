@@ -112,6 +112,7 @@
   <ItemGroup>
     <Content Include="Content\DataTables\css\select.bootstrap.css" />
     <Content Include="Content\Offices\Detail.css" />
+    <Content Include="Content\Plugins\bootstrap\bootstrap_timepicker.css" />
     <Content Include="Content\Plugins\chosen\chosen-sprite%402x.png" />
     <Content Include="Content\Plugins\chosen\chosen-sprite.png" />
     <Content Include="Content\Plugins\chosen\chosen.css" />
@@ -209,6 +210,7 @@
     <Content Include="Scripts\Plugins\Bootstrap-Datepicker\bootstrap_datepicker.js" />
     <Content Include="Scripts\Plugins\bootstrap-paginator.js" />
     <Content Include="Scripts\Plugins\bootstrap-progressbar.js" />
+    <Content Include="Scripts\Plugins\Bootstrap-timepicker\bootstrap-timepicker.js" />
     <Content Include="Scripts\Plugins\bootstrap.js" />
     <Content Include="Scripts\Plugins\bootstrap.min.js" />
     <Content Include="Content\Plugins\awesome-font\fonts\fontawesome-webfont.eot" />

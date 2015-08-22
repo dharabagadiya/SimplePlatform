@@ -35,8 +35,8 @@ events.ValidateModalEventForm = function (obj) {
             e.preventDefault();
             var formObj = $(e.target);;
             var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val();
-            var endDates = formObj.find("#txtDueDateEnd").val();
+            var startDates = formObj.find("#txtDueDateStart").val() + " " + formObj.find("#timepickerStart").val();
+            var endDates = formObj.find("#txtDueDateEnd").val() + " " + formObj.find("#timepickerEnd").val();
             var description = formObj.find("#txtDescription").val();
             var eventID = formObj.find("#hdnEventID").val();
             var officeID = formObj.find("#dwnOffices").val();
@@ -69,6 +69,10 @@ events.EditEventDetail = function (obj) {
         this.ValidateModalEventForm(dialogContentPlaceHolder);
         $("#dwnOffices").val($("#hdnOfficeID").val());
         $("#dwnConvention").val($("#hdnConventionID").val());
+        dialogContentPlaceHolder.find('#datepickerStart').datepicker({ autoclose: true, todayHighlight: true });
+        dialogContentPlaceHolder.find('#datepickerEnd').datepicker({ autoclose: true, todayHighlight: true });
+        dialogContentPlaceHolder.find('#timepickerStart').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
+        dialogContentPlaceHolder.find('#timepickerEnd').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };

@@ -18,13 +18,38 @@
                     <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" value="@Model.Name" />
                 </div>
                 <div class="form-group">
-                    <label for="dtDueDate">Due Date</label>
-                    <div class="input-group input-icon input-daterange" id="datepicker">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" class="form-control" id="txtDueDateStart" name="txtDueDateStart" readonly="readonly" value="@Model.StartDate">
-                        <span class="input-group-addon">to</span>
-                        <input type="text" class="form-control" id="txtDueDateEnd" name="txtDueDateEnd" readonly="readonly" value="@Model.EndDate">
+                    <div class="col-sm-6">
+                        <label for="FirstName">Start Date</label>
+                        <div class="input-group input-icon input-daterange" id="datepickerStart">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control" id="txtDueDateStart" name="txtDueDateStart" readonly="readonly" value="@Model.StartDate.ToString("MM/dd/yyyy")">
+                        </div>
                     </div>
+                    <div class="col-sm-6">
+                        <label for="FirstName">Time</label>
+                        <div class="input-group bootstrap-timepicker">
+                            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                            <input id="timepickerStart" type="text" class="form-control" readonly="readonly" value="@Model.StartDate.ToString("HH:mm")">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="FirstName">End Date</label>
+                        <div class="input-group input-icon input-daterange" id="datepickerEnd">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control" id="txtDueDateEnd" name="txtDueDateEnd" readonly="readonly" value="@Model.EndDate.ToString("MM/dd/yyyy")">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="FirstName">Time</label>
+                        <div class="input-group bootstrap-timepicker">
+                            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                            <input id="timepickerEnd" type="text" class="form-control" readonly="readonly" value="@Model.EndDate.ToString("HH:mm")">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                     <label for="Name">City</label>

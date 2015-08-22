@@ -23,7 +23,7 @@ namespace DataModel
                     model.MapRightKey("ConventionId");
                 });
         }
-        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int userID)
+        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int userID, string city)
         {
             try
             {
@@ -37,7 +37,8 @@ namespace DataModel
                     Description = description,
                     UsersDetail = users,
                     CreateDate = DateTime.Now,
-                    UpdateDate = DateTime.Now
+                    UpdateDate = DateTime.Now,
+                    City = city
                 });
                 var status = Context.SaveChanges();
                 return true;
@@ -51,7 +52,7 @@ namespace DataModel
         { return Context.Conventions.Where(model => model.IsDeleted == false).ToList(); }
         public Convention GetConventionDetail(int id)
         { return Context.Conventions.Where(modal => modal.ConventionId == id).FirstOrDefault(); }
-        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID)
+        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID, string city)
         {
             try
             {
@@ -65,6 +66,7 @@ namespace DataModel
                 conventionDetail.StartDate = startDate;
                 conventionDetail.EndDate = endDate;
                 conventionDetail.Description = description;
+                conventionDetail.City = city;
                 conventionDetail.UpdateDate = DateTime.Now;
                 conventionDetail.UsersDetail = new List<UserDetail> { userDetail };
                 Context.SaveChanges();
