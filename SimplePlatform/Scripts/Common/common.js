@@ -143,17 +143,18 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
             e.preventDefault();
             var formObj = $(e.target);
             var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val();
-            var endDates = formObj.find("#txtDueDateEnd").val();
+            var startDates = formObj.find("#txtDueDateStart").val() + " " + formObj.find("#timepickerStart").val();
+            var endDates = formObj.find("#txtDueDateEnd").val() + " " + formObj.find("#timepickerEnd").val();
             var description = formObj.find("#txtDescription").val();
             var userId = formObj.find("#dwnUserId").val();
+            var city = formObj.find("#txtCity").val();
             $.ajax({
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
                 url: "/Conventions/Add",
                 async: false,
-                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userId": userId }),
+                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userId": userId, "city": city }),
                 success: function (data) {
                     var status = data;
                     if (status) {
@@ -174,7 +175,10 @@ simplePlatform.BindHeaderAddConventionClickEvent = function () {
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
             dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
+            dialogContentPlaceHolder.find('#datepickerStart').datepicker({ autoclose: true, todayHighlight: true });
+            dialogContentPlaceHolder.find('#datepickerEnd').datepicker({ autoclose: true, todayHighlight: true });
+            dialogContentPlaceHolder.find('#timepickerStart').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
+            dialogContentPlaceHolder.find('#timepickerEnd').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
             this.ValidateModalConventionForm(dialogContentPlaceHolder);
         }, this));
         return false;
@@ -211,8 +215,8 @@ simplePlatform.ValidateModalEventForm = function (obj) {
             e.preventDefault();
             var formObj = $(e.target);;
             var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val();
-            var endDates = formObj.find("#txtDueDateEnd").val();
+            var startDates = formObj.find("#txtDueDateStart").val() +" "+ formObj.find("#timepickerStart").val();
+            var endDates = formObj.find("#txtDueDateEnd").val() + " " + formObj.find("#timepickerEnd").val();
             var description = formObj.find("#txtDescription").val();
             var officeID = formObj.find("#dwnOffices").val();
             var conventionID = formObj.find("#dwnConvention").val();
@@ -244,7 +248,10 @@ simplePlatform.BindHeaderAddEventClickEvent = function () {
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
             dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
+            dialogContentPlaceHolder.find('#datepickerStart').datepicker({ autoclose: true, todayHighlight: true });
+            dialogContentPlaceHolder.find('#datepickerEnd').datepicker({ autoclose: true, todayHighlight: true });
+            dialogContentPlaceHolder.find('#timepickerStart').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
+            dialogContentPlaceHolder.find('#timepickerEnd').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
             this.ValidateModalEventForm(dialogContentPlaceHolder);
         }, this));
         return false;

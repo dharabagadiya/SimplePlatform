@@ -16,13 +16,38 @@
                     <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
                 </div>
                 <div class="form-group">
-                    <label for="dtDueDate">Due Date</label>
-                    <div class="input-group input-icon input-daterange" id="datepicker">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" class="form-control" id="txtDueDateStart" name="txtDueDateStart" readonly="readonly">
-                        <span class="input-group-addon">to</span>
-                        <input type="text" class="form-control" id="txtDueDateEnd" name="txtDueDateEnd" readonly="readonly">
+                    <div class="col-sm-6">
+                        <label for="FirstName">Start Date</label>
+                        <div class="input-group input-icon input-daterange" id="datepickerStart">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control" id="txtDueDateStart" name="txtDueDateStart" readonly="readonly">
+                        </div>
                     </div>
+                    <div class="col-sm-6">
+                        <label for="FirstName">Time</label>
+                        <div class="input-group bootstrap-timepicker">
+                            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                            <input id="timepickerStart" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="FirstName">End Date</label>
+                        <div class="input-group input-icon input-daterange" id="datepickerEnd">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control" id="txtDueDateEnd" name="txtDueDateEnd" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="FirstName">Time</label>
+                        <div class="input-group bootstrap-timepicker">
+                            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                            <input id="timepickerEnd" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                     <label for="Name">City</label>

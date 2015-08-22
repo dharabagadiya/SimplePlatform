@@ -23,15 +23,15 @@ namespace SimplePlatform.Controllers
             return PartialView(Users);
         }
         [HttpPost]
-        public JsonResult Add(string name, DateTime startDate, DateTime endDate, string description, int userId)
+        public JsonResult Add(string name, DateTime startDate, DateTime endDate, string description, int userId, string city)
         {
             var conventionManager = new ConventionManager();
-            return Json(conventionManager.Add(name, startDate, endDate, description, userId));
+            return Json(conventionManager.Add(name, startDate, endDate, description, userId, city));
         }
         public JsonResult GetConventions()
         {
             var conventionManager = new ConventionManager();
-            var events = conventionManager.GetConventions().Select(modal => new { id = modal.ConventionId, name = modal.Name, startDate = modal.StartDate.ToString("dd-MM-yyyy"), endDate = modal.EndDate.ToString("dd-MM-yyyy"), description = modal.Description }).ToList();
+            var events = conventionManager.GetConventions().Select(modal => new { id = modal.ConventionId, name = modal.Name, startDate = modal.StartDate.ToString("dd-MM-yyyy HH:mm"), endDate = modal.EndDate.ToString("dd-MM-yyyy HH:mm"), description = modal.Description }).ToList();
             return Json(new { data = events });
         }
         public PartialViewResult Edit(int id)
@@ -46,10 +46,10 @@ namespace SimplePlatform.Controllers
             return PartialView(conventionDetail);
         }
         [HttpPost]
-        public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID)
+        public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID, string city)
         {
             var conventionManager = new ConventionManager();
-            return Json(conventionManager.Update(name, startDate, endDate, description, userID, conventionID));
+            return Json(conventionManager.Update(name, startDate, endDate, description, userID, conventionID, city));
         }
         public JsonResult Delete(int id)
         {
