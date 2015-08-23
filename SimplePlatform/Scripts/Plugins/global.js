@@ -173,6 +173,50 @@ function ShowDialogBox(dataModalPlaceHolder, dataModalURL, dataPayLoad, callback
         }, this)).modal("show");
     }, this))
 };
+function ShowOkDialogBox(dataModalPlaceHolder, title, message, successCallbackFunction, returnURL) {
+    var sb = new StringBuilder();
+    sb.append("<div class=\"modal-dialog divUserModalDialog\">");
+    sb.append("<div class=\"modal-content\">");
+    sb.append("<div class=\"modal-header bg-primary\">");
+    sb.append("<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>");
+    sb.append("<h4 class=\"modal-title\">" + title + "</h4>");
+    sb.append("</div>");
+    sb.append("<div class=\"modal-body\">");
+    sb.append(message);
+    sb.append("</div>");
+    sb.append("<div class=\"modal-footer\">");
+    sb.append("<button type=\"button\" class=\"btn btn-primary\" id=\"btnOk\">Ok</button>");
+    sb.append("</div>");
+    sb.append("</div>");
+    sb.append("</div>");
+    dataModalPlaceHolder.empty().append(sb.toString());
+    dataModalPlaceHolder.modal({ show: true });
+    dataModalPlaceHolder.modal("show");
+    dataModalPlaceHolder.find("#btnOk").off("click.dataModel").on("click.dataModel", function (event) { dataModalPlaceHolder.modal("hide"); if (!IsNullOrEmpty(successCallbackFunction)) successCallbackFunction(event, dataModalPlaceHolder); if (!IsNullOrEmpty(returnURL)) window.location.href = returnURL; });
+};
+function ShowOkCancelDialogBox(dataModalPlaceHolder, title, message, okCallbackFunction, cancelCallbackFunction, returnURL) {
+    var sb = new StringBuilder();
+    sb.append("<div class=\"modal-dialog divUserModalDialog\">");
+    sb.append("<div class=\"modal-content\">");
+    sb.append("<div class=\"modal-header bg-primary\">");
+    sb.append("<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>");
+    sb.append("<h4 class=\"modal-title\">" + title + "</h4>");
+    sb.append("</div>");
+    sb.append("<div class=\"modal-body\">");
+    sb.append(message);
+    sb.append("</div>");
+    sb.append("<div class=\"modal-footer\">");
+    sb.append("<button type=\"button\" class=\"btn btn-primary\" id=\"btnOk\">Ok</button>");
+    sb.append("<button type=\"button\" class=\"btn btn-primary\" id=\"btnCancel\">Cancel</button>");
+    sb.append("</div>");
+    sb.append("</div>");
+    sb.append("</div>");
+    dataModalPlaceHolder.empty().append(sb.toString());
+    dataModalPlaceHolder.modal({ show: true });
+    dataModalPlaceHolder.modal("show");
+    dataModalPlaceHolder.find("#btnOk").off("click.dataModel").on("click.dataModel", function (event) { dataModalPlaceHolder.modal("hide"); if (!IsNullOrEmpty(okCallbackFunction)) okCallbackFunction(event, dataModalPlaceHolder); if (!IsNullOrEmpty(returnURL)) window.location.href = returnURL; });
+    dataModalPlaceHolder.find("#btnCancel").off("click.dataModel").on("click.dataModel", function (event) { dataModalPlaceHolder.modal("hide"); if (!IsNullOrEmpty(cancelCallbackFunction)) cancelCallbackFunction(event, dataModalPlaceHolder); });
+};
 function ShowUserAlert(message) {
     if ($("#divUserAlert").length > 0) $("#divUserAlert").alert('close');
     var sb = new StringBuilder();

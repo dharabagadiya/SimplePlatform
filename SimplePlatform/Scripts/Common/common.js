@@ -215,7 +215,7 @@ simplePlatform.ValidateModalEventForm = function (obj) {
             e.preventDefault();
             var formObj = $(e.target);;
             var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val() +" "+ formObj.find("#timepickerStart").val();
+            var startDates = formObj.find("#txtDueDateStart").val() + " " + formObj.find("#timepickerStart").val();
             var endDates = formObj.find("#txtDueDateEnd").val() + " " + formObj.find("#timepickerEnd").val();
             var description = formObj.find("#txtDescription").val();
             var officeID = formObj.find("#dwnOffices").val();
@@ -536,4 +536,5 @@ simplePlatform.BindHeaderAddClickEvents = function () {
 };
 $(document).ready(function () {
     simplePlatform.BindHeaderAddClickEvents();
+    ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Test", "this is Good", function (event, dataModalPlaceHolder) { alert(1); }, function (event, dataModalPlaceHolder) { alert(2); });
 });
