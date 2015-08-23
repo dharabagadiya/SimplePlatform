@@ -81,6 +81,7 @@
     <Compile Include="EventManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modal\Audience.cs" />
+    <Compile Include="Modal\ChartSeries.cs" />
     <Compile Include="Modal\Convention.cs" />
     <Compile Include="Modal\Comment.cs" />
     <Compile Include="Modal\Event.cs" />

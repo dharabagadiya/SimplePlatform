@@ -145,7 +145,7 @@ namespace DataModel
             return Context.Audiences.Where(modal => modal.IsDeleted == false && officesID.Contains(modal.Office.OfficeId)).ToList();
         }
 
-        public object GetFundingTargetsAchived(List<Modal.Office> offices, int year)
+        public DataModel.Modal.ChartSeries GetFundingTargetsAchived(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
@@ -153,11 +153,12 @@ namespace DataModel
                 .Where(model => model.VisitDate.Year == year)
                 .OrderBy(model => model.VisitDate)
                 .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
-                .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Sum(tempModel => tempModel.Amount) }).ToList();
-            return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+                .Select(model => new Modal.ChartSeries.DataPoint { x = (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.Amount) }).ToList();
+            var totalTargetAchieved = audiencesSeriesData.Sum(model => model.y);
+            return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
 
-        public object GetBookingTargetsAchived(List<Modal.Office> offices, int year)
+        public DataModel.Modal.ChartSeries GetBookingTargetsAchived(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
@@ -165,11 +166,11 @@ namespace DataModel
                 .Where(model => model.VisitDate.Year == year && model.IsBooked == true)
                 .OrderBy(model => model.VisitDate)
                 .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
-                .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Sum(tempModel => tempModel.GSBAmount) }).ToList();
-            return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+                .Select(model => new Modal.ChartSeries.DataPoint { x = (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.GSBAmount) }).ToList();
+            return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
 
-        public object GetGSBTargetsAchived(List<Modal.Office> offices, int year)
+        public DataModel.Modal.ChartSeries GetGSBTargetsAchived(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
@@ -177,11 +178,11 @@ namespace DataModel
                 .Where(model => model.VisitDate.Year == year)
                 .OrderBy(model => model.VisitDate)
                 .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
-                .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Count() }).ToList();
-            return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+                .Select(model => new DataModel.Modal.ChartSeries.DataPoint { x = (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
+            return new DataModel.Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
 
-        public object GetArrivalTargetsAchived(List<Modal.Office> offices, int year)
+        public DataModel.Modal.ChartSeries GetArrivalTargetsAchived(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
@@ -189,8 +190,8 @@ namespace DataModel
                 .Where(model => model.VisitDate.Year == year && model.IsAttended == true)
                 .OrderBy(model => model.VisitDate)
                 .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
-                .Select(model => new object[] { (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, model.Count() }).ToList();
-            return new { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+                .Select(model => new DataModel.Modal.ChartSeries.DataPoint { x = (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
+            return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
     }
 }
