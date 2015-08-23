@@ -41,7 +41,7 @@ namespace SimplePlatform.Controllers
             isAdmin = user.User.Roles.Any(model => model.RoleName.Equals(ADMIN_ROLE, StringComparison.InvariantCultureIgnoreCase));
             #endregion
 
-            ControllerName = filterContext.RouteData.Values["controller"].ToString();
+            ControllerName = filterContext.RouteData.Values["controller"].ToString() + filterContext.RouteData.Values["action"].ToString();
             ViewData["Controller_Name"] = ControllerName;
             ViewData["UserDetail"] = UserDetail;
             Script = string.Empty;
