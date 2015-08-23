@@ -87,6 +87,7 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
+                    ShowSuccessSaveAlert();
                 } else { }
             }
         });
@@ -183,7 +184,7 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
-                        //if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
+                        ShowSuccessSaveAlert();
                     } else {
                         obj.find("#divCommonMessage").removeClass("hidden");
                     }
@@ -287,7 +288,7 @@ simplePlatform.ValidateModalEventForm = function (obj) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
-                        if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
+                        ShowSuccessSaveAlert();
                     } else {
                         obj.find("#divCommonMessage").removeClass("hidden");
                     }
@@ -370,9 +371,7 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
-                        if (tasks.ReloadTaskList != undefined) {
-                            tasks.ReloadTaskList();
-                        }
+                        ShowSuccessSaveAlert();
                     } else { }
                 }
             });
@@ -485,7 +484,7 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                    if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
+                    ShowSuccessSaveAlert();
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }
@@ -579,7 +578,7 @@ simplePlatform.ValidateModalUserForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                    if ($('#myDataTable').length > 0) $('#myDataTable').dataTable().api().ajax.reload();
+                    ShowSuccessSaveAlert();
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }

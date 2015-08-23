@@ -227,3 +227,8 @@ function ShowUserAlert(message) {
     $("body").prepend($(sb.toString()));
     setTimeout(function () { $("#divUserAlert").alert('close'); }, 4000);
 };
+function ShowSuccessSaveAlert() {
+    ShowOkDialogBox($("#divCommonMessageModalPlaceHolder"), "Success", "Data successfully saved.", function (event, dataModalPlaceHolder) {
+        window.location.reload();
+    });
+}
