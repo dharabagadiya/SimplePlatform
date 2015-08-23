@@ -14,30 +14,6 @@ namespace DataModel
 {
     public class AudienceManager
     {
-        private static Calendar cal = CultureInfo.InvariantCulture.Calendar;
-
-        public static int GetIso8601WeekOfYear(DateTime time)
-        {
-            var day = cal.GetDayOfWeek(time);
-            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
-            {
-                time = time.AddDays(3);
-            }
-            return cal.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
-        }
-        public static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
-        {
-            DateTime jan1 = new DateTime(year, 1, 1);
-            int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
-            DateTime firstThursday = jan1.AddDays(daysOffset);
-            var cal = CultureInfo.CurrentCulture.Calendar;
-            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
-            var weekNum = weekOfYear;
-            if (firstWeek <= 1) { weekNum -= 1; }
-            var result = firstThursday.AddDays(weekNum * 7);
-            return result.AddDays(-3);
-        }
-
         private DataContext Context = new DataContext();
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
@@ -152,8 +128,8 @@ namespace DataModel
             var audiencesSeriesData = audiences
                 .Where(model => model.VisitDate.Year == year)
                 .OrderBy(model => model.VisitDate)
-                .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
-                .Select(model => new Modal.ChartSeries.DataPoint { x = (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.Amount) }).ToList();
+                .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
+                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.Amount) }).ToList();
             var totalTargetAchieved = audiencesSeriesData.Sum(model => model.y);
             return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
@@ -165,8 +141,8 @@ namespace DataModel
             var audiencesSeriesData = audiences
                 .Where(model => model.VisitDate.Year == year && model.IsBooked == true)
                 .OrderBy(model => model.VisitDate)
-                .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
-                .Select(model => new Modal.ChartSeries.DataPoint { x = (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.GSBAmount) }).ToList();
+                .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
+                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.GSBAmount) }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
 
@@ -177,8 +153,8 @@ namespace DataModel
             var audiencesSeriesData = audiences
                 .Where(model => model.VisitDate.Year == year)
                 .OrderBy(model => model.VisitDate)
-                .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
-                .Select(model => new DataModel.Modal.ChartSeries.DataPoint { x = (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
+                .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
+                .Select(model => new DataModel.Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
             return new DataModel.Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
 
@@ -189,8 +165,8 @@ namespace DataModel
             var audiencesSeriesData = audiences
                 .Where(model => model.VisitDate.Year == year && model.IsAttended == true)
                 .OrderBy(model => model.VisitDate)
-                .GroupBy(model => GetIso8601WeekOfYear(model.VisitDate))
-                .Select(model => new DataModel.Modal.ChartSeries.DataPoint { x = (FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
+                .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
+                .Select(model => new DataModel.Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
     }

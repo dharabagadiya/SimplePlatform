@@ -106,6 +106,10 @@
       <Project>{bfad8a8e-0154-4a4a-a7f1-8b744018d375}</Project>
       <Name>CustomAuthentication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{0d2ac40f-3808-4f00-ad4e-69dd760d31b2}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\" />

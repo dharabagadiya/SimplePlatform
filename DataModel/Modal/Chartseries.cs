@@ -13,6 +13,7 @@ namespace DataModel.Modal
     {
         public class DataPoint
         {
+            public int weekNumber;
             public double x;
             public double y;
         }
