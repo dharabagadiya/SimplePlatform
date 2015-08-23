@@ -244,6 +244,7 @@
     <Content Include="Content\Plugins\foundation-icons\fonts\foundation-icons.eot" />
     <Content Include="Content\Plugins\foundation-icons\fonts\foundation-icons.ttf" />
     <Content Include="Content\Plugins\foundation-icons\fonts\foundation-icons.woff" />
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Scripts\Plugins\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrap.validate.js" />
     <Content Include="Scripts\Common\common.js" />

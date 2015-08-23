@@ -115,6 +115,20 @@ namespace SimplePlatform.Controllers
             return new { TotalTarget = totalTargets, TotalTargetAchieved = totalAchievedTargets };
         }
 
+        public object GetTaskForCurrentWeek(int id)
+        {
+            var currentYear = DateTime.Now.Year;
+            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
+            var taskManager = new TaskManager();
+            var task = taskManager.GetTasks(id, currentYear, currentWeek);
+            return task.Select(model => new
+            {
+                ID = model.TaskId,
+                Name = model.Name,
+                EndDate = model.EndDate.ToString("dd-MM-yyyy"),
+                Description = model.Description
+            }).ToList();
+        }
 
         public ActionResult Detail(int id)
         {
@@ -124,21 +138,8 @@ namespace SimplePlatform.Controllers
 
             Script = string.Format("var fundRaisingTargetData = {0};", new JavaScriptSerializer().Serialize(GetFundRaisingTargets(id)));
             Script = string.Format("var bookingTargetData = {0};", new JavaScriptSerializer().Serialize(GetBookingTargets(id)));
+            Script = string.Format("var tasks = {0};", new JavaScriptSerializer().Serialize(GetTaskForCurrentWeek(id)));
             return View();
-        }
-
-        [HttpPost]
-        public JsonResult GetTasks(int officeID)
-        {
-            var officesManager = new OfficeMananer();
-            var tasks = officesManager.GetTasks(officeID).Select(model => new
-            {
-                ID = model.TaskId,
-                Name = model.Name,
-                EndDate = model.EndDate.ToString("dd-MM-yyyy"),
-                Description = model.Description
-            }).ToList();
-            return Json(tasks);
         }
     }
 }

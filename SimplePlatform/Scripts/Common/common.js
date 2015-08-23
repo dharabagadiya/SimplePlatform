@@ -313,6 +313,7 @@ simplePlatform.BindHeaderAddEventClickEvent = function () {
     }, this));
 };
 simplePlatform.ValidateModalTaskForm = function (obj) {
+    obj.find("#txtDueDateStart").off("show hide").on('show hide', function (e) { obj.find("form").data('bootstrapValidator').updateStatus('txtDueDateStart', 'NOT_VALIDATED', null).validateField('txtDueDateStart'); });
     obj.find("form")
         .bootstrapValidator({
             feedbackIcons: {
@@ -335,6 +336,16 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                         regexp: {
                             regexp: /^[a-zA-Z0-9_ ]+$/,
                             message: 'The name can contain a-z, A-Z, 0-9'
+                        }
+                    }
+                },
+                txtDueDateStart: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The date is required and cannot be empty'
+                        },
+                        date: {
+                            format: 'MM/DD/YYYY'
                         }
                     }
                 }
@@ -373,8 +384,8 @@ simplePlatform.BindHeaderAddTaskClickEvent = function () {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
+            //dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
+            //dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
             dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
             dialogContentPlaceHolder.find("#dwnOffices").chosen({ width: "100%" }).unbind("change").bind("change", function () {
                 var groupObj = $(this.options[this.selectedIndex]).closest('optgroup');
