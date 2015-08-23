@@ -100,21 +100,23 @@ users.EditUserDetail = function (obj) {
 users.DeletUserDetail = function (obj) {
     var currentObj = obj;
     var userDetail = obj.data("user_detail");
-    $.ajax({
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        type: "POST",
-        url: users.options.DeleteURL,
-        async: false,
-        data: JSON.stringify({ "id": userDetail.id }),
-        success: function (data) {
-            var status = data;
-            if (status) {
-                $('#myDataTable').dataTable().api().ajax.reload(null, false);
-            } else {
+    ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: users.options.DeleteURL,
+            async: false,
+            data: JSON.stringify({ "id": userDetail.id }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                } else {
+                }
             }
-        }
-    });
+        });
+    }, function (event, dataModalPlaceHolder) { });
 };
 $(document).ready(function () {
     $('#myDataTable').dataTable({

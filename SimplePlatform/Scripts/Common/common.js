@@ -137,6 +137,30 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                             message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
                         }
                     }
+                },
+                city: {
+                    message: 'The city is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The city is required and cannot be empty'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 30,
+                            message: 'The city must be more than 3 and less than 30 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The city can contain a-z, A-Z, 0-9'
+                        }
+                    }
+                },
+                ddlUser: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select user.'
+                        }
+                    }
                 }
             }
         }).off('success.form.bv').on('success.form.bv', function (e) {
@@ -205,8 +229,39 @@ simplePlatform.ValidateModalEventForm = function (obj) {
                             message: 'The name must be more than 5 and less than 30 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The name can contain a-z, A-Z, 0-9'
+                        }
+                    }
+                },
+                city: {
+                    message: 'The city is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The city is required and cannot be empty'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 30,
+                            message: 'The city must be more than 3 and less than 30 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The city can contain a-z, A-Z, 0-9'
+                        }
+                    }
+                },
+                ddlOffice: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select office.'
+                        }
+                    }
+                },
+                ddlConvention: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select convention.'
                         }
                     }
                 }
@@ -278,8 +333,8 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                             message: 'The name must be more than 5 and less than 30 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The name can contain a-z, A-Z, 0-9'
                         }
                     }
                 }
@@ -354,8 +409,8 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                         message: 'The name must be more than 5 and less than 30 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The name can contain a-z, A-Z, 0-9'
                     }
                 }
             },
@@ -388,8 +443,15 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                         message: 'The city must be more than 3 and less than 30 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The city can contain a-z, A-Z, 0-9, or (_) only'
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The city can contain a-z, A-Z, 0-9'
+                    }
+                }
+            },
+            ddlUser: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select user.'
                     }
                 }
             }

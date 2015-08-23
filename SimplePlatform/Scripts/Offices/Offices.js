@@ -49,7 +49,7 @@ office.GetOfficeWidgetHTML = function (obj) {
     return sb.toString();
 }
 office.BindOfficeWidgetClick = function (obj) {
-    obj.find(".panel-close").off("click.panel-close").on("click.panel-close", function (event) { event.stopPropagation(); office.DeletUserDetail(obj); });
+    obj.find(".panel-close").off("click.panel-close").on("click.panel-close", function (event) { event.stopPropagation(); office.DeleteOfficeDetail(obj); });
     obj.find(".panel-edit").off("click.panel-edit").on("click.panel-edit", function (event) { event.stopPropagation(); office.EditOfficeDetail(obj); });
     obj.off("click.office_widget").on("click.office_widget", function () {
         var currentObj = $(this);
@@ -166,24 +166,26 @@ office.EditOfficeDetail = function (obj) {
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };
-office.DeletUserDetail = function (obj) {
+office.DeleteOfficeDetail = function (obj) {
     var currentObj = obj;
     var officeDetail = obj.data("office_detail");
-    $.ajax({
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        type: "POST",
-        url: office.options.DeleteURL,
-        async: false,
-        data: JSON.stringify({ "id": officeDetail.ID }),
-        success: function (data) {
-            var status = data;
-            if (status) {
-                office.ReloadOfficeCurrentPageData();
-            } else {
+    ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: office.options.DeleteURL,
+            async: false,
+            data: JSON.stringify({ "id": officeDetail.ID }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    office.ReloadOfficeCurrentPageData();
+                } else {
+                }
             }
-        }
-    });
+        });
+    }, function (event, dataModalPlaceHolder) { });
 };
 office.GetOfficesData = function (pageNo, pageSize) {
     $.ajax({

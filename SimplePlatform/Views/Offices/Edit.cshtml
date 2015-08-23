@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label for="SelectUserRole">Select User</label>
                     <select class="form-control" id="dwnUserID">
-                        <option value="-1">Select User</option>
+                        <option value="">Select User</option>
                         @foreach (var role in users)
                         {
                             <option value="@role.UserId">@role.FirstName @role.LastName</option>
