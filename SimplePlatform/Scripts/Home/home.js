@@ -89,6 +89,13 @@ home.LoadArrivalChart = function (data) {
         series: data
     });
 };
+
+home.UpdateTargets = function (obj, totalTargets, totalAchievedTarget) {
+    obj.find(".divTotalFundRaisingTarget").html(totalTargets);
+    obj.find(".divFundRaisingTarget").html(totalAchievedTarget);
+};
+
+
 home.GetFundRaisingData = function () {
     $.ajax({
         dataType: "json",
@@ -96,7 +103,10 @@ home.GetFundRaisingData = function () {
         type: "POST",
         url: home.options.FundRaisingURL,
         async: true,
-        success: function (data) { home.LoadFundRaisingChart(data); }
+        success: function (dataObj) {
+            home.UpdateTargets($("#divFundRaisingChartContainer"), dataObj.TotalTarget, dataObj.TotalTargetAchieved);
+            home.LoadFundRaisingChart(dataObj.ChartData);
+        }
     });
 };
 home.GetBookingData = function () {
@@ -106,7 +116,10 @@ home.GetBookingData = function () {
         type: "POST",
         url: home.options.BookingURL,
         async: true,
-        success: function (data) { home.LoadBookingChart(data); }
+        success: function (dataObj) {
+            home.UpdateTargets($("#divBookingChartContainer"), dataObj.TotalTarget, dataObj.TotalTargetAchieved);
+            home.LoadBookingChart(dataObj.ChartData);
+        }
     });
 };
 home.GetGSBTargetData = function () {
@@ -116,7 +129,10 @@ home.GetGSBTargetData = function () {
         type: "POST",
         url: home.options.GSBDataURL,
         async: true,
-        success: function (data) { home.LoadGSBChart(data); }
+        success: function (dataObj) {
+            home.UpdateTargets($("#divGSBChartContainer"), dataObj.TotalTarget, dataObj.TotalTargetAchieved);
+            home.LoadGSBChart(dataObj.ChartData);
+        }
     });
 };
 home.GetArrivalTargetData = function () {
@@ -126,7 +142,10 @@ home.GetArrivalTargetData = function () {
         type: "POST",
         url: home.options.ArrivalDataURL,
         async: true,
-        success: function (data) { home.LoadArrivalChart(data); }
+        success: function (dataObj) {
+            home.UpdateTargets($("#divArrivalChartContainer"), dataObj.TotalTarget, dataObj.TotalTargetAchieved);
+            home.LoadArrivalChart(dataObj.ChartData);
+        }
     });
 };
 home.DoPageSetting = function () {
