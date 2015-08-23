@@ -89,5 +89,12 @@ namespace DataModel
 
         public Modal.Task GetTask(int id)
         { return Context.Tasks.Where(model => model.TaskId == id && model.IsDeleted == false).FirstOrDefault(); }
+
+        public List<Modal.Task> GetTasks(int officeID, int year, int week)
+        {
+            var startDateTime = Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, week);
+            var endDateTime = startDateTime.AddDays(6);
+            return Context.Tasks.Where(model => model.Office.OfficeId == officeID && model.IsDeleted == false && model.EndDate.Year == year && model.EndDate >= startDateTime && model.EndDate <= endDateTime).ToList();
+        }
     }
 }
