@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DataModel;
+using System.Web.Script.Serialization;
 
 namespace SimplePlatform.Controllers
 {
@@ -12,9 +13,7 @@ namespace SimplePlatform.Controllers
         public ActionResult Index()
         {
             BundleConfig.AddStyle("/Offices", "Offices.css", ControllerName);
-            BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Offices", "Offices.js", ControllerName);
-            BundleConfig.AddScript("~/Scripts/Offices", "Detail.js", ControllerName);
             return View();
         }
 
@@ -84,10 +83,50 @@ namespace SimplePlatform.Controllers
             return Json(officesManager.Delete(id));
         }
 
+        // Fund Raising Target For CurrentYear
+        public object GetFundRaisingTargets(int id)
+        {
+            var dataSeries = new List<DataModel.Modal.ChartSeries>();
+            var targetManager = new DataModel.TargetManager();
+            var audienceManager = new DataModel.AudienceManager();
+            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
+            var currentYear = DateTime.Now.Year;
+            var targets = targetManager.GetFundingTargets(offices.ToList(), currentYear);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(offices.ToList(), currentYear);
+            dataSeries.Add(targets);
+            dataSeries.Add(achievedTargets);
+            var totalTargets = targets.data.Sum(model => model.y);
+            var totalAchievedTargets = achievedTargets.data.Sum(model => model.y);
+            return new { TotalTarget = totalTargets, TotalTargetAchieved = totalAchievedTargets, AchivedTarget = 0, ChartData = dataSeries };
+        }
+
+        public object GetBookingTargets(int id)
+        {
+            var dataSeries = new List<object>();
+            var targetManager = new DataModel.TargetManager();
+            var audienceManager = new DataModel.AudienceManager();
+            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
+            var currentYear = DateTime.Now.Year;
+            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
+            var targets = targetManager.GetBookingTargets(offices.ToList(), currentYear);
+            var achievedTargets = audienceManager.GetBookingTargetsAchived(offices.ToList(), currentYear);
+            var totalTargets = targets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
+            var totalAchievedTargets = achievedTargets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
+            return new { TotalTarget = totalTargets, TotalTargetAchieved = totalAchievedTargets };
+        }
+
+
         public ActionResult Detail(int id)
         {
+
+            BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
+            BundleConfig.AddScript("~/Scripts/Offices", "Detail.js", ControllerName);
+
+            Script = string.Format("var fundRaisingTargetData = {0};", new JavaScriptSerializer().Serialize(GetFundRaisingTargets(id)));
+            Script = string.Format("var bookingTargetData = {0};", new JavaScriptSerializer().Serialize(GetBookingTargets(id)));
             return View();
         }
+
         [HttpPost]
         public JsonResult GetTasks(int officeID)
         {
@@ -97,7 +136,7 @@ namespace SimplePlatform.Controllers
                 ID = model.TaskId,
                 Name = model.Name,
                 EndDate = model.EndDate.ToString("dd-MM-yyyy"),
-                Description=model.Description
+                Description = model.Description
             }).ToList();
             return Json(tasks);
         }

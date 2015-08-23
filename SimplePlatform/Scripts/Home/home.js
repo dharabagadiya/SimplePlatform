@@ -89,13 +89,10 @@ home.LoadArrivalChart = function (data) {
         series: data
     });
 };
-
 home.UpdateTargets = function (obj, totalTargets, totalAchievedTarget) {
     obj.find(".divTotalFundRaisingTarget").html(totalTargets);
     obj.find(".divFundRaisingTarget").html(totalAchievedTarget);
 };
-
-
 home.GetFundRaisingData = function () {
     $.ajax({
         dataType: "json",
