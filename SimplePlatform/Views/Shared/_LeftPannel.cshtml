@@ -11,16 +11,22 @@
                 <li class="">
                     <a href="@Url.Action("", "Home")" class="active"><i class="fa fa-tachometer"></i><span class="txt">Dashboard</span></a>
                 </li>
-                <li class="hasSub">
-                    <a href="@Url.Action("", "Conventions")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-group"></i><span class="txt">Conventions</span></a>
-                </li>
+                @if (Model.User.Roles.Any(model => new List<int> { 1 }.Contains(model.RoleId)))
+                {
+                    <li class="hasSub">
+                        <a href="@Url.Action("", "Conventions")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-group"></i><span class="txt">Conventions</span></a>
+                    </li>
+                }
                 <li class="hasSub">
                     <a href="@Url.Action("", "Offices")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-bank"></i><span class="txt">Offices</span></a>
-                    <ul class="sub">
-                        <li class="">
-                            <a href="@Url.Action("", "Targets")"><span class="txt">Targets</span></a>
-                        </li>
-                    </ul>
+                    @if (Model.User.Roles.Any(model => new List<int> { 1 }.Contains(model.RoleId)))
+                    {
+                        <ul class="sub">
+                            <li class="">
+                                <a href="@Url.Action("", "Targets")"><span class="txt">Targets</span></a>
+                            </li>
+                        </ul>
+                    }
                 </li>
                 <li class="hasSub">
                     <a href="@Url.Action("", "Events")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-th-list"></i><span class="txt">Events</span></a>

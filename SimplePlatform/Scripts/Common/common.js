@@ -536,5 +536,6 @@ simplePlatform.BindHeaderAddClickEvents = function () {
 };
 $(document).ready(function () {
     simplePlatform.BindHeaderAddClickEvents();
-    ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Test", "this is Good", function (event, dataModalPlaceHolder) { alert(1); }, function (event, dataModalPlaceHolder) { alert(2); });
+    // Example Of ShowOkCancelDialogBox
+    //ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Test", "this is Good", function (event, dataModalPlaceHolder) { }, function (event, dataModalPlaceHolder) { });
 });

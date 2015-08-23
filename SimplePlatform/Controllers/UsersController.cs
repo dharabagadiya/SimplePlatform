@@ -26,8 +26,10 @@ namespace SimplePlatform.Controllers
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
             var officeMananer = new DataModel.OfficeMananer();
+            // Remove Admin from User Role
+            var roles = IsAdmin ? customRoleProvider.GetAllRoles() : customRoleProvider.GetAllRoles().Where(model => model.RoleId != 1).ToList();
             ViewData["Offices"] = officeMananer.GetOffices();
-            return PartialView(customRoleProvider.GetAllRoles());
+            return PartialView(roles);
         }
 
         public PartialViewResult Edit(int id)

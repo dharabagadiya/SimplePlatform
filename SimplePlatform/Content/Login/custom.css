@@ -2,3 +2,12 @@
 /* Login Page Style */
 .login-page > .login-container { width: 400px; }
 .login-page .login-panel { margin-top: 100px; }
+.field-validation-error { color: #b94a48; }
+.field-validation-valid { display: none; }
+input.input-validation-error { border: 1px solid #b94a48; }
+select.input-validation-error { border: 1px solid #b94a48; }
+input[type="checkbox"].input-validation-error { border: 0 none; }
+.validation-summary-errors { color: #b94a48; font-weight: bold; }
+.validation-summary-valid { display: none; }
+.validation-summary-errors ul { list-style-type: none; }
+.validation-summary-errors ul li { list-style-type: none; }

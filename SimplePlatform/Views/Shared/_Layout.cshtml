@@ -11,7 +11,7 @@
     @Styles.Render(BundleConfig.GetStylesBundlePath(ViewData["Controller_Name"].ToString()).ToArray())
 </head>
 <body>
-    @Html.Partial("_Header")
+    @Html.Partial("_Header", userDetail)
     <div id="wrapper">
         @Html.Partial("_LeftPannel", userDetail);
         <div class="page-content right-sidebar-page clearfix collapsed-sidebar">
