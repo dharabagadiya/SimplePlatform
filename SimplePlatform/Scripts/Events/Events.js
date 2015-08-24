@@ -29,6 +29,23 @@ events.ValidateModalEventForm = function (obj) {
                             message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
                         }
                     }
+                },
+                city: {
+                    message: 'The city is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The city is required and cannot be empty'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 30,
+                            message: 'The city must be more than 3 and less than 30 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The city can contain a-z, A-Z, 0-9'
+                        }
+                    }
                 }
             }
         }).on('success.form.bv', function (e) {
@@ -79,21 +96,23 @@ events.EditEventDetail = function (obj) {
 events.DeletEventDetail = function (obj) {
     var currentObj = obj;
     var EventDetail = obj.data("event_detail");
-    $.ajax({
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        type: "POST",
-        url: events.options.DeleteURL,
-        async: false,
-        data: JSON.stringify({ "id": EventDetail.id }),
-        success: function (data) {
-            var status = data;
-            if (status) {
-                $('#myDataTable').dataTable().api().ajax.reload(null, false);
-            } else {
+    ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: events.options.DeleteURL,
+            async: false,
+            data: JSON.stringify({ "id": EventDetail.id }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                } else {
+                }
             }
-        }
-    });
+        });
+    }, function (event, dataModalPlaceHolder) { });
 };
 $(document).ready(function () {
     $('#myDataTable').dataTable({
@@ -110,25 +129,25 @@ $(document).ready(function () {
         "deferRender": true,
         "columns": [{ "data": "name" }, { "data": "startDate" }, { "data": "endDate" }, { "data": "description" }, { "data": "city" },
             {
-            "data": null,
-            "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
-                var currentObj = $(cell);
-                currentObj.css({ "text-align": "center" }).data("event_detail", rowData);
-                currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { events.EditEventDetail($(this)); });
-            },
-            render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i></a>'; },
-            "orderable": false,
-            "width": '2%'
-        }, {
-            "data": null,
-            "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
-                var currentObj = $(cell);
-                currentObj.css({ "text-align": "center" }).data("event_detail", rowData);
-                currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { events.DeletEventDetail($(this)); });
-            },
-            render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
-            "orderable": false,
-            "width": '2%'
-        }]
+                "data": null,
+                "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
+                    var currentObj = $(cell);
+                    currentObj.css({ "text-align": "center" }).data("event_detail", rowData);
+                    currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { events.EditEventDetail($(this)); });
+                },
+                render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i></a>'; },
+                "orderable": false,
+                "width": '2%'
+            }, {
+                "data": null,
+                "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
+                    var currentObj = $(cell);
+                    currentObj.css({ "text-align": "center" }).data("event_detail", rowData);
+                    currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { events.DeletEventDetail($(this)); });
+                },
+                render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
+                "orderable": false,
+                "width": '2%'
+            }]
     }).removeClass('display').addClass('table table-striped table-bordered');
 });

@@ -22,8 +22,8 @@
                 </div>
                 <div class="form-group">
                     <label for="SelectUserRole">Select User</label>
-                    <select class="form-control" id="dwnUserID">
-                        <option value="-1">Select User</option>
+                    <select class="form-control" id="dwnUserID" name="ddlUser">
+                        <option value="">Select User</option>
                         @foreach (var role in Model)
                         {
                             <option value="@role.UserId">@role.FirstName @role.LastName</option>

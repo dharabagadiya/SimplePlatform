@@ -28,6 +28,30 @@ conventions.ValidateModalConventionForm = function (obj) {
                             regexp: /^[a-zA-Z0-9_]+$/,
                             message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
                         }
+                    },
+                    city: {
+                        message: 'The city is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'The city is required and cannot be empty'
+                            },
+                            stringLength: {
+                                min: 3,
+                                max: 30,
+                                message: 'The city must be more than 3 and less than 30 characters long'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_ ]+$/,
+                                message: 'The city can contain a-z, A-Z, 0-9'
+                            }
+                        }
+                    },
+                    ddlUser: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Please select user.'
+                            }
+                        }
                     }
                 }
             }
@@ -76,21 +100,23 @@ conventions.EditConventionDetail = function (obj) {
 conventions.DeletConventionDetail = function (obj) {
     var currentObj = obj;
     var conventionDetail = obj.data("convention_detail");
-    $.ajax({
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        type: "POST",
-        url: conventions.options.DeleteURL,
-        async: false,
-        data: JSON.stringify({ "id": conventionDetail.id }),
-        success: function (data) {
-            var status = data;
-            if (status) {
-                $('#myDataTable').dataTable().api().ajax.reload(null, false);
-            } else {
+    ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: conventions.options.DeleteURL,
+            async: false,
+            data: JSON.stringify({ "id": conventionDetail.id }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                } else {
+                }
             }
-        }
-    });
+        });
+    }, function (event, dataModalPlaceHolder) { });
 };
 $(document).ready(function () {
     $('#myDataTable').dataTable({

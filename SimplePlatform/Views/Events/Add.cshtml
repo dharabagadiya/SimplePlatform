@@ -59,7 +59,8 @@
                 </div>
                 <div class="form-group">
                     <label for="SelectOffice">Select Office</label>
-                    <select class="form-control" id="dwnOffices">
+                    <select class="form-control" id="dwnOffices" name="ddlOffice">
+                        <option value="">Select Office</option>
                         @foreach (var office in offices)
                         {
                             <option value="@office.OfficeId">@office.Name</option>
@@ -67,8 +68,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="SelectOffice">Select Convention</label>
-                    <select class="form-control" id="dwnConvention">
+                    <label for="SelectConvention">Select Convention</label>
+                    <select class="form-control" id="dwnConvention" name="ddlConvention">
+                        <option value="">Select Convention</option>
                         @foreach (var convention in conventions)
                         {
                             <option value="@convention.ConventionId">@convention.Name</option>

@@ -87,6 +87,7 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
+                    ShowSuccessSaveAlert();
                 } else { }
             }
         });
@@ -137,6 +138,30 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                             message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
                         }
                     }
+                },
+                city: {
+                    message: 'The city is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The city is required and cannot be empty'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 30,
+                            message: 'The city must be more than 3 and less than 30 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The city can contain a-z, A-Z, 0-9'
+                        }
+                    }
+                },
+                ddlUser: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select user.'
+                        }
+                    }
                 }
             }
         }).off('success.form.bv').on('success.form.bv', function (e) {
@@ -159,7 +184,7 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
-                        //if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
+                        ShowSuccessSaveAlert();
                     } else {
                         obj.find("#divCommonMessage").removeClass("hidden");
                     }
@@ -205,8 +230,39 @@ simplePlatform.ValidateModalEventForm = function (obj) {
                             message: 'The name must be more than 5 and less than 30 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The name can contain a-z, A-Z, 0-9'
+                        }
+                    }
+                },
+                city: {
+                    message: 'The city is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The city is required and cannot be empty'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 30,
+                            message: 'The city must be more than 3 and less than 30 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The city can contain a-z, A-Z, 0-9'
+                        }
+                    }
+                },
+                ddlOffice: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select office.'
+                        }
+                    }
+                },
+                ddlConvention: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select convention.'
                         }
                     }
                 }
@@ -232,7 +288,7 @@ simplePlatform.ValidateModalEventForm = function (obj) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
-                        if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
+                        ShowSuccessSaveAlert();
                     } else {
                         obj.find("#divCommonMessage").removeClass("hidden");
                     }
@@ -279,8 +335,8 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                             message: 'The name must be more than 5 and less than 30 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The name can contain a-z, A-Z, 0-9'
                         }
                     }
                 },
@@ -315,9 +371,7 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
-                        if (tasks.ReloadTaskList != undefined) {
-                            tasks.ReloadTaskList();
-                        }
+                        ShowSuccessSaveAlert();
                     } else { }
                 }
             });
@@ -365,8 +419,8 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                         message: 'The name must be more than 5 and less than 30 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The name can contain a-z, A-Z, 0-9'
                     }
                 }
             },
@@ -399,8 +453,15 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                         message: 'The city must be more than 3 and less than 30 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The city can contain a-z, A-Z, 0-9, or (_) only'
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The city can contain a-z, A-Z, 0-9'
+                    }
+                }
+            },
+            ddlUser: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select user.'
                     }
                 }
             }
@@ -423,7 +484,7 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                    if (!IsNullOrEmpty(office.ReloadOfficeCurrentPageData)) { office.ReloadOfficeCurrentPageData(); }
+                    ShowSuccessSaveAlert();
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }
@@ -517,7 +578,7 @@ simplePlatform.ValidateModalUserForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                    if ($('#myDataTable').length > 0) $('#myDataTable').dataTable().api().ajax.reload();
+                    ShowSuccessSaveAlert();
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }

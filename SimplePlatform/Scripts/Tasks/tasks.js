@@ -85,20 +85,22 @@ tasks.EditTaskDetail = function (obj) {
 tasks.DeletTaskDetail = function (obj) {
     var currentObj = obj;
     var taskDetail = obj.data("task_detail");
-    $.ajax({
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        type: "POST",
-        url: tasks.options.DeleteURL,
-        async: false,
-        data: JSON.stringify({ "id": taskDetail.ID }),
-        success: function (data) {
-            var status = data;
-            if (status) {
-                $('#userTaskList').dataTable().api().ajax.reload(null, false);
-            } else { }
-        }
-    });
+    ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: tasks.options.DeleteURL,
+            async: false,
+            data: JSON.stringify({ "id": taskDetail.ID }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    $('#userTaskList').dataTable().api().ajax.reload(null, false);
+                } else { }
+            }
+        });
+    }, function (event, dataModalPlaceHolder) { });
 };
 tasks.UpdateUserCommentList = function (message, obj) {
     var sb = new StringBuilder();
