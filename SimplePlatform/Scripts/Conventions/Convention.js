@@ -59,8 +59,9 @@ conventions.ValidateModalConventionForm = function (obj) {
             e.preventDefault();
             var formObj = $(e.target);;
             var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val() + " " + formObj.find("#timepickerStart").val();
-            var endDates = formObj.find("#txtDueDateEnd").val() + " " + formObj.find("#timepickerEnd").val();
+            var dates = formObj.find("#datetimerange").val().split('-');
+            var startDates = dates[0].trim();
+            var endDates = dates[1].trim();
             var description = formObj.find("#txtDescription").val();
             var userID = formObj.find("#dwnUserId").val();
             var conventionID = formObj.find("#hdnConventionID").val();
@@ -76,7 +77,7 @@ conventions.ValidateModalConventionForm = function (obj) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
-                        $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                        ShowUpdateSuccessSaveAlert();
                     } else {
                         obj.find("#divCommonMessage").removeClass("hidden");
                     }
@@ -90,10 +91,7 @@ conventions.EditConventionDetail = function (obj) {
     $("#divCommonModalPlaceHolder").empty();
     ShowDialogBox($("#divCommonModalPlaceHolder"), (conventions.options.EditViewURL + conventionDetail.id), null, $.proxy(function (event, dialogContentPlaceHolder) {
         this.ValidateModalConventionForm(dialogContentPlaceHolder);
-        dialogContentPlaceHolder.find('#datepickerStart').datepicker({ autoclose: true, todayHighlight: true });
-        dialogContentPlaceHolder.find('#datepickerEnd').datepicker({ autoclose: true, todayHighlight: true });
-        dialogContentPlaceHolder.find('#timepickerStart').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
-        dialogContentPlaceHolder.find('#timepickerEnd').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
+        dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm' } });
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };
