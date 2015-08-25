@@ -546,7 +546,7 @@ simplePlatform.ValidateModalUserForm = function (obj) {
         var emailID = formObj.find("#txtUserEmailAddress").val();
         var userRoleID = formObj.find("#dwnUserRoles").val();
         var officeID = formObj.find("#dwnOfficeList").length > 0 ? formObj.find("#dwnOfficeList").val() : 0;
-        if (IsNullOrEmpty(officeID)) { officeID = 0; }
+        if (IsNullOrEmpty(officeID) || userRoleID == 1) { officeID = 0; }
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -574,6 +574,12 @@ simplePlatform.BindHeaderAddUserClickEvent = function () {
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             this.ValidateModalUserForm(dialogContentPlaceHolder);
             dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+            dialogContentPlaceHolder.find("#dwnUserRoles").off("change.dwnUserRoles").on("change.dwnUserRoles", function () {
+                dialogContentPlaceHolder.find(".divOfficeListContainer").show();
+                var userType = $(this).val();
+                //  Hide Office List if user type admin
+                if (userType == 1) { dialogContentPlaceHolder.find(".divOfficeListContainer").hide(); }
+            });
         }, this));
         return false;
     }, this));

@@ -67,6 +67,7 @@ users.ValidateModalUserForm = function (obj) {
         var emailID = formObj.find("#txtUserEmailAddress").val();
         var userRoleID = formObj.find("#dwnUserRoles").val();
         var officesID = formObj.find("#dwnOfficeList").length > 0 ? formObj.find("#dwnOfficeList").val() : 0;
+        if (IsNullOrEmpty(officesID) || userRoleID == 1) { officesID = 0; }
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -93,8 +94,14 @@ users.EditUserDetail = function (obj) {
     ShowDialogBox($("#divCommonModalPlaceHolder"), (users.options.EditViewURL + userDetail.id), null, $.proxy(function (event, dialogContentPlaceHolder) {
         this.ValidateModalUserForm(dialogContentPlaceHolder);
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+        dialogContentPlaceHolder.find("#dwnUserRoles").off("change.dwnUserRoles").on("change.dwnUserRoles", function () {
+            dialogContentPlaceHolder.find(".divOfficeListContainer").show();
+            var userType = $(this).val();
+            //  Hide Office List if user type admin
+            if (userType == 1) { dialogContentPlaceHolder.find(".divOfficeListContainer").hide(); }
+        });
         dialogContentPlaceHolder.find("#dwnUserRoles").val(userDetail.userRolesID);
-        dialogContentPlaceHolder.find("#dwnOfficeList").val(userDetail.userOfficesID);
+        dialogContentPlaceHolder.find("#dwnOfficeList").val(parseInt(userDetail.userOfficesID));
     }, this));
 };
 users.DeletUserDetail = function (obj) {
