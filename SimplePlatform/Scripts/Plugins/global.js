@@ -20,6 +20,15 @@ Date.prototype.mmddyyyy = function () {
     var dd = this.getDate().toString();
     return (mm + "/" + dd + "/" + yyyy); // padding
 };
+Date.prototype.mmddyyyyHHmmss = function () {
+    var yyyy = this.getFullYear().toString();
+    var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
+    var dd = this.getDate().toString();
+    var hours = (this.getHours()) > 9 ? (this.getHours()) : "0" + (this.getHours());
+    var minutes = (this.getMinutes()) > 9 ? (this.getMinutes()) : "0" + (this.getMinutes());
+    var seconds = (this.getSeconds()) > 9 ? (this.getSeconds()) : "0" + (this.getSeconds());
+    return (mm + "/" + dd + "/" + yyyy + " " + hours + ":" + minutes + ":" + seconds); // padding
+};
 Date.prototype.getMonthName = function () { return this.monthNames[this.getMonth()]; };
 Date.prototype.getShortMonthName = function () { return this.getMonthName().substr(0, 3); };
 Date.prototype.getYear = function () { return this.getFullYear().toString().substr(2, 2); };

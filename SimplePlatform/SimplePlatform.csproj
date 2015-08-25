@@ -109,6 +109,7 @@
     <Content Include="Content\DataTables\css\select.bootstrap.css" />
     <Content Include="Content\Offices\Detail.css" />
     <Content Include="Content\Plugins\bootstrap\bootstrap_timepicker.css" />
+    <Content Include="Content\Plugins\bootstrap\daterangepicker.css" />
     <Content Include="Content\Plugins\Calender\fullcalendar.css" />
     <Content Include="Content\Plugins\Calender\fullcalendar_print.css" />
     <Content Include="Content\Plugins\chosen\chosen-sprite%402x.png" />
@@ -207,6 +208,7 @@
     <Content Include="Scripts\Offices\targets.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrapValidator.js" />
     <Content Include="Scripts\Plugins\Bootstrap-Datepicker\bootstrap_datepicker.js" />
+    <Content Include="Scripts\Plugins\Calender\daterangepicker.js" />
     <Content Include="Scripts\Plugins\bootstrap-paginator.js" />
     <Content Include="Scripts\Plugins\bootstrap-progressbar.js" />
     <Content Include="Scripts\Plugins\Bootstrap-timepicker\bootstrap-timepicker.js" />

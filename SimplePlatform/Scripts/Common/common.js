@@ -134,8 +134,8 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                             message: 'The name must be more than 5 and less than 30 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The name can contain a-z, A-Z, 0-9'
                         }
                     }
                 },
@@ -168,8 +168,9 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
             e.preventDefault();
             var formObj = $(e.target);
             var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val() + " " + formObj.find("#timepickerStart").val();
-            var endDates = formObj.find("#txtDueDateEnd").val() + " " + formObj.find("#timepickerEnd").val();
+            var dates = formObj.find("#datetimerange").val().split('-');
+            var startDates = dates[0].trim();
+            var endDates = dates[1].trim();
             var description = formObj.find("#txtDescription").val();
             var userId = formObj.find("#dwnUserId").val();
             var city = formObj.find("#txtCity").val();
@@ -198,12 +199,8 @@ simplePlatform.BindHeaderAddConventionClickEvent = function () {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find('#datepickerStart').datepicker({ autoclose: true, todayHighlight: true });
-            dialogContentPlaceHolder.find('#datepickerEnd').datepicker({ autoclose: true, todayHighlight: true });
-            dialogContentPlaceHolder.find('#timepickerStart').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
-            dialogContentPlaceHolder.find('#timepickerEnd').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
+            dialogContentPlaceHolder.find("#datetimerange").val(new Date().mmddyyyyHHmmss());
+            dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm:ss' } });
             this.ValidateModalConventionForm(dialogContentPlaceHolder);
         }, this));
         return false;
@@ -271,8 +268,9 @@ simplePlatform.ValidateModalEventForm = function (obj) {
             e.preventDefault();
             var formObj = $(e.target);;
             var name = formObj.find("#txtName").val();
-            var startDates = formObj.find("#txtDueDateStart").val() + " " + formObj.find("#timepickerStart").val();
-            var endDates = formObj.find("#txtDueDateEnd").val() + " " + formObj.find("#timepickerEnd").val();
+            var dates = formObj.find("#datetimerange").val().split('-');
+            var startDates = dates[0].trim();
+            var endDates = dates[1].trim();
             var description = formObj.find("#txtDescription").val();
             var officeID = formObj.find("#dwnOffices").val();
             var conventionID = formObj.find("#dwnConvention").val();
@@ -302,12 +300,8 @@ simplePlatform.BindHeaderAddEventClickEvent = function () {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find('#datepickerStart').datepicker({ autoclose: true, todayHighlight: true });
-            dialogContentPlaceHolder.find('#datepickerEnd').datepicker({ autoclose: true, todayHighlight: true });
-            dialogContentPlaceHolder.find('#timepickerStart').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
-            dialogContentPlaceHolder.find('#timepickerEnd').timepicker({ showMeridian: false, upArrowStyle: 'fa fa-angle-up', downArrowStyle: 'fa fa-angle-down', });
+            dialogContentPlaceHolder.find("#datetimerange").val(new Date().mmddyyyyHHmmss());
+            dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm:ss' } });
             this.ValidateModalEventForm(dialogContentPlaceHolder);
         }, this));
         return false;
