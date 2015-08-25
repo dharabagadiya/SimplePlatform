@@ -19,6 +19,15 @@ namespace DataModel
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         { }
 
+        public List<int> GetConventionIDs(int year, int week)
+        {
+            var startDateTime = Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, week);
+            var endDateTime = startDateTime.AddDays(6);
+            return Context.Conventions.Where(model => model.IsDeleted == false
+            && model.EndDate.Year == year
+            && model.EndDate >= startDateTime && model.EndDate <= endDateTime).Select(model => model.ConventionId).ToList();
+        }
+
         public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, bool isBooked, float GSBAmount, float amount)
         {
             try
@@ -168,6 +177,15 @@ namespace DataModel
                 .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
                 .Select(model => new DataModel.Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
+        }
+
+        public List<Modal.Audience> GetArrivalAudiences(int year, int week)
+        {
+            var conventions = GetConventionIDs(year, week);
+            return Context.Audiences.Where(model => model.IsDeleted == false
+            && model.IsBooked == true
+            && model.IsAttended == false
+            && conventions.Contains(model.Convention.ConventionId)).ToList();
         }
     }
 }
