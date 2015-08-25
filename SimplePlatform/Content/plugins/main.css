@@ -141,18 +141,6 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 .datepicker-dropdown.datepicker-orient-top:before { top: -21px; left: 16px; }
 .datepicker-dropdown.datepicker-orient-top:after { top: -19px; left: 15px; }
 
-/* Panel Primary */
-.panel-primary { border-color: #0a97b9; }
-.panel-primary > .panel-heading { color: #ffffff; background-color: #0a97b9; border-color: #0a97b9; }
-.panel-primary > .panel-heading + .panel-collapse > .panel-body { border-top-color: #0a97b9; }
-.panel-primary > .panel-heading .badge { color: #0a97b9; background-color: #ffffff; }
-.panel-primary > .panel-footer + .panel-collapse > .panel-body { border-bottom-color: #0a97b9; }
-.panel-primary > .panel-heading { color: #ffffff; background-color: #0a97b9; border-color: #0a97b9; }
-.panel-primary > .panel-heading + .panel-collapse .panel-body { border-top-color: #0a97b9; }
-.panel-primary > .panel-body { border-top: none; }
-.panel-primary > .panel-footer { color: #ffffff; background-color: #0a97b9; border-color: #0a97b9; border: 1px solid #0a97b9; border-top: none; }
-.panel-primary div.panel-body:last-of-type { border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; }
-
 /* Data Table - Setting */
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected { border-color: #0a97b9; }
 
@@ -193,7 +181,7 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected { bo
 /* -- Panel Style -- Start */
 .panel { position: relative; margin-bottom: 20px; border-radius: 3px; border: 0; box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1); }
 .panel.highlight-panel { box-shadow: 0px 0px 0px 2px #29b6d8; transition: box-shadow; transition-duration: 0.4s; }
-.panel.panel-default > .panel-heading { color: #333333; }
+.panel.panel-default > .panel-heading { }
 .panel .panel-controls-right { width: auto; float: right; position: absolute; right: 10px; top: 0; }
 .panel .panel-controls-right.panel-controls-hide { display: none; }
 .panel .panel-controls-right a { text-decoration: none; float: left; width: auto; padding: 11px 5px; }
@@ -260,7 +248,7 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected { bo
 .panel-heading:before,
 .panel-heading:after { content: " "; display: table; }
 .panel-heading:after { clear: both; }
-.panel-heading .panel-title { font-size: 16px; font-weight: normal; margin-right: 10px; padding: 12px 0; min-height: 42px; }
+.panel-heading .panel-title { font-size: 16px; font-weight: normal; margin-right: 10px; padding: 12px 0; min-height: 42px; color: #333333; }
 .panel-heading .panel-title > i { font-size: 16px; margin-right: 5px; }
 .panel-heading .panel-title > i[class^="glyphicon"] { top: -2px !important; margin-top: -1px; }
 .panel-heading.min { border-bottom: none; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; }
@@ -327,6 +315,19 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected { bo
 .panel-placeholder { border: 1px dashed #e3e3e3; background: #cccccc; margin-bottom: 25px; border-radius: 3px; }
 .panel.plain.panel-default { border: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5; box-shadow: none; }
 
+/* Panel Primary */
+.panel-primary { border-color: #0a97b9; }
+.panel-primary > .panel-heading { color: #ffffff; background-color: #0a97b9; border-color: #0a97b9; }
+.panel-primary > .panel-heading .panel-title { color: #ffffff; }
+.panel-primary > .panel-heading + .panel-collapse > .panel-body { border-top-color: #0a97b9; }
+.panel-primary > .panel-heading .badge { color: #0a97b9; background-color: #ffffff; }
+.panel-primary > .panel-footer + .panel-collapse > .panel-body { border-bottom-color: #0a97b9; }
+.panel-primary > .panel-heading { color: #ffffff; background-color: #0a97b9; border-color: #0a97b9; }
+.panel-primary > .panel-heading + .panel-collapse .panel-body { border-top-color: #0a97b9; }
+.panel-primary > .panel-body { border-top: none; }
+.panel-primary > .panel-footer { color: #ffffff; background-color: #0a97b9; border-color: #0a97b9; border: 1px solid #0a97b9; border-top: none; }
+.panel-primary div.panel-body:last-of-type { border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; }
+
 /* -----------------------------------------
    Sparklines
 ----------------------------------------- */
@@ -337,6 +338,7 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected { bo
 .jqstooltip { box-sizing: content-box; border-color: #344154 !important; opacity: 0.8; filter: alpha(opacity=80); font-size: 12px; font-weight: bold; border-radius: 3px !important; background: #344154; font-family: verdana; width: auto !important; height: auto !important; }
 .sparkline { width: 100%; display: inline-block; margin-bottom: 5px; }
 .money:before { content: '$'; margin-right: 5px; }
+
 
 /* -----------------------------------------
    Responsive media queries

@@ -120,14 +120,29 @@ namespace SimplePlatform.Controllers
             var currentYear = DateTime.Now.Year;
             var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
             var taskManager = new TaskManager();
-            var task = taskManager.GetTasks(id, currentYear, currentWeek);
-            return task.Select(model => new
+            var tasks = taskManager.GetTasks(id, currentYear, currentWeek);
+            return tasks.Select(model => new
             {
                 ID = model.TaskId,
                 Name = model.Name,
-                EndDate = model.EndDate.ToString("dd-MM-yyyy"),
+                EndDate = model.EndDate.ToString("MM dd,yyyy"),
                 Description = model.Description
             }).ToList();
+        }
+
+        public object GetUserArrivalForCurrentWeek(int id)
+        {
+            var currentYear = DateTime.Now.Year;
+            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
+            var audienceManager = new AudienceManager();
+            var audiences = audienceManager.GetArrivalAudiences(currentYear, currentWeek);
+            return audiences.Select(model => new
+            {
+                ID = model.AudienceID,
+                Name = model.Name,
+                ConventionName  = model.Convention.Name,
+                ArrivalDate = model.Convention.StartDate.ToString("MM dd,yyyy")
+            });
         }
 
         public ActionResult Detail(int id)
@@ -139,6 +154,7 @@ namespace SimplePlatform.Controllers
             Script = string.Format("var fundRaisingTargetData = {0};", new JavaScriptSerializer().Serialize(GetFundRaisingTargets(id)));
             Script = string.Format("var bookingTargetData = {0};", new JavaScriptSerializer().Serialize(GetBookingTargets(id)));
             Script = string.Format("var tasks = {0};", new JavaScriptSerializer().Serialize(GetTaskForCurrentWeek(id)));
+            Script = string.Format("var arrivalAudiences = {0};", new JavaScriptSerializer().Serialize(GetUserArrivalForCurrentWeek(id)));
             return View();
         }
     }
