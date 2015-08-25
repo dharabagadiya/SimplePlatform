@@ -30,7 +30,7 @@ namespace CustomAuthentication
         public void AddUserToRole(string userName, string roleName)
         {
             User user = Context.Users.Where(Usr => userName.Contains(Usr.UserName)).FirstOrDefault();
-            Role role = Context.Roles.Where(Rl => roleName.Contains(Rl.RoleName)).FirstOrDefault();
+            Role role = Context.Roles.Where(Rl => roleName.Contains(Rl.RoleName) && Rl.IsDeleted == false).FirstOrDefault();
 
             if (!user.Roles.Contains(role))
             {
@@ -58,18 +58,18 @@ namespace CustomAuthentication
         }
         public List<Role> GetAllRoles()
         {
-            return Context.Roles.ToList();
+            return Context.Roles.Where(model => model.IsDeleted == false).ToList();
         }
         public Role GetRole(string roleName)
         {
             Role Role = null;
-            Role = Context.Roles.FirstOrDefault(Rl => Rl.RoleName == roleName);
+            Role = Context.Roles.FirstOrDefault(Rl => Rl.RoleName == roleName && Rl.IsDeleted == false);
             return Role;
         }
         public bool IsUserInRole(string username, string roleName)
         {
             User User = Context.Users.FirstOrDefault(Usr => Usr.UserName == username);
-            Role Role = Context.Roles.FirstOrDefault(Rl => Rl.RoleName == roleName);
+            Role Role = Context.Roles.FirstOrDefault(Rl => Rl.RoleName == roleName && Rl.IsDeleted == false);
 
             if (Role == null && User != null)
             {
