@@ -199,8 +199,7 @@ simplePlatform.BindHeaderAddConventionClickEvent = function () {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            dialogContentPlaceHolder.find("#datetimerange").val(new Date().mmddyyyyHHmmss());
-            dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm:ss' } });
+            dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm' } });
             this.ValidateModalConventionForm(dialogContentPlaceHolder);
         }, this));
         return false;
@@ -300,15 +299,13 @@ simplePlatform.BindHeaderAddEventClickEvent = function () {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            dialogContentPlaceHolder.find("#datetimerange").val(new Date().mmddyyyyHHmmss());
-            dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm:ss' } });
+            dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm' } });
             this.ValidateModalEventForm(dialogContentPlaceHolder);
         }, this));
         return false;
     }, this));
 };
 simplePlatform.ValidateModalTaskForm = function (obj) {
-    obj.find("#txtDueDateStart").off("show hide").on('show hide', function (e) { obj.find("form").data('bootstrapValidator').updateStatus('txtDueDateStart', 'NOT_VALIDATED', null).validateField('txtDueDateStart'); });
     obj.find("form")
         .bootstrapValidator({
             feedbackIcons: {
@@ -333,24 +330,15 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                             message: 'The name can contain a-z, A-Z, 0-9'
                         }
                     }
-                },
-                txtDueDateStart: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The date is required and cannot be empty'
-                        },
-                        date: {
-                            format: 'MM/DD/YYYY'
-                        }
-                    }
                 }
             }
         }).off("success.form.bv").on('success.form.bv', function (e) {
             e.preventDefault();
             var formObj = $(e.target);;
             var name = formObj.find("#txtName").val();
-            var startDate = formObj.find("#txtDueDateStart").val();
-            var endDate = formObj.find("#txtDueDateEnd").val();
+            var dates = formObj.find("#datetimerange").val().split('-');
+            var startDate = dates[0].trim();
+            var endDate = dates[1].trim();
             var description = formObj.find("#txtDescription").val();
             var officeID = formObj.find("#hdnOfficeID").val();
             var userID = formObj.find("#hdnUserID").val();
@@ -377,9 +365,7 @@ simplePlatform.BindHeaderAddTaskClickEvent = function () {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            //dialogContentPlaceHolder.find("#txtDueDateStart").val(new Date().mmddyyyy());
-            //dialogContentPlaceHolder.find("#txtDueDateEnd").val(new Date().mmddyyyy());
-            dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
+            dialogContentPlaceHolder.find('#datetimerange').daterangepicker();
             dialogContentPlaceHolder.find("#dwnOffices").chosen({ width: "100%" }).unbind("change").bind("change", function () {
                 var groupObj = $(this.options[this.selectedIndex]).closest('optgroup');
                 var officeID = 0, userID = 0;

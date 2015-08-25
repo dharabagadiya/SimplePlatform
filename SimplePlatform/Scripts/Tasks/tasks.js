@@ -38,8 +38,9 @@ tasks.ValidateModalTaskForm = function (obj) {
             var formObj = $(e.target);
             var taskID = formObj.find("#hdnTaskID").val();
             var name = formObj.find("#txtName").val();
-            var startDate = formObj.find("#txtDueDateStart").val();
-            var endDate = formObj.find("#txtDueDateEnd").val();
+            var dates = formObj.find("#datetimerange").val().split('-');
+            var startDate = dates[0].trim();
+            var endDate = dates[1].trim();
             var description = formObj.find("#txtDescription").val();
             var officeID = formObj.find("#hdnOfficeID").val();
             var userID = formObj.find("#hdnUserID").val();
@@ -54,7 +55,7 @@ tasks.ValidateModalTaskForm = function (obj) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
-
+                        ShowUpdateSuccessSaveAlert();
                     } else {
 
                     }
@@ -67,7 +68,7 @@ tasks.EditTaskDetail = function (obj) {
     var taskDetail = obj.data("task_detail");
     $("#divCommonModalPlaceHolder").empty();
     ShowDialogBox($("#divCommonModalPlaceHolder"), (tasks.options.EditViewURL + taskDetail.ID), null, $.proxy(function (event, dialogContentPlaceHolder) {
-        dialogContentPlaceHolder.find('#datepicker').datepicker({ autoclose: true, todayHighlight: true });
+        dialogContentPlaceHolder.find('#datetimerange').daterangepicker();
         dialogContentPlaceHolder.find("#dwnOffices").chosen({ width: "100%" });
         dialogContentPlaceHolder.find("#dwnOffices").unbind("change").bind("change", function () {
             var groupObj = $(this.options[this.selectedIndex]).closest('optgroup');

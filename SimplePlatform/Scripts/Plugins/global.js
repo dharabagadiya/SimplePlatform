@@ -240,4 +240,9 @@ function ShowSuccessSaveAlert() {
     ShowOkDialogBox($("#divCommonMessageModalPlaceHolder"), "Success", "Data successfully saved.", function (event, dataModalPlaceHolder) {
         window.location.reload();
     });
-}
+};
+function ShowUpdateSuccessSaveAlert() {
+    ShowOkDialogBox($("#divCommonMessageModalPlaceHolder"), "Success", "Data successfully updated.", function (event, dataModalPlaceHolder) {
+        window.location.reload();
+    });
+};
