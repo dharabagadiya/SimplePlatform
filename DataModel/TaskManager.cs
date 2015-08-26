@@ -67,7 +67,6 @@ namespace DataModel
             }
         }
 
-
         public bool Delete(int taskID)
         {
             try
@@ -75,6 +74,22 @@ namespace DataModel
                 var task = GetTask(taskID);
                 if (task == null) { return false; }
                 task.IsDeleted = true;
+                Context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool Status(int taskID)
+        {
+            try
+            {
+                var task = GetTask(taskID);
+                if (task == null) { return false; }
+                task.IsCompleted = !task.IsCompleted;
                 Context.SaveChanges();
                 return true;
             }
