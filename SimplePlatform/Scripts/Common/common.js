@@ -20,8 +20,8 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
                         message: 'The first name must be more than 3 and less than 15 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The first name can containe a-z, A-Z, 0-9, or (_) only'
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The first name can containe a-z, A-Z, 0-9, ( ), or (_) only'
                     }
                 }
             },

@@ -34,14 +34,13 @@ namespace SimplePlatform.Controllers
             {
                 taskList = UserDetail.Tasks.ToList();
             }
-
             var tasks = taskList.Select(model => new
             {
                 ID = model.TaskId,
                 Title = model.Name,
                 DueDate = model.EndDate.ToString("dd-MM-yyyy"),
                 AssignTo = (model.UsersDetail == null ? model.Office.Name : (model.UsersDetail.UserId == UserDetail.UserId) ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName)),
-                Status = model.IsCompleted ? "Completed" : "Pending",
+                Status = model.IsCompleted,
                 OfficeID = model.Office.OfficeId,
                 UserID = (model.UsersDetail == null ? 0 : model.UsersDetail.UserId),
             }).ToList();

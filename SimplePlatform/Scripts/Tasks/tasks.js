@@ -1,4 +1,5 @@
 ﻿var tasks = {};
+tasks.tableObj  = null;
 tasks.options = {
     EditViewURL: "/Tasks/Edit/",
     UpdateURL: "/Tasks/Update",
@@ -144,22 +145,25 @@ tasks.BindCommentControlClickEvent = function (obj) {
         });
     });
 };
+tasks.UpdateTaskStatus = function (taskID) {
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        async: false,
+        data: JSON.stringify({ "id": taskID }),
+        url: tasks.options.UpdateTaskStatusURL,
+        success: function (data) {
+            tasks.ReloadTaskList();
+            tasks.GetTaskDetail(taskID);
+        }
+    });
+};
 tasks.BindMarkTaskControlEvent = function (obj) {
     obj.find(".divMarkTaskButton").off("click.divMarkTaskButton").on("click.divMarkTaskButton", function () {
         var taskID = obj.data("task-id");
         obj.find(".divMarkTaskButton").off("click.divMarkTaskButton");
-        $.ajax({
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            async: false,
-            data: JSON.stringify({ "id": taskID }),
-            url: tasks.options.UpdateTaskStatusURL,
-            success: function (data) {
-                tasks.ReloadTaskList();
-                tasks.GetTaskDetail(taskID);
-            }
-        });
+        tasks.UpdateTaskStatus(taskID);
     });
 };
 tasks.GetTaskDetail = function (taskID) {
@@ -208,7 +212,7 @@ tasks.BindTaskRowClickEvent = function (obj) {
 };
 tasks.ReloadTaskList = function () {
     $('#userTaskList').dataTable().fnDestroy();
-    $('#userTaskList').dataTable({
+    var tableObj = $('#userTaskList').dataTable({
         "select": "single",
         renderer: {
             "header": "bootstrap",
@@ -226,7 +230,18 @@ tasks.ReloadTaskList = function () {
             { "data": "Title", "width": "45em" },
             { "data": "AssignTo" },
             { "data": "DueDate" },
-            { "data": "Status" },
+            {
+                "data": "Status",
+                "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
+                    var currentObj = $(cell);
+                    currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
+                    currentObj.off("click.updateStatus").on("click.updateStatus", function () {
+                        tasks.UpdateTaskStatus(rowData.ID);
+                    });
+                },
+                render: function (o) { return '<a href="#">' + (!o ? "Mark as Pending" : "Mark as Complete") + '</a>'; },
+                "width": '8%'
+            },
             {
                 "data": null,
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
@@ -252,5 +267,6 @@ tasks.ReloadTaskList = function () {
     });
     $('#userTaskList').removeClass('display').addClass('table table-striped table-bordered');
     tasks.BindTaskRowClickEvent($('#userTaskList'));
+    tasks.tableObj = tableObj;
 };
 $(document).ready(function () { tasks.ReloadTaskList(); });

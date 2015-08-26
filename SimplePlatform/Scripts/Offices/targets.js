@@ -77,7 +77,7 @@ targets.ValidateModalTargetForm = function (obj) {
 targets.LoadQuickTargetSetting = function () {
     var tagetsRowDetails = $(".divTargetBulkInsertRow");
     for (var i = 1 ; i < 4; i++) { tagetsRowDetails.after(tagetsRowDetails.clone()); }
-    $(".txtDueDate").datepicker({ daysOfWeekDisabled: "1,2,3,4,5", autoclose: true, todayHighlight: true });
+    $(".txtDueDate").datepicker({ autoclose: true, todayHighlight: true });
     targets.ValidateModalTargetForm($("#divTargetBulkInsert"));
 };
 targets.ValidateModalEditTargetForm = function (obj) {
