@@ -195,6 +195,7 @@
     <Content Include="Content\Plugins\linea-font\weather\fonts\linea-weather-10.svg" />
     <Content Include="Content\Plugins\linea-font\weather\styles.css" />
     <Content Include="Content\Plugins\main.css" />
+    <Content Include="Content\Tasks\tasks.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Audiences\audiences.js" />

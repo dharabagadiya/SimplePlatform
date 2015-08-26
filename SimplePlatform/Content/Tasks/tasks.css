@@ -1,0 +1,12 @@
+﻿.divMarkTaskButton { margin-top: 5px; background-color: #ffffff; color: #0a97b9; font-weight: bold; }
+.recent-comments { margin-bottom: 0; }
+.recent-comments li.comment-success { border-left-color: #53c077; }
+.recent-comments li.comment-info { border-left-color: #22b7bb; }
+.recent-comments li.comment-warning { border-left-color: #f38231; }
+.recent-comments li.comment-danger { border-left-color: #da557b; }
+.list-group .list-group-item { transition: all; transition-duration: 0.4s; }
+.recent-comments li { border-radius: 0; border-top-width: 0; border-left-width: 4px; border-bottom-width: 0; border-right-width: 0; margin-bottom: 10px; background-color: #f2f2f2; }
+.recent-comments li p { margin-top: 2px; }
+.text-ellipsis { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.text-muted { color: #777777; }
+

@@ -11,6 +11,7 @@ namespace SimplePlatform.Controllers
         public ActionResult Index()
         {
             BundleConfig.AddScript("~/Scripts/Tasks", "tasks.js", ControllerName);
+            BundleConfig.AddStyle("/Tasks", "tasks.css", ControllerName);
 
             return View();
         }
@@ -40,10 +41,14 @@ namespace SimplePlatform.Controllers
                 Title = model.Name,
                 DueDate = model.EndDate.ToString("dd-MM-yyyy"),
                 AssignTo = (model.UsersDetail == null ? model.Office.Name : (model.UsersDetail.UserId == UserDetail.UserId) ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName)),
+                Status = model.IsCompleted ? "Completed" : "Pending",
                 OfficeID = model.Office.OfficeId,
                 UserID = (model.UsersDetail == null ? 0 : model.UsersDetail.UserId),
             }).ToList();
-            return Json(new { data = tasks });
+            return Json(new
+            {
+                data = tasks
+            });
         }
 
         public ActionResult Add()
@@ -100,6 +105,13 @@ namespace SimplePlatform.Controllers
             var taskManager = new DataModel.TaskManager();
             var task = taskManager.GetTask(id);
             return PartialView(task);
+        }
+
+        public JsonResult Status(int id)
+        {
+            var taskManager = new DataModel.TaskManager();
+            var status = taskManager.Status(id);
+            return Json(status);
         }
     }
 }

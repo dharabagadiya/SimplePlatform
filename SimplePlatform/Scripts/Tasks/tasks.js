@@ -2,6 +2,7 @@
 tasks.options = {
     EditViewURL: "/Tasks/Edit/",
     UpdateURL: "/Tasks/Update",
+    UpdateTaskStatusURL: "/Tasks/Status",
     DeleteURL: "/Tasks/Delete",
     AddCommentURL: "/Comments/Add",
     DetailURL: function (id) { return ("/Tasks/GetDetail/" + id); }
@@ -138,17 +139,30 @@ tasks.BindCommentControlClickEvent = function (obj) {
             data: JSON.stringify({ "id": taskID, message: commentMessage }),
             url: tasks.options.AddCommentURL,
             success: function (data) {
-                if (data) {
-                    tasks.UpdateUserCommentList(commentMessage, obj);
-                } else {
-
-                }
+                tasks.GetTaskDetail(taskID);
             }
         });
     });
 };
-tasks.GetTaskDetail = function (dataObj) {
-    var taskID = dataObj.pluck("ID")[0];
+tasks.BindMarkTaskControlEvent = function (obj) {
+    obj.find(".divMarkTaskButton").off("click.divMarkTaskButton").on("click.divMarkTaskButton", function () {
+        var taskID = obj.data("task-id");
+        obj.find(".divMarkTaskButton").off("click.divMarkTaskButton");
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            async: false,
+            data: JSON.stringify({ "id": taskID }),
+            url: tasks.options.UpdateTaskStatusURL,
+            success: function (data) {
+                tasks.ReloadTaskList();
+                tasks.GetTaskDetail(taskID);
+            }
+        });
+    });
+};
+tasks.GetTaskDetail = function (taskID) {
     $("#divTaskList").removeClass("col-lg-12 col-sm-12").addClass("col-lg-8 col-sm-9")
     $.ajax({
         cache: false,
@@ -158,6 +172,7 @@ tasks.GetTaskDetail = function (dataObj) {
             var commentControll = $("#divTaskDetailContainer");
             commentControll.empty().html(data).data("task-id", taskID);
             tasks.BindCommentControlClickEvent(commentControll);
+            tasks.BindMarkTaskControlEvent(commentControll);
             commentControll.find(".chat-content").niceScroll({
                 cursorcolor: "#999",
                 cursoropacitymin: 0,
@@ -180,7 +195,8 @@ tasks.BindTaskRowClickEvent = function (obj) {
     obj.DataTable().off("select.dt").on("select.dt", function (e, dt, type, indexes) {
         if (type === 'row') {
             var dataObj = obj.DataTable().rows(indexes).data();
-            tasks.GetTaskDetail(dataObj);
+            var taskID = dataObj.pluck("ID")[0];
+            tasks.GetTaskDetail(taskID);
         }
     });
     obj.DataTable().off("deselect.dt").on("deselect.dt", function (e, dt, type, indexes) {
@@ -209,7 +225,9 @@ tasks.ReloadTaskList = function () {
         "columns": [
             { "data": "Title", "width": "45em" },
             { "data": "AssignTo" },
-            { "data": "DueDate" }, {
+            { "data": "DueDate" },
+            { "data": "Status" },
+            {
                 "data": null,
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                     var currentObj = $(cell);
