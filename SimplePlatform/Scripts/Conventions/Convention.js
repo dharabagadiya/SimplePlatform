@@ -25,8 +25,8 @@ conventions.ValidateModalConventionForm = function (obj) {
                             message: 'The name must be more than 5 and less than 30 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The name can contain a-z, A-Z, 0-9, (_), or (_) only'
                         }
                     },
                     city: {

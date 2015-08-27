@@ -17,10 +17,10 @@ namespace SimplePlatform.Controllers
         public ActionResult Add()
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
-            var roleID = customRoleProvider.GetRole("Speakers");
+            //var roleID = customRoleProvider.GetRole("Speakers");
             var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
-            var Users = customMembershipProvider.GetUsers(roleID.RoleId);
-            return PartialView(Users);
+            //var Users = customMembershipProvider.GetUsers(roleID.RoleId);
+            return PartialView();
         }
         [HttpPost]
         public JsonResult Add(string name, DateTime startDate, DateTime endDate, string description, int userId, string city)
@@ -39,8 +39,6 @@ namespace SimplePlatform.Controllers
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
             var roleID = customRoleProvider.GetRole("Speakers");
             var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
-            var Users = customMembershipProvider.GetUsers(roleID.RoleId);
-            ViewData["Users"] = Users;
             var conventionManager = new ConventionManager();
             var conventionDetail = conventionManager.GetConventionDetail(id);
             return PartialView(conventionDetail);
