@@ -41,6 +41,20 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
                         message: 'The Contact can contain 0-9 only'
                     }
                 }
+            },
+            FSMName: {
+                message: 'The FSM name is not valid',
+                validators: {
+                    stringLength: {
+                        min: 3,
+                        max: 15,
+                        message: 'The FSM name must be more than 3 and less than 15 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The FSM name can containe a-z, A-Z, 0-9, ( ), or (_) only'
+                    }
+                }
             }
         }
     }).off('success.form.bv').on('success.form.bv', function (e) {
@@ -53,13 +67,14 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
         var officeID = formObj.find("#dwnOffices").val();
         var eventID = formObj.find("#dwnEvetns").val();
         var conventionID = formObj.find("#dwnConvensions").val();
-        var fsmID = formObj.find("#dwnFSMList").val();
+        var fsmName = formObj.find(".txtFSMName").val();
+        //var fsmID = formObj.find("#dwnFSMList").val();
         var bookingStatus = formObj.find("#dwnBookStatus").val();
         var gsbAmount = formObj.find("#txtGSBAmount").val();
         var donationAmount = formObj.find("#txtDonationAmount").val();
         if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
         if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
-        if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
+        //if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; 
         if (IsNullOrEmpty(conventionID) && conventionID <= 0) { conventionID = 0; }
         if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
         if (IsNullOrEmpty(donationAmount) && donationAmount <= 0) { donationAmount = 0; }
@@ -71,7 +86,7 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
             officeID: officeID,
             eventID: eventID,
             convensionID: conventionID,
-            fsmID: fsmID,
+            fsmName: fsmName,
             bookingStatus: bookingStatus,
             gsbAmount: gsbAmount,
             donationAmount: donationAmount

@@ -35,6 +35,7 @@ namespace SimplePlatform.Controllers
                 EventName = (model.Event == null ? "-" : model.Event.Name),
                 ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
                 Status = model.IsBooked ? "Booked" : "In Process",
+                FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
                 GSBAmount = model.GSBAmount,
                 DonationAmount = model.Amount
             }).ToList();
@@ -66,28 +67,28 @@ namespace SimplePlatform.Controllers
             ViewData["Offices"] = officeManager.GetOffices();
             var eventManager = new DataModel.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents();
-            var userManager = new DataModel.UserManager();
-            ViewData["FSMUsers"] = userManager.GetUsers(4);
+            //var userManager = new DataModel.UserManager();
+            //ViewData["FSMUsers"] = userManager.GetUsers(4);
             var conventionManager = new DataModel.ConventionManager();
             ViewData["Convention"] = conventionManager.GetActiveConventions();
             return PartialView();
         }
 
         [HttpPost]
-        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
+        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, string fsmName, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataModel.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, bookingStatus == 1, gsbAmount, donationAmount);
+            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, bookingStatus == 1, gsbAmount, donationAmount);
             return Json(status);
         }
 
         [HttpPost]
-        public JsonResult Update(int audienceID, string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
+        public JsonResult Update(int audienceID, string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, string fsmName, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataModel.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, bookingStatus == 1, gsbAmount, donationAmount);
+            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, bookingStatus == 1, gsbAmount, donationAmount);
             return Json(status);
         }
 

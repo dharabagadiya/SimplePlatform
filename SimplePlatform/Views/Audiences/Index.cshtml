@@ -1,5 +1,5 @@
 ﻿@{ var events = (List<DataModel.Modal.Event>)ViewData["Events"]; }
-@{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }
+@*@{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }*@
 @{ var conventions = (List<DataModel.Modal.Convention>)ViewData["Convention"]; }
 @{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
 
@@ -86,15 +86,17 @@
                                             </select>
                                         </div>
                                     </td>
-                                    <th class="col-lg-1">
+                                    <th class="col-lg-2">
                                         <div class="form-group">
-                                            <select id="dwnFSMList" class="chosen-select form-control dwnFSMList">
+                                            <input type="text" name="FSMName" class="form-control txtFSMName" id="txtFSMName" placeholder="FSM Name" />
+                                            @*<select id="dwnFSMList" class="chosen-select form-control dwnFSMList">
                                                 <option value="0">Select FSM</option>
                                                 @foreach (var user in users)
                                                 {
                                                     <option value="@user.UserId">@user.User.FirstName @user.User.LastName</option>
                                                 }
-                                            </select>
+                                            </select>*@
+
                                         </div>
                                     </th>
                                     <td class="col-lg-1">
@@ -137,6 +139,7 @@
                             <th>Visit Type</th>
                             <th>Event Name</th>
                             <th>Convention Name</th>
+                            <th>FSM Name</th>
                             <th>Booking Status</th>
                             <th>GSM (in $)</th>
                             <th>Donation (in $)</th>

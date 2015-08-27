@@ -32,7 +32,8 @@ audiences.SubmitBulkInsertForm = function (obj) {
         var visitDate = formObj.find(".txtVisitDate").val();
         var contact = formObj.find(".txtContact").val();
         var visitType = parseInt(formObj.find("#hdnVisitType").val());
-        var fsmID = parseInt(formObj.find(".dwnFSMList").val());
+        var fsmName = formObj.find(".txtFSMName").val();
+        //var fsmID = parseInt(formObj.find(".dwnFSMList").val());
         var placeID = parseInt(formObj.find("#hdnVisitPlaceID").val());
         var officeID = parseInt(formObj.find("#dwnOffices").val());
         var eventID = 0;
@@ -57,7 +58,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
                 officeID: officeID,
                 eventID: eventID,
                 convensionID: convensionID,
-                fsmID: fsmID,
+                fsmName: fsmName,
                 bookingStatus: bookingStatus,
                 gsbAmount: gsbAmount,
                 donationAmount: donationAmount
@@ -77,16 +78,16 @@ audiences.ValidateModalAudienceQuickForm = function (obj) {
         },
         fields: {
             Name: {
-                message: 'The first name is not valid',
+                message: 'The name is not valid',
                 validators: {
                     stringLength: {
                         min: 3,
                         max: 15,
-                        message: 'The first name must be more than 3 and less than 15 characters long'
+                        message: 'The name must be more than 3 and less than 15 characters long'
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_ ]+$/,
-                        message: 'The first name can containe a-z, A-Z, 0-9, ( ), or (_) only'
+                        message: 'The name can containe a-z, A-Z, 0-9, ( ), or (_) only'
                     }
                 }
             },
@@ -101,6 +102,20 @@ audiences.ValidateModalAudienceQuickForm = function (obj) {
                     regexp: {
                         regexp: /^[1-9][0-9]{0,15}$/,
                         message: 'The Contact can contain 0-9 only'
+                    }
+                }
+            },
+            FSMName: {
+                message: 'The FSM name is not valid',
+                validators: {
+                    stringLength: {
+                        min: 3,
+                        max: 15,
+                        message: 'The FSM name must be more than 3 and less than 15 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The FSM name can containe a-z, A-Z, 0-9, ( ), or (_) only'
                     }
                 }
             }
@@ -125,7 +140,7 @@ audiences.LoadQuickBooking = function () {
             rowObj.find("#hdnVisitPlaceID").val(placeID);
         }).change();
     });
-    $(".dwnFSMList").chosen({ width: "100%" });
+    //$(".dwnFSMList").chosen({ width: "100%" });
     $(".dwnBookStatus").chosen({ width: "100%" });
     $(".dwnOffices").chosen({ width: "100%" });
     audiences.ValidateModalAudienceQuickForm($("#divAudienceBulkInsert"));
@@ -172,6 +187,20 @@ audiences.ValidateModalAudienceForm = function (obj) {
                         message: 'The Contact can contain 0-9 only'
                     }
                 }
+            },
+            FSMName: {
+                message: 'The FSM name is not valid',
+                validators: {
+                    stringLength: {
+                        min: 3,
+                        max: 15,
+                        message: 'The FSM name must be more than 3 and less than 15 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The FSM name can containe a-z, A-Z, 0-9, ( ), or (_) only'
+                    }
+                }
             }
         }
     }).off('success.form.bv').on('success.form.bv', function (e) {
@@ -185,13 +214,14 @@ audiences.ValidateModalAudienceForm = function (obj) {
         var officeID = formObj.find("#dwnOffices").val();
         var eventID = formObj.find("#dwnEvetns").val();
         var conventionID = formObj.find("#dwnConvensions").val();
-        var fsmID = formObj.find("#dwnFSMList").val();
+        var fsmName = formObj.find(".txtFSMName").val();
+        //var fsmID = formObj.find("#dwnFSMList").val();
         var bookingStatus = formObj.find("#dwnBookStatus").val();
         var gsbAmount = formObj.find("#txtGSBAmount").val();
         var donationAmount = formObj.find("#txtDonationAmount").val();
         if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
         if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
-        if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
+        //if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
         if (IsNullOrEmpty(conventionID) && conventionID <= 0) { conventionID = 0; }
         if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
         if (IsNullOrEmpty(donationAmount) && donationAmount <= 0) { donationAmount = 0; }
@@ -204,7 +234,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
             officeID: officeID,
             eventID: eventID,
             convensionID: conventionID,
-            fsmID: fsmID,
+            fsmName: fsmName,
             bookingStatus: bookingStatus,
             gsbAmount: gsbAmount,
             donationAmount: donationAmount
@@ -237,7 +267,7 @@ audiences.EditAudienceDetail = function (obj) {
         dialogContentPlaceHolder.find("#dwnOffices").val(dialogContentPlaceHolder.find("#hdnOfficeID").val());
         dialogContentPlaceHolder.find("#dwnEvetns").val(dialogContentPlaceHolder.find("#hdnEventID").val());
         dialogContentPlaceHolder.find("#dwnConvensions").val(dialogContentPlaceHolder.find("#hdnConventionID").val());
-        dialogContentPlaceHolder.find("#dwnFSMList").val(dialogContentPlaceHolder.find("#hdnFSMID").val());
+        //dialogContentPlaceHolder.find("#dwnFSMList").val(dialogContentPlaceHolder.find("#hdnFSMID").val());
         dialogContentPlaceHolder.find("#dwnBookStatus").val(dialogContentPlaceHolder.find("#hdnBookinStatus").val());
         dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
         simplePlatform.BindHeaderAddAudienceDropDownChangeEvent(dialogContentPlaceHolder);
@@ -284,6 +314,7 @@ audiences.LoadAudienceList = function () {
             { "data": "VisitType" },
             { "data": "EventName" },
             { "data": "ConventionName" },
+            { "data": "FSMName" },
             { "data": "Status" },
             { "data": "GSBAmount" },
             { "data": "DonationAmount" },

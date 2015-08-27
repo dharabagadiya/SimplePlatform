@@ -1,6 +1,6 @@
 ﻿@{ var visitTypes = (List<DataModel.Modal.VisitType>)ViewData["VisitTypes"]; }
 @{ var events = (List<DataModel.Modal.Event>)ViewData["Events"]; }
-@{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }
+@*@{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }*@
 @{ var conventions = (List<DataModel.Modal.Convention>)ViewData["Convention"]; }
 @{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
 
@@ -76,9 +76,12 @@
                             <label for="SelectUserRole">Select Conventions</label>
                             <select class="form-control" id="dwnConvensions">
                                 <option value="0">Select Conventions</option>
-                                @foreach (var convention in conventions)
+                                @if (conventions != null)
                                 {
-                                    <option value="@convention.ConventionId">@convention.Name</option>
+                                    foreach (var convention in conventions)
+                                    {
+                                        <option value="@convention.ConventionId">@convention.Name</option>
+                                    }
                                 }
                             </select>
                         </div>
@@ -87,14 +90,15 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label for="SelectUserRole">Select FSM</label>
-                        <select class="form-control" id="dwnFSMList">
-                            <option value="0">Select FSM</option>
-                            @foreach (var user in users)
-                            {
-                                <option value="@user.UserId">@user.User.UserName</option>
-                            }
-                        </select>
+                        <label for="FSMName">FSM Name</label>
+                        <input type="text" name="FSMName" class="form-control txtFSMName" id="txtFSMName" placeholder="FSM Name"/>
+                        @*<select class="form-control" id="dwnFSMList">
+                                <option value="0">Select FSM</option>
+                                @foreach (var user in users)
+                                {
+                                    <option value="@user.UserId">@user.User.UserName</option>
+                                }
+                            </select>*@
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -128,4 +132,3 @@
         </div>
     </div>
 </form>
-
