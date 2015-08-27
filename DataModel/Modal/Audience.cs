@@ -19,7 +19,7 @@ namespace DataModel.Modal
         public float GSBAmount { get; set; }
         public virtual Convention Convention { get; set; }
         public virtual VisitType VisitType { get; set; }
-        public virtual UserDetail UserDetail { get; set; }
+        public virtual string FSMName { get; set; }
         public float Amount { get; set; }
         public bool IsBooked { get; set; }
         public virtual Office Office { get; set; }

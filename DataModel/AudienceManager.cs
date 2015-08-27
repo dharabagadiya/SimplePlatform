@@ -28,18 +28,16 @@ namespace DataModel
             && model.EndDate >= startDateTime && model.EndDate <= endDateTime).Select(model => model.ConventionId).ToList();
         }
 
-        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, bool isBooked, float GSBAmount, float amount)
+        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
         {
             try
             {
                 Modal.Office office = null;
                 Modal.Event eventDetail = null;
-                Modal.UserDetail userDetail = null;
                 Modal.Convention convention = null;
                 var visitType = Context.VisitTypes.Where(model => model.VisitTypeId == visitTypeID).FirstOrDefault();
                 office = Context.Offices.Where(model => model.OfficeId == officeID && model.IsDeleted == false).FirstOrDefault();
                 eventDetail = Context.Events.Where(model => model.EventId == eventID && model.IsDeleted == false).FirstOrDefault();
-                userDetail = Context.UsersDetail.Where(model => model.UserId == fsmID && model.User.IsDeleted == false).FirstOrDefault();
                 convention = Context.Conventions.Where(model => model.ConventionId == conventionID && model.IsDeleted == false).FirstOrDefault();
                 Context.Audiences.Add(new Modal.Audience
                 {
@@ -49,7 +47,7 @@ namespace DataModel
                     VisitType = visitType,
                     Office = office,
                     Event = eventDetail,
-                    UserDetail = userDetail,
+                    FSMName = fsmName,
                     Convention = convention,
                     GSBAmount = GSBAmount,
                     CreateDate = DateTime.Now,
@@ -66,18 +64,16 @@ namespace DataModel
             }
         }
 
-        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, bool isBooked, float GSBAmount, float amount)
+        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
         {
             try
             {
                 Modal.Office office = null;
                 Modal.Event eventDetail = null;
-                Modal.UserDetail userDetail = null;
                 Modal.Convention convention = null;
                 var visitType = Context.VisitTypes.Where(model => model.VisitTypeId == visitTypeID).FirstOrDefault();
                 office = Context.Offices.Where(model => model.OfficeId == officeID && model.IsDeleted == false).FirstOrDefault();
                 eventDetail = Context.Events.Where(model => model.EventId == eventID && model.IsDeleted == false).FirstOrDefault();
-                userDetail = Context.UsersDetail.Where(model => model.UserId == fsmID && model.User.IsDeleted == false).FirstOrDefault();
                 convention = Context.Conventions.Where(model => model.ConventionId == conventionID && model.IsDeleted == false).FirstOrDefault();
                 var audience = GetAudience(audienceID);
                 if (audience == null) { return false; }
@@ -87,7 +83,7 @@ namespace DataModel
                 audience.VisitType = visitType;
                 audience.Office = office;
                 audience.Event = eventDetail;
-                audience.UserDetail = userDetail;
+                audience.FSMName = fsmName;
                 audience.Convention = convention;
                 audience.GSBAmount = GSBAmount;
                 audience.UpdateDate = DateTime.Now;
