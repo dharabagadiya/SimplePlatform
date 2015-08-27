@@ -91,26 +91,26 @@ office.ValidateModalOfficeForm = function (obj) {
                         message: 'The name must be more than 5 and less than 30 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The name can contain a-z, A-Z, 0-9'
                     }
                 }
             },
             contactNo: {
-                message: 'The Contact No is not valid',
+                message: 'The Contact is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The Contact No is required and cannot be empty'
+                        message: 'The Contact is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 10,
-                        max: 10,
-                        message: 'The Contact No must be 10 characters long'
+                        min: 5,
+                        max: 50,
+                        message: 'The Contact must be more than 5 and less than 50 characters long'
                     },
-                    regexp: {
-                        regexp: /^[1-9][0-9]{0,15}$/,
-                        message: 'The city can contain 0-9 only'
-                    }
+                    //regexp: {
+                    //    regexp: /^[1-9][0-9]{0,15}$/,
+                    //    message: 'The city can contain 0-9 only'
+                    //}
                 }
             },
             city: {
@@ -125,8 +125,15 @@ office.ValidateModalOfficeForm = function (obj) {
                         message: 'The city must be more than 3 and less than 30 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The city can contain a-z, A-Z, 0-9, or (_) only'
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The city can contain a-z, A-Z, 0-9'
+                    }
+                }
+            },
+            ddlUser: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select user.'
                     }
                 }
             }
@@ -150,6 +157,7 @@ office.ValidateModalOfficeForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
+                    ShowUpdateSuccessSaveAlert();
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }

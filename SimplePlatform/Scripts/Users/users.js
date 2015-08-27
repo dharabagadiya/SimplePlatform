@@ -79,7 +79,7 @@ users.ValidateModalUserForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                    $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                    ShowUpdateSuccessSaveAlert();
                 } else {
                     obj.find("#divCommonMessage").removeClass("hidden");
                 }
@@ -118,7 +118,7 @@ users.DeletUserDetail = function (obj) {
             success: function (data) {
                 var status = data;
                 if (status) {
-                    $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                    window.location.reload();
                 } else {
                 }
             }
