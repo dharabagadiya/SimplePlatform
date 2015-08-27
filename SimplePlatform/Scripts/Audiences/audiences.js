@@ -178,14 +178,14 @@ audiences.ValidateModalAudienceForm = function (obj) {
                         message: 'The Contact is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 10,
-                        max: 10,
-                        message: 'The Contact must be 10 characters long'
+                        min: 5,
+                        max: 50,
+                        message: 'The Contact must be more than 5 and less than 50 characters long'
                     },
-                    regexp: {
-                        regexp: /^[1-9][0-9]{0,15}$/,
-                        message: 'The Contact can contain 0-9 only'
-                    }
+                    //regexp: {
+                    //    regexp: /^[1-9][0-9]{0,15}$/,
+                    //    message: 'The city can contain 0-9 only'
+                    //}
                 }
             },
             FSMName: {
@@ -248,7 +248,10 @@ audiences.ValidateModalAudienceForm = function (obj) {
             data: JSON.stringify(dataObj),
             success: function (data) {
                 var status = data;
-                if (status) { window.location.reload(); } else { }
+                if (status) {
+                    obj.modal('hide');
+                    ShowUpdateSuccessSaveAlert();
+                } else { }
             }
         });
     });
@@ -278,21 +281,23 @@ audiences.EditAudienceDetail = function (obj) {
 audiences.DeletAudienceDetail = function (obj) {
     var currentObj = obj;
     var audienceDetail = obj.data("audience_detail");
-    $.ajax({
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        type: "POST",
-        url: audiences.options.DeleteDataURL,
-        async: false,
-        data: JSON.stringify({ "id": audienceDetail.ID }),
-        success: function (data) {
-            var status = data;
-            if (status) {
-                window.location.reload();
-            } else {
+    ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: audiences.options.DeleteDataURL,
+            async: false,
+            data: JSON.stringify({ "id": audienceDetail.ID }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    window.location.reload();
+                } else {
+                }
             }
-        }
-    });
+        });
+    }, function (event, dataModalPlaceHolder) { });
 };
 audiences.LoadAudienceList = function () {
     $('#audienceList').dataTable({

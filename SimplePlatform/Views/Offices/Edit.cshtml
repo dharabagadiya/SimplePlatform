@@ -13,7 +13,7 @@
                     <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" value="@Model.Name"/>
                 </div>
                 <div class="form-group">
-                    <label for="ContactNo">Contact No</label>
+                    <label for="ContactNo">Contact</label>
                     <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" name="contactNo" value="@Model.ContactNo"/>
                 </div>
                 <div class="form-group">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="SelectUserRole">Select User</label>
-                    <select class="form-control" id="dwnUserID">
+                    <select class="form-control" id="dwnUserID" name="ddlUser">
                         <option value="">Select User</option>
                         @foreach (var role in users)
                         {

@@ -32,14 +32,14 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
                         message: 'The Contact is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 10,
-                        max: 10,
-                        message: 'The Contact must be 10 characters long'
+                        min: 5,
+                        max: 50,
+                        message: 'The Contact must be more than 5 and less than 50 characters long'
                     },
-                    regexp: {
-                        regexp: /^[1-9][0-9]{0,15}$/,
-                        message: 'The Contact can contain 0-9 only'
-                    }
+                    //regexp: {
+                    //    regexp: /^[1-9][0-9]{0,15}$/,
+                    //    message: 'The city can contain 0-9 only'
+                    //}
                 }
             },
             FSMName: {
@@ -420,20 +420,20 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                 }
             },
             contactNo: {
-                message: 'The Contact No is not valid',
+                message: 'The Contact is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The Contact No is required and cannot be empty'
+                        message: 'The Contact is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 10,
-                        max: 10,
-                        message: 'The Contact No must be 10 characters long'
+                        min: 5,
+                        max: 50,
+                        message: 'The Contact must be more than 5 and less than 50 characters long'
                     },
-                    regexp: {
-                        regexp: /^[1-9][0-9]{0,15}$/,
-                        message: 'The city can contain 0-9 only'
-                    }
+                    //regexp: {
+                    //    regexp: /^[1-9][0-9]{0,15}$/,
+                    //    message: 'The city can contain 0-9 only'
+                    //}
                 }
             },
             city: {

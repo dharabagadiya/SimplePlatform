@@ -36,6 +36,9 @@ namespace DataModel
         {
             try
             {
+                var officeDetail = Context.Offices.Where(model => model.OfficeId == id).FirstOrDefault();
+                officeDetail.UsersDetail.Remove(officeDetail.UsersDetail.FirstOrDefault());
+                Context.SaveChanges();
                 var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
                 if (users == null || users.Count <= 0) { return false; }
                 var office = Context.Offices.Where(model => model.OfficeId == id).FirstOrDefault();

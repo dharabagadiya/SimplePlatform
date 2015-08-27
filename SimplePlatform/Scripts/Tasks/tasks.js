@@ -99,7 +99,7 @@ tasks.DeletTaskDetail = function (obj) {
             success: function (data) {
                 var status = data;
                 if (status) {
-                    $('#userTaskList').dataTable().api().ajax.reload(null, false);
+                    window.location.reload();
                 } else { }
             }
         });
