@@ -63,7 +63,7 @@ conventions.ValidateModalConventionForm = function (obj) {
             var startDates = dates[0].trim();
             var endDates = dates[1].trim();
             var description = formObj.find("#txtDescription").val();
-            var userID = formObj.find("#dwnUserId").val();
+            var userID = 0;//formObj.find("#dwnUserId").val();
             var conventionID = formObj.find("#hdnConventionID").val();
             var city = formObj.find("#txtCity").val();
             $.ajax({
@@ -109,7 +109,7 @@ conventions.DeletConventionDetail = function (obj) {
             success: function (data) {
                 var status = data;
                 if (status) {
-                    $('#myDataTable').dataTable().api().ajax.reload(null, false);
+                    window.location.reload();
                 } else {
                 }
             }

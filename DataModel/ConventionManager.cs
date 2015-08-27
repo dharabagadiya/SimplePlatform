@@ -28,7 +28,7 @@ namespace DataModel
             try
             {
                 var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
-                if (users == null || users.Count <= 0) { return false; }
+                //if (users == null || users.Count <= 0) { return false; }
                 Context.Conventions.Add(new Modal.Convention
                 {
                     Name = name,
@@ -60,7 +60,7 @@ namespace DataModel
                 conventionDetail.UsersDetail.Remove(conventionDetail.UsersDetail.FirstOrDefault());
                 Context.SaveChanges();
                 var userDetail = GetUserDetail(userID);
-                if (userDetail == null) { return false; }
+                //if (userDetail == null) { return false; }
                 if (conventionDetail == null) return false;
                 conventionDetail.Name = name;
                 conventionDetail.StartDate = startDate;

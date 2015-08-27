@@ -172,7 +172,7 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
             var startDates = dates[0].trim();
             var endDates = dates[1].trim();
             var description = formObj.find("#txtDescription").val();
-            var userId = formObj.find("#dwnUserId").val();
+            var userId = 0;//formObj.find("#dwnUserId").val();
             var city = formObj.find("#txtCity").val();
             $.ajax({
                 dataType: "json",
