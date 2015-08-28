@@ -3,6 +3,7 @@ audiences.options = {
     AddDataURL: "/Audiences/Add",
     UpdateDataURL: "/Audiences/Update",
     DeleteDataURL: "/Audiences/Delete",
+    UpdateAttendStatusURL: "/Audiences/AttendStatus",
     EditDataURL: function (id) { return ("/Audiences/Edit/" + id); }
 };
 audiences.AddAudienceAjaxCall = function (obj, containerObj) {
@@ -98,7 +99,7 @@ audiences.ValidateModalAudienceQuickForm = function (obj) {
                         min: 8,
                         max: 20,
                         message: 'The email address/contact no must be min 8 to 20 characters long'
-                    }, 
+                    },
                     notEmpty: {
                         message: 'The email address/contact no is required'
                     },
@@ -302,7 +303,21 @@ audiences.DeletAudienceDetail = function (obj) {
         });
     }, function (event, dataModalPlaceHolder) { });
 };
+audiences.UpdateAudienceAttendStatus = function (audienceID) {
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        async: false,
+        data: JSON.stringify({ "id": audienceID }),
+        url: audiences.options.UpdateAttendStatusURL,
+        success: function (data) {
+            audiences.LoadAudienceList();
+        }
+    });
+};
 audiences.LoadAudienceList = function () {
+    $('#audienceList').dataTable().fnDestroy();
     $('#audienceList').dataTable({
         renderer: {
             "header": "bootstrap",
@@ -316,6 +331,21 @@ audiences.LoadAudienceList = function () {
         responsive: true,
         "deferRender": true,
         "columns": [
+            {
+                "data": "Attended",
+                "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
+                    var currentObj = $(cell);
+                    currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
+                    currentObj.off("click.updateStatus").on("click.updateStatus", function () {
+                        audiences.UpdateAudienceAttendStatus(rowData.ID);
+                    });
+                },
+                render: function (o) {
+                    return "<a href=\"#\">" + (o ? "<i class=\"icon ion-android-checkbox-outline\" style=\"font-size: 22px;\"></i>" : "<i class=\"icon ion-android-checkbox-outline-blank\" style=\"font-size: 22px;\"></i>") + "</a>";
+                },
+                "orderable": false,
+                "width": '2%'
+            },
             { "data": "Name" },
             { "data": "Contact" },
             { "data": "VisitDate" },

@@ -90,12 +90,12 @@
                                         <div class="form-group">
                                             <input type="text" name="FSMName" class="form-control txtFSMName" id="txtFSMName" placeholder="FSM Name" />
                                             @*<select id="dwnFSMList" class="chosen-select form-control dwnFSMList">
-                                                <option value="0">Select FSM</option>
-                                                @foreach (var user in users)
-                                                {
-                                                    <option value="@user.UserId">@user.User.FirstName @user.User.LastName</option>
-                                                }
-                                            </select>*@
+                                                    <option value="0">Select FSM</option>
+                                                    @foreach (var user in users)
+                                                    {
+                                                        <option value="@user.UserId">@user.User.FirstName @user.User.LastName</option>
+                                                    }
+                                                </select>*@
 
                                         </div>
                                     </th>
@@ -133,6 +133,7 @@
                 <table id="audienceList" class="display" width="100%">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Name</th>
                             <th>Contact</th>
                             <th>Visit Date</th>

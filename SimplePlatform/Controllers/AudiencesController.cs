@@ -36,6 +36,7 @@ namespace SimplePlatform.Controllers
                 ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
                 Status = model.IsBooked ? "Booked" : "In Process",
                 FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
+                Attended = model.IsAttended,
                 GSBAmount = model.GSBAmount,
                 DonationAmount = model.Amount
             }).ToList();
@@ -97,6 +98,14 @@ namespace SimplePlatform.Controllers
         {
             var audienceManager = new DataModel.AudienceManager();
             var status = audienceManager.Delete(id);
+            return Json(status);
+        }
+
+        [HttpPost]
+        public JsonResult AttendStatus(int id)
+        {
+            var audienceManager = new DataModel.AudienceManager();
+            var status = audienceManager.AttendStatus(id);
             return Json(status);
         }
     }

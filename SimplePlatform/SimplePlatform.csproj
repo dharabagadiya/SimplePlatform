@@ -182,6 +182,8 @@
     <Content Include="Content\Plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Plugins\foundation-icons\fonts\foundation-icons.svg" />
     <Content Include="Content\Plugins\foundation-icons\styles.css" />
+    <Content Include="Content\Plugins\iconic\fonts\ionicons.svg" />
+    <Content Include="Content\Plugins\iconic\font.css" />
     <Content Include="Content\Plugins\jquery-ui.min.css" />
     <Content Include="Content\Plugins\linea-font\arrow\fonts\linea-arrows-10.svg" />
     <Content Include="Content\Plugins\linea-font\arrow\styles.css" />
@@ -242,6 +244,9 @@
     <Content Include="Content\Plugins\foundation-icons\fonts\foundation-icons.eot" />
     <Content Include="Content\Plugins\foundation-icons\fonts\foundation-icons.ttf" />
     <Content Include="Content\Plugins\foundation-icons\fonts\foundation-icons.woff" />
+    <Content Include="Content\Plugins\iconic\fonts\ionicons.eot" />
+    <Content Include="Content\Plugins\iconic\fonts\ionicons.ttf" />
+    <Content Include="Content\Plugins\iconic\fonts\ionicons.woff" />
     <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Scripts\Plugins\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\Plugins\Bootsrap-Validator\bootstrap.validate.js" />
