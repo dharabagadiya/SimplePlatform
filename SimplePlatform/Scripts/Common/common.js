@@ -26,20 +26,20 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
                 }
             },
             Contact: {
-                message: 'The Contact is not valid',
+                message: 'The email address/contact no is not valid',
                 validators: {
-                    notEmpty: {
-                        message: 'The Contact is required and cannot be empty'
-                    },
                     stringLength: {
-                        min: 5,
-                        max: 50,
-                        message: 'The Contact must be more than 5 and less than 50 characters long'
+                        min: 8,
+                        max: 20,
+                        message: 'The email address/contact no must be min 8 to 20 characters long'
                     },
-                    //regexp: {
-                    //    regexp: /^[1-9][0-9]{0,15}$/,
-                    //    message: 'The city can contain 0-9 only'
-                    //}
+                    notEmpty: {
+                        message: 'The email address/contact no is required'
+                    },
+                    regexp: {
+                        regexp: /^[0-9a-zA-Z@._]+$/,
+                        message: 'The contact can contain 0-9, a-z, A-z, #, (.), or (_) only'
+                    }
                 }
             },
             FSMName: {
