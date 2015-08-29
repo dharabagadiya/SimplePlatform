@@ -116,6 +116,25 @@ namespace DataModel
             }
         }
 
+        public bool AttendStatus(int id)
+        {
+
+            try
+            {
+                var audience = GetAudience(id);
+                if (audience == null) { return false; }
+                audience.IsAttended = !audience.IsAttended;
+                audience.UpdateDate = DateTime.Now;
+                Context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
         public List<Modal.Audience> GetAudiences() { return Context.Audiences.Where(model => model.IsDeleted == false).ToList(); }
 
         public Modal.Audience GetAudience(int id) { return Context.Audiences.Where(model => model.AudienceID == id && model.IsDeleted == false).FirstOrDefault(); }
