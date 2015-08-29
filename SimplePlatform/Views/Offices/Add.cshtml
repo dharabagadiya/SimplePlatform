@@ -1,5 +1,4 @@
 ﻿@model List<CustomAuthentication.User>
-
 <form action="@Url.Action("Add", "Office")" type="post">
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
@@ -19,6 +18,18 @@
                 <div class="form-group">
                     <label for="City">City</label>
                     <input type="text" class="form-control" id="txtCity" placeholder="City" name="city" />
+                </div>
+                <div class="form-group">
+                    <label for="">File upload</label>
+                    <input type="file" class="filestyle" data-buttontext="Find file" data-buttonname="btn-danger" data-iconname="fa fa-plus" id="myFile" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                    <div class="bootstrap-filestyle input-group">
+                        <input type="text" class="form-control " disabled="" id="txtFileName">
+                        <span class="group-span-filestyle input-group-btn" tabindex="0">
+                            <label for="myFile" class="btn btn-danger ">
+                                <span class="filestyleicon fa fa-plus"></span> Find file
+                            </label>
+                        </span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="SelectUserRole">Select User</label>

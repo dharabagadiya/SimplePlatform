@@ -1,4 +1,5 @@
 ﻿var office = {};
+office.jqXHRData = null;
 office.options = {
     EditViewURL: "/Offices/Edit/",
     UpdateURL: "/Offices/Update",
@@ -146,14 +147,9 @@ office.ValidateModalOfficeForm = function (obj) {
         var contactNo = formObj.find("#txtContactNo").val();
         var city = formObj.find("#txtCity").val();
         var userID = formObj.find("#dwnUserID").val();
-        $.ajax({
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            url: office.options.UpdateURL,
-            async: false,
-            data: JSON.stringify({ "id": id, "name": name, "contactNo": contactNo, "city": city, "userID": userID }),
-            success: function (data) {
+        $('#myFile').fileupload("option", {
+            formData: { "id": id, "name": name, "contactNo": contactNo, "city": city, "userID": userID },
+            done: function (data) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
@@ -163,6 +159,26 @@ office.ValidateModalOfficeForm = function (obj) {
                 }
             }
         });
+        if (office.jqXHRData)
+            office.jqXHRData.submit();
+        else
+            $.ajax({
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                url: office.options.UpdateURL,
+                async: false,
+                data: JSON.stringify({ "id": id, "name": name, "contactNo": contactNo, "city": city, "userID": userID }),
+                success: function (data) {
+                    var status = data;
+                    if (status) {
+                        obj.modal('hide');
+                        ShowUpdateSuccessSaveAlert();
+                    } else {
+                        obj.find("#divCommonMessage").removeClass("hidden");
+                    }
+                }
+            });
     });
 };
 office.EditOfficeDetail = function (obj) {
@@ -171,6 +187,16 @@ office.EditOfficeDetail = function (obj) {
     $("#divCommonModalPlaceHolder").empty();
     ShowDialogBox($("#divCommonModalPlaceHolder"), (office.options.EditViewURL + officeDetail.ID), null, $.proxy(function (event, dialogContentPlaceHolder) {
         this.ValidateModalOfficeForm(dialogContentPlaceHolder);
+        $('#myFile').fileupload({
+            url: '/Offices/UpdateFile',
+            dataType: 'json',
+            add: function (e, data) {
+                office.jqXHRData = data;
+            }
+        });
+        $("#myFile").on('change', function () {
+            $("#txtFileName").val(this.files[0].name);
+        });
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };

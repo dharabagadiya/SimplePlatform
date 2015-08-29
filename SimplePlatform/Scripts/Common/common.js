@@ -1,4 +1,5 @@
 ﻿var simplePlatform = {};
+simplePlatform.jqXHRData = null;
 simplePlatform.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -468,14 +469,10 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
         var contactNo = formObj.find("#txtContactNo").val();
         var city = formObj.find("#txtCity").val();
         var userID = formObj.find("#dwnUserID").val();
-        $.ajax({
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            url: "/Offices/Add",
-            async: false,
-            data: JSON.stringify({ "name": name, "contactNo": contactNo, "city": city, "userID": userID }),
-            success: function (data) {
+        var file = formObj.find('#myFile').val();
+        $('#myFile').fileupload("option", {
+            formData: { "name": name, "contactNo": contactNo, "city": city, "userID": userID },
+            done: function (data) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
@@ -485,7 +482,9 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                 }
             }
         });
+        simplePlatform.jqXHRData.submit();
     });
+
 };
 simplePlatform.BindHeaderAddOfficeClickEvent = function () {
     var obj = $("#lnkAddOffice");
@@ -494,6 +493,16 @@ simplePlatform.BindHeaderAddOfficeClickEvent = function () {
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             this.ValidateModalOfficeForm(dialogContentPlaceHolder);
+            $('#myFile').fileupload({
+                url: '/Offices/UploadFile',
+                dataType: 'json',
+                add: function (e, data) {
+                    simplePlatform.jqXHRData = data;
+                }
+            });
+            $("#myFile").on('change', function () {
+                $("#txtFileName").val(this.files[0].name);
+            });
             dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
         }, this));
         return false;

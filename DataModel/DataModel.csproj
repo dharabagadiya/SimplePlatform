@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AudienceManager.cs" />
     <Compile Include="CommentManager.cs" />
+    <Compile Include="FileResourceManager.cs" />
     <Compile Include="Migrations\201508181825281_DataModel_Initial.cs" />
     <Compile Include="Migrations\201508181825281_DataModel_Initial.Designer.cs">
       <DependentUpon>201508181825281_DataModel_Initial.cs</DependentUpon>
@@ -85,6 +86,7 @@
     <Compile Include="Modal\Convention.cs" />
     <Compile Include="Modal\Comment.cs" />
     <Compile Include="Modal\Event.cs" />
+    <Compile Include="Modal\FileResource.cs" />
     <Compile Include="Modal\Office.cs" />
     <Compile Include="Modal\Target.cs" />
     <Compile Include="Modal\Task.cs" />

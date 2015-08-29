@@ -40,5 +40,6 @@ namespace DataModel
         public DbSet<VisitType> VisitTypes { get; set; }
         public DbSet<Audience> Audiences { get; set; }
         public DbSet<Target> Targets { get; set; }
+        public DbSet<FileResource> FileResources { get; set; }
     }
 }

@@ -32,6 +32,29 @@ namespace DataModel
                 return false;
             }
         }
+        public bool Add(string name, string contactNo, string city, int userID, string path)
+        {
+            try
+            {
+                var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
+                if (users == null || users.Count <= 0) { return false; }
+                if (Context.Offices.Any(model => model.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))) { return false; }
+                Context.Offices.Add(new Modal.Office
+                {
+                    Name = name,
+                    ContactNo = contactNo,
+                    City = city,
+                    UsersDetail = users,
+                    FileResource = new Modal.FileResource { path = path }
+                });
+                var status = Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool Update(int id, string name, string contactNo, string city, int userID)
         {
             try
@@ -47,6 +70,30 @@ namespace DataModel
                 office.ContactNo = contactNo;
                 office.City = city;
                 office.UsersDetail = users;
+                Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool Update(int id, string name, string contactNo, string city, int userID, string path)
+        {
+            try
+            {
+                var officeDetail = Context.Offices.Where(model => model.OfficeId == id).FirstOrDefault();
+                officeDetail.UsersDetail.Remove(officeDetail.UsersDetail.FirstOrDefault());
+                Context.SaveChanges();
+                var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
+                if (users == null || users.Count <= 0) { return false; }
+                var office = Context.Offices.Where(model => model.OfficeId == id).FirstOrDefault();
+                if (office == null) { return false; }
+                office.Name = name;
+                office.ContactNo = contactNo;
+                office.City = city;
+                office.UsersDetail = users;
+                if (!string.IsNullOrEmpty(path)) office.FileResource = new Modal.FileResource { path = path };
                 Context.SaveChanges();
                 return true;
             }
