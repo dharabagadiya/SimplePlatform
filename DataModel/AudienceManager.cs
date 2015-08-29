@@ -158,19 +158,19 @@ namespace DataModel
             return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
 
-        public DataModel.Modal.ChartSeries GetBookingTargetsAchived(List<Modal.Office> offices, int year)
+        public DataModel.Modal.ChartSeries GetGSBTargetsAchived(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
             var audiencesSeriesData = audiences
-                .Where(model => model.VisitDate.Year == year && model.IsBooked == true)
+                .Where(model => model.VisitDate.Year == year && model.IsBooked == true && model.Convention != null)
                 .OrderBy(model => model.VisitDate)
                 .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
                 .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.GSBAmount) }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
 
-        public DataModel.Modal.ChartSeries GetGSBTargetsAchived(List<Modal.Office> offices, int year)
+        public DataModel.Modal.ChartSeries GetBookingTargetsAchived(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
@@ -187,9 +187,9 @@ namespace DataModel
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var audiences = GetAudiences(offices).ToList();
             var audiencesSeriesData = audiences
-                .Where(model => model.VisitDate.Year == year && model.IsAttended == true)
+                .Where(model => model.VisitDate.Year == year && model.IsAttended == true && model.Convention!= null)
                 .OrderBy(model => model.VisitDate)
-                .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
+                .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.Convention.StartDate))
                 .Select(model => new DataModel.Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }

@@ -109,7 +109,7 @@ namespace DataModel
         {
             var startDateTime = Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, week);
             var endDateTime = startDateTime.AddDays(6);
-            return Context.Tasks.Where(model => (model.Office.OfficeId == officeID && model.IsDeleted == false && model.EndDate.Year == year && model.EndDate >= startDateTime && model.EndDate <= endDateTime) || (model.IsCompleted == false && model.EndDate <= endDateTime)).ToList();
+            return Context.Tasks.Where(model => (model.Office.OfficeId == officeID && model.IsDeleted == false && model.EndDate.Year == year && model.EndDate >= startDateTime && model.EndDate <= endDateTime)).ToList();
         }
     }
 }
