@@ -66,9 +66,8 @@ office.OfficeWidget = function (dataObj) {
         $(".OfficeWidget").append(widget);
     };
     this.GetOfficeGridPagination($(".divOfficesGridPaging"));
-    $(".divOfficesGridPagingDetail").show().find(".dataTables_info").show().empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
+    $(".divOfficesGridPagingDetail").show().find(".dataTables_info").show().empty().append("Showing " + ((office.options.currentPage * office.options.pageSize) - office.options.pageSize + 1) + " to " + ((office.options.currentPage * office.options.pageSize) > office.options.totalRecords ? office.options.totalRecords : (office.options.currentPage * office.options.pageSize)) + " of " + office.options.totalRecords + " entries");
     $(".OfficeWidget").find('.animated-bar .progress-bar').waypoint(function (direction) { $(this).progressbar({ display_text: 'none' }); }, { offset: 'bottom-in-view' });
-
 };
 office.ValidateModalOfficeForm = function (obj) {
     obj.find("form")

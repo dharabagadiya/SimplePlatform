@@ -2,7 +2,12 @@
 conventions.options = {
     EditViewURL: "/Conventions/Edit/",
     UpdateURL: "/Conventions/Update",
-    DeleteURL: "/Conventions/Delete"
+    DeleteURL: "/Conventions/Delete",
+    GetConventions: "/Conventions/GetConventions",
+    pageSize: 9,
+    totalPageSize: 10,
+    currentPage: 1,
+    totalRecords: 10
 };
 conventions.ValidateModalConventionForm = function (obj) {
     obj.find("form")
@@ -116,41 +121,70 @@ conventions.DeletConventionDetail = function (obj) {
         });
     }, function (event, dataModalPlaceHolder) { });
 };
-$(document).ready(function () {
-    $('#myDataTable').dataTable({
-        renderer: {
-            "header": "bootstrap",
-            "pageButton": "bootstrap"
-        },
-        "ajax": {
-            "url": "/Conventions/GetConventions",
-            "type": "POST"
-        },
-        "displayLength": 25,
-        responsive: true,
-        "deferRender": true,
-        "columns": [{ "data": "name" }, { "data": "startDate" }, { "data": "endDate" }, {
-            "data": "description"
-        }, {
-            "data": null,
-            "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
-                var currentObj = $(cell);
-                currentObj.css({ "text-align": "center" }).data("convention_detail", rowData);
-                currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { conventions.EditConventionDetail($(this)); });
-            },
-            render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i></a>'; },
-            "orderable": false,
-            "width": '2%'
-        }, {
-            "data": null,
-            "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
-                var currentObj = $(cell);
-                currentObj.css({ "text-align": "center" }).data("convention_detail", rowData);
-                currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { conventions.DeletConventionDetail($(this)); });
-            },
-            render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
-            "orderable": false,
-            "width": '2%'
-        }]
-    }).removeClass('display').addClass('table table-striped table-bordered');
-});
+conventions.BindConventionWidgetClick = function (obj) {
+    obj.find(".panel-close").off("click.panel-close").on("click.panel-close", function (event) { event.stopPropagation(); conventions.DeletConventionDetail(obj); });
+    obj.find(".panel-edit").off("click.panel-edit").on("click.panel-edit", function (event) { event.stopPropagation(); conventions.EditConventionDetail(obj); });
+}
+conventions.GetConventionWidgetHTML = function (obj) {
+    var sb = new StringBuilder();
+    sb.append("<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12 CP\">");
+    sb.append("<div class=\"panel panel-info tile panelClose panelRefresh\" id=\"dyn_0\">");
+    sb.append("<div class=\"panel-heading\">");
+    sb.append("<h4 class=\"panel-title\">" + obj.Name + "</h4>");
+    sb.append("<div class=\"panel-controls panel-controls-right\"><a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
+    sb.append("</div>");
+    sb.append("<div class=\"panel-body pt0\">");
+    sb.append("<div class=\"row\">");
+    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Total Booking <span class=\"pull-right\"><span class=\"badge\">" + obj.Booking.ActTotal + "</span></span></div></div>");
+    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Fund Raising <span class=\"pull-right\"><span class=\"badge\">" + obj.Donation.ActTotal + "</span></span></div></div>");
+    sb.append("</div>");
+    sb.append("<div class=\"row\">");
+    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>GSB Amount <span class=\"pull-right\"><span class=\"badge\">" + obj.GSBAmount.ActTotal + "</span></span></div></div>");
+    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Events <span class=\"pull-right\"><span class=\"badge\">" + obj.Events.ActTotal + "</span></span></div></div>");
+    sb.append("</div>");
+    sb.append("</div>");
+    sb.append("</div>");
+    sb.append("</div>");
+    return sb.toString();
+}
+conventions.GetConventionGridPagination = function (obj) {
+    obj.show().find("ul").bootstrapPaginator({
+        currentPage: conventions.options.currentPage,
+        totalPages: conventions.options.totalPageSize,
+        bootstrapMajorVersion: 3,
+        onPageChanged: function (e, oldPage, newPage) { conventions.GetConventionsData(newPage, office.options.pageSize); }
+    });
+};
+conventions.ConventionsWidget = function (dataObj) {
+    if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { this.NoOfficeRecordFound(); return; }
+    $(".conventionWidgets").empty();
+    for (var i = 0; i < dataObj.length; i++) {
+        var widget = $(this.GetConventionWidgetHTML(dataObj[i])).data("convention_detail", dataObj[i]);
+        this.BindConventionWidgetClick(widget);
+        $(".conventionWidgets").append(widget);
+    };
+    this.GetConventionGridPagination($(".divConventionsGridPaging"));
+    $(".divConventionsGridPagingDetail").show().find(".dataTables_info").show().empty().append("Showing " + ((conventions.options.currentPage * conventions.options.pageSize) - conventions.options.pageSize + 1) + " to " + (((conventions.options.currentPage * conventions.options.pageSize) > conventions.options.totalRecords ? conventions.options.totalRecords : conventions.options.currentPage * conventions.options.pageSize)) + " of " + conventions.options.totalRecords + " entries");
+    $(".conventionWidgets").find('.animated-bar .progress-bar').waypoint(function (direction) { $(this).progressbar({ display_text: 'none' }); }, { offset: 'bottom-in-view' });
+};
+conventions.GetConventionsData = function (pageNo, pageSize) {
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        url: conventions.options.GetConventions,
+        async: true,
+        data: JSON.stringify({ "pageNo": pageNo, "pageSize": pageSize }),
+        success: function (data) {
+            conventions.options.totalPageSize = Math.ceil(data.totalRecord / data.pageSize);
+            conventions.options.totalRecords = data.totalRecord;
+            conventions.options.pageSize = data.pageSize;
+            conventions.options.currentPage = data.currentPage;
+            conventions.ConventionsWidget(data.conventions);
+        }
+    });
+};
+conventions.ReloadConventionCurrentPageData = function () {
+    this.GetConventionsData(this.options.currentPage, this.options.pageSize);
+}
+$(document).ready(function () { conventions.ReloadConventionCurrentPageData(); });

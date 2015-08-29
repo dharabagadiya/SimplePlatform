@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Calender\calender.css" />
+    <Content Include="Content\Conventions\Conventions.css" />
     <Content Include="Content\DataTables\css\select.bootstrap.css" />
     <Content Include="Content\Offices\Detail.css" />
     <Content Include="Content\Plugins\bootstrap\bootstrap_timepicker.css" />
