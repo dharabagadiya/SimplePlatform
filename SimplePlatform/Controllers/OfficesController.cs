@@ -218,7 +218,7 @@ namespace SimplePlatform.Controllers
             var currentYear = DateTime.Now.Year;
             var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
             var audienceManager = new AudienceManager();
-            var audiences = audienceManager.GetArrivalAudiences(currentYear, currentWeek);
+            var audiences = audienceManager.GetArrivalAudiences(id, currentYear, currentWeek);
             return audiences.Select(model => new
             {
                 ID = model.AudienceID,
@@ -256,7 +256,7 @@ namespace SimplePlatform.Controllers
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/OfficeUploads/" + fileName;
                         var officesManager = new OfficeMananer();
-                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["ddlUser"]), path);
+                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path);
                     }
                     catch (Exception ex)
                     {
