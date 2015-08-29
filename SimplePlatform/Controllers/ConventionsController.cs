@@ -45,7 +45,7 @@ namespace SimplePlatform.Controllers
         {
             BundleConfig.AddStyle("/Conventions", "Conventions.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Conventions", "Convention.js", ControllerName);
-
+            Script = string.Format("conventions.options.isEditDeleteEnable = {0};", IsAdmin.ToString().ToLower());
             return View();
         }
 
@@ -61,6 +61,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Add(string name, DateTime startDate, DateTime endDate, string description, int userId, string city)
         {
+            if (!IsAdmin) { return Json(false); }
             var conventionManager = new ConventionManager();
             return Json(conventionManager.Add(name, startDate, endDate, description, userId, city));
         }
@@ -102,12 +103,14 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID, string city)
         {
+            if (!IsAdmin) { return Json(false); }
             var conventionManager = new ConventionManager();
             return Json(conventionManager.Update(name, startDate, endDate, description, userID, conventionID, city));
         }
 
         public JsonResult Delete(int id)
         {
+            if (!IsAdmin) { return Json(false); }
             var conventionManager = new ConventionManager();
             var status = conventionManager.Delete(id);
             return Json(status);
