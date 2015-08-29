@@ -14,6 +14,7 @@ namespace SimplePlatform.Controllers
         {
             BundleConfig.AddStyle("/Offices", "Offices.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Offices", "Offices.js", ControllerName);
+            Script = string.Format("office.options.isEditDeleteEnable = {0};", IsAdmin.ToString().ToLower());
             return View();
         }
 
@@ -117,6 +118,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Add(string name, string contactNo, string city, int userID)
         {
+            if (!IsAdmin) { return Json(false); }
             var officesManager = new OfficeMananer();
             return Json(officesManager.Add(name, contactNo, city, userID));
         }
@@ -124,6 +126,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Update(int id, string name, string contactNo, string city, int userID)
         {
+            if (!IsAdmin) { return Json(false); }
             var officesManager = new OfficeMananer();
             return Json(officesManager.Update(id, name, contactNo, city, userID));
         }
@@ -131,6 +134,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
+            if (!IsAdmin) { return Json(false); }
             var officesManager = new OfficeMananer();
             return Json(officesManager.Delete(id));
         }
@@ -139,12 +143,12 @@ namespace SimplePlatform.Controllers
         public object GetFundRaisingTargets(int id)
         {
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
-            var targetManager = new DataModel.TargetManager();
-            var audienceManager = new DataModel.AudienceManager();
-            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
+            var targetManager = new TargetManager();
+            var audienceManager = new AudienceManager();
+            var office = new OfficeMananer().GetOffice(id);
             var currentYear = DateTime.Now.Year;
-            var targets = targetManager.GetFundingTargets(offices.ToList(), currentYear);
-            var achievedTargets = audienceManager.GetFundingTargetsAchived(offices.ToList(), currentYear);
+            var targets = targetManager.GetFundingTargets(new List<DataModel.Modal.Office> { office }, currentYear);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<DataModel.Modal.Office> { office }, currentYear);
             dataSeries.Add(targets);
             dataSeries.Add(achievedTargets);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -157,11 +161,11 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<object>();
             var targetManager = new DataModel.TargetManager();
             var audienceManager = new DataModel.AudienceManager();
-            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
+            var office = new OfficeMananer().GetOffice(id);
             var currentYear = DateTime.Now.Year;
             var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
-            var targets = targetManager.GetBookingTargets(offices.ToList(), currentYear);
-            var achievedTargets = audienceManager.GetBookingTargetsAchived(offices.ToList(), currentYear);
+            var targets = targetManager.GetBookingTargets(new List<DataModel.Modal.Office> { office }, currentYear);
+            var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<DataModel.Modal.Office> { office }, currentYear);
             var totalTargets = targets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
             var totalAchievedTargets = achievedTargets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
             return new { TotalTarget = totalTargets, TotalTargetAchieved = totalAchievedTargets };
