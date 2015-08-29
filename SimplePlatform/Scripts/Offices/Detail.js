@@ -32,7 +32,7 @@ officeDetail.LoadFundRaisingChart = function (data) {
     });
 };
 officeDetail.LoadBookingData = function () {
-    var percentageCount = Math.round(bookingTargetData.TotalTargetAchieved / bookingTargetData.TotalTarget);
+    var percentageCount = bookingTargetData.TotalTarget <= 0 ? 0 : Math.round(bookingTargetData.TotalTargetAchieved / bookingTargetData.TotalTarget);
     $("#divBookingChart").find(".percent").empty().html(percentageCount + "<span>%</span>");
     $("#divBookingChartContainer").find(".divTotalBookingTarget").empty().html(bookingTargetData.TotalTarget);
     $("#divBookingChartContainer").find(".divBookingTarget").empty().html(bookingTargetData.TotalTargetAchieved);
