@@ -340,6 +340,9 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected { bo
 .sparkline { width: 100%; display: inline-block; margin-bottom: 5px; }
 .money:before { content: '$'; margin-right: 5px; }
 
+.daterangepicker.opensright:before { top: -18px; left: 30px; }
+.daterangepicker.opensright:after { top: -16px; left: 29px; }
+
 /* -----------------------------------------
    Responsive media queries
 ----------------------------------------- */

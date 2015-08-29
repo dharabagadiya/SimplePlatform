@@ -28,8 +28,7 @@ namespace SimplePlatform.Controllers
             {
                 var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
                 var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
-                var role = customRoleProvider.GetRole("Employee");
-                ViewData["Employee"] = customMembershipProvider.GetUsers(role.RoleId);
+                ViewData["Employee"] = customMembershipProvider.GetUsers(4);
             }
             return PartialView();
         }
