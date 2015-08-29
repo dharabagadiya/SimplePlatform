@@ -283,6 +283,7 @@
     <Content Include="Scripts\Plugins\jquery-1.11.3.js" />
     <Content Include="Scripts\Plugins\jquery-1.11.3.min.js" />
     <None Include="Scripts\Plugins\jQuery-Validator\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Plugins\jquery-ui-1.9.2.js" />
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.js" />
@@ -290,6 +291,9 @@
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Plugins\jQuery-Validator\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login\login.js" />
+    <Content Include="Scripts\Plugins\jquery.fileupload_ui.js" />
+    <Content Include="Scripts\Plugins\jquery.fileupload.js" />
+    <Content Include="Scripts\Plugins\jquery.iframe-transport.js" />
     <Content Include="Scripts\Plugins\jquery.nicescroll.js" />
     <Content Include="Scripts\Plugins\modernizr-2.6.2.js" />
     <Content Include="Scripts\Plugins\progressbar.js" />

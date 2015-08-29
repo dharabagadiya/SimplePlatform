@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using DataModel;
 using System.Web.Script.Serialization;
+using System.IO;
+using Utilities;
 
 namespace SimplePlatform.Controllers
 {
@@ -130,7 +132,32 @@ namespace SimplePlatform.Controllers
             var officesManager = new OfficeMananer();
             return Json(officesManager.Update(id, name, contactNo, city, userID));
         }
-
+        [HttpPost]
+        public JsonResult UpdateFile()
+        {
+            var status = false;
+            HttpPostedFileBase myFile = null;
+            if (Request.Files.Count > 0) myFile = Request.Files[0];
+            if (myFile != null && myFile.ContentLength != 0)
+            {
+                string pathForSaving = Server.MapPath("~/OfficeUploads");
+                if (this.CreateFolderIfNeeded(pathForSaving))
+                {
+                    try
+                    {
+                        string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
+                        myFile.SaveAs(Path.Combine(pathForSaving, fileName));
+                        string path = "~/OfficeUploads/" + fileName;
+                        var officesManager = new OfficeMananer();
+                        status = officesManager.Update(Convert.ToInt32(Request.Form["id"]), Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+            return Json(status);
+        }
         [HttpPost]
         public JsonResult Delete(int id)
         {
@@ -211,6 +238,49 @@ namespace SimplePlatform.Controllers
             Script = string.Format("var tasks = {0};", new JavaScriptSerializer().Serialize(GetTaskForCurrentWeek(id)));
             Script = string.Format("var arrivalAudiences = {0};", new JavaScriptSerializer().Serialize(GetUserArrivalForCurrentWeek(id)));
             return View(offices);
+        }
+        [HttpPost]
+        public JsonResult UploadFile()
+        {
+            var status = false;
+            HttpPostedFileBase myFile = null;
+            if (Request.Files.Count > 0) myFile = Request.Files[0];
+            if (myFile != null && myFile.ContentLength != 0)
+            {
+                string pathForSaving = Server.MapPath("~/OfficeUploads");
+                if (this.CreateFolderIfNeeded(pathForSaving))
+                {
+                    try
+                    {
+                        string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
+                        myFile.SaveAs(Path.Combine(pathForSaving, fileName));
+                        string path = "~/OfficeUploads/" + fileName;
+                        var officesManager = new OfficeMananer();
+                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["ddlUser"]), path);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+            return Json(status);
+        }
+        public bool CreateFolderIfNeeded(string path)
+        {
+            bool result = true;
+            if (!Directory.Exists(path))
+            {
+                try
+                {
+                    Directory.CreateDirectory(path);
+                }
+                catch (Exception)
+                {
+                    /*TODO: You must process this exception.*/
+                    result = false;
+                }
+            }
+            return result;
         }
     }
 }

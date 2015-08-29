@@ -25,5 +25,6 @@ namespace DataModel.Modal
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Audience> Audiences { get; set; }
         public virtual ICollection<Target> Targets { get; set; }
+        public virtual FileResource FileResource { get; set; }
     }
 }
