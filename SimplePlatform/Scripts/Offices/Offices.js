@@ -25,7 +25,7 @@ office.GetOfficeGridPagination = function (obj) {
 };
 office.GetOfficeWidgetHTML = function (obj) {
     var sb = new StringBuilder();
-    sb.append("<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">");
+    sb.append("<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12 CP\">");
     sb.append("<div class=\"panel panel-info tile panelClose panelRefresh\" id=\"dyn_0\">");
     sb.append("<div class=\"panel-heading\">");
     sb.append("<h4 class=\"panel-title\">" + obj.Name + "</h4>");
@@ -34,10 +34,10 @@ office.GetOfficeWidgetHTML = function (obj) {
     sb.append("<div class=\"panel-body pt0\">");
     sb.append("<div class=\"progressbar-stats-1\">");
     sb.append("<p class=\"strong mb0\">Fundraising <span class=\"text-muted pull-right\">" + obj.Fundraising.ActTotal + " of " + obj.Fundraising.Total + " Total</span></p>");
-    sb.append("<div class=\"progress animated-bar flat transparent progress-bar-xs mb10 mt0\"><div class=\"progress-bar progress-bar-white\" role=\"progressbar\" data-transitiongoal=\"" + (obj.Fundraising.ActTotal * 10) + "\"></div></div>");
+    sb.append("<div class=\"progress animated-bar flat transparent progress-bar-xs mb10 mt0\"><div class=\"progress-bar progress-bar-white\" role=\"progressbar\" data-transitiongoal=\"" + ((obj.Fundraising.ActTotal / obj.Fundraising.Total) * 100) + "\"></div></div>");
     sb.append("<div class=\"row\">");
     sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Task <span class=\"pull-right\"><span class=\"badge\">" + obj.Task.ActTotal + "</span> of " + obj.Task.Total + "</span></div></div>");
-    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Events <span class=\"pull-right\"><span class=\"badge\">" + obj.Events.ActTotal + "</span> of " + obj.Events.Total + "</span></div></div>");
+    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Arrival <span class=\"pull-right\"><span class=\"badge\">" + obj.Arrival.ActTotal + "</span> of " + obj.Arrival.Total + "</span></div></div>");
     sb.append("</div>");
     sb.append("<div class=\"row\">");
     sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Booking <span class=\"pull-right\"><span class=\"badge\">" + obj.BookingInProcess.ActTotal + "</span> of " + obj.BookingInProcess.Total + "</span></div></div>");

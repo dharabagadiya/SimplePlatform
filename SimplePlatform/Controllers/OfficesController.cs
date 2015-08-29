@@ -17,6 +17,59 @@ namespace SimplePlatform.Controllers
             return View();
         }
 
+        public object GetFundRaisingForCurrentWeek(int id)
+        {
+            var targetManager = new DataModel.TargetManager();
+            var audienceManager = new DataModel.AudienceManager();
+            var offices = new OfficeMananer().GetOffice(id);
+            var currentYear = DateTime.Now.Year;
+            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
+            var targets = targetManager.GetFundingTargets(new List<DataModel.Modal.Office> { offices }, currentYear);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<DataModel.Modal.Office> { offices }, currentYear);
+            var totalTargets = targets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
+            var totalAchievedTargets = achievedTargets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
+            return new { Total = totalTargets, ActTotal = totalAchievedTargets };
+        }
+
+        public object GetTotlaTaskForCurrentWeek(int id)
+        {
+            var currentYear = DateTime.Now.Year;
+            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
+            var taskManager = new TaskManager();
+            var tasks = taskManager.GetTasks(id, currentYear, currentWeek);
+            var totalTask = tasks.Count();
+            var totalTaskCompleted = tasks.Where(model => model.IsCompleted == true).Count();
+            return new { Total = totalTask, ActTotal = totalTaskCompleted };
+        }
+
+        public object GetBookingTargetsForCurrentWeek(int id)
+        {
+            var dataSeries = new List<object>();
+            var targetManager = new TargetManager();
+            var audienceManager = new AudienceManager();
+            var offices = new OfficeMananer().GetOffice(id);
+            var currentYear = DateTime.Now.Year;
+            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
+            var targets = targetManager.GetBookingTargets(new List<DataModel.Modal.Office> { offices }, currentYear);
+            var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<DataModel.Modal.Office> { offices }, currentYear);
+            var totalTargets = targets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
+            var totalAchievedTargets = achievedTargets.data.Where(model => model.weekNumber == currentWeek).Count();
+            return new { Total = totalTargets, ActTotal = totalAchievedTargets };
+        }
+
+        public object GetArrivalTargetsForCurrentWeek(int id)
+        {
+            var targetManager = new TargetManager();
+            var audienceManager = new AudienceManager();
+            var offices = new OfficeMananer().GetOffice(id);
+            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
+            var targets = targetManager.GetArrivalTargets(new List<DataModel.Modal.Office> { offices }, DateTime.Now.Year);
+            var achievedTargets = audienceManager.GetArrivalTargetsAchived(new List<DataModel.Modal.Office> { offices }, DateTime.Now.Year);
+            var totalTargets = targets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
+            var totalAchievedTargets = achievedTargets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
+            return new { Total = totalTargets, ActTotal = totalAchievedTargets };
+        }
+
         [HttpPost]
         public JsonResult GetOffices(int pageNo = 1, int pageSize = 3)
         {
@@ -27,11 +80,10 @@ namespace SimplePlatform.Controllers
             {
                 ID = modal.OfficeId,
                 Name = modal.Name,
-                Fundraising = new { ActTotal = 5, Total = 10 },
-                Task = new { ActTotal = 5, Total = 100 },
-                Events = new { ActTotal = 5, Total = 100 },
-                BookingInProcess = new { ActTotal = 5, Total = 100 },
-                BookingConfirm = new { ActTotal = 5, Total = 100 }
+                Fundraising = GetFundRaisingForCurrentWeek(modal.OfficeId),
+                Task = GetTotlaTaskForCurrentWeek(modal.OfficeId),
+                Arrival = GetArrivalTargetsForCurrentWeek(modal.OfficeId),
+                BookingInProcess = GetBookingTargetsForCurrentWeek(modal.OfficeId)
             }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
             {
@@ -140,22 +192,21 @@ namespace SimplePlatform.Controllers
             {
                 ID = model.AudienceID,
                 Name = model.Name,
-                ConventionName  = model.Convention.Name,
+                ConventionName = model.Convention.Name,
                 ArrivalDate = model.Convention.StartDate.ToString("MM dd,yyyy")
             });
         }
 
         public ActionResult Detail(int id)
         {
-
+            var offices = new OfficeMananer().GetOffice(id);
             BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Offices", "Detail.js", ControllerName);
-
             Script = string.Format("var fundRaisingTargetData = {0};", new JavaScriptSerializer().Serialize(GetFundRaisingTargets(id)));
             Script = string.Format("var bookingTargetData = {0};", new JavaScriptSerializer().Serialize(GetBookingTargets(id)));
             Script = string.Format("var tasks = {0};", new JavaScriptSerializer().Serialize(GetTaskForCurrentWeek(id)));
             Script = string.Format("var arrivalAudiences = {0};", new JavaScriptSerializer().Serialize(GetUserArrivalForCurrentWeek(id)));
-            return View();
+            return View(offices);
         }
     }
 }
