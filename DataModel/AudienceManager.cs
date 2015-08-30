@@ -19,13 +19,9 @@ namespace DataModel
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         { }
 
-        public List<int> GetConventionIDs(int year, int week)
+        public List<int> GetConventionIDs(DateTime startDate, DateTime endDate)
         {
-            var startDateTime = Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, week);
-            var endDateTime = startDateTime.AddDays(6);
-            return Context.Conventions.Where(model => model.IsDeleted == false
-            && model.EndDate.Year == year
-            && model.EndDate >= startDateTime && model.EndDate <= endDateTime).Select(model => model.ConventionId).ToList();
+            return Context.Conventions.Where(model => model.IsDeleted == false && model.EndDate >= startDate && model.EndDate <= startDate).Select(model => model.ConventionId).ToList();
         }
 
         public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
@@ -243,9 +239,9 @@ namespace DataModel
             return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
         }
 
-        public List<Modal.Audience> GetArrivalAudiences(int officeID, int year, int week)
+        public List<Modal.Audience> GetArrivalAudiences(int officeID, DateTime startDate, DateTime endDate)
         {
-            var conventions = GetConventionIDs(year, week);
+            var conventions = GetConventionIDs(startDate, endDate);
             return Context.Audiences.Where(model => model.IsDeleted == false
             && model.IsBooked == true
             && model.IsAttended == false
