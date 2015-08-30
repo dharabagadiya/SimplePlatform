@@ -114,5 +114,10 @@ namespace DataModel
             var endDateTime = startDateTime.AddDays(6);
             return Context.Tasks.Where(model => (model.Office.OfficeId == officeID && model.IsDeleted == false && model.EndDate.Year == year && model.EndDate >= startDateTime && model.EndDate <= endDateTime)).ToList();
         }
+
+        public List<Modal.Task> GetTasks(int officeID, DateTime startDate, DateTime endDate)
+        {
+            return Context.Tasks.Where(model => (model.Office.OfficeId == officeID && model.IsDeleted == false && model.EndDate >= startDate && model.EndDate <= endDate)).ToList();
+        }
     }
 }
