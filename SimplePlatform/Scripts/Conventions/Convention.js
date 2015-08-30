@@ -1,4 +1,5 @@
 ﻿var conventions = {};
+conventions.jqXHRData = null;
 conventions.options = {
     EditViewURL: "/Conventions/Edit/",
     UpdateURL: "/Conventions/Update",
@@ -72,14 +73,9 @@ conventions.ValidateModalConventionForm = function (obj) {
             var userID = 0;//formObj.find("#dwnUserId").val();
             var conventionID = formObj.find("#hdnConventionID").val();
             var city = formObj.find("#txtCity").val();
-            $.ajax({
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                url: conventions.options.UpdateURL,
-                async: false,
-                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userID": userID, "conventionID": conventionID, "city": city }),
-                success: function (data) {
+            $('#frmConventionEdit').fileupload("option", {
+                formData: { "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userID": userID, "conventionID": conventionID, "city": city },
+                done: function (data) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
@@ -89,6 +85,26 @@ conventions.ValidateModalConventionForm = function (obj) {
                     }
                 }
             });
+            if (conventions.jqXHRData)
+                conventions.jqXHRData.submit();
+            else
+                $.ajax({
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    url: conventions.options.UpdateURL,
+                    async: false,
+                    data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userID": userID, "conventionID": conventionID, "city": city }),
+                    success: function (data) {
+                        var status = data;
+                        if (status) {
+                            obj.modal('hide');
+                            ShowUpdateSuccessSaveAlert();
+                        } else {
+                            obj.find("#divCommonMessage").removeClass("hidden");
+                        }
+                    }
+                });
         });
 };
 conventions.EditConventionDetail = function (obj) {
@@ -98,6 +114,18 @@ conventions.EditConventionDetail = function (obj) {
     ShowDialogBox($("#divCommonModalPlaceHolder"), (conventions.options.EditViewURL + conventionDetail.id), null, $.proxy(function (event, dialogContentPlaceHolder) {
         this.ValidateModalConventionForm(dialogContentPlaceHolder);
         dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm' } });
+        $('#frmConventionEdit').fileupload({
+            url: '/Conventions/UpdateFile',
+            dataType: 'json',
+            add: function (e, data) {
+                //simplePlatform.filesList.push(data.files[0]);
+                //paramNames.push(data.fileInput[0].name);
+                conventions.jqXHRData = data;
+            }
+        });
+        $("#fuImage").on('change', function () {
+            $("#fuImageName").val(this.files[0].name);
+        });
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };

@@ -179,6 +179,20 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                             message: 'Please select user.'
                         }
                     }
+                },
+                imageConvention: {
+                    message: 'The selected file is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The image file is required and cannot be empty'
+                        },
+                        file: {
+                            extension: 'jpeg,png,jpg,gif',
+                            type: 'image/jpeg,image/png,image/jpg,image/gif',
+                            maxSize: 2097152,   // 2048 * 1024
+                            message: 'The selected file is not valid'
+                        }
+                    }
                 }
             }
         }).off('success.form.bv').on('success.form.bv', function (e) {
@@ -203,25 +217,7 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                     }
                 }
             });
-            //simplePlatform.jqXHRData.submit();
-            $('#frmConvention').fileupload('send', { files: simplePlatform.filesList });
-            //$.ajax({
-            //    dataType: "json",
-            //    contentType: "application/json; charset=utf-8",
-            //    type: "POST",
-            //    url: "/Conventions/Add",
-            //    async: false,
-            //    data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userId": userId, "city": city }),
-            //    success: function (data) {
-            //        var status = data;
-            //        if (status) {
-            //            obj.modal('hide');
-            //            ShowSuccessSaveAlert();
-            //        } else {
-            //            obj.find("#divCommonMessage").removeClass("hidden");
-            //        }
-            //    }
-            //});
+            simplePlatform.jqXHRData.submit();
         });
 };
 simplePlatform.BindHeaderAddConventionClickEvent = function () {
@@ -235,15 +231,13 @@ simplePlatform.BindHeaderAddConventionClickEvent = function () {
                 url: '/Conventions/UploadFile',
                 dataType: 'json',
                 add: function (e, data) {
-                    simplePlatform.filesList.push(data.files[0]);
+                    //simplePlatform.filesList.push(data.files[0]);
                     //paramNames.push(data.fileInput[0].name);
+                    simplePlatform.jqXHRData = data;
                 }
             });
             $("#fuImage").on('change', function () {
                 $("#fuImageName").val(this.files[0].name);
-            });
-            $("#fuAttachment").on('change', function () {
-                $("#fuAttachmentName").val(this.files[0].name);
             });
             this.ValidateModalConventionForm(dialogContentPlaceHolder);
         }, this));
@@ -487,6 +481,20 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
                 validators: {
                     notEmpty: {
                         message: 'Please select user.'
+                    }
+                }
+            },
+            image: {
+                message: 'The selected file is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The image file is required and cannot be empty'
+                    },
+                    file: {
+                        extension: 'jpeg,png,jpg,gif',
+                        type: 'image/jpeg,image/png,image/jpg,image/gif',
+                        maxSize: 2097152,   // 2048 * 1024
+                        message: 'The selected file is not valid'
                     }
                 }
             }

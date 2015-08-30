@@ -135,14 +135,14 @@ namespace SimplePlatform.Controllers
             if (Request.Files.Count > 0) myFile = Request.Files[0];
             if (myFile != null && myFile.ContentLength != 0)
             {
-                string pathForSaving = Server.MapPath("~/OfficeUploads");
+                string pathForSaving = Server.MapPath("~/ImageUploads");
                 if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
                 {
                     try
                     {
                         string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
-                        string path = "~/OfficeUploads/" + fileName;
+                        string path = "~/ImageUploads/" + fileName;
                         var officesManager = new OfficeMananer();
                         status = officesManager.Update(Convert.ToInt32(Request.Form["id"]), Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path);
                     }
@@ -240,14 +240,14 @@ namespace SimplePlatform.Controllers
             if (Request.Files.Count > 0) myFile = Request.Files[0];
             if (myFile != null && myFile.ContentLength != 0)
             {
-                string pathForSaving = Server.MapPath("~/OfficeUploads");
+                string pathForSaving = Server.MapPath("~/ImageUploads");
                 if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
                 {
                     try
                     {
                         string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
-                        string path = "~/OfficeUploads/" + fileName;
+                        string path = "~/ImageUploads/" + fileName;
                         var officesManager = new OfficeMananer();
                         status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["ddlUser"]), path);
                     }

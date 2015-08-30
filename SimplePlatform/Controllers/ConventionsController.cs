@@ -133,8 +133,35 @@ namespace SimplePlatform.Controllers
                         string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
-                        //var officesManager = new OfficeMananer();
-                        //status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["ddlUser"]), path);
+                        if (!IsAdmin) { return Json(false); }
+                        var conventionManager = new ConventionManager();
+                        status = conventionManager.Add(Request.Form["name"].ToString(), Convert.ToDateTime(Request.Form["startDate"]), Convert.ToDateTime(Request.Form["endDate"]), Request.Form["description"].ToString(), Convert.ToInt32(Request.Form["userId"]), null, path);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+            return Json(status);
+        }
+        [HttpPost]
+        public JsonResult UpdateFile()
+        {
+            var status = false;
+            HttpPostedFileBase myFile = null;
+            if (Request.Files.Count > 0) myFile = Request.Files[0];
+            if (myFile != null && myFile.ContentLength != 0)
+            {
+                string pathForSaving = Server.MapPath("~/ImageUploads");
+                if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
+                {
+                    try
+                    {
+                        string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
+                        myFile.SaveAs(Path.Combine(pathForSaving, fileName));
+                        string path = "~/ImageUploads/" + fileName;
+                        var conventionManager = new ConventionManager();
+                        status = conventionManager.Update(Request.Form["name"].ToString(), Convert.ToDateTime(Request.Form["startDate"]), Convert.ToDateTime(Request.Form["endDate"]), Request.Form["description"].ToString(), Convert.ToInt32(Request.Form["userId"]), Convert.ToInt32(Request.Form["conventionID"]), null, path);
                     }
                     catch (Exception ex)
                     {

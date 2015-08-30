@@ -48,6 +48,32 @@ namespace DataModel
                 return false;
             }
         }
+        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int userID, string city, string path)
+        {
+            try
+            {
+                var users = Context.UsersDetail.Where(model => model.UserId == userID).ToList();
+                //if (users == null || users.Count <= 0) { return false; }
+                Context.Conventions.Add(new Modal.Convention
+                {
+                    Name = name,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    Description = description,
+                    UsersDetail = users,
+                    CreateDate = DateTime.Now,
+                    UpdateDate = DateTime.Now,
+                    City = city,
+                    FileResource = new Modal.FileResource { path = path }
+                });
+                var status = Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public List<Convention> GetConventions()
         { return Context.Conventions.Where(model => model.IsDeleted == false).ToList(); }
         public Convention GetConventionDetail(int id)
@@ -69,6 +95,32 @@ namespace DataModel
                 conventionDetail.City = city;
                 conventionDetail.UpdateDate = DateTime.Now;
                 conventionDetail.UsersDetail = new List<UserDetail> { userDetail };
+                Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID, string city, string path)
+        {
+            try
+            {
+                var conventionDetail = Context.Conventions.Where(model => model.ConventionId == conventionID).FirstOrDefault();
+                conventionDetail.UsersDetail.Remove(conventionDetail.UsersDetail.FirstOrDefault());
+                Context.SaveChanges();
+                var userDetail = GetUserDetail(userID);
+                //if (userDetail == null) { return false; }
+                if (conventionDetail == null) return false;
+                conventionDetail.Name = name;
+                conventionDetail.StartDate = startDate;
+                conventionDetail.EndDate = endDate;
+                conventionDetail.Description = description;
+                conventionDetail.City = city;
+                conventionDetail.UpdateDate = DateTime.Now;
+                conventionDetail.UsersDetail = new List<UserDetail> { userDetail };
+                if (!string.IsNullOrEmpty(path)) conventionDetail.FileResource = new Modal.FileResource { path = path };
                 Context.SaveChanges();
                 return true;
             }
