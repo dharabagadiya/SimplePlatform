@@ -10,7 +10,9 @@ office.options = {
     totalPageSize: 10,
     currentPage: 1,
     totalRecords: 10,
-    isEditDeleteEnable: false
+    isEditDeleteEnable: false,
+    startDate: null,
+    endDate: null
 };
 office.NoOfficeRecordFound = function () {
     $(".divOfficesGridPagingDetail").hide();
@@ -228,7 +230,7 @@ office.GetOfficesData = function (pageNo, pageSize) {
         type: "POST",
         url: office.options.GetOffices,
         async: true,
-        data: JSON.stringify({ "pageNo": pageNo, "pageSize": pageSize }),
+        data: JSON.stringify({ "pageNo": pageNo, "pageSize": pageSize, startDate: office.options.startDate, endDate: office.options.endDate }),
         success: function (data) {
             office.options.totalPageSize = Math.ceil(data.totalRecord / data.pageSize);
             office.options.totalRecords = data.totalRecord;
@@ -238,7 +240,25 @@ office.GetOfficesData = function (pageNo, pageSize) {
         }
     });
 };
-office.ReloadOfficeCurrentPageData = function () {
-    this.GetOfficesData(this.options.currentPage, this.options.pageSize);
-}
-$(document).ready(function () { office.GetOfficesData(1, office.options.pageSize); });
+office.UpdateGlobalTimePeriodSelection = function (start, end) {
+    office.options.startDate = start.toDate();
+    office.options.endDate = end.toDate();
+    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+};
+office.LoadGlobalTimeFilter = function () {
+    $('#reportrange').daterangepicker({
+        "startDate": moment().subtract(6, 'days'),
+        "endDate": moment(),
+        ranges: {
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, office.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) {
+        office.GetOfficesData(office.options.currentPage, office.options.pageSize);
+    });
+    office.UpdateGlobalTimePeriodSelection(moment().subtract(6, 'days'), moment());
+    office.GetOfficesData(1, office.options.pageSize);
+};
+office.ReloadOfficeCurrentPageData = function () { this.GetOfficesData(this.options.currentPage, this.options.pageSize); }
+$(document).ready(function () { office.LoadGlobalTimeFilter(); });
