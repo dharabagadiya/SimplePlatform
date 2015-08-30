@@ -136,7 +136,7 @@ namespace SimplePlatform.Controllers
             if (myFile != null && myFile.ContentLength != 0)
             {
                 string pathForSaving = Server.MapPath("~/OfficeUploads");
-                if (this.CreateFolderIfNeeded(pathForSaving))
+                if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
                 {
                     try
                     {
@@ -241,7 +241,7 @@ namespace SimplePlatform.Controllers
             if (myFile != null && myFile.ContentLength != 0)
             {
                 string pathForSaving = Server.MapPath("~/OfficeUploads");
-                if (this.CreateFolderIfNeeded(pathForSaving))
+                if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
                 {
                     try
                     {
@@ -249,7 +249,7 @@ namespace SimplePlatform.Controllers
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/OfficeUploads/" + fileName;
                         var officesManager = new OfficeMananer();
-                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path);
+                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["ddlUser"]), path);
                     }
                     catch (Exception ex)
                     {
@@ -257,23 +257,6 @@ namespace SimplePlatform.Controllers
                 }
             }
             return Json(status);
-        }
-        public bool CreateFolderIfNeeded(string path)
-        {
-            bool result = true;
-            if (!Directory.Exists(path))
-            {
-                try
-                {
-                    Directory.CreateDirectory(path);
-                }
-                catch (Exception)
-                {
-                    /*TODO: You must process this exception.*/
-                    result = false;
-                }
-            }
-            return result;
         }
     }
 }

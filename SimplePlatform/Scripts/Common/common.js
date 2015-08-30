@@ -1,5 +1,6 @@
 ﻿var simplePlatform = {};
 simplePlatform.jqXHRData = null;
+simplePlatform.filesList = [], simplePlatform.paramNames = [];
 simplePlatform.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -190,14 +191,9 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
             var description = formObj.find("#txtDescription").val();
             var userId = 0;//formObj.find("#dwnUserId").val();
             var city = formObj.find("#txtCity").val();
-            $.ajax({
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                url: "/Conventions/Add",
-                async: false,
-                data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userId": userId, "city": city }),
-                success: function (data) {
+            $('#frmConvention').fileupload("option", {
+                formData: { "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userId": userId, "city": city },
+                done: function (data) {
                     var status = data;
                     if (status) {
                         obj.modal('hide');
@@ -207,6 +203,25 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                     }
                 }
             });
+            //simplePlatform.jqXHRData.submit();
+            $('#frmConvention').fileupload('send', { files: simplePlatform.filesList });
+            //$.ajax({
+            //    dataType: "json",
+            //    contentType: "application/json; charset=utf-8",
+            //    type: "POST",
+            //    url: "/Conventions/Add",
+            //    async: false,
+            //    data: JSON.stringify({ "name": name, "startDate": startDates, "endDate": endDates, "description": description, "userId": userId, "city": city }),
+            //    success: function (data) {
+            //        var status = data;
+            //        if (status) {
+            //            obj.modal('hide');
+            //            ShowSuccessSaveAlert();
+            //        } else {
+            //            obj.find("#divCommonMessage").removeClass("hidden");
+            //        }
+            //    }
+            //});
         });
 };
 simplePlatform.BindHeaderAddConventionClickEvent = function () {
@@ -216,6 +231,20 @@ simplePlatform.BindHeaderAddConventionClickEvent = function () {
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm' } });
+            $('#frmConvention').fileupload({
+                url: '/Conventions/UploadFile',
+                dataType: 'json',
+                add: function (e, data) {
+                    simplePlatform.filesList.push(data.files[0]);
+                    //paramNames.push(data.fileInput[0].name);
+                }
+            });
+            $("#fuImage").on('change', function () {
+                $("#fuImageName").val(this.files[0].name);
+            });
+            $("#fuAttachment").on('change', function () {
+                $("#fuAttachmentName").val(this.files[0].name);
+            });
             this.ValidateModalConventionForm(dialogContentPlaceHolder);
         }, this));
         return false;
@@ -484,7 +513,6 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
         });
         simplePlatform.jqXHRData.submit();
     });
-
 };
 simplePlatform.BindHeaderAddOfficeClickEvent = function () {
     var obj = $("#lnkAddOffice");

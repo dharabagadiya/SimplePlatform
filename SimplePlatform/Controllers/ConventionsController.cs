@@ -1,9 +1,11 @@
 ﻿using DataModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Utilities;
 
 namespace SimplePlatform.Controllers
 {
@@ -113,6 +115,32 @@ namespace SimplePlatform.Controllers
             if (!IsAdmin) { return Json(false); }
             var conventionManager = new ConventionManager();
             var status = conventionManager.Delete(id);
+            return Json(status);
+        }
+        [HttpPost]
+        public JsonResult UploadFile()
+        {
+            var status = false;
+            HttpPostedFileBase myFile = null;
+            if (Request.Files.Count > 0) myFile = Request.Files[0];
+            if (myFile != null && myFile.ContentLength != 0)
+            {
+                string pathForSaving = Server.MapPath("~/ImageUploads");
+                if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
+                {
+                    try
+                    {
+                        string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
+                        myFile.SaveAs(Path.Combine(pathForSaving, fileName));
+                        string path = "~/ImageUploads/" + fileName;
+                        //var officesManager = new OfficeMananer();
+                        //status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["ddlUser"]), path);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
             return Json(status);
         }
     }
