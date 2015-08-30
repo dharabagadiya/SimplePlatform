@@ -151,14 +151,12 @@ home.GetArrivalTargetData = function () {
         }
     });
 };
-
 home.GetDashBoardData = function () {
     this.GetFundRaisingData();
     this.GetBookingData();
     this.GetGSBTargetData();
     this.GetArrivalTargetData();
 };
-
 home.UpdateGlobalTimePeriodSelection = function (start, end) {
     home.options.startDate = start.toDate();
     home.options.endDate = end.toDate();
@@ -178,5 +176,4 @@ home.LoadGlobalTimeFilter = function () {
     home.UpdateGlobalTimePeriodSelection(moment().startOf('month'), moment().endOf('month'));
     home.GetDashBoardData();
 };
-
 home.DoPageSetting = function () { this.LoadGlobalTimeFilter(); };

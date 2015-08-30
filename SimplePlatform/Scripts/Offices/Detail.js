@@ -1,6 +1,10 @@
 ﻿var officeDetail = {};
 officeDetail.options = {
-    colors: ["success", "default", "info", "warning", "danger"]
+    officeID: 0,
+    GetDetailURL: "/Offices/Detail",
+    colors: ["success", "default", "info", "warning", "danger"],
+    startDate: null,
+    endDate: null
 };
 officeDetail.bookingProgress = new ProgressBar.Circle('#divBookingChart', { color: '#0a97b9', strokeWidth: 2, fill: '#d0f1f9', duration: 4000, easing: 'bounce' });
 officeDetail.NoRecordFound = function (message) {
@@ -31,12 +35,12 @@ officeDetail.LoadFundRaisingChart = function (data) {
         series: data
     });
 };
-officeDetail.LoadBookingData = function () {
-    var percentageCount = bookingTargetData.TotalTarget <= 0 ? 0 : Math.round(bookingTargetData.TotalTargetAchieved / bookingTargetData.TotalTarget);
-    $("#divBookingChart").find(".percent").empty().html(percentageCount + "<span>%</span>");
-    $("#divBookingChartContainer").find(".divTotalBookingTarget").empty().html(bookingTargetData.TotalTarget);
-    $("#divBookingChartContainer").find(".divBookingTarget").empty().html(bookingTargetData.TotalTargetAchieved);
-    officeDetail.bookingProgress.animate(percentageCount);
+officeDetail.LoadBookingData = function (bookingTargetData) {
+    var percentageCount = bookingTargetData.Total <= 0 ? 0 : (bookingTargetData.ActTotal / bookingTargetData.Total);
+    $("#divBookingChart").find(".percent").empty().html((percentageCount.toFixed(2)) + "<span>%</span>");
+    $("#divBookingChartContainer").find(".divTotalBookingTarget").empty().html(bookingTargetData.Total);
+    $("#divBookingChartContainer").find(".divBookingTarget").empty().html(bookingTargetData.ActTotal);
+    officeDetail.bookingProgress.animate(percentageCount.toFixed(2));
 };
 officeDetail.GetTaskWidgetHTML = function (obj) {
     var sb = new StringBuilder();
@@ -67,9 +71,42 @@ officeDetail.GetAudienceList = function (dataObj) {
     if (dataObj.length <= 0) { audienceWidget.append(this.NoRecordFound("No Convention this week")); return; }
     for (var i = 0; i < dataObj.length; i++) { widget = $(this.GetAudienceWidgetHTML(dataObj[i])); audienceWidget.append(widget); };
 };
+officeDetail.UpdatePageDataByFilter = function () {
+    $.ajax({
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        url: officeDetail.options.GetDetailURL,
+        async: true,
+        data: JSON.stringify({ id: officeDetail.options.officeID, startDate: officeDetail.options.startDate, endDate: officeDetail.options.endDate }),
+        success: function (dataObj) {
+            officeDetail.LoadFundRaisingChart(dataObj.fundRaisingTargetData.ChartData);
+            officeDetail.LoadBookingData(dataObj.bookingTargetData);
+            officeDetail.GetTaskList(dataObj.tasks);
+            officeDetail.GetAudienceList(dataObj.arrivalAudiences);
+        }
+    });
+};
+officeDetail.UpdateGlobalTimePeriodSelection = function (start, end) {
+    officeDetail.options.startDate = start.toDate();
+    officeDetail.options.endDate = end.toDate();
+    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+};
+officeDetail.LoadGlobalTimeFilter = function () {
+    $('#reportrange').daterangepicker({
+        "startDate": moment().subtract(6, 'days'),
+        "endDate": moment(),
+        ranges: {
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, officeDetail.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) { officeDetail.UpdatePageDataByFilter(); });
+    officeDetail.UpdateGlobalTimePeriodSelection(moment().subtract(6, 'days'), moment());
+    officeDetail.UpdatePageDataByFilter();
+};
+
 $(document).ready(function () {
-    officeDetail.LoadFundRaisingChart(fundRaisingTargetData.ChartData);
-    officeDetail.LoadBookingData();
-    officeDetail.GetTaskList(tasks);
-    officeDetail.GetAudienceList(arrivalAudiences);
+    officeDetail.LoadGlobalTimeFilter();
+
 });

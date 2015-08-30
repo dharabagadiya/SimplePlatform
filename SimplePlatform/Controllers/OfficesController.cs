@@ -162,15 +162,15 @@ namespace SimplePlatform.Controllers
         }
 
         // Fund Raising Target For CurrentYear
-        public object GetFundRaisingTargets(int id)
+        public object GetFundRaisingTargetsChart(int id, DateTime startDate, DateTime endDate)
         {
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
             var targetManager = new TargetManager();
             var audienceManager = new AudienceManager();
             var office = new OfficeMananer().GetOffice(id);
-            var currentYear = DateTime.Now.Year;
-            var targets = targetManager.GetFundingTargets(new List<DataModel.Modal.Office> { office }, currentYear);
-            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<DataModel.Modal.Office> { office }, currentYear);
+
+            var targets = targetManager.GetFundingTargets(new List<DataModel.Modal.Office> { office }, startDate, endDate);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<DataModel.Modal.Office> { office }, startDate, endDate);
             dataSeries.Add(targets);
             dataSeries.Add(achievedTargets);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -178,27 +178,12 @@ namespace SimplePlatform.Controllers
             return new { TotalTarget = totalTargets, TotalTargetAchieved = totalAchievedTargets, AchivedTarget = 0, ChartData = dataSeries };
         }
 
-        public object GetBookingTargets(int id)
-        {
-            var dataSeries = new List<object>();
-            var targetManager = new DataModel.TargetManager();
-            var audienceManager = new DataModel.AudienceManager();
-            var office = new OfficeMananer().GetOffice(id);
-            var currentYear = DateTime.Now.Year;
-            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
-            var targets = targetManager.GetBookingTargets(new List<DataModel.Modal.Office> { office }, currentYear);
-            var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<DataModel.Modal.Office> { office }, currentYear);
-            var totalTargets = targets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
-            var totalAchievedTargets = achievedTargets.data.Where(model => model.weekNumber == currentWeek).Sum(model => model.y);
-            return new { TotalTarget = totalTargets, TotalTargetAchieved = totalAchievedTargets };
-        }
-
-        public object GetTaskForCurrentWeek(int id)
+        public object GetTaskForCurrentWeek(int id, DateTime startDate, DateTime endDate)
         {
             var currentYear = DateTime.Now.Year;
             var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
             var taskManager = new TaskManager();
-            var tasks = taskManager.GetTasks(id, currentYear, currentWeek);
+            var tasks = taskManager.GetTasks(id, startDate, endDate);
             return tasks.Select(model => new
             {
                 ID = model.TaskId,
@@ -208,12 +193,12 @@ namespace SimplePlatform.Controllers
             }).ToList();
         }
 
-        public object GetUserArrivalForCurrentWeek(int id)
+        public object GetUserArrivalForCurrentWeek(int id, DateTime startDate, DateTime endDate)
         {
             var currentYear = DateTime.Now.Year;
             var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
             var audienceManager = new AudienceManager();
-            var audiences = audienceManager.GetArrivalAudiences(id, currentYear, currentWeek);
+            var audiences = audienceManager.GetArrivalAudiences(id, startDate, endDate);
             return audiences.Select(model => new
             {
                 ID = model.AudienceID,
@@ -228,12 +213,25 @@ namespace SimplePlatform.Controllers
             var offices = new OfficeMananer().GetOffice(id);
             BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Offices", "Detail.js", ControllerName);
-            Script = string.Format("var fundRaisingTargetData = {0};", new JavaScriptSerializer().Serialize(GetFundRaisingTargets(id)));
-            Script = string.Format("var bookingTargetData = {0};", new JavaScriptSerializer().Serialize(GetBookingTargets(id)));
-            Script = string.Format("var tasks = {0};", new JavaScriptSerializer().Serialize(GetTaskForCurrentWeek(id)));
-            Script = string.Format("var arrivalAudiences = {0};", new JavaScriptSerializer().Serialize(GetUserArrivalForCurrentWeek(id)));
+
+            Script = string.Format("officeDetail.options.officeID = {0};", id);
+
             return View(offices);
         }
+
+        [HttpPost]
+        public JsonResult Detail(int id, string startDate, string endDate)
+        {
+            var offices = new OfficeMananer().GetOffice(id);
+            var startDateTime = Convert.ToDateTime(startDate);
+            var endDateTime = Convert.ToDateTime(endDate);
+            var fundRaisingTargetData = GetFundRaisingTargetsChart(id, startDateTime, endDateTime);
+            var bookingTargetData = GetBookingTargets(id, startDateTime, endDateTime);
+            var tasks = GetTaskForCurrentWeek(id, startDateTime, endDateTime);
+            var arrivalAudiences = GetUserArrivalForCurrentWeek(id, startDateTime, endDateTime);
+            return Json(new { fundRaisingTargetData = fundRaisingTargetData, bookingTargetData = bookingTargetData, tasks = tasks, arrivalAudiences = arrivalAudiences });
+        }
+
         [HttpPost]
         public JsonResult UploadFile()
         {
