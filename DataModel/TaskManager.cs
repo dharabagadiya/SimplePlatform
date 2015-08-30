@@ -102,6 +102,9 @@ namespace DataModel
         public List<Modal.Task> GetTasks()
         { return Context.Tasks.Where(model => model.IsDeleted == false).ToList(); }
 
+        public List<Modal.Task> GetTasks(DateTime startDate, DateTime endDate)
+        { return Context.Tasks.Where(model => model.IsDeleted == false && (model.StartDate >= startDate && model.StartDate <= endDate)).ToList(); }
+
         public Modal.Task GetTask(int id)
         { return Context.Tasks.Where(model => model.TaskId == id && model.IsDeleted == false).FirstOrDefault(); }
 

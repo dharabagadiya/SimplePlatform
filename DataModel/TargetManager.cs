@@ -102,11 +102,28 @@ namespace DataModel
             return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData, };
         }
 
+        public Modal.ChartSeries GetFundingTargets(List<Modal.Office> offices, DateTime startDate, DateTime endDate)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var targets = GetTargets(offices).ToList();
+            var targetSeriesData = targets.Where(model => model.DueDate >= startDate && model.DueDate <= endDate).OrderBy(model => model.DueDate).Select(model => new Modal.ChartSeries.DataPoint { weekNumber = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate), x = (model.DueDate - startYear).TotalMilliseconds, y = model.FundRaising }).ToList();
+            var totalTarget = targetSeriesData.Sum(model => model.y);
+            return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData, };
+        }
+
         public Modal.ChartSeries GetBookingTargets(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var targets = GetTargets(offices).ToList();
             var targetSeriesData = targets.Where(model => model.DueDate.Year == year).OrderBy(model => model.DueDate).Select(model => new Modal.ChartSeries.DataPoint { weekNumber = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate), x = (model.DueDate - startYear).TotalMilliseconds, y = model.Booking }).ToList();
+            return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
+        }
+
+        public Modal.ChartSeries GetBookingTargets(List<Modal.Office> offices, DateTime startDate, DateTime endDate)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var targets = GetTargets(offices).ToList();
+            var targetSeriesData = targets.Where(model => model.DueDate >= startDate && model.DueDate <= endDate).OrderBy(model => model.DueDate).Select(model => new Modal.ChartSeries.DataPoint { weekNumber = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate), x = (model.DueDate - startYear).TotalMilliseconds, y = model.Booking }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
 
@@ -118,11 +135,27 @@ namespace DataModel
             return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
 
+        public Modal.ChartSeries GetGSBTargets(List<Modal.Office> offices, DateTime startDate, DateTime endDate)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var targets = GetTargets(offices).ToList();
+            var targetSeriesData = targets.Where(model => model.DueDate >= startDate && model.DueDate <= endDate).OrderBy(model => model.DueDate).Select(model => new Modal.ChartSeries.DataPoint { weekNumber = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate), x = (model.DueDate - startYear).TotalMilliseconds, y = model.GSB }).ToList();
+            return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
+        }
+
         public Modal.ChartSeries GetArrivalTargets(List<Modal.Office> offices, int year)
         {
             var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var targets = GetTargets(offices).ToList();
             var targetSeriesData = targets.Where(model => model.DueDate.Year == year).OrderBy(model => model.DueDate).Select(model => new Modal.ChartSeries.DataPoint { weekNumber = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate), x = (model.DueDate - startYear).TotalMilliseconds, y = model.Arrivals }).ToList();
+            return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
+        }
+
+        public Modal.ChartSeries GetArrivalTargets(List<Modal.Office> offices, DateTime startDate, DateTime endDate)
+        {
+            var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var targets = GetTargets(offices).ToList();
+            var targetSeriesData = targets.Where(model => model.DueDate >= startDate && model.DueDate <= endDate).OrderBy(model => model.DueDate).Select(model => new Modal.ChartSeries.DataPoint { weekNumber = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate), x = (model.DueDate - startYear).TotalMilliseconds, y = model.Arrivals }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
     }
