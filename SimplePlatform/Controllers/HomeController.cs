@@ -20,14 +20,16 @@ namespace SimplePlatform.Controllers
             return View();
         }
 
-        public JsonResult GetFundRaisingTargets()
+        public JsonResult GetFundRaisingTargets(string startDate, string endDate)
         {
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
             var targetManager = new DataModel.TargetManager();
             var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
-            var targets = targetManager.GetFundingTargets(offices.ToList(), DateTime.Now.Year);
-            var achievedTargets = audienceManager.GetFundingTargetsAchived(offices.ToList(), DateTime.Now.Year);
+            var startDateTime = Convert.ToDateTime(startDate);
+            var endDateTime = Convert.ToDateTime(endDate);
+            var targets = targetManager.GetFundingTargets(offices.ToList(), startDateTime, endDateTime);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(offices.ToList(), startDateTime, endDateTime);
             dataSeries.Add(targets);
             dataSeries.Add(achievedTargets);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -36,14 +38,16 @@ namespace SimplePlatform.Controllers
             return Json(chartWidgetData);
         }
 
-        public JsonResult GetBookingTargets()
+        public JsonResult GetBookingTargets(string startDate, string endDate)
         {
             var dataSeries = new List<object>();
             var targetManager = new DataModel.TargetManager();
             var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
-            var targets = targetManager.GetBookingTargets(offices.ToList(), DateTime.Now.Year);
-            var achievedTargets = audienceManager.GetBookingTargetsAchived(offices.ToList(), DateTime.Now.Year);
+            var startDateTime = Convert.ToDateTime(startDate);
+            var endDateTime = Convert.ToDateTime(endDate);
+            var targets = targetManager.GetBookingTargets(offices.ToList(), startDateTime, endDateTime);
+            var achievedTargets = audienceManager.GetBookingTargetsAchived(offices.ToList(), startDateTime, endDateTime);
             dataSeries.Add(targets);
             dataSeries.Add(achievedTargets);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -52,14 +56,16 @@ namespace SimplePlatform.Controllers
             return Json(chartWidgetData);
         }
 
-        public JsonResult GetGSBTargets()
+        public JsonResult GetGSBTargets(string startDate, string endDate)
         {
             var dataSeries = new List<object>();
             var targetManager = new DataModel.TargetManager();
             var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
-            var targets = targetManager.GetGSBTargets(offices.ToList(), DateTime.Now.Year);
-            var achievedTargets = audienceManager.GetGSBTargetsAchived(offices.ToList(), DateTime.Now.Year);
+            var startDateTime = Convert.ToDateTime(startDate);
+            var endDateTime = Convert.ToDateTime(endDate);
+            var targets = targetManager.GetGSBTargets(offices.ToList(), startDateTime, endDateTime);
+            var achievedTargets = audienceManager.GetGSBTargetsAchived(offices.ToList(), startDateTime, endDateTime);
             dataSeries.Add(targets);
             dataSeries.Add(achievedTargets);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -68,14 +74,16 @@ namespace SimplePlatform.Controllers
             return Json(chartWidgetData);
         }
 
-        public JsonResult GetArrivalTargets()
+        public JsonResult GetArrivalTargets(string startDate, string endDate)
         {
             var dataSeries = new List<object>();
             var targetManager = new DataModel.TargetManager();
             var audienceManager = new DataModel.AudienceManager();
             var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices;
-            var targets = targetManager.GetArrivalTargets(offices.ToList(), DateTime.Now.Year);
-            var achievedTargets = audienceManager.GetArrivalTargetsAchived(offices.ToList(), DateTime.Now.Year);
+            var startDateTime = Convert.ToDateTime(startDate);
+            var endDateTime = Convert.ToDateTime(endDate);
+            var targets = targetManager.GetArrivalTargets(offices.ToList(), startDateTime, endDateTime);
+            var achievedTargets = audienceManager.GetArrivalTargetsAchived(offices.ToList(), startDateTime, endDateTime);
             dataSeries.Add(targets);
             dataSeries.Add(achievedTargets);
             var totalTargets = targets.data.Sum(model => model.y);

@@ -3,7 +3,9 @@ home.options = {
     FundRaisingURL: "/Home/GetFundRaisingTargets",
     BookingURL: "/Home/GetBookingTargets",
     GSBDataURL: "/Home/GetGSBTargets",
-    ArrivalDataURL: "/Home/GetArrivalTargets"
+    ArrivalDataURL: "/Home/GetArrivalTargets",
+    startDate: null,
+    endDate: null
 };
 home.LoadFundRaisingChart = function (data) {
     var chartArea = $("#divFundRaisingChart");
@@ -100,6 +102,7 @@ home.GetFundRaisingData = function () {
         type: "POST",
         url: home.options.FundRaisingURL,
         async: true,
+        data: JSON.stringify({ startDate: home.options.startDate, endDate: home.options.endDate }),
         success: function (dataObj) {
             home.UpdateTargets($("#divFundRaisingChartContainer"), dataObj.TotalTarget, dataObj.TotalTargetAchieved);
             home.LoadFundRaisingChart(dataObj.ChartData);
@@ -113,6 +116,7 @@ home.GetBookingData = function () {
         type: "POST",
         url: home.options.BookingURL,
         async: true,
+        data: JSON.stringify({ startDate: home.options.startDate, endDate: home.options.endDate }),
         success: function (dataObj) {
             home.UpdateTargets($("#divBookingChartContainer"), dataObj.TotalTarget, dataObj.TotalTargetAchieved);
             home.LoadBookingChart(dataObj.ChartData);
@@ -126,6 +130,7 @@ home.GetGSBTargetData = function () {
         type: "POST",
         url: home.options.GSBDataURL,
         async: true,
+        data: JSON.stringify({ startDate: home.options.startDate, endDate: home.options.endDate }),
         success: function (dataObj) {
             home.UpdateTargets($("#divGSBChartContainer"), dataObj.TotalTarget, dataObj.TotalTargetAchieved);
             home.LoadGSBChart(dataObj.ChartData);
@@ -139,15 +144,39 @@ home.GetArrivalTargetData = function () {
         type: "POST",
         url: home.options.ArrivalDataURL,
         async: true,
+        data: JSON.stringify({ startDate: home.options.startDate, endDate: home.options.endDate }),
         success: function (dataObj) {
             home.UpdateTargets($("#divArrivalChartContainer"), dataObj.TotalTarget, dataObj.TotalTargetAchieved);
             home.LoadArrivalChart(dataObj.ChartData);
         }
     });
 };
-home.DoPageSetting = function () {
+
+home.GetDashBoardData = function () {
     this.GetFundRaisingData();
     this.GetBookingData();
     this.GetGSBTargetData();
     this.GetArrivalTargetData();
 };
+
+home.UpdateGlobalTimePeriodSelection = function (start, end) {
+    home.options.startDate = start.toDate();
+    home.options.endDate = end.toDate();
+    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+};
+home.LoadGlobalTimeFilter = function () {
+    $('#reportrange').daterangepicker({
+        "startDate": moment().startOf('month'),
+        "endDate": moment().endOf('month'),
+        ranges: {
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, home.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) {
+        home.GetDashBoardData();
+    });
+    home.UpdateGlobalTimePeriodSelection(moment().startOf('month'), moment().endOf('month'));
+    home.GetDashBoardData();
+};
+
+home.DoPageSetting = function () { this.LoadGlobalTimeFilter(); };
