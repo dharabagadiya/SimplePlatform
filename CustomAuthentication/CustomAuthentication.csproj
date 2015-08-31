@@ -87,15 +87,6 @@
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
     <Compile Include="IUserDetail.cs" />
-    <Compile Include="Migrations\201508021704111_CustomAuthentication_Init.cs" />
-    <Compile Include="Migrations\201508021704111_CustomAuthentication_Init.Designer.cs">
-      <DependentUpon>201508021704111_CustomAuthentication_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508081238225_CustomAuthentication_User_Delete_Column.cs" />
-    <Compile Include="Migrations\201508081238225_CustomAuthentication_User_Delete_Column.Designer.cs">
-      <DependentUpon>201508081238225_CustomAuthentication_User_Delete_Column.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Security\BaseViewPage.cs" />
@@ -107,14 +98,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508021704111_CustomAuthentication_Init.resx">
-      <DependentUpon>201508021704111_CustomAuthentication_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508081238225_CustomAuthentication_User_Delete_Column.resx">
-      <DependentUpon>201508081238225_CustomAuthentication_User_Delete_Column.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
