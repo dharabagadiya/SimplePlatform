@@ -8,11 +8,6 @@ namespace DataModel.Modal
 {
     public class Convention
     {
-        public Convention()
-        {
-            Conventions = new List<Convention>();
-        }
-
         public int ConventionId { get; set; }
         public String Name { get; set; }
         public DateTime StartDate { get; set; }
@@ -26,6 +21,6 @@ namespace DataModel.Modal
         public virtual ICollection<Audience> Audiences { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual FileResource FileResource { get; set; }
-        public virtual ICollection<Convention> Conventions { get; set; }
+        public virtual ICollection<ConventionAttachment> ConventionAttachments { get; set; }
     }
 }

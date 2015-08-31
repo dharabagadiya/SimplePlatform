@@ -13,6 +13,7 @@ namespace DataModel.Modal
 {
     public class ConventionAttachment
     {
+        [Key]
         public int ConventionAttachmentId { get; set; }
         public virtual Convention Convention { get; set; }
         public virtual FileResource FileResource { get; set; }
