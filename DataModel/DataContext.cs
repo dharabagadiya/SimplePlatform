@@ -41,5 +41,6 @@ namespace DataModel
         public DbSet<Audience> Audiences { get; set; }
         public DbSet<Target> Targets { get; set; }
         public DbSet<FileResource> FileResources { get; set; }
+        public DbSet<ConventionAttachment> ConventionAttachments { get; set; }
     }
 }
