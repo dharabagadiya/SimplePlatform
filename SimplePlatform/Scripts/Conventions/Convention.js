@@ -186,6 +186,11 @@ conventions.GetConventionGridPagination = function (obj) {
         onPageChanged: function (e, oldPage, newPage) { conventions.GetConventionsData(newPage, office.options.pageSize); }
     });
 };
+conventions.NoOfficeRecordFound = function () {
+    $(".divConventionsGridPagingDetail").hide();
+    $(".divConventionsGridPaging").hide();
+    $(".conventionWidgets").empty().append("<div class=\"row\"><div class=\"col-md-12 text-center\">No offices found.</div></div>");
+};
 conventions.ConventionsWidget = function (dataObj) {
     if (IsNullOrEmpty(dataObj) || dataObj.length <= 0) { this.NoOfficeRecordFound(); return; }
     $(".conventionWidgets").empty();
@@ -195,6 +200,7 @@ conventions.ConventionsWidget = function (dataObj) {
         $(".conventionWidgets").append(widget);
     };
     this.GetConventionGridPagination($(".divConventionsGridPaging"));
+    $(".divConventionsGridPaging").show();
     $(".divConventionsGridPagingDetail").show().find(".dataTables_info").show().empty().append("Showing " + ((conventions.options.currentPage * conventions.options.pageSize) - conventions.options.pageSize + 1) + " to " + (((conventions.options.currentPage * conventions.options.pageSize) > conventions.options.totalRecords ? conventions.options.totalRecords : conventions.options.currentPage * conventions.options.pageSize)) + " of " + conventions.options.totalRecords + " entries");
     $(".conventionWidgets").find('.animated-bar .progress-bar').waypoint(function (direction) { $(this).progressbar({ display_text: 'none' }); }, { offset: 'bottom-in-view' });
 };
