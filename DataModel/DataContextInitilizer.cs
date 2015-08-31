@@ -13,7 +13,7 @@ namespace DataModel
     {
         protected override void Seed(DataContext context)
         {
-            Database.SetInitializer<CustomAuthentication.DataContext>(new CustomAuthentication.DataContextInitilizer());
+            //Database.SetInitializer<CustomAuthentication.DataContext>(new CustomAuthentication.DataContextInitilizer());
         }
     }
 }
