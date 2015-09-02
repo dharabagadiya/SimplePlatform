@@ -249,7 +249,7 @@ namespace SimplePlatform.Controllers
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
                         var officesManager = new OfficeMananer();
-                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["ddlUser"]), path);
+                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path);
                     }
                     catch (Exception ex)
                     {
