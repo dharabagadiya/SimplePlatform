@@ -65,6 +65,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .panel-default > .panel-footer { color: #333333; background-color: #e8e8e8; border-color: #e5e5e5; border: 1px solid #e5e5e5; border-top: none; }
 
 /* --  Forms Control ---- Start */
+.form-control { height: 36px; }
 .form-horizontal .form-group .input-icon, .form-inline .form-group .input-icon, .form-horizontal .form-group .input-serach, .form-inline .form-group .input-serach { width: 100%; }
 .form-group { margin-bottom: 10px; }
 .input-group .form-control { position: relative; z-index: 2; float: left; width: 100%; margin-bottom: 0; }
