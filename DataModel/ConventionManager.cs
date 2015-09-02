@@ -74,6 +74,24 @@ namespace DataModel
                 return false;
             }
         }
+        public bool AddAttachment(int conventionID,string path)
+        {
+            try
+            {
+                var convention= Context.Conventions.Where(modal => modal.ConventionId == conventionID).FirstOrDefault();
+                Context.ConventionAttachments.Add(new Modal.ConventionAttachment
+                {
+                    Convention= convention,
+                    FileResource = new Modal.FileResource { path = path }
+                });
+                var status = Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public List<Convention> GetConventions()
         { return Context.Conventions.Where(model => model.IsDeleted == false).ToList(); }
         public Convention GetConventionDetail(int id)

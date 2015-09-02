@@ -145,27 +145,38 @@ namespace SimplePlatform.Controllers
             }
             return Json(status);
         }
+        public PartialViewResult UploadAttachment(int id)
+        {
+            var conventionManager = new ConventionManager();
+            var conventionDetail = conventionManager.GetConventionDetail(id);
+            return PartialView(conventionDetail);
+        }
         [HttpPost]
-        public JsonResult UpdateFile()
+        public JsonResult UploadAttachment()
         {
             var status = false;
             HttpPostedFileBase myFile = null;
-            if (Request.Files.Count > 0) myFile = Request.Files[0];
-            if (myFile != null && myFile.ContentLength != 0)
+            for (int i = 0; i < Request.Files.Count; i++)
             {
-                string pathForSaving = Server.MapPath("~/ImageUploads");
-                if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
+                if (Request.Files.Count > 0) myFile = Request.Files[i];
+                if (myFile != null && myFile.ContentLength != 0)
                 {
-                    try
+                    string pathForSaving = Server.MapPath("~/AttachmentUploads");
+                    if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
                     {
-                        string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
-                        myFile.SaveAs(Path.Combine(pathForSaving, fileName));
-                        string path = "~/ImageUploads/" + fileName;
-                        var conventionManager = new ConventionManager();
-                        status = conventionManager.Update(Request.Form["name"].ToString(), Convert.ToDateTime(Request.Form["startDate"]), Convert.ToDateTime(Request.Form["endDate"]), Request.Form["description"].ToString(), Convert.ToInt32(Request.Form["userId"]), Convert.ToInt32(Request.Form["conventionID"]), null, path);
-                    }
-                    catch (Exception ex)
-                    {
+                        try
+                        {
+                            string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
+                            myFile.SaveAs(Path.Combine(pathForSaving, fileName));
+                            string path = "~/AttachmentUploads/" + fileName;
+                            if (!IsAdmin) { return Json(false); }
+                            var conventionManager = new ConventionManager();
+                            status = conventionManager.AddAttachment(Convert.ToInt32(Request.Form["conventionID"].ToString()), path);
+                        }
+                        catch (Exception ex)
+                        {
+                            return Json(ex.InnerException);
+                        }
                     }
                 }
             }

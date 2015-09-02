@@ -361,6 +361,7 @@
     <None Include="Views\Audiences\Edit.cshtml" />
     <Content Include="Views\Targets\Edit.cshtml" />
     <Content Include="Views\Calender\Index.cshtml" />
+    <Content Include="Views\Conventions\UploadAttachment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

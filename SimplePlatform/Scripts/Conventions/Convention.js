@@ -1,10 +1,13 @@
 ﻿var conventions = {};
 conventions.jqXHRData = null;
+conventions.filesList = [];
+conventions.filesName = [];
 conventions.options = {
     EditViewURL: "/Conventions/Edit/",
     UpdateURL: "/Conventions/Update",
     DeleteURL: "/Conventions/Delete",
     GetConventions: "/Conventions/GetConventions",
+    UploadAttachment: "/Conventions/UploadAttachment/",
     pageSize: 9,
     totalPageSize: 10,
     currentPage: 1,
@@ -150,9 +153,73 @@ conventions.DeletConventionDetail = function (obj) {
         });
     }, function (event, dataModalPlaceHolder) { });
 };
+conventions.ValidateModalConventionUploadForm = function (obj) {
+    obj.find("form")
+        .bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                fileImage: {
+                    message: 'The selected file is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The image file is required and cannot be empty'
+                        },
+                        file: {
+                            extension: 'jpeg,png,jpg,gif',
+                            type: 'image/jpeg,image/png,image/jpg,image/gif',
+                            maxSize: 2097152,   // 2048 * 1024
+                            message: 'The selected file is not valid'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var formObj = $(e.target);
+            var conventionID = formObj.find("#hdnConventionID").val();
+            $('#frmConventionUpload').fileupload("option", {
+                formData: { "conventionID": conventionID },
+                done: function (data) {
+                    var status = data;
+                    if (status) {
+                        obj.modal('hide');
+                        ShowSuccessSaveAlert();
+                    } else {
+                        obj.find("#divCommonMessage").removeClass("hidden");
+                    }
+                }
+            });
+            $('#frmConventionUpload').fileupload('send', { files: conventions.filesList });
+        });
+};
+conventions.UploadConventionDetail = function (obj) {
+    var currentObj = obj;
+    var conventionDetail = obj.data("convention_detail");
+    $("#divCommonModalPlaceHolder").empty();
+    ShowDialogBox($("#divCommonModalPlaceHolder"), (conventions.options.UploadAttachment + conventionDetail.id), null, $.proxy(function (event, dialogContentPlaceHolder) {
+        this.ValidateModalConventionUploadForm(dialogContentPlaceHolder);
+        $('#frmConventionUpload').fileupload({
+            url: '/Conventions/UploadAttachment',
+            dataType: 'json',
+            add: function (e, data) {
+                conventions.filesList.push(data.files[0]);
+                conventions.filesName.push(data.files[0].name);
+            }
+        });
+        $("#fuImage").on('change', function () {
+            $("#fuImageName").val(conventions.filesName.join(','));
+        });
+        dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+    }, this));
+};
 conventions.BindConventionWidgetClick = function (obj) {
     obj.find(".panel-close").off("click.panel-close").on("click.panel-close", function (event) { event.stopPropagation(); conventions.DeletConventionDetail(obj); });
     obj.find(".panel-edit").off("click.panel-edit").on("click.panel-edit", function (event) { event.stopPropagation(); conventions.EditConventionDetail(obj); });
+    obj.find(".panel-upload").off("click.panel-upload").on("click.panel-upload", function (event) { event.stopPropagation(); conventions.UploadConventionDetail(obj); });
 }
 conventions.GetConventionWidgetHTML = function (obj) {
     var sb = new StringBuilder();
@@ -161,7 +228,7 @@ conventions.GetConventionWidgetHTML = function (obj) {
     sb.append("<div class=\"panel-heading\">");
     sb.append("<h4 class=\"panel-title\">" + obj.Name + "</h4>");
     if (conventions.options.isEditDeleteEnable) {
-        sb.append("<div class=\"panel-controls panel-controls-right\"><a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
+        sb.append("<div class=\"panel-controls panel-controls-right\"><a class=\"panel-upload\"><i class=\"fa fa-upload\"></i></a><a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
     }
     sb.append("</div>");
     sb.append("<div class=\"panel-body pt0\">");
