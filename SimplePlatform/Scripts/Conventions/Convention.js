@@ -233,12 +233,21 @@ conventions.GetConventionWidgetHTML = function (obj) {
     sb.append("</div>");
     sb.append("<div class=\"panel-body pt0\">");
     sb.append("<div class=\"row\">");
-    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Total Booking <span class=\"pull-right\"><span class=\"badge\">" + obj.Booking.ActTotal + "</span></span></div></div>");
-    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Fund Raising <span class=\"pull-right\"><span class=\"badge\">" + obj.Donation.ActTotal + "</span></span></div></div>");
+    if (IsNullOrEmpty(obj.ProfilePics)) {
+        sb.append("<div class=\"col-md-5\">");
+        sb.append("<img src=\"" + obj.ProfilePic + "\" alt=\"\" class=\"img-responsive\"/>");
+        sb.append("</div>");
+    }
+    sb.append("<div class=\"col-md-7\">");
+    sb.append("<div class=\"row\">");
+    sb.append("<div class=\"col-md-12\"><div class='divWidgetDetail'>Total Booking <span class=\"pull-right\"><span class=\"badge\">" + obj.Booking.ActTotal + "</span></span></div></div>");
+    sb.append("<div class=\"col-md-12\"><div class='divWidgetDetail'>Fund Raising <span class=\"pull-right\"><span class=\"badge\">" + obj.Donation.ActTotal + "</span></span></div></div>");
     sb.append("</div>");
     sb.append("<div class=\"row\">");
-    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>GSB Amount <span class=\"pull-right\"><span class=\"badge\">" + obj.GSBAmount.ActTotal + "</span></span></div></div>");
-    sb.append("<div class=\"col-md-6\"><div class='divWidgetDetail'>Events <span class=\"pull-right\"><span class=\"badge\">" + obj.Events.ActTotal + "</span></span></div></div>");
+    sb.append("<div class=\"col-md-12\"><div class='divWidgetDetail'>GSB Amount <span class=\"pull-right\"><span class=\"badge\">" + obj.GSBAmount.ActTotal + "</span></span></div></div>");
+    sb.append("<div class=\"col-md-12\"><div class='divWidgetDetail'>Events <span class=\"pull-right\"><span class=\"badge\">" + obj.Events.ActTotal + "</span></span></div></div>");
+    sb.append("</div>");
+    sb.append("</div>");
     sb.append("</div>");
     sb.append("</div>");
     sb.append("</div>");

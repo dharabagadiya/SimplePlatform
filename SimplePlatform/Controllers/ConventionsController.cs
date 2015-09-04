@@ -82,7 +82,8 @@ namespace SimplePlatform.Controllers
                 Booking = GetConventionBookingTarget(modal.ConventionId),
                 Donation = GetFundRaisingTarget(modal.ConventionId),
                 GSBAmount = GetGSBAountTarget(modal.ConventionId),
-                Events = GetEventsTarget(modal.ConventionId)
+                Events = GetEventsTarget(modal.ConventionId),
+                ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
             }).OrderBy(modal => modal.StartDate).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
             {
@@ -92,6 +93,7 @@ namespace SimplePlatform.Controllers
                 conventions = filteredConventions
             });
         }
+
         public PartialViewResult Edit(int id)
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
