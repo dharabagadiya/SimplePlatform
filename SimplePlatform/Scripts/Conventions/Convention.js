@@ -8,6 +8,7 @@ conventions.options = {
     DeleteURL: "/Conventions/Delete",
     GetConventions: "/Conventions/GetConventions",
     UploadAttachment: "/Conventions/UploadAttachment/",
+    DeleteAttachment: "/Conventions/DeleteAttachment/",
     pageSize: 9,
     totalPageSize: 10,
     currentPage: 1,
@@ -213,7 +214,28 @@ conventions.UploadConventionDetail = function (obj) {
         $("#fuImage").on('change', function () {
             $("#fuImageName").val(conventions.filesName.join(','));
         });
-        dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+        $(dialogContentPlaceHolder).on('click', '.delete', function () {
+            debugger
+            //ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
+                $.ajax({
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    url: conventions.options.DeleteAttachment,
+                    async: false,
+                    data: JSON.stringify({ "id": $(this).val() }),
+                    success: function (data) {
+                        var status = data;
+                        if (status) {
+                            $(this).parent().parent().remove()
+                        } else {
+                        }
+                    }
+                });
+            //}, function (event, dataModalPlaceHolder) { });
+        });
+
+        //dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };
 conventions.BindConventionWidgetClick = function (obj) {

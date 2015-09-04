@@ -1,4 +1,5 @@
 ﻿@model DataModel.Modal.Convention
+@{ var attachments = (List<DataModel.Modal.FileResource>)ViewData["Attachments"]; }
 <form action="#" type="post" id="frmConventionUpload">
     <input type="hidden" id="hdnConventionID" value="@Model.ConventionId" />
     <div class="modal-dialog divUserModalDialog">
@@ -24,6 +25,38 @@
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" id="btnEditEvent">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+            @*<div>
+                    @foreach (var attachment in attachments)
+                    {
+                        <label>@attachment.path</label>
+                    }
+                </div>*@
+            <div class="panel-body">
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 100%; height: auto;">
+                    <div class="table-responsive" style="overflow: hidden; width: 100%; height: auto;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="per40">File Name</th>
+                                    <th class="per15">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var attachment in attachments)
+                                {
+                                    <tr>
+                                        <td>
+                                            @attachment.path
+                                        </td>
+                                        <td><button value="@attachment.Id" class="delete">Delete</button></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div><div class="slimScrollBar ui-draggable" style="height: 3px; position: absolute; bottom: 3px; opacity: 0.4; display: none; border-radius: 3px; z-index: 99; width: 1067px; background: rgb(255, 255, 255);"></div><div class="slimScrollRail" style="width: 100%; height: 3px; position: absolute; bottom: 3px; display: none; border-radius: 3px; opacity: 1; z-index: 90; background: rgb(51, 51, 51);"></div>
+                </div>
             </div>
         </div>
     </div>

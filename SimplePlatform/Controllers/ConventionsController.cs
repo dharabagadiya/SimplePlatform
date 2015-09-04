@@ -93,7 +93,6 @@ namespace SimplePlatform.Controllers
                 conventions = filteredConventions
             });
         }
-
         public PartialViewResult Edit(int id)
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
@@ -151,6 +150,8 @@ namespace SimplePlatform.Controllers
         {
             var conventionManager = new ConventionManager();
             var conventionDetail = conventionManager.GetConventionDetail(id);
+            var conventionAttachments = conventionManager.GetAttachmentListOfConvention(id);
+            ViewData["Attachments"] = conventionAttachments;
             return PartialView(conventionDetail);
         }
         [HttpPost]
@@ -182,6 +183,14 @@ namespace SimplePlatform.Controllers
                     }
                 }
             }
+            return Json(status);
+        }
+
+        public JsonResult DeleteAttachment(int id)
+        {
+            if (!IsAdmin) { return Json(false); }
+            var conventionManager = new ConventionManager();
+            var status = conventionManager.DeleteAttachment(id);
             return Json(status);
         }
     }
