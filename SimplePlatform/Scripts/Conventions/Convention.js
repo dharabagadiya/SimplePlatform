@@ -231,8 +231,7 @@ conventions.GetConventionWidgetHTML = function (obj) {
         sb.append("<div class=\"panel-controls panel-controls-right\"><a class=\"panel-upload\"><i class=\"fa fa-upload\"></i></a><a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
     }
     sb.append("</div>");
-    sb.append("<div class=\"panel-body pt0\">");
-    sb.append("<div class=\"row\">");
+    sb.append("<div class=\"panel-body pt0\">");        
     if (IsNullOrEmpty(obj.ProfilePics)) {
         sb.append("<div class=\"col-md-5\">");
         sb.append("<img src=\"" + obj.ProfilePic + "\" alt=\"\" class=\"img-responsive\"/>");

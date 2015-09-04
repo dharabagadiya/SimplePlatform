@@ -81,7 +81,8 @@ namespace SimplePlatform.Controllers
                 Fundraising = GetFundRaisingTargets(modal.OfficeId, startDateTime, endDateTime),
                 Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
                 Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
-                BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime)
+                BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
+                ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
             }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
             {
