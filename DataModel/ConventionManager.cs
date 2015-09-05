@@ -165,7 +165,9 @@ namespace DataModel
         public bool DeleteAttachment(int id)
         {
             var attachmentDetail = Context.FileResources.Where(model => model.Id == id).FirstOrDefault();
+            var conventionAttachment= Context.ConventionAttachments.Where(model => model.FileResource.Id == id).FirstOrDefault();
             if (attachmentDetail == null) { return false; }
+            Context.ConventionAttachments.Remove(conventionAttachment);
             Context.FileResources.Remove(attachmentDetail);
             Context.SaveChanges();
             return true;

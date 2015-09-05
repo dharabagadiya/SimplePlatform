@@ -215,7 +215,6 @@ conventions.UploadConventionDetail = function (obj) {
             $("#fuImageName").val(conventions.filesName.join(','));
         });
         $(dialogContentPlaceHolder).on('click', '.delete', function () {
-            debugger
             //ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
                 $.ajax({
                     dataType: "json",
@@ -227,15 +226,13 @@ conventions.UploadConventionDetail = function (obj) {
                     success: function (data) {
                         var status = data;
                         if (status) {
-                            $(this).parent().parent().remove()
+                            $(this).parent().parent().remove();
                         } else {
                         }
                     }
                 });
             //}, function (event, dataModalPlaceHolder) { });
         });
-
-        //dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     }, this));
 };
 conventions.BindConventionWidgetClick = function (obj) {
