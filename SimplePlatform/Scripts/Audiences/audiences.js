@@ -100,9 +100,6 @@ audiences.ValidateModalAudienceQuickForm = function (obj) {
                         max: 20,
                         message: 'The email address/contact no must be min 8 to 20 characters long'
                     },
-                    notEmpty: {
-                        message: 'The email address/contact no is required'
-                    },
                     regexp: {
                         regexp: /^[0-9a-zA-Z@._]+$/,
                         message: 'The contact can contain 0-9, a-z, A-z, #, (.), or (_) only'
