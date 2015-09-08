@@ -74,16 +74,18 @@ namespace SimplePlatform.Controllers
             var totalRecord = offices.Count();
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
-            var filteredOffices = offices.Select(modal => new
-            {
-                ID = modal.OfficeId,
-                Name = modal.Name,
-                Fundraising = GetFundRaisingTargets(modal.OfficeId, startDateTime, endDateTime),
-                Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
-                Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
-                BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
-                ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
-            }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+            var filteredOffices = offices
+                .OrderBy(model => model.Name)
+                .Select(modal => new
+                {
+                    ID = modal.OfficeId,
+                    Name = modal.Name,
+                    Fundraising = GetFundRaisingTargets(modal.OfficeId, startDateTime, endDateTime),
+                    Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
+                    Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
+                    BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
+                    ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
+                }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
             {
                 totalRecord = totalRecord,

@@ -94,15 +94,15 @@ officeDetail.UpdateGlobalTimePeriodSelection = function (start, end) {
 };
 officeDetail.LoadGlobalTimeFilter = function () {
     $('#reportrange').daterangepicker({
-        "startDate": moment().subtract(6, 'days'),
-        "endDate": moment(),
+        "startDate": moment().startOf('week').subtract(2, 'days'),
+        "endDate": moment().startOf('week').add('days', 4),
         ranges: {
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 7 Days': [moment().startOf('week').subtract(2, 'days'), moment().startOf('week').add('days', 4)],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, officeDetail.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) { officeDetail.UpdatePageDataByFilter(); });
-    officeDetail.UpdateGlobalTimePeriodSelection(moment().subtract(6, 'days'), moment());
+    officeDetail.UpdateGlobalTimePeriodSelection(moment().startOf('week').subtract(2, 'days'), moment().startOf('week').add('days', 4));
     officeDetail.UpdatePageDataByFilter();
 };
 
