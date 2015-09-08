@@ -160,9 +160,9 @@ tasks.UpdateTaskStatus = function (taskID) {
     });
 };
 tasks.BindMarkTaskControlEvent = function (obj) {
-    obj.find(".divMarkTaskButton").off("click.divMarkTaskButton").on("click.divMarkTaskButton", function () {
+    obj.find("#divMarkTaskButton").off("click.divMarkTaskButton").on("click.divMarkTaskButton", function () {
         var taskID = obj.data("task-id");
-        obj.find(".divMarkTaskButton").off("click.divMarkTaskButton");
+        obj.find("#divMarkTaskButton").off("click.divMarkTaskButton");
         tasks.UpdateTaskStatus(taskID);
     });
 };
