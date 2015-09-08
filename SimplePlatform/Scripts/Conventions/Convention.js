@@ -171,7 +171,7 @@ conventions.ValidateModalConventionUploadForm = function (obj) {
                         },
                         file: {
                             extension: 'jpeg,png,jpg,gif,mp4',
-                            type: 'image/jpeg,image/png,image/jpg,image/gif/',
+                            type: 'image/jpeg,image/png,image/jpg,image/gif',
                             maxSize: 2097152,   // 2048 * 1024
                             message: 'you can upload only image files only'
                         }
