@@ -96,12 +96,10 @@ namespace DataModel
         { return Context.Conventions.Where(model => model.IsDeleted == false).ToList(); }
         public Convention GetConventionDetail(int id)
         { return Context.Conventions.Where(modal => modal.ConventionId == id).FirstOrDefault(); }
-        public List<FileResource> GetAttachmentListOfConvention(int id)
+        public List<ConventionAttachment> GetAttachmentListOfConvention(int id)
         {
-            return (from f in Context.FileResources
-                        join c in Context.ConventionAttachments on f.Id equals c.FileResource.Id
-                        where c.Convention.ConventionId == id
-                        select f).ToList();
+            var convention = GetConventionDetail(id);
+            return convention.ConventionAttachments.ToList();
         }
         public bool Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID, string city)
         {
@@ -162,11 +160,12 @@ namespace DataModel
             Context.SaveChanges();
             return true;
         }
-        public bool DeleteAttachment(int id)
+        public bool DeleteAttachment(int id, int conventionID)
         {
-            var attachmentDetail = Context.FileResources.Where(model => model.Id == id).FirstOrDefault();
+            var convention = GetConventionDetail(conventionID);
+            var attachmentDetail = convention.ConventionAttachments.Where(model => model.ConventionAttachmentId == id).FirstOrDefault();
             if (attachmentDetail == null) { return false; }
-            Context.FileResources.Remove(attachmentDetail);
+            Context.ConventionAttachments.Remove(attachmentDetail);
             Context.SaveChanges();
             return true;
         }
