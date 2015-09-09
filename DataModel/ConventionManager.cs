@@ -48,7 +48,7 @@ namespace DataModel
                 return false;
             }
         }
-        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int userID, string city, string path)
+        public bool Add(string name, DateTime startDate, DateTime endDate, string description, int userID, string city, string path, string fileName)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace DataModel
                     CreateDate = DateTime.Now,
                     UpdateDate = DateTime.Now,
                     City = city,
-                    FileResource = new Modal.FileResource { path = path }
+                    FileResource = new Modal.FileResource { path = path, name = fileName }
                 });
                 var status = Context.SaveChanges();
                 return true;
@@ -74,15 +74,15 @@ namespace DataModel
                 return false;
             }
         }
-        public bool AddAttachment(int conventionID,string path)
+        public bool AddAttachment(int conventionID, string path, string fileName)
         {
             try
             {
-                var convention= Context.Conventions.Where(modal => modal.ConventionId == conventionID).FirstOrDefault();
+                var convention = Context.Conventions.Where(modal => modal.ConventionId == conventionID).FirstOrDefault();
                 Context.ConventionAttachments.Add(new Modal.ConventionAttachment
                 {
-                    Convention= convention,
-                    FileResource = new Modal.FileResource { path = path }
+                    Convention = convention,
+                    FileResource = new Modal.FileResource { path = path, name = fileName }
                 });
                 var status = Context.SaveChanges();
                 return true;
@@ -99,9 +99,9 @@ namespace DataModel
         public List<FileResource> GetAttachmentListOfConvention(int id)
         {
             return (from f in Context.FileResources
-                        join c in Context.ConventionAttachments on f.Id equals c.FileResource.Id
-                        where c.Convention.ConventionId == id
-                        select f).ToList();
+                    join c in Context.ConventionAttachments on f.Id equals c.FileResource.Id
+                    where c.Convention.ConventionId == id
+                    select f).ToList();
         }
         public bool Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID, string city)
         {
@@ -165,9 +165,7 @@ namespace DataModel
         public bool DeleteAttachment(int id)
         {
             var attachmentDetail = Context.FileResources.Where(model => model.Id == id).FirstOrDefault();
-            var conventionAttachment= Context.ConventionAttachments.Where(model => model.FileResource.Id == id).FirstOrDefault();
             if (attachmentDetail == null) { return false; }
-            Context.ConventionAttachments.Remove(conventionAttachment);
             Context.FileResources.Remove(attachmentDetail);
             Context.SaveChanges();
             return true;

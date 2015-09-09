@@ -32,7 +32,7 @@ namespace DataModel
                 return false;
             }
         }
-        public bool Add(string name, string contactNo, string city, int userID, string path)
+        public bool Add(string name, string contactNo, string city, int userID, string path, string fileName)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace DataModel
                     ContactNo = contactNo,
                     City = city,
                     UsersDetail = users,
-                    FileResource = new Modal.FileResource { path = path }
+                    FileResource = new Modal.FileResource { path = path, name = fileName }
                 });
                 var status = Context.SaveChanges();
                 return true;
