@@ -21,7 +21,7 @@ namespace DataModel
 
         public List<int> GetConventionIDs(DateTime startDate, DateTime endDate)
         {
-            return Context.Conventions.Where(model => model.IsDeleted == false && model.EndDate >= startDate && model.EndDate <= startDate).Select(model => model.ConventionId).ToList();
+            return Context.Conventions.Where(model => model.IsDeleted == false && model.StartDate >= startDate && model.StartDate <= startDate).Select(model => model.ConventionId).ToList();
         }
 
         public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
@@ -244,7 +244,6 @@ namespace DataModel
             var conventions = GetConventionIDs(startDate, endDate);
             return Context.Audiences.Where(model => model.IsDeleted == false
             && model.IsBooked == true
-            && model.IsAttended == false
             && model.Office.OfficeId == officeID
             && conventions.Contains(model.Convention.ConventionId)).ToList();
         }

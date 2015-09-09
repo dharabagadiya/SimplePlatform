@@ -74,16 +74,18 @@ namespace SimplePlatform.Controllers
             var totalRecord = offices.Count();
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
-            var filteredOffices = offices.Select(modal => new
-            {
-                ID = modal.OfficeId,
-                Name = modal.Name,
-                Fundraising = GetFundRaisingTargets(modal.OfficeId, startDateTime, endDateTime),
-                Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
-                Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
-                BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
-                ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
-            }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+            var filteredOffices = offices
+                .OrderBy(model => model.Name)
+                .Select(modal => new
+                {
+                    ID = modal.OfficeId,
+                    Name = modal.Name,
+                    Fundraising = GetFundRaisingTargets(modal.OfficeId, startDateTime, endDateTime),
+                    Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
+                    Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
+                    BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
+                    ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
+                }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
             {
                 totalRecord = totalRecord,
@@ -162,14 +164,12 @@ namespace SimplePlatform.Controllers
             return Json(officesManager.Delete(id));
         }
 
-        // Fund Raising Target For CurrentYear
         public object GetFundRaisingTargetsChart(int id, DateTime startDate, DateTime endDate)
         {
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
             var targetManager = new TargetManager();
             var audienceManager = new AudienceManager();
             var office = new OfficeMananer().GetOffice(id);
-
             var targets = targetManager.GetFundingTargets(new List<DataModel.Modal.Office> { office }, startDate, endDate);
             var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<DataModel.Modal.Office> { office }, startDate, endDate);
             dataSeries.Add(targets);
@@ -190,7 +190,9 @@ namespace SimplePlatform.Controllers
                 ID = model.TaskId,
                 Name = model.Name,
                 EndDate = model.EndDate.ToString("MM dd,yyyy"),
-                Description = model.Description
+                Description = model.Description,
+                AssignTo = model.UsersDetail == null ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName),
+                IsCompleted = model.IsCompleted
             }).ToList();
         }
 
@@ -205,7 +207,8 @@ namespace SimplePlatform.Controllers
                 ID = model.AudienceID,
                 Name = model.Name,
                 ConventionName = model.Convention.Name,
-                ArrivalDate = model.Convention.StartDate.ToString("MM dd,yyyy")
+                ArrivalDate = model.Convention.StartDate.ToString("MM dd,yyyy"),
+                IsAttended = model.IsAttended
             });
         }
 
@@ -214,9 +217,7 @@ namespace SimplePlatform.Controllers
             var offices = new OfficeMananer().GetOffice(id);
             BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Offices", "Detail.js", ControllerName);
-
             Script = string.Format("officeDetail.options.officeID = {0};", id);
-
             return View(offices);
         }
 

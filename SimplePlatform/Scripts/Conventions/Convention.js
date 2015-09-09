@@ -170,10 +170,10 @@ conventions.ValidateModalConventionUploadForm = function (obj) {
                             message: 'The image file is required and cannot be empty'
                         },
                         file: {
-                            extension: 'jpeg,png,jpg,gif',
+                            extension: 'jpeg,png,jpg,gif,mp4',
                             type: 'image/jpeg,image/png,image/jpg,image/gif',
                             maxSize: 2097152,   // 2048 * 1024
-                            message: 'The selected file is not valid'
+                            message: 'you can upload only image files only'
                         }
                     }
                 }
@@ -216,22 +216,24 @@ conventions.UploadConventionDetail = function (obj) {
         });
         $(dialogContentPlaceHolder).on('click', '.delete', function () {
             //ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
-                $.ajax({
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    type: "POST",
-                    url: conventions.options.DeleteAttachment,
-                    async: false,
-                    data: JSON.stringify({ "id": $(this).val() }),
-                    success: function (data) {
-                        var status = data;
-                        if (status) {
-                            $(this).parent().parent().remove();
-                        } else {
-                        }
+            $.ajax({
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                url: conventions.options.DeleteAttachment,
+                async: false,
+                data: JSON.stringify({ "id": $(this).val(), conventionID: conventionDetail.id }),
+                success: function (data) {
+                    var status = data;
+                    if (status) {
+                        $(this).parent().parent().remove();
+                        dialogContentPlaceHolder.modal('hide');
+                    } else {
+
                     }
-                });
-            //}, function (event, dataModalPlaceHolder) { });
+                }
+            });
+            //});
         });
     }, this));
 };
@@ -250,7 +252,7 @@ conventions.GetConventionWidgetHTML = function (obj) {
         sb.append("<div class=\"panel-controls panel-controls-right\"><a class=\"panel-upload\"><i class=\"fa fa-upload\"></i></a><a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
     }
     sb.append("</div>");
-    sb.append("<div class=\"panel-body pt0\">");        
+    sb.append("<div class=\"panel-body pt0\">");
     if (IsNullOrEmpty(obj.ProfilePics)) {
         sb.append("<div class=\"col-md-5\">");
         sb.append("<img src=\"" + obj.ProfilePic + "\" alt=\"\" class=\"img-responsive\"/>");

@@ -38,7 +38,7 @@ namespace SimplePlatform.Controllers
             var sessionUser = (CustomAuthentication.User)(Session["User"]);
             var userManager = new DataModel.UserManager();
             user = userManager.GetUserDetail(sessionUser.UserId);
-            isAdmin = user.User.Roles.Any(model => model.RoleName.Equals(ADMIN_ROLE, StringComparison.InvariantCultureIgnoreCase));
+            isAdmin = sessionUser.Roles.Any(model => model.RoleName.Equals(ADMIN_ROLE, StringComparison.InvariantCultureIgnoreCase));
             #endregion
 
             ControllerName = filterContext.RouteData.Values["controller"].ToString() + filterContext.RouteData.Values["action"].ToString();

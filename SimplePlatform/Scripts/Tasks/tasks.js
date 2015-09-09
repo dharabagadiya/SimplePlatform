@@ -29,8 +29,8 @@ tasks.ValidateModalTaskForm = function (obj) {
                             message: 'The name must be more than 5 and less than 30 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can contain a-z, A-Z, 0-9, or (_) only'
+                            regexp: /^[a-zA-Z0-9_ ]+$/,
+                            message: 'The name can contain a-z, A-Z, 0-9, ( ), or (_) only'
                         }
                     }
                 }
@@ -160,9 +160,9 @@ tasks.UpdateTaskStatus = function (taskID) {
     });
 };
 tasks.BindMarkTaskControlEvent = function (obj) {
-    obj.find(".divMarkTaskButton").off("click.divMarkTaskButton").on("click.divMarkTaskButton", function () {
+    obj.find("#divMarkTaskButton").off("click.divMarkTaskButton").on("click.divMarkTaskButton", function () {
         var taskID = obj.data("task-id");
-        obj.find(".divMarkTaskButton").off("click.divMarkTaskButton");
+        obj.find("#divMarkTaskButton").off("click.divMarkTaskButton");
         tasks.UpdateTaskStatus(taskID);
     });
 };

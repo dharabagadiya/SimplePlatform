@@ -84,7 +84,7 @@ namespace SimplePlatform.Controllers
                 GSBAmount = GetGSBAountTarget(modal.ConventionId),
                 Events = GetEventsTarget(modal.ConventionId),
                 ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
-            }).OrderBy(modal => modal.StartDate).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+            }).OrderByDescending(modal => modal.StartDate).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
             {
                 totalRecord = totalRecord,
@@ -212,11 +212,11 @@ namespace SimplePlatform.Controllers
             return Json(status);
         }
 
-        public JsonResult DeleteAttachment(int id)
+        public JsonResult DeleteAttachment(int id, int conventionID)
         {
             if (!IsAdmin) { return Json(false); }
             var conventionManager = new ConventionManager();
-            var status = conventionManager.DeleteAttachment(id);
+            var status = conventionManager.DeleteAttachment(id, conventionID);
             return Json(status);
         }
     }

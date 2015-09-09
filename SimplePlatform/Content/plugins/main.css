@@ -17,6 +17,7 @@ button, input, optgroup, select, textarea { color: inherit; font: inherit; margi
 .lblue { color: #32c8de !important; }
 .btn.btn-lblue { color: #ffffff; background: #32c8de; border: 1px solid #1faabe; }
 .CP { cursor: pointer; }
+.well.btm05 { margin-bottom: 5px; }
 
 /* --- Bootstrap ---  */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; }
