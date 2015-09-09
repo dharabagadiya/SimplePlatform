@@ -244,6 +244,7 @@ namespace DataModel
             var conventions = GetConventionIDs(startDate, endDate);
             return Context.Audiences.Where(model => model.IsDeleted == false
             && model.IsBooked == true
+            && model.IsAttended == false
             && model.Office.OfficeId == officeID
             && conventions.Contains(model.Convention.ConventionId)).ToList();
         }

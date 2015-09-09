@@ -164,6 +164,7 @@ namespace SimplePlatform.Controllers
             return Json(officesManager.Delete(id));
         }
 
+        // Fund Raising Target For CurrentYear
         public object GetFundRaisingTargetsChart(int id, DateTime startDate, DateTime endDate)
         {
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
