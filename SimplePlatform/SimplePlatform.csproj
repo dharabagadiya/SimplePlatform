@@ -185,7 +185,6 @@
     <Content Include="Content\Plugins\foundation-icons\styles.css" />
     <Content Include="Content\Plugins\iconic\fonts\ionicons.svg" />
     <Content Include="Content\Plugins\iconic\font.css" />
-    <Content Include="Content\Plugins\jquery-ui.min.css" />
     <Content Include="Content\Plugins\linea-font\arrow\fonts\linea-arrows-10.svg" />
     <Content Include="Content\Plugins\linea-font\arrow\styles.css" />
     <Content Include="Content\Plugins\linea-font\basic\fonts\linea-basic-10.svg" />
