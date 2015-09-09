@@ -27,7 +27,7 @@ namespace SimplePlatform.Controllers
             }
             else if (isOfficeAdmin)
             {
-                var officeIDs = UserDetail.Offices.Select(model => model.OfficeId).ToList();
+                var officeIDs = UserDetail.Offices.Where(model => model.IsDeleted == false).Select(model => model.OfficeId).ToList();
                 taskList = taskManager.GetTasks().Where(model => officeIDs.Contains(model.Office.OfficeId)).ToList();
             }
             else
@@ -55,14 +55,14 @@ namespace SimplePlatform.Controllers
             if (!IsAdmin) { return RedirectToAction("AddByOffice"); }
             var officeMananer = new DataModel.OfficeMananer();
             var offices = IsAdmin ? officeMananer.GetOffices() : UserDetail.Offices.ToList();
-            ViewData["Offices"] = offices;
+            ViewData["Offices"] = offices.Where(model => model.IsDeleted == false).ToList();
             return PartialView();
         }
 
         public ActionResult AddByOffice()
         {
             var offices = UserDetail.Offices.ToList();
-            ViewData["Offices"] = offices;
+            ViewData["Offices"] = offices.Where(model => model.IsDeleted == false).ToList();
             ViewData["UserID"] = UserDetail.UserId;
             return PartialView();
         }
@@ -81,7 +81,7 @@ namespace SimplePlatform.Controllers
             var taskManager = new DataModel.TaskManager();
             var task = taskManager.GetTask(id);
             var offices = IsAdmin ? officeMananer.GetOffices() : UserDetail.Offices.ToList();
-            ViewData["Offices"] = offices;
+            ViewData["Offices"] = offices.Where(model => model.IsDeleted == false).ToList();
             return PartialView(task);
         }
 

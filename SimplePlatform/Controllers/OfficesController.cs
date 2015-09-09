@@ -70,7 +70,7 @@ namespace SimplePlatform.Controllers
         public JsonResult GetOffices(int pageNo, int pageSize, string startDate, string endDate)
         {
             var officesManager = new OfficeMananer();
-            var offices = IsAdmin ? officesManager.GetOffices() : UserDetail.Offices;
+            var offices = IsAdmin ? officesManager.GetOffices() : UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
             var totalRecord = offices.Count();
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);

@@ -32,7 +32,7 @@ namespace SimplePlatform.Controllers
             }
             else if (isOfficeAdmin)
             {
-                var officeIDs = UserDetail.Offices.Select(model => model.OfficeId).ToList();
+                var officeIDs = UserDetail.Offices.Where(model => model.IsDeleted == false).Select(model => model.OfficeId).ToList();
                 taskList = taskManager.GetTasks(startDate, endDate).Where(model => officeIDs.Contains(model.Office.OfficeId)).ToList();
             }
             else
