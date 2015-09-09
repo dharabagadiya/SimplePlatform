@@ -10,5 +10,6 @@ namespace DataModel.Modal
     {
         public int Id { get; set; }
         public String path { get; set; }
+        public String name { get; set; }
     }
 }
