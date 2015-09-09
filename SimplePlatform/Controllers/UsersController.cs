@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,7 +18,12 @@ namespace SimplePlatform.Controllers
         public JsonResult GetUsers()
         {
             var userManager = new DataModel.UserManager();
-            var users = userManager.GetUsersDetails().Where(model => (!model.User.Roles.Any(roleModel => roleModel.RoleId == 1) || IsAdmin)).Select(modal => new { id = modal.UserId, firstName = modal.User.FirstName, lastName = modal.User.LastName, createDate = modal.User.CreateDate.ToString("dd-MM-yyyy"), userRoles = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleName).ToArray()), userRolesID = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleId).ToArray()), userOfficesID = string.Join(", ", modal.Offices.Select(officeModel => officeModel.OfficeId).ToArray()) }).ToList();
+            var officesManager = new OfficeMananer();
+            var offices = IsAdmin ? officesManager.GetOffices() : UserDetail.Offices;
+            var userDetails = offices.Where(model => model.IsDeleted == false).SelectMany(model => model.UsersDetail).ToList();
+            var users = userDetails.Where(model => (!model.User.Roles.Any(roleModel => roleModel.RoleId == 1) || IsAdmin))
+                .Select(modal => new { id = modal.UserId, firstName = modal.User.FirstName, lastName = modal.User.LastName, createDate = modal.User.CreateDate.ToString("dd-MM-yyyy"), userRoles = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleName).ToArray()), userRolesID = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleId).ToArray()), userOfficesID = string.Join(", ", modal.Offices.Select(officeModel => officeModel.OfficeId).ToArray()) })
+                .ToList();
             return Json(new { data = users });
         }
 
