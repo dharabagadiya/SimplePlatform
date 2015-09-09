@@ -42,7 +42,7 @@ namespace DataModel
         { return Context.Events.Where(model => model.IsDeleted == false).ToList(); }
         public Event GetEventDetail(int id)
         { return Context.Events.Where(modal => modal.EventId == id).FirstOrDefault(); }
-        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID, int conventionID,string city)
+        public bool Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID, int conventionID, string city)
         {
             try
             {
@@ -75,6 +75,8 @@ namespace DataModel
         }
         public List<Event> GetActiveEvents()
         { return Context.Events.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0).ToList(); }
+        public List<Event> GetActiveEvents(List<int> officeIDs)
+        { return Context.Events.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0 && officeIDs.Contains(model.Office.OfficeId)).ToList(); }
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
