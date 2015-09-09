@@ -75,6 +75,8 @@ namespace DataModel
         }
         public List<Event> GetActiveEvents()
         { return Context.Events.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0).ToList(); }
+        public List<Event> GetEvents(List<int> officeIDs)
+        { return Context.Events.Where(model => model.IsDeleted == false && officeIDs.Contains(model.Office.OfficeId)).ToList(); }
         public List<Event> GetActiveEvents(List<int> officeIDs)
         { return Context.Events.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0 && officeIDs.Contains(model.Office.OfficeId)).ToList(); }
         public static void OnModelCreating(DbModelBuilder modelBuilder)
