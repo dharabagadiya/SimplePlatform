@@ -26,5 +26,6 @@ namespace DataModel.Modal
         public virtual ICollection<Audience> Audiences { get; set; }
         public virtual ICollection<Target> Targets { get; set; }
         public virtual FileResource FileResource { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

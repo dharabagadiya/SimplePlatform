@@ -25,7 +25,7 @@ namespace CustomAuthentication
             serializeModel.FirstName = user.FirstName;
             serializeModel.LastName = user.LastName;
             serializeModel.roles = roles;
-            var authTicket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(15), false, JsonConvert.SerializeObject(serializeModel));
+            var authTicket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(60), false, JsonConvert.SerializeObject(serializeModel));
             var encTicket = FormsAuthentication.Encrypt(authTicket);
             var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             HttpContext.Current.Session["User"] = user;
