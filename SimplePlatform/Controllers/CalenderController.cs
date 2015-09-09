@@ -14,14 +14,11 @@ namespace SimplePlatform.Controllers
         {
             BundleConfig.AddScript("~/Scripts/Calender", "Calender.js", ControllerName);
             BundleConfig.AddStyle("/Calender", "calender.css", ControllerName);
-
             return View();
         }
 
-        public JsonResult GetEvents(string start, string end)
+        private List<dynamic> GetTasks(DateTime startDate, DateTime endDate)
         {
-            var startDate = Convert.ToDateTime(start);
-            var endDate = Convert.ToDateTime(end);
             var taskManager = new DataModel.TaskManager();
             var isOfficeAdmin = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
             List<DataModel.Modal.Task> taskList;
@@ -39,16 +36,26 @@ namespace SimplePlatform.Controllers
             {
                 taskList = UserDetail.Tasks.Where(model => model.IsDeleted == false && (model.StartDate >= startDate && model.StartDate <= endDate)).ToList();
             }
+            return taskList.Select(model => new { id = model.TaskId, title = model.Name, start = model.StartDate.ToString("yyyy-MM-dd"), end = model.EndDate.ToString("yyyy-MM-dd") }).ToList<dynamic>();
+        }
+        private List<dynamic> GetEvents(DateTime startDate, DateTime endDate)
+        {
+            var eventManager = new EventManager();
+            var officeManager = new OfficeMananer();
+            var offices = IsAdmin ? UserDetail.Offices.Where(model => model.IsDeleted == false).ToList() : officeManager.GetOffices(UserDetail.UserId);
+            var events = eventManager.GetEvents(offices.Select(model => model.OfficeId).ToList());
+            var eventList = events.Where(model => model.IsDeleted == false && (model.StartDate >= startDate && model.StartDate <= endDate)).ToList();
+            return eventList.Select(model => new { id = model.EventId, title = model.Name, start = model.StartDate.ToString("yyyy-MM-dd"), end = model.EndDate.ToString("yyyy-MM-dd") }).ToList<dynamic>();
+        }
 
-            var tasks = taskList.Select(model => new
-            {
-                id = model.TaskId,
-                title = model.Name,
-                start = model.StartDate.ToString("yyyy-MM-dd"),
-                end = model.EndDate.ToString("yyyy-MM-dd")
-            }).ToList();
-
-            return Json(tasks);
+        public JsonResult GetEvents(string start, string end)
+        {
+            var startDate = Convert.ToDateTime(start);
+            var endDate = Convert.ToDateTime(end);
+            var events = new List<List<dynamic>>();
+            events.Add(GetTasks(startDate, endDate));
+            events.Add(GetEvents(startDate, endDate));
+            return Json(events.SelectMany(model => model).ToList());
         }
     }
 }
