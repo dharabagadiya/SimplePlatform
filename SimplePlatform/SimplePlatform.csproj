@@ -320,6 +320,7 @@
     <Compile Include="Controllers\TargetsController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WarmUpController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -362,6 +363,7 @@
     <Content Include="Views\Targets\Edit.cshtml" />
     <Content Include="Views\Calender\Index.cshtml" />
     <Content Include="Views\Conventions\UploadAttachment.cshtml" />
+    <Content Include="Views\WarmUp\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
