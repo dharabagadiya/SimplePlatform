@@ -148,8 +148,7 @@ conventions.DeletConventionDetail = function (obj) {
                 var status = data;
                 if (status) {
                     window.location.reload();
-                } else {
-                }
+                } else { }
             }
         });
     }, function (event, dataModalPlaceHolder) { });
@@ -214,8 +213,7 @@ conventions.UploadConventionDetail = function (obj) {
         $("#fuImage").on('change', function () {
             $("#fuImageName").val(conventions.filesName.join(','));
         });
-        $(dialogContentPlaceHolder).on('click', '.delete', function () {
-            //ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Delete", "Are you sure you want to delete record?", function (event, dataModalPlaceHolder) {
+        dialogContentPlaceHolder.find(".delete").off("click.delete").on('click.delete', function () {
             $.ajax({
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
@@ -233,7 +231,6 @@ conventions.UploadConventionDetail = function (obj) {
                     }
                 }
             });
-            //});
         });
     }, this));
 };
