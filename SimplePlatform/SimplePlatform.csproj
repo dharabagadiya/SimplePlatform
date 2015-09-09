@@ -204,6 +204,7 @@
     <Content Include="Scripts\Audiences\audiences.js" />
     <Content Include="Scripts\Calender\Calender.js" />
     <Content Include="Scripts\Conventions\Convention.js" />
+    <Content Include="Scripts\Conventions\Detail.js" />
     <Content Include="Scripts\DataTables\Extentions\dataTables.select.js" />
     <Content Include="Scripts\Events\Events.js" />
     <Content Include="Scripts\Home\home.js" />
@@ -363,6 +364,7 @@
     <Content Include="Views\Targets\Edit.cshtml" />
     <Content Include="Views\Calender\Index.cshtml" />
     <Content Include="Views\Conventions\UploadAttachment.cshtml" />
+    <Content Include="Views\Conventions\Detail.cshtml" />
     <Content Include="Views\WarmUp\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

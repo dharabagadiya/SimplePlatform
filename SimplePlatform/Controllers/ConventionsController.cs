@@ -219,5 +219,13 @@ namespace SimplePlatform.Controllers
             var status = conventionManager.DeleteAttachment(id, conventionID);
             return Json(status);
         }
+        public ActionResult Detail(int id)
+        {
+            var convention = new ConventionManager().GetConventionDetail(id);
+            //BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
+            BundleConfig.AddScript("~/Scripts/Conventions", "Detail.js", ControllerName);
+            //Script = string.Format("officeDetail.options.officeID = {0};", id);
+            return View(convention);
+        }
     }
 }
