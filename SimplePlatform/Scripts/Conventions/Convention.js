@@ -9,6 +9,7 @@ conventions.options = {
     GetConventions: "/Conventions/GetConventions",
     UploadAttachment: "/Conventions/UploadAttachment/",
     DeleteAttachment: "/Conventions/DeleteAttachment/",
+    DownloadAttachments: "/Conventions/Download/",
     pageSize: 9,
     totalPageSize: 10,
     currentPage: 1,
@@ -245,9 +246,11 @@ conventions.GetConventionWidgetHTML = function (obj) {
     sb.append("<div class=\"panel panel-info tile panelClose panelRefresh\" id=\"dyn_0\">");
     sb.append("<div class=\"panel-heading\">");
     sb.append("<h4 class=\"panel-title\">" + obj.Name + "</h4>");
+    sb.append("<div class=\"panel-controls panel-controls-right\"><a href=\"" + (this.options.DownloadAttachments + obj.id) + "\" class=\"panel-download\"><i class=\"fa fa-download\"></i></a><a class=\"panel-upload\"><i class=\"fa fa-upload\"></i></a>");
     if (conventions.options.isEditDeleteEnable) {
-        sb.append("<div class=\"panel-controls panel-controls-right\"><a class=\"panel-upload\"><i class=\"fa fa-upload\"></i></a><a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
+        sb.append("<a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a>");
     }
+    sb.append("</div>");
     sb.append("</div>");
     sb.append("<div class=\"panel-body pt0\">");
     if (IsNullOrEmpty(obj.ProfilePics)) {
