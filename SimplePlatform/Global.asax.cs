@@ -33,7 +33,7 @@ namespace SimplePlatform
         void Application_End(object sender, EventArgs e)
         {
             WebClient http = new WebClient();
-            string Result = http.DownloadString("http://soundexpansion.org/WarmUp");
+            string Result = http.DownloadString("http://www.soundexpansion.org/WarmUp/WarmpUpEF");
         }
     }
 }
