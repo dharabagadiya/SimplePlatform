@@ -66,5 +66,10 @@ namespace DataModel
                 return false;
             }
         }
+
+        public Modal.Comment GetComment(int id)
+        {
+            return Context.Comments.Where(model => model.CommentId == id && model.IsDeleted == false).Select(model => model).FirstOrDefault();
+        }
     }
 }
