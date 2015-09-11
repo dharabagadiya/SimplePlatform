@@ -180,6 +180,14 @@ simplePlatform.ValidateModalConventionForm = function (obj) {
                         }
                     }
                 },
+                txtDescription: {
+                    message: 'The description is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The description is required and cannot be empty'
+                        }
+                    }
+                },
                 imageConvention: {
                     message: 'The selected file is not valid',
                     validators: {
@@ -300,6 +308,14 @@ simplePlatform.ValidateModalEventForm = function (obj) {
                             message: 'Please select convention.'
                         }
                     }
+                },
+                txtDescription: {
+                    message: 'The description is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The description is required and cannot be empty'
+                        }
+                    }
                 }
             }
         }).on('success.form.bv', function (e) {
@@ -367,6 +383,14 @@ simplePlatform.ValidateModalTaskForm = function (obj) {
                         regexp: {
                             regexp: /^[a-zA-Z0-9_ ]+$/,
                             message: 'The name can contain a-z, A-Z, 0-9'
+                        }
+                    }
+                },
+                txtDescription: {
+                    message: 'The description is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The description is required and cannot be empty'
                         }
                     }
                 }
@@ -594,6 +618,13 @@ simplePlatform.ValidateModalUserForm = function (obj) {
                     },
                     emailAddress: {
                         message: 'The input is not a valid email address'
+                    }
+                }
+            },
+            dwnUserRoles: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select user role.'
                     }
                 }
             }
