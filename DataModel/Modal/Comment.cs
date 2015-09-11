@@ -16,6 +16,7 @@ namespace DataModel.Modal
         public string CommentText { get; set; }
         public virtual UserDetail UserDetail { get; set; }
         public virtual Task Task { get; set; }
+        public virtual ICollection<CommentAttachment> CommentAttachments { get; set; }
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
         public DateTime CreateDate { get; set; }
