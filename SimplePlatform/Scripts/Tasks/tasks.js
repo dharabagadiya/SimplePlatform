@@ -1,11 +1,15 @@
 ﻿var tasks = {};
-tasks.tableObj  = null;
+tasks.jqXHRData = null;
+tasks.filesList = [];
+tasks.filesName = [];
+tasks.tableObj = null;
 tasks.options = {
     EditViewURL: "/Tasks/Edit/",
     UpdateURL: "/Tasks/Update",
     UpdateTaskStatusURL: "/Tasks/Status",
     DeleteURL: "/Tasks/Delete",
     AddCommentURL: "/Comments/Add",
+    UploadAttachment: "/Tasks/UploadAttachment/",
     DetailURL: function (id) { return ("/Tasks/GetDetail/" + id); }
 };
 tasks.ValidateModalTaskForm = function (obj) {
@@ -128,6 +132,64 @@ tasks.UpdateUserCommentList = function (message, obj) {
         mousescrollstep: 20
     });
 };
+tasks.ValidateModalTaskCommentForm = function (obj) {
+    obj.find("form")
+        .bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                fileImage: {
+                    message: 'The selected file is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The image file is required and cannot be empty'
+                        },
+                        file: {
+                            extension: 'jpeg,png,jpg,gif,mp4',
+                            type: 'image/jpeg,image/png,image/jpg,image/gif',
+                            maxSize: 2097152,   // 2048 * 1024
+                            message: 'you can upload only image files only'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var formObj = $(e.target);
+            var taskID = formObj.find("#hdnTaskID").val();
+            var comment = formObj.find("#txtComment").val();
+            $('#frmTaskUpload').fileupload("option", {
+                formData: { "taskID": taskID, comment: comment },
+                done: function (data) {
+                    var status = data;
+                    if (status) { obj.modal('hide'); ShowSuccessSaveAlert(); } else { }
+                }
+            });
+            $('#frmTaskUpload').fileupload('send', { files: tasks.filesList });
+        });
+};
+tasks.UploadTaskAttachment = function (obj) {
+    var currentObj = obj;
+    var taskID = currentObj.data("task-id");
+    $("#divCommonModalPlaceHolder").empty();
+    ShowDialogBox($("#divCommonModalPlaceHolder"), (tasks.options.UploadAttachment + taskID), null, $.proxy(function (event, dialogContentPlaceHolder) {
+        this.ValidateModalTaskCommentForm(dialogContentPlaceHolder);
+        $('#frmTaskUpload').fileupload({
+            url: tasks.options.UploadAttachment,
+            dataType: 'json',
+            add: function (e, data) {
+                tasks.filesList.push(data.files[0]);
+                tasks.filesName.push(data.files[0].name);
+            }
+        });
+        $("#fuImage").on('change', function () {
+            $("#fuImageName").val(tasks.filesName.join(','));
+        });
+    }, this));
+};
 tasks.BindCommentControlClickEvent = function (obj) {
     obj.find("#btnAddComment").off("click.btnAddComment").on("click.btnAddComment", function () {
         var commentMessage = $("#txtComment").val();
@@ -143,6 +205,10 @@ tasks.BindCommentControlClickEvent = function (obj) {
                 tasks.GetTaskDetail(taskID);
             }
         });
+    });
+    obj.find(".panel-upload").off("click.panel-upload").on("click.panel-upload", function (event) {
+        event.stopPropagation();
+        tasks.UploadTaskAttachment(obj);
     });
 };
 tasks.UpdateTaskStatus = function (taskID) {

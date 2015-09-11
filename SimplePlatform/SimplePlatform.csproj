@@ -365,6 +365,7 @@
     <Content Include="Views\Calender\Index.cshtml" />
     <Content Include="Views\Conventions\UploadAttachment.cshtml" />
     <Content Include="Views\WarmUp\WarmpUpEF.cshtml" />
+    <Content Include="Views\Tasks\UploadAttachment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

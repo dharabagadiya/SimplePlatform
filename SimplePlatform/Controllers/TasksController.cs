@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Utilities;
 
 namespace SimplePlatform.Controllers
 {
@@ -112,5 +114,48 @@ namespace SimplePlatform.Controllers
             var status = taskManager.Status(id);
             return Json(status);
         }
+
+        public PartialViewResult UploadAttachment(int id)
+        {
+            var taskManager = new DataModel.TaskManager();
+            var taskDetail = taskManager.GetTask(id);
+            return PartialView(taskDetail);
+        }
+
+        [HttpPost]
+        public JsonResult UploadAttachment()
+        {
+            var status = false;
+            HttpPostedFileBase myFile = null;
+            var fileResources = new List<DataModel.Modal.CommentAttachment>();
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                if (Request.Files.Count > 0) myFile = Request.Files[i];
+                if (myFile != null && myFile.ContentLength != 0)
+                {
+                    string pathForSaving = Server.MapPath("~/AttachmentUploads");
+                    if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
+                            myFile.SaveAs(Path.Combine(pathForSaving, fileName));
+                            string path = "~/AttachmentUploads/" + fileName;
+                            fileResources.Add(new DataModel.Modal.CommentAttachment { FileResource = new DataModel.Modal.FileResource { name = myFile.FileName, path = path } });
+                        }
+                        catch (Exception ex)
+                        {
+                            return Json(ex.InnerException);
+                        }
+                    }
+                }
+            }
+
+            if (!IsAdmin) { return Json(false); }
+            var commentManager = new DataModel.CommentManager();
+            status = commentManager.Add(Convert.ToInt32(Request.Form["taskID"].ToString()), UserDetail.UserId, Request.Form["comment"].ToString(), fileResources);
+            return Json(status);
+        }
+
     }
 }

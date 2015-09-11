@@ -51,11 +51,11 @@ namespace SimplePlatform
             #endregion
 
             // Don't Change Below Code
-            //#if DEBUG
+#if DEBUG
+            BundleTable.EnableOptimizations = false;
+#else
             BundleTable.EnableOptimizations = true;
-            //#else
-            //BundleTable.EnableOptimizations = true;
-            //#endif
+#endif
         }
         public static List<string> GetStylesBundlePath(string controllerName)
         {

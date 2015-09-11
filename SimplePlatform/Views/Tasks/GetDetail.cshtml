@@ -19,7 +19,13 @@
                     var isCurrentUser = comment.UserDetail.UserId == userDetail.UserId;
                     <div class="chat-box @(isCurrentUser ? "chat-out"  : "chat-in")">
                         <div class="message col-lg-10 @(isCurrentUser ? "col-lg-offset-2"  : "")">
-                            <h5 class="@(isCurrentUser ? "pull-left"  : "pull-right")">@comment.UpdateDate.ToString("MMM dd,yyyy")</h5>
+                            <h5 class="@(isCurrentUser ? "pull-left"  : "pull-right")">
+                                @comment.UpdateDate.ToString("MMM dd,yyyy")
+                                @if (comment.CommentAttachments != null && comment.CommentAttachments.Count > 0)
+                                {
+                                    <a class="panel-upload"><i class="fa fa-paperclip"></i></a>
+                                }
+                            </h5>
                             <h5 class="@(isCurrentUser ? "pull-right"  : "pull-left")">@comment.UserDetail.User.FirstName @comment.UserDetail.User.LastName</h5>
                             <div class="clearfix"></div>
                             <p>@comment.CommentText</p>
@@ -33,7 +39,8 @@
                     <label for="txtDescription">You Comment</label>
                     <textarea class="form-control" rows="5" name="txtComment" id="txtComment"></textarea>
                 </div>
-                <button type="button" class="btn btn btn-default btn-sm pull-right" id="btnAddComment">Save</button>
+                <a class="panel-upload"><i class="fa fa-paperclip"></i> Attachment</a>
+                <button type="button" class="btn btn btn-default btn-sm pull-right" id="btnAddComment">Comment</button>
                 <div class="clearfix"></div>
             </div>
         </div>
