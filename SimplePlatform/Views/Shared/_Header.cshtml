@@ -24,7 +24,7 @@
                     @if (Model.User.Roles.Any(model => new List<int> { 1 }.Contains(model.RoleId)))
                     {
                         <li>
-                            <a url="@Url.Action("Add", "Conventions")" id="lnkAddConventions" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-tasks"></i>Convention</a>
+                            <a url="@Url.Action("Add", "Conventions")" id="lnkAddConventions" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-group"></i>Convention</a>
                         </li>
                     }
                     @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
@@ -39,10 +39,10 @@
                             <a url="@Url.Action("Add", "Tasks")" id="lnkAddTasks" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-tasks"></i>Task</a>
                         </li>
                         <li>
-                            <a url="@Url.Action("Add", "Events")" id="lnkAddEvents" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-tasks"></i>Event</a>
+                            <a url="@Url.Action("Add", "Events")" id="lnkAddEvents" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-th-list"></i>Event</a>
                         </li>
                         <li>
-                            <a url="@Url.Action("Add", "Audiences")" id="lnkAddAudiences" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-user"></i>Audience</a>
+                            <a url="@Url.Action("Add", "Audiences")" id="lnkAddAudiences" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-group"></i>Audience</a>
                         </li>
                     }
                 </ul>
