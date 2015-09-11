@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -157,5 +158,32 @@ namespace SimplePlatform.Controllers
             return Json(status);
         }
 
+        public FilePathResult Download(int id)
+        {
+            var commentManager = new DataModel.CommentManager();
+            var comment = commentManager.GetComment(id);
+            var fileAttachments = comment.CommentAttachments.Select(model => model.FileResource).ToList();
+
+            var outputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}\\{2}", Server.MapPath(@"\"), comment.CommentId, DateTime.Now.ToString("ddMMyyyyhhmmss")));
+            var outputDirectoryPathString = System.IO.Path.Combine(outputDirectory.ToString(), "");
+            var isExists = System.IO.Directory.Exists(outputDirectoryPathString);
+            if (isExists) System.IO.Directory.Delete(outputDirectoryPathString, true);
+            System.IO.Directory.CreateDirectory(outputDirectoryPathString);
+
+            foreach (var fileAttachment in fileAttachments)
+            {
+                var sourceFilePath = Server.MapPath(fileAttachment.path);
+                var destFilePath = System.IO.Path.Combine(outputDirectoryPathString, fileAttachment.name);
+                if (!System.IO.Directory.Exists(destFilePath))
+                {
+                    System.IO.File.Copy(sourceFilePath, destFilePath, true);
+                }
+            }
+
+            var zipOutputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}", Server.MapPath(@"\"), comment.CommentId));
+            var zipOutputDirectoryPathString = System.IO.Path.Combine(zipOutputDirectory.ToString(), (DateTime.Now.ToString("ddMMyyyyhhmmss") + ".zip"));
+            ZipFile.CreateFromDirectory(outputDirectoryPathString, zipOutputDirectoryPathString);
+            return File(zipOutputDirectoryPathString, "application/zip", DateTime.Now.ToString("ddMMyyyyhhmmss") + ".zip");
+        }
     }
 }

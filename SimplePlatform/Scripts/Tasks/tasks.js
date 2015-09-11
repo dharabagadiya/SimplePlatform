@@ -141,6 +141,14 @@ tasks.ValidateModalTaskCommentForm = function (obj) {
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
+                txtComment: {
+                    message: 'The comment is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The comment is required and cannot be empty'
+                        }
+                    }
+                },
                 fileImage: {
                     message: 'The selected file is not valid',
                     validators: {
