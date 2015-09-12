@@ -44,6 +44,9 @@ namespace SimplePlatform.Controllers
             ControllerName = filterContext.RouteData.Values["controller"].ToString() + filterContext.RouteData.Values["action"].ToString();
             ViewData["Controller_Name"] = ControllerName;
             ViewData["UserDetail"] = UserDetail;
+
+            BundleConfig.AddScript("~/Scripts/Users", "users.js", ControllerName);
+
             Script = string.Empty;
             StartupScript = string.Empty;
             base.OnActionExecuting(filterContext);

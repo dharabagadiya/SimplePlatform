@@ -2,8 +2,10 @@
 users.options = {
     EditViewURL: "/Users/Edit/",
     UpdateURL: "/Users/Update",
-    DeleteURL: "/Users/Delete"
+    DeleteURL: "/Users/Delete",
+    UpdateProfileImageURL: "/Users/UpdateProfileImage"
 };
+users.jqXHRData = null;
 users.ValidateModalUserForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -25,7 +27,7 @@ users.ValidateModalUserForm = function (obj) {
                         message: 'The first name must be more than 3 and less than 15 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
                         message: 'The first name can containe a-z, A-Z, 0-9, or (_) only'
                     }
                 }
@@ -33,17 +35,14 @@ users.ValidateModalUserForm = function (obj) {
             lastName: {
                 message: 'The last name is not valid',
                 validators: {
-                    notEmpty: {
-                        message: 'The last name is required and cannot be empty'
-                    },
                     stringLength: {
                         min: 3,
                         max: 15,
                         message: 'The last name must be more than 3 and less than 15 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'The last name can containe a-z, A-Z, 0-9, or (_) only'
+                        regexp: /^[a-zA-Z0-9_ ]+$/,
+                        message: 'The last name can containe a-z, A-Z, 0-9, ( ), or (_) only'
                     }
                 }
             },
@@ -58,7 +57,7 @@ users.ValidateModalUserForm = function (obj) {
                 }
             }
         }
-    }).on('success.form.bv', function (e) {
+    }).off('success.form.bv').on('success.form.bv', function (e) {
         e.preventDefault();
         var formObj = $(e.target);
         var id = formObj.find("#txtUserID").val();
@@ -68,14 +67,9 @@ users.ValidateModalUserForm = function (obj) {
         var userRoleID = formObj.find("#dwnUserRoles").val();
         var officesID = formObj.find("#dwnOfficeList").length > 0 ? formObj.find("#dwnOfficeList").val() : 0;
         if (IsNullOrEmpty(officesID) || userRoleID == 1) { officesID = 0; }
-        $.ajax({
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            url: users.options.UpdateURL,
-            async: false,
-            data: JSON.stringify({ "id": id, "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID, "officesID": officesID }),
-            success: function (data) {
+        $('#myFile').fileupload("option", {
+            formData: { "id": id, "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID, "officesID": officesID },
+            done: function (data) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
@@ -85,6 +79,48 @@ users.ValidateModalUserForm = function (obj) {
                 }
             }
         });
+        if (users.jqXHRData) {
+            users.jqXHRData.submit();
+        } else {
+            $.ajax({
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                url: users.options.UpdateURL,
+                async: false,
+                data: JSON.stringify({ "id": id, "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID, "officesID": officesID }),
+                success: function (data) {
+                    var status = data;
+                    if (status) {
+                        obj.modal('hide');
+                        ShowUpdateSuccessSaveAlert();
+                    } else {
+                        obj.find("#divCommonMessage").removeClass("hidden");
+                    }
+                }
+            });
+        }
+    });
+};
+users.BindUserEditModelEvents = function (dialogContentPlaceHolder, userDetail) {
+    this.ValidateModalUserForm(dialogContentPlaceHolder);
+    dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+    dialogContentPlaceHolder.find("#dwnUserRoles").off("change.dwnUserRoles").on("change.dwnUserRoles", function () {
+        dialogContentPlaceHolder.find(".divOfficeListContainer").show();
+        var userType = $(this).val();
+        if (userType == 1) { dialogContentPlaceHolder.find(".divOfficeListContainer").hide(); }
+    });
+    dialogContentPlaceHolder.find("#dwnUserRoles").val(userDetail.userRolesID).change();
+    dialogContentPlaceHolder.find("#dwnOfficeList").val(parseInt(userDetail.userOfficesID)).change();
+    dialogContentPlaceHolder.find('#myFile').fileupload({
+        url: users.options.UpdateProfileImageURL,
+        dataType: 'json',
+        add: function (e, data) {
+            users.jqXHRData = data;
+        }
+    });
+    dialogContentPlaceHolder.find("#myFile").on('change', function () {
+        dialogContentPlaceHolder.find("#txtFileName").val(this.files[0].name);
     });
 };
 users.EditUserDetail = function (obj) {
@@ -92,16 +128,7 @@ users.EditUserDetail = function (obj) {
     var userDetail = obj.data("user_detail");
     $("#divCommonModalPlaceHolder").empty();
     ShowDialogBox($("#divCommonModalPlaceHolder"), (users.options.EditViewURL + userDetail.id), null, $.proxy(function (event, dialogContentPlaceHolder) {
-        this.ValidateModalUserForm(dialogContentPlaceHolder);
-        dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
-        dialogContentPlaceHolder.find("#dwnUserRoles").off("change.dwnUserRoles").on("change.dwnUserRoles", function () {
-            dialogContentPlaceHolder.find(".divOfficeListContainer").show();
-            var userType = $(this).val();
-            //  Hide Office List if user type admin
-            if (userType == 1) { dialogContentPlaceHolder.find(".divOfficeListContainer").hide(); }
-        });
-        dialogContentPlaceHolder.find("#dwnUserRoles").val(userDetail.userRolesID);
-        dialogContentPlaceHolder.find("#dwnOfficeList").val(parseInt(userDetail.userOfficesID));
+        this.BindUserEditModelEvents(dialogContentPlaceHolder, userDetail);
     }, this));
 };
 users.DeletUserDetail = function (obj) {

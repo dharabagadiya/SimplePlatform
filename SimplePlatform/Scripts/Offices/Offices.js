@@ -148,7 +148,7 @@ office.ValidateModalOfficeForm = function (obj) {
                 }
             }
         }
-    }).on('success.form.bv', function (e) {
+    }).off('success.form.bv').on('success.form.bv', function (e) {
         e.preventDefault();
         var formObj = $(e.target);
         var id = formObj.find("#txtOfficeID").val();

@@ -1,9 +1,11 @@
 ﻿using DataModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Utilities;
 
 namespace SimplePlatform.Controllers
 {
@@ -41,7 +43,7 @@ namespace SimplePlatform.Controllers
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
             var userManager = new DataModel.UserManager();
-            var user = userManager.GetUserDetail(id).User;
+            var user = userManager.GetUserDetail(id);
             ViewData["UserRoles"] = customRoleProvider.GetAllRoles();
             var officeMananer = new DataModel.OfficeMananer();
             ViewData["Offices"] = officeMananer.GetOffices();
@@ -63,6 +65,41 @@ namespace SimplePlatform.Controllers
             var status = userManager.UpdateUser(id, firstName, lastName, emildID, userRoleID, officesID);
             return Json(status);
         }
+
+        [HttpPost]
+        public JsonResult UpdateProfileImage()
+        {
+            //var userManager = new DataModel.UserManager();
+            //var status = userManager.UpdateUser(id, firstName, lastName, emildID, userRoleID, officesID);
+            //return Json(status);
+
+            var status = false;
+            HttpPostedFileBase myFile = null;
+            if (Request.Files.Count > 0) myFile = Request.Files[0];
+            if (myFile != null && myFile.ContentLength != 0)
+            {
+                string pathForSaving = Server.MapPath("~/ImageUploads");
+                if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
+                {
+                    try
+                    {
+                        string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
+                        myFile.SaveAs(Path.Combine(pathForSaving, fileName));
+                        string path = "~/ImageUploads/" + fileName;
+                        var userManager = new DataModel.UserManager();
+                        status = userManager.UpdateUser(Convert.ToInt32(Request.Form["id"]), Request.Form["firstName"].ToString(), Request.Form["lastName"].ToString(), Request.Form["emildID"].ToString(), Convert.ToInt32(Request.Form["userRoleID"]), Convert.ToInt32(Request.Form["officesID"]), fileName, path);
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(ex.InnerException);
+                    }
+                }
+            }
+            return Json(status);
+
+
+        }
+
 
         [HttpPost]
         public JsonResult Delete(int id)

@@ -30,7 +30,7 @@
                     @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
                     {
                         <li>
-                            <a url="@Url.Action("Add", "Users")" id="lnkAddUser" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-user"></i>User</a>
+                            <a url="@Url.Action("Add", "Users")" id="lnkAddUser" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-user-plus"></i>User</a>
                         </li>
                         <li>
                             <a url="@Url.Action("Add", "Offices")" id="lnkAddOffice" data-toggle="modal" data-target="#divCommonModalPlaceHolder"><i class="fa fa-bank"></i>Office</a>
@@ -49,45 +49,15 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            @*<li class="dropdown">
-                    <a href="#" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="sr-only">Notifications</span>
-                        <span class="badge badge-danger">6</span>
-                    </a>
-                    <ul class="dropdown-menu right dropdown-notification animated bounceIn" role="menu">
-                        <li>
-                            <a href="#" class="dropdown-menu-header">Notifications</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icon-basic-life-buoy"></i> 2 support request</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icon-basic-gear"></i> Settings is changed</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icon-weather-lightning"></i> 5 min server downtime</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icon-basic-server2"></i> Databse backup is complete</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icon-basic-lightbulb"></i> SuggeElson push 1 commit</a>
-                        </li>
-                        <li>
-                            <a href="#" class="view-all">View all <i class="l-arrows-right"></i> </a>
-                        </li>
-                    </ul>
-                </li>*@
+            <li>
+                <a class="avatar" url="@Url.Action("Edit", "Users", new { id = Model.UserId })" id="lnkUpdateUserDetail"><img class='img-responsive pull-left' src="@(Model.FileResource == null ? "Content/Images/Common/avatar.png" : Url.Content(Model.FileResource.path) )" alt="av avatar"> @Model.User.FirstName @Model.User.LastName</a>
+            </li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown">
                     <i class="fa fa-cog"></i>
                     <span class="sr-only">Settings</span>
                 </a>
                 <ul class="dropdown-menu dropdown-form dynamic-settings right animated bounceIn" role="menu">
-                    <li>
-                        <a href="#" class="dropdown-menu-header">@Model.User.FirstName @Model.User.LastName</a>
-                    </li>
                     <li>
                         <a href="#"><i class="fa fa-lock"></i>Change Password</a>
                     </li>
