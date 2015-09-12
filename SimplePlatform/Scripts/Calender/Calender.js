@@ -23,7 +23,12 @@ calendar.DoCalenderSetting = function () {
         defaultDate: new Date(),
         editable: false,
         eventLimit: true,
-        eventRender: function (event, element) { },
+        eventRender: function (event, element) {
+            var contentObj = element.find(".fc-content");
+            var eventTilteObj = contentObj.find(".fc-title");
+            eventTilteObj.addClass("pull-left");
+            contentObj.prepend("<div class=\"avatar pull-left mr15\"><img class='img-responsive' src=\"" + event.imageURL + "\" alt=\"avatar\"></div>");
+        },
         events: function (start, end, timezone, callback) { calendar.LoadCalenderByMonth(start, end, timezone, callback); }
     });
 };

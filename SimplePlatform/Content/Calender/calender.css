@@ -35,4 +35,5 @@
 .fc-view-month .fc-event-time { display: none; }
 .fc-icon-fa { display: inline-block; font-family: FontAwesome; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.33333333em; }
 .fc-day-grid-event .fc-content { height: 30px; line-height: 30px; }
+.fc-event { border-radius: 0; }
 .fc-event .fc-content > span:first-child:before, .event-category:before { line-height: inherit; font-size: 12px; }

@@ -36,7 +36,15 @@ namespace SimplePlatform.Controllers
             {
                 taskList = UserDetail.Tasks.Where(model => model.IsDeleted == false && (model.StartDate >= startDate && model.StartDate <= endDate)).ToList();
             }
-            return taskList.Select(model => new { id = model.TaskId, title = model.Name, start = model.StartDate.ToString("yyyy-MM-dd"), end = model.EndDate.ToString("yyyy-MM-dd") }).ToList<dynamic>();
+            return taskList.Select(model => new
+            {
+                id = model.TaskId,
+                className = "Calender-Event",
+                title = model.Name,
+                start = model.StartDate.ToString("yyyy-MM-dd"),
+                end = model.EndDate.ToString("yyyy-MM-dd"),
+                imageURL = model.UsersDetail == null ? (model.Office == null ? "Content/Images/Common/avatar.png" : Url.Content(model.Office.FileResource.path)) : Url.Content(model.Office.FileResource.path)
+            }).ToList<dynamic>();
         }
         private List<dynamic> GetEvents(DateTime startDate, DateTime endDate)
         {
@@ -45,7 +53,14 @@ namespace SimplePlatform.Controllers
             var offices = IsAdmin ? UserDetail.Offices.Where(model => model.IsDeleted == false).ToList() : officeManager.GetOffices(UserDetail.UserId);
             var events = eventManager.GetEvents(offices.Select(model => model.OfficeId).ToList());
             var eventList = events.Where(model => model.IsDeleted == false && (model.StartDate >= startDate && model.StartDate <= endDate)).ToList();
-            return eventList.Select(model => new { id = model.EventId, title = model.Name, start = model.StartDate.ToString("yyyy-MM-dd"), end = model.EndDate.ToString("yyyy-MM-dd") }).ToList<dynamic>();
+            return eventList.Select(model => new
+            {
+                id = model.EventId,
+                title = model.Name,
+                start = model.StartDate.ToString("yyyy-MM-dd"),
+                end = model.EndDate.ToString("yyyy-MM-dd"),
+                imageURL = (model.Office == null ? "Content/Images/Common/avatar.png" : Url.Content(model.Office.FileResource.path))
+            }).ToList<dynamic>();
         }
 
         public JsonResult GetEvents(string start, string end)

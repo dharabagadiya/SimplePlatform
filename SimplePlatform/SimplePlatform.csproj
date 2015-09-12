@@ -110,6 +110,7 @@
     <Content Include="Content\Calender\calender.css" />
     <Content Include="Content\Conventions\Conventions.css" />
     <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\Images\Common\avatar.png" />
     <Content Include="Content\Offices\Detail.css" />
     <Content Include="Content\Plugins\bootstrap\bootstrap_timepicker.css" />
     <Content Include="Content\Plugins\bootstrap\daterangepicker.css" />
