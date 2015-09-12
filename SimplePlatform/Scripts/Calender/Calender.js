@@ -13,9 +13,7 @@ calendar.LoadCalenderByMonth = function (start, end, timezone, callback) {
         success: function (data) { callback(data); }
     });
 };
-calendar.GetEventDetail = function (event) {
-
-};
+calendar.GetEventDetail = function (event) { };
 calendar.DoCalenderSetting = function () {
     $('#calendar').fullCalendar({
         header: {
@@ -25,7 +23,7 @@ calendar.DoCalenderSetting = function () {
         },
         defaultDate: new Date(),
         editable: false,
-        eventLimit: true,
+        eventLimit: 5,
         eventRender: function (event, element) {
             var contentObj = element.find(".fc-content");
             var eventTilteObj = contentObj.find(".fc-title");

@@ -1,4 +1,5 @@
 ﻿#calendar { position: relative; }
+.fc-view-container { background-color: #ffffff; }
 .fc-event, #event-categories .event-category { padding: 2px 5px; background: #edeef0 !important; border: 1px solid #e8e9ec !important; color: #8B91A0 !important; }
 #event-categories .event-category { cursor: move; }
 .fc-day-number { margin: 2px 2px 0 0; }
@@ -37,4 +38,3 @@
 .fc-day-grid-event .fc-content { height: 30px; line-height: 30px; }
 .fc-event { border-radius: 0; }
 .fc-event .fc-content > span:first-child:before, .event-category:before { line-height: inherit; font-size: 12px; }
-.fc-unthemed .fc-today { background: #fcf8e3 !important; }

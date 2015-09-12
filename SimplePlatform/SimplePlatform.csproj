@@ -115,7 +115,6 @@
     <Content Include="Content\Plugins\bootstrap\bootstrap_timepicker.css" />
     <Content Include="Content\Plugins\bootstrap\daterangepicker.css" />
     <Content Include="Content\Plugins\Calender\fullcalendar.css" />
-    <Content Include="Content\Plugins\Calender\fullcalendar_print.css" />
     <Content Include="Content\Plugins\chosen\chosen-sprite%402x.png" />
     <Content Include="Content\Plugins\chosen\chosen-sprite.png" />
     <Content Include="Content\Plugins\chosen\chosen.css" />
@@ -278,8 +277,8 @@
     <Content Include="Scripts\DataTables\Extentions\dataTables.tableTools.min.js" />
     <Content Include="Scripts\DataTables\dataTables.js" />
     <Content Include="Scripts\DataTables\dataTables.min.js" />
-    <Content Include="Scripts\Plugins\Calender\fullcalendar.js" />
     <Content Include="Scripts\Plugins\Calender\1_moment.js" />
+    <Content Include="Scripts\Plugins\Calender\fullcalendar.js" />
     <Content Include="Scripts\Plugins\chosen\chosen.js" />
     <Content Include="Scripts\Plugins\global.js" />
     <Content Include="Scripts\Plugins\highcharts.js" />
