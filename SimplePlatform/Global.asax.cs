@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.Optimization;
+using System.Net;
 #endregion
 
 namespace SimplePlatform
@@ -29,5 +30,10 @@ namespace SimplePlatform
         {
         }
 
+        void Application_End(object sender, EventArgs e)
+        {
+            WebClient http = new WebClient();
+            string Result = http.DownloadString("http://www.soundexpansion.org/WarmUp/WarmpUpEF");
+        }
     }
 }

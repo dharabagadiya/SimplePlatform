@@ -6,11 +6,15 @@ using System.Web.Mvc;
 
 namespace SimplePlatform.Controllers
 {
-    public class WarmUpController : BaseController
+    public class WarmUpController : Controller
     {
-        public ActionResult Index()
+        public PartialViewResult WarmpUpEF()
         {
-            return View();
+            var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
+            var users = customMembershipProvider.GetUsers();
+            var officeManager = new DataModel.OfficeMananer();
+            var office = officeManager.GetOffices();
+            return PartialView();
         }
     }
 }

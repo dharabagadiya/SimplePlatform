@@ -40,5 +40,36 @@ namespace DataModel
                 return false;
             }
         }
+
+        public bool Add(int taskID, int userID, string message, List<Modal.CommentAttachment> commentAttachments)
+        {
+            try
+            {
+                var userDetail = Context.UsersDetail.Where(model => model.UserId == userID).FirstOrDefault();
+                if (userDetail == null) { return false; }
+                var task = Context.Tasks.Where(model => model.TaskId == taskID).FirstOrDefault();
+                if (task == null) { return false; }
+                Context.Comments.Add(new Modal.Comment
+                {
+                    CommentText = message,
+                    UserDetail = userDetail,
+                    Task = task,
+                    CreateDate = DateTime.Now,
+                    UpdateDate = DateTime.Now,
+                    CommentAttachments = commentAttachments
+                });
+                Context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public Modal.Comment GetComment(int id)
+        {
+            return Context.Comments.Where(model => model.CommentId == id && model.IsDeleted == false).Select(model => model).FirstOrDefault();
+        }
     }
 }

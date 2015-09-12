@@ -56,6 +56,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -108,6 +110,7 @@
     <Content Include="Content\Calender\calender.css" />
     <Content Include="Content\Conventions\Conventions.css" />
     <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\Images\Common\avatar.png" />
     <Content Include="Content\Offices\Detail.css" />
     <Content Include="Content\Plugins\bootstrap\bootstrap_timepicker.css" />
     <Content Include="Content\Plugins\bootstrap\daterangepicker.css" />
@@ -175,7 +178,7 @@
     <Content Include="Content\Login\custom.css" />
     <Content Include="Content\Offices\Offices.css" />
     <Content Include="Content\Plugins\animate.css" />
-    <Content Include="Content\Plugins\awesome-font\css\awesome-font.css" />
+    <Content Include="Content\Plugins\awesome-font\awesome-font.css" />
     <Content Include="Content\Plugins\awesome-font\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Plugins\bootstrap\bootstrap_datepicker.css" />
     <Content Include="Content\Plugins\bootstrap\bootstrapValidator.css" />
@@ -185,7 +188,6 @@
     <Content Include="Content\Plugins\foundation-icons\styles.css" />
     <Content Include="Content\Plugins\iconic\fonts\ionicons.svg" />
     <Content Include="Content\Plugins\iconic\font.css" />
-    <Content Include="Content\Plugins\jquery-ui.min.css" />
     <Content Include="Content\Plugins\linea-font\arrow\fonts\linea-arrows-10.svg" />
     <Content Include="Content\Plugins\linea-font\arrow\styles.css" />
     <Content Include="Content\Plugins\linea-font\basic\fonts\linea-basic-10.svg" />
@@ -204,7 +206,6 @@
     <Content Include="Scripts\Audiences\audiences.js" />
     <Content Include="Scripts\Calender\Calender.js" />
     <Content Include="Scripts\Conventions\Convention.js" />
-    <Content Include="Scripts\Conventions\Detail.js" />
     <Content Include="Scripts\DataTables\Extentions\dataTables.select.js" />
     <Content Include="Scripts\Events\Events.js" />
     <Content Include="Scripts\Home\home.js" />
@@ -364,8 +365,8 @@
     <Content Include="Views\Targets\Edit.cshtml" />
     <Content Include="Views\Calender\Index.cshtml" />
     <Content Include="Views\Conventions\UploadAttachment.cshtml" />
-    <Content Include="Views\Conventions\Detail.cshtml" />
-    <Content Include="Views\WarmUp\Index.cshtml" />
+    <Content Include="Views\WarmUp\WarmpUpEF.cshtml" />
+    <Content Include="Views\Tasks\UploadAttachment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

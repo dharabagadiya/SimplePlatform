@@ -85,6 +85,7 @@
     <Compile Include="Modal\ChartSeries.cs" />
     <Compile Include="Modal\Convention.cs" />
     <Compile Include="Modal\Comment.cs" />
+    <Compile Include="Modal\CommentAttachment.cs" />
     <Compile Include="Modal\ConventionAttachment.cs" />
     <Compile Include="Modal\Event.cs" />
     <Compile Include="Modal\FileResource.cs" />

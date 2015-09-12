@@ -5,6 +5,7 @@
     <div class="panel-heading btlr0 bblr0">
         <div class="pull-left"><h4 class="panel-title"><a href="#"><i id="divMarkTaskButton" class="icon @(Model.IsCompleted ? "ion-android-checkbox-outline" : "ion-android-checkbox-outline-blank")" style="font-size: 22px;"></i></a>&nbsp;@Model.Name</h4></div>
         <div class="pull-right"><i class="fa fa-calendar"></i>Due Date : @Model.EndDate.ToString("MM-dd-yyyy")</div>
+        <a class="panel-upload pull-right" href="#"><i class="fa fa-paperclip"></i></a>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
@@ -19,7 +20,13 @@
                     var isCurrentUser = comment.UserDetail.UserId == userDetail.UserId;
                     <div class="chat-box @(isCurrentUser ? "chat-out"  : "chat-in")">
                         <div class="message col-lg-10 @(isCurrentUser ? "col-lg-offset-2"  : "")">
-                            <h5 class="@(isCurrentUser ? "pull-left"  : "pull-right")">@comment.UpdateDate.ToString("MMM dd,yyyy")</h5>
+                            <h5 class="@(isCurrentUser ? "pull-left"  : "pull-right")">
+                                @comment.UpdateDate.ToString("MMM dd,yyyy")
+                                @if (comment.CommentAttachments != null && comment.CommentAttachments.Count > 0)
+                                {
+                                    <a href="@Url.Action("Download", "Tasks", new { id =  comment.CommentId })"><i class="fa fa-paperclip"></i></a>
+                                }
+                            </h5>
                             <h5 class="@(isCurrentUser ? "pull-right"  : "pull-left")">@comment.UserDetail.User.FirstName @comment.UserDetail.User.LastName</h5>
                             <div class="clearfix"></div>
                             <p>@comment.CommentText</p>
@@ -33,7 +40,7 @@
                     <label for="txtDescription">You Comment</label>
                     <textarea class="form-control" rows="5" name="txtComment" id="txtComment"></textarea>
                 </div>
-                <button type="button" class="btn btn btn-default btn-sm pull-right" id="btnAddComment">Save</button>
+                <button type="button" class="btn btn btn-default btn-sm pull-right" id="btnAddComment">Comment</button>
                 <div class="clearfix"></div>
             </div>
         </div>

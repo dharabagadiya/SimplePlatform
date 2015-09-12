@@ -1,0 +1,34 @@
+﻿@model DataModel.Modal.Task
+<form action="#" type="post" id="frmTaskUpload">
+    <input type="hidden" id="hdnTaskID" value="@Model.TaskId" />
+    <div class="modal-dialog divUserModalDialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Comment</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txtDescription">You Comment</label>
+                    <textarea class="form-control" rows="5" name="txtComment" id="txtComment"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="">Attachment upload</label>
+                    <input type="file" name="fileImage" class="filestyle" data-buttontext="Find file" data-buttonname="btn-danger" data-iconname="fa fa-plus" id="fuImage" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);" multiple>
+                    <div class="bootstrap-filestyle input-group">
+                        <input type="text" class="form-control " disabled="" id="fuImageName">
+                        <span class="group-span-filestyle input-group-btn" tabindex="0">
+                            <label for="fuImage" class="btn btn-danger ">
+                                <span class="filestyleicon fa fa-plus"></span> Find file
+                            </label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnEditEvent">Comment</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>

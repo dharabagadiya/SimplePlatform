@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Utilities;
 
 namespace SimplePlatform.Controllers
 {
@@ -111,6 +114,76 @@ namespace SimplePlatform.Controllers
             var taskManager = new DataModel.TaskManager();
             var status = taskManager.Status(id);
             return Json(status);
+        }
+
+        public PartialViewResult UploadAttachment(int id)
+        {
+            var taskManager = new DataModel.TaskManager();
+            var taskDetail = taskManager.GetTask(id);
+            return PartialView(taskDetail);
+        }
+
+        [HttpPost]
+        public JsonResult UploadAttachment()
+        {
+            var status = false;
+            HttpPostedFileBase myFile = null;
+            var fileResources = new List<DataModel.Modal.CommentAttachment>();
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                if (Request.Files.Count > 0) myFile = Request.Files[i];
+                if (myFile != null && myFile.ContentLength != 0)
+                {
+                    string pathForSaving = Server.MapPath("~/AttachmentUploads");
+                    if (SharedFunction.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
+                            myFile.SaveAs(Path.Combine(pathForSaving, fileName));
+                            string path = "~/AttachmentUploads/" + fileName;
+                            fileResources.Add(new DataModel.Modal.CommentAttachment { FileResource = new DataModel.Modal.FileResource { name = myFile.FileName, path = path } });
+                        }
+                        catch (Exception ex)
+                        {
+                            return Json(ex.InnerException);
+                        }
+                    }
+                }
+            }
+
+            if (!IsAdmin) { return Json(false); }
+            var commentManager = new DataModel.CommentManager();
+            status = commentManager.Add(Convert.ToInt32(Request.Form["taskID"].ToString()), UserDetail.UserId, Request.Form["comment"].ToString(), fileResources);
+            return Json(status);
+        }
+
+        public FilePathResult Download(int id)
+        {
+            var commentManager = new DataModel.CommentManager();
+            var comment = commentManager.GetComment(id);
+            var fileAttachments = comment.CommentAttachments.Select(model => model.FileResource).ToList();
+
+            var outputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}\\{2}", Server.MapPath(@"\"), comment.CommentId, DateTime.Now.ToString("ddMMyyyyhhmmss")));
+            var outputDirectoryPathString = System.IO.Path.Combine(outputDirectory.ToString(), "");
+            var isExists = System.IO.Directory.Exists(outputDirectoryPathString);
+            if (isExists) System.IO.Directory.Delete(outputDirectoryPathString, true);
+            System.IO.Directory.CreateDirectory(outputDirectoryPathString);
+
+            foreach (var fileAttachment in fileAttachments)
+            {
+                var sourceFilePath = Server.MapPath(fileAttachment.path);
+                var destFilePath = System.IO.Path.Combine(outputDirectoryPathString, fileAttachment.name);
+                if (!System.IO.Directory.Exists(destFilePath))
+                {
+                    System.IO.File.Copy(sourceFilePath, destFilePath, true);
+                }
+            }
+
+            var zipOutputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}", Server.MapPath(@"\"), comment.CommentId));
+            var zipOutputDirectoryPathString = System.IO.Path.Combine(zipOutputDirectory.ToString(), (DateTime.Now.ToString("ddMMyyyyhhmmss") + ".zip"));
+            ZipFile.CreateFromDirectory(outputDirectoryPathString, zipOutputDirectoryPathString);
+            return File(zipOutputDirectoryPathString, "application/zip", DateTime.Now.ToString("ddMMyyyyhhmmss") + ".zip");
         }
     }
 }

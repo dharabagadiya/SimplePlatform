@@ -9,7 +9,7 @@ conventions.options = {
     GetConventions: "/Conventions/GetConventions",
     UploadAttachment: "/Conventions/UploadAttachment/",
     DeleteAttachment: "/Conventions/DeleteAttachment/",
-    conventionDetailPage: function (id) { return ("/Conventions/Detail/" + id); },
+    DownloadAttachments: "/Conventions/Download/",
     pageSize: 9,
     totalPageSize: 10,
     currentPage: 1,
@@ -239,11 +239,6 @@ conventions.BindConventionWidgetClick = function (obj) {
     obj.find(".panel-close").off("click.panel-close").on("click.panel-close", function (event) { event.stopPropagation(); conventions.DeletConventionDetail(obj); });
     obj.find(".panel-edit").off("click.panel-edit").on("click.panel-edit", function (event) { event.stopPropagation(); conventions.EditConventionDetail(obj); });
     obj.find(".panel-upload").off("click.panel-upload").on("click.panel-upload", function (event) { event.stopPropagation(); conventions.UploadConventionDetail(obj); });
-    obj.off("click.convention_widget").on("click.convention_widget", function () {
-        var currentObj = $(this);
-        var conventionDetail = currentObj.data("convention_detail")
-        window.location.href = conventions.options.conventionDetailPage(conventionDetail.id);
-    });
 }
 conventions.GetConventionWidgetHTML = function (obj) {
     var sb = new StringBuilder();
@@ -251,9 +246,11 @@ conventions.GetConventionWidgetHTML = function (obj) {
     sb.append("<div class=\"panel panel-info tile panelClose panelRefresh\" id=\"dyn_0\">");
     sb.append("<div class=\"panel-heading\">");
     sb.append("<h4 class=\"panel-title\">" + obj.Name + "</h4>");
+    sb.append("<div class=\"panel-controls panel-controls-right\"><a href=\"" + (this.options.DownloadAttachments + obj.id) + "\" class=\"panel-download\"><i class=\"fa fa-download\"></i></a><a class=\"panel-upload\"><i class=\"fa fa-upload\"></i></a>");
     if (conventions.options.isEditDeleteEnable) {
-        sb.append("<div class=\"panel-controls panel-controls-right\"><a class=\"panel-upload\"><i class=\"fa fa-upload\"></i></a><a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div>");
+        sb.append("<a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a>");
     }
+    sb.append("</div>");
     sb.append("</div>");
     sb.append("<div class=\"panel-body pt0\">");
     if (IsNullOrEmpty(obj.ProfilePics)) {
