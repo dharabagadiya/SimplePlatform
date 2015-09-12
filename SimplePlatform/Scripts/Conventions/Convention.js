@@ -9,6 +9,7 @@ conventions.options = {
     GetConventions: "/Conventions/GetConventions",
     UploadAttachment: "/Conventions/UploadAttachment/",
     DeleteAttachment: "/Conventions/DeleteAttachment/",
+    conventionDetailPage: function (id) { return ("/Conventions/Detail/" + id); },
     DownloadAttachments: "/Conventions/Download/",
     pageSize: 9,
     totalPageSize: 10,
@@ -239,6 +240,11 @@ conventions.BindConventionWidgetClick = function (obj) {
     obj.find(".panel-close").off("click.panel-close").on("click.panel-close", function (event) { event.stopPropagation(); conventions.DeletConventionDetail(obj); });
     obj.find(".panel-edit").off("click.panel-edit").on("click.panel-edit", function (event) { event.stopPropagation(); conventions.EditConventionDetail(obj); });
     obj.find(".panel-upload").off("click.panel-upload").on("click.panel-upload", function (event) { event.stopPropagation(); conventions.UploadConventionDetail(obj); });
+    obj.off("click.convention_widget").on("click.convention_widget", function () {
+        var currentObj = $(this);
+        var conventionDetail = currentObj.data("convention_detail")
+        window.location.href = conventions.options.conventionDetailPage(conventionDetail.id);
+    });
 }
 conventions.GetConventionWidgetHTML = function (obj) {
     var sb = new StringBuilder();

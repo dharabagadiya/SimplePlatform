@@ -220,8 +220,36 @@ namespace SimplePlatform.Controllers
             var status = conventionManager.DeleteAttachment(id, conventionID);
             return Json(status);
         }
-
-        public FilePathResult Download(int id)
+        public ActionResult Detail(int id)
+        {
+            var convention = new ConventionManager().GetConventionDetail(id);
+            //BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
+            BundleConfig.AddScript("~/Scripts/Conventions", "Detail.js", ControllerName);
+            //Script = string.Format("officeDetail.options.officeID = {0};", id);
+            return View(convention);
+        }
+        public JsonResult GetAudiences(int id)
+        {
+            var audienceManager = new DataModel.ConventionManager();
+            var audiences = audienceManager.GetAudiences(id).Select(model => new
+            {
+                Name = model.Name,
+                Contact = model.Contact,
+            }).ToList();
+            return Json(new { data = audiences });
+        }
+        public JsonResult GetEvents(int id)
+        {
+            var audienceManager = new DataModel.ConventionManager();
+            var events = audienceManager.GetEvents(id).Select(model => new
+            {
+                Name = model.Name,
+                StartDate = model.StartDate.ToString("MM/dd/yyyy"),
+                EndDate = model.EndDate.ToString("MM/dd/yyyy")
+            }).ToList();
+            return Json(new { data = events });
+        }
+		public FilePathResult Download(int id)
         {
             var conventionManager = new ConventionManager();
             var convention = conventionManager.GetConventionDetail(id);

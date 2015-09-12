@@ -9,33 +9,46 @@
         <div id="page-header" class="clearfix">
             <div class="page-header">
                 <h2>@Model.Name</h2>
+                <input type="hidden" id="txtConventionID" value="@Model.ConventionId" />
             </div>
-            @*<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; margin-top : 20px; ">
-                <i class=" glyphicon glyphicon-calendar fa fa-calendar">
-                </i>&nbsp;
-                <span></span> <b class="caret"></b>
-            </div>*@
             <div class="clearfix"></div>
         </div>
         <div class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
-            <div class="panel panel-default plain btrr0 bbrr0 panelRefresh" data-mh="payments" id="dyn_4">
+            <div class="panel panel-default toggle panelMove panelClose panelRefresh">
                 <div class="panel-heading">
-                    <h4 class="panel-title"> Audience</h4>
-                    @*<div class="panel-controls panel-controls-right"><a href="#" class="panel-refresh"><i class="fa fa-circle-o"></i></a></div>*@
+                    <h4 class="panel-title">Audience List</h4>
                 </div>
                 <div class="panel-body">
-                    <div id="divStockChartContainer" style="height:300px;"></div>
+                    <table id="audienceList" class="display">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <div class="panel panel-default plain btrr0 bbrr0 panelRefresh" data-mh="payments" id="dyn_4">
+            <div class="panel panel-default toggle panelMove panelClose panelRefresh">
                 <div class="panel-heading">
-                    <h4 class="panel-title"> Event</h4>
-                    @*<div class="panel-controls panel-controls-right"><a href="#" class="panel-refresh"><i class="fa fa-circle-o"></i></a></div>*@
+                    <h4 class="panel-title">Event List</h4>
                 </div>
                 <div class="panel-body">
-                    <div id="divStockChartContainer" style="height:300px;"></div>
+                    <table id="eventList" class="display">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
