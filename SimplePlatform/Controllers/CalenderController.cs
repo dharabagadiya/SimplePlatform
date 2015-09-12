@@ -43,7 +43,7 @@ namespace SimplePlatform.Controllers
                 title = model.Name,
                 start = model.StartDate.ToString("yyyy-MM-dd"),
                 end = model.EndDate.ToString("yyyy-MM-dd"),
-                imageURL = model.UsersDetail == null ? (model.Office == null ? "Content/Images/Common/avatar.png" : Url.Content(model.Office.FileResource.path)) : Url.Content(model.Office.FileResource.path)
+                imageURL = model.UsersDetail == null ? (model.Office == null ? "Content/Images/Common/avatar.png" : Url.Content(model.Office.FileResource.path)) : Url.Content(model.UsersDetail.FileResource.path)
             }).ToList<dynamic>();
         }
         private List<dynamic> GetEvents(DateTime startDate, DateTime endDate)

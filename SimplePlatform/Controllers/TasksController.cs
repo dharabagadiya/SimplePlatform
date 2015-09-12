@@ -21,12 +21,14 @@ namespace SimplePlatform.Controllers
 
         public JsonResult GetTasks()
         {
+            var isUpdateEnable = false;
             var taskManager = new DataModel.TaskManager();
             var isOfficeAdmin = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
             List<DataModel.Modal.Task> taskList;
             if (IsAdmin)
             {
                 taskList = taskManager.GetTasks().Where(model => model.UsersDetail == null).ToList();
+                isUpdateEnable = true;
             }
             else if (isOfficeAdmin)
             {
@@ -46,6 +48,7 @@ namespace SimplePlatform.Controllers
                 Status = model.IsCompleted,
                 OfficeID = model.Office.OfficeId,
                 UserID = (model.UsersDetail == null ? 0 : model.UsersDetail.UserId),
+                IsUpdateEnable = isUpdateEnable ? isUpdateEnable : (model.UsersDetail != null && isOfficeAdmin ? true : false)
             }).ToList();
             return Json(new
             {

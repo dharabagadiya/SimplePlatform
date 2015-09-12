@@ -133,7 +133,10 @@ $(document).ready(function () {
                     currentObj.css({ "text-align": "center" }).data("event_detail", rowData);
                     currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { events.EditEventDetail($(this)); });
                 },
-                render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i></a>'; },
+                render: function (o) {
+                    if (!o.IsUpdateEnable) { return "-"; }
+                    return '<a href="#"><i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i></a>';
+                },
                 "orderable": false,
                 "width": '2%'
             }, {
@@ -143,7 +146,10 @@ $(document).ready(function () {
                     currentObj.css({ "text-align": "center" }).data("event_detail", rowData);
                     currentObj.off("click.dataTableDeleteLink").on("click.dataTableDeleteLink", function () { events.DeletEventDetail($(this)); });
                 },
-                render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
+                render: function (o) {
+                    if (!o.IsUpdateEnable) { return "-"; }
+                    return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>';
+                },
                 "orderable": false,
                 "width": '2%'
             }]

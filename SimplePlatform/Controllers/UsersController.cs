@@ -13,7 +13,7 @@ namespace SimplePlatform.Controllers
     {
         public ActionResult Index()
         {
-            BundleConfig.AddScript("~/Scripts/Users", "users.js", ControllerName);
+            StartupScript = "users.LoadUserPageSetting();";
             return View();
         }
 

@@ -152,7 +152,7 @@ users.DeletUserDetail = function (obj) {
         });
     }, function (event, dataModalPlaceHolder) { });
 };
-$(document).ready(function () {
+users.LoadUserPageSetting = function () {
     $('#myDataTable').dataTable({
         renderer: {
             "header": "bootstrap",
@@ -189,4 +189,4 @@ $(document).ready(function () {
             "width": '2%'
         }]
     }).removeClass('display').addClass('table table-striped table-bordered');
-});
+};
