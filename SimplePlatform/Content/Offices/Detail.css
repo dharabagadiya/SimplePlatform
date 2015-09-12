@@ -20,3 +20,4 @@
 .recent-comments li p { margin-top: 2px; }
 .text-ellipsis { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .text-muted { color: #777777; }
+.eventWidget, .audienceWidget, .taskWidget { overflow: hidden; overflow-y: auto; max-height: 300px; }

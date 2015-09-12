@@ -37,3 +37,4 @@
 .fc-day-grid-event .fc-content { height: 30px; line-height: 30px; }
 .fc-event { border-radius: 0; }
 .fc-event .fc-content > span:first-child:before, .event-category:before { line-height: inherit; font-size: 12px; }
+.fc-unthemed .fc-today { background: #fcf8e3 !important; }

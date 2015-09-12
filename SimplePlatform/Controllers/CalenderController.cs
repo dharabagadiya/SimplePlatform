@@ -38,6 +38,7 @@ namespace SimplePlatform.Controllers
             }
             return taskList.Select(model => new
             {
+                type = "TASK",
                 id = model.TaskId,
                 className = "Calender-Event",
                 title = model.Name,
@@ -55,6 +56,7 @@ namespace SimplePlatform.Controllers
             var eventList = events.Where(model => model.IsDeleted == false && (model.StartDate >= startDate && model.StartDate <= endDate)).ToList();
             return eventList.Select(model => new
             {
+                type = "EVENT",
                 id = model.EventId,
                 title = model.Name,
                 start = model.StartDate.ToString("yyyy-MM-dd"),

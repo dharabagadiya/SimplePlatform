@@ -236,12 +236,28 @@ namespace SimplePlatform.Controllers
             });
         }
 
+        public object GetEventsForCurrentWeek(int id, DateTime startDate, DateTime endDate)
+        {
+            var eventManager = new EventManager();
+            var events = eventManager.GetEvents(id, startDate, endDate);
+            return events.OrderBy(model => model.StartDate - DateTime.Now)
+                .Select(model => new
+                {
+                    ID = model.EventId,
+                    Name = model.Name,
+                    StartDate = model.StartDate.ToString("MM dd,yyyy"),
+                    EndDate = model.EndDate.ToString("MM dd,yyyy"),
+                    TotalPeopleAttended = model.Audiences.Where(audienceModel => audienceModel.IsDeleted == false).Count()
+                });
+        }
+
         public ActionResult Detail(int id)
         {
             var offices = new OfficeMananer().GetOffice(id);
             BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Offices", "Detail.js", ControllerName);
             Script = string.Format("officeDetail.options.officeID = {0};", id);
+            StartupScript = "officeDetail.DoPageSetting();";
             return View(offices);
         }
 
@@ -255,7 +271,8 @@ namespace SimplePlatform.Controllers
             var bookingTargetData = GetBookingTargets(id, startDateTime, endDateTime);
             var tasks = GetTaskForCurrentWeek(id, startDateTime, endDateTime);
             var arrivalAudiences = GetUserArrivalForCurrentWeek(id, startDateTime, endDateTime);
-            return Json(new { fundRaisingTargetData = fundRaisingTargetData, bookingTargetData = bookingTargetData, tasks = tasks, arrivalAudiences = arrivalAudiences });
+            var events = GetEventsForCurrentWeek(id, startDateTime, endDateTime);
+            return Json(new { fundRaisingTargetData = fundRaisingTargetData, bookingTargetData = bookingTargetData, tasks = tasks, arrivalAudiences = arrivalAudiences, events = events });
         }
 
         [HttpPost]

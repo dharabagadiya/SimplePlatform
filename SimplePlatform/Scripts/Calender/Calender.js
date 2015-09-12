@@ -13,6 +13,9 @@ calendar.LoadCalenderByMonth = function (start, end, timezone, callback) {
         success: function (data) { callback(data); }
     });
 };
+calendar.GetEventDetail = function (event) {
+
+};
 calendar.DoCalenderSetting = function () {
     $('#calendar').fullCalendar({
         header: {

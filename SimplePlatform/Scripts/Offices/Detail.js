@@ -9,6 +9,19 @@ officeDetail.options = {
     endDate: null
 };
 officeDetail.bookingProgress = new ProgressBar.Circle('#divBookingChart', { color: '#0a97b9', strokeWidth: 2, fill: '#d0f1f9', duration: 4000, easing: 'bounce' });
+officeDetail.AttachScrollBar = function (obj) {
+    obj.niceScroll({
+        cursorcolor: "#999",
+        cursoropacitymin: 0,
+        cursoropacitymax: 0.3,
+        cursorwidth: 5,
+        cursorborder: "0px",
+        cursorborderradius: "0px",
+        cursorminheight: 50,
+        zindex: 1,
+        mousescrollstep: 20
+    });
+}
 officeDetail.NoRecordFound = function (message) {
     var sb = new StringBuilder();
     sb.append("<li class=\"list-group-item clearfix\">");
@@ -112,6 +125,21 @@ officeDetail.GetAudienceList = function (dataObj) {
     for (var i = 0; i < dataObj.length; i++) { widget = $(this.GetAudienceWidgetHTML(dataObj[i])); audienceWidget.append(widget); };
     officeDetail.UpdateAudienceStatus(audienceWidget);
 };
+officeDetail.GetEventWidgetHTML = function (obj) {
+    var sb = new StringBuilder();
+    var item = officeDetail.options.colors[Math.floor(Math.random() * officeDetail.options.colors.length)];
+    sb.append("<li class=\"list-group-item clearfix comment-" + item + "\">");
+    sb.append("<p class=\"text-ellipsis\"><span class=\"name strong\">" + obj.Name + "</span></p>");
+    sb.append("<span class=\"date small pull-left\">Attend From " + obj.StartDate + " To " + obj.EndDate + "</span>");
+    sb.append("<span class=\"date text-muted small pull-right\">Total People Attended  " + obj.TotalPeopleAttended + "</span>");
+    sb.append("</li>");
+    return sb.toString();
+}
+officeDetail.GetEventList = function (dataObj) {
+    var eventWidget = $(".eventWidget").empty();
+    if (dataObj.length <= 0) { eventWidget.append(this.NoRecordFound("No Event this week")); return; }
+    for (var i = 0; i < dataObj.length; i++) { widget = $(this.GetEventWidgetHTML(dataObj[i])); eventWidget.append(widget); };
+};
 officeDetail.UpdatePageDataByFilter = function () {
     $.ajax({
         dataType: "json",
@@ -125,6 +153,7 @@ officeDetail.UpdatePageDataByFilter = function () {
             officeDetail.LoadBookingData(dataObj.bookingTargetData);
             officeDetail.GetTaskList(dataObj.tasks);
             officeDetail.GetAudienceList(dataObj.arrivalAudiences);
+            officeDetail.GetEventList(dataObj.events);
         }
     });
 };
@@ -145,8 +174,6 @@ officeDetail.LoadGlobalTimeFilter = function () {
     }, officeDetail.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) { officeDetail.UpdatePageDataByFilter(); });
     officeDetail.UpdateGlobalTimePeriodSelection(moment().startOf('week').subtract(2, 'days'), moment().startOf('week').add('days', 4));
     officeDetail.UpdatePageDataByFilter();
+    officeDetail.AttachScrollBar($(".eventWidget, .audienceWidget, .taskWidget"));
 };
-$(document).ready(function () {
-    officeDetail.LoadGlobalTimeFilter();
-
-});
+officeDetail.DoPageSetting = function () { officeDetail.LoadGlobalTimeFilter(); };
