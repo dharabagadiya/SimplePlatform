@@ -188,18 +188,35 @@ namespace SimplePlatform.Controllers
 
         public object GetTaskForCurrentWeek(int id, DateTime startDate, DateTime endDate)
         {
+            var isUpdateEnable = false;
+            var isOfficeAdmin = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
             var currentYear = DateTime.Now.Year;
             var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
             var taskManager = new TaskManager();
             var tasks = taskManager.GetTasks(id, startDate, endDate);
-            return tasks.Select(model => new
+            List<DataModel.Modal.Task> taskList;
+            if (IsAdmin)
+            {
+                taskList = tasks.Where(model => model.UsersDetail == null).ToList();
+                isUpdateEnable = true;
+            }
+            else if (isOfficeAdmin)
+            {
+                taskList = tasks.ToList();
+            }
+            else
+            {
+                taskList = tasks.Where(model => model.UsersDetail != null && model.UsersDetail.UserId == UserDetail.UserId).ToList();
+            }
+            return taskList.Select(model => new
             {
                 ID = model.TaskId,
                 Name = model.Name,
                 EndDate = model.EndDate.ToString("MM dd,yyyy"),
                 Description = model.Description,
                 AssignTo = model.UsersDetail == null ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName),
-                IsCompleted = model.IsCompleted
+                IsCompleted = model.IsCompleted,
+                IsUpdateEnable = isUpdateEnable ? isUpdateEnable : (model.UsersDetail != null && isOfficeAdmin ? true : false)
             }).ToList();
         }
 
