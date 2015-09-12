@@ -10,6 +10,8 @@ namespace SimplePlatform.Controllers
     {
         public PartialViewResult WarmpUpEF()
         {
+            var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
+            var users = customMembershipProvider.GetUsers();
             var officeManager = new DataModel.OfficeMananer();
             var office = officeManager.GetOffices();
             return PartialView();

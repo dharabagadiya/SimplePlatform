@@ -150,7 +150,7 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected { bo
 /* User Chat Window Setting */
 .ui-commentWindow h3 { font-size: 18px; line-height: 33px; margin: 0px; padding: 0px; padding-bottom: 8px; border-bottom: 1px solid #f7f7f7; }
 .ui-commentWindow h3 i { font-size: 18px; }
-.ui-commentWindow .chat-content { max-height: 300px; padding: 0px 15px 0px 10px; overflow: hidden; }
+.ui-commentWindow .chat-content { max-height: 300px; padding: 0px 15px 0px 10px; overflow: hidden; overflow-y: auto; }
 .ui-commentWindow .chat-box { margin: 5px 0px 20px 0px; }
 .ui-commentWindow .chat-box img { width: 100%; border-radius: 50%; }
 .ui-commentWindow .chat-box .img-container { margin: 0; max-width: 60px; }

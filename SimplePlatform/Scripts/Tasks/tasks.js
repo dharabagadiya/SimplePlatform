@@ -120,6 +120,8 @@ tasks.UpdateUserCommentList = function (message, obj) {
     sb.append("<div class=\"clearfix\"></div>");
     sb.append("</div>");
     obj.find(".chat-content").append(sb.toString());
+    var scrollBottom = obj.find(".chat-content").scrollTop() + obj.find(".chat-content").height();
+    obj.find(".chat-content").eq(0).scrollTop(scrollBottom);
     obj.find(".chat-content").niceScroll({
         cursorcolor: "#999",
         cursoropacitymin: 0,
@@ -251,6 +253,8 @@ tasks.GetTaskDetail = function (taskID) {
             commentControll.empty().html(data).data("task-id", taskID);
             tasks.BindCommentControlClickEvent(commentControll);
             tasks.BindMarkTaskControlEvent(commentControll);
+            var scrollBottom = commentControll.find(".chat-content").scrollTop() + commentControll.find(".chat-content").height();
+            commentControll.find(".chat-content").eq(0).scrollTop(scrollBottom);
             commentControll.find(".chat-content").niceScroll({
                 cursorcolor: "#999",
                 cursoropacitymin: 0,
