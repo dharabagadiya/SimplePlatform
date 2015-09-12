@@ -117,7 +117,7 @@ namespace DataModel
 
         public List<Modal.Task> GetTasks(int officeID, DateTime startDate, DateTime endDate)
         {
-            return Context.Tasks.Where(model => (model.Office.OfficeId == officeID && model.IsDeleted == false && model.EndDate >= startDate && model.EndDate <= endDate)).ToList();
+            return Context.Tasks.Where(model => (model.Office.OfficeId == officeID && model.IsDeleted == false && model.StartDate >= startDate && model.StartDate <= endDate)).ToList();
         }
     }
 }

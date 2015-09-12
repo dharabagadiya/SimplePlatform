@@ -79,6 +79,14 @@ namespace DataModel
         { return Context.Events.Where(model => model.IsDeleted == false && officeIDs.Contains(model.Office.OfficeId)).ToList(); }
         public List<Event> GetActiveEvents(List<int> officeIDs)
         { return Context.Events.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0 && officeIDs.Contains(model.Office.OfficeId)).ToList(); }
+        public List<Event> GetEvents(int officeID, DateTime startDate, DateTime endDate)
+        {
+            return Context.Events.Where(
+              model => model.IsDeleted == false
+              && model.StartDate >= startDate && model.StartDate <= endDate
+              && model.Office.OfficeId == officeID).ToList();
+        }
+
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
