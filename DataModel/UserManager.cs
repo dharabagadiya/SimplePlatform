@@ -62,6 +62,34 @@ namespace DataModel
             }
 
         }
+
+        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID, int officeID, string fileName, string path)
+        {
+            try
+            {
+                var userDetail = GetUserDetail(id);
+                if (userDetail == null) { return false; }
+                userDetail.User.Roles.Remove(userDetail.User.Roles.FirstOrDefault());
+                userDetail.Offices.Remove(userDetail.Offices.FirstOrDefault());
+                Context.SaveChanges();
+                var roles = Context.Roles.Where(model => model.RoleId == userRoleID).ToList();
+                var offices = Context.Offices.Where(model => model.OfficeId == officeID).ToList();
+                userDetail.User.UserName = emildID;
+                userDetail.User.Email = emildID;
+                userDetail.User.FirstName = firstName;
+                userDetail.User.LastName = lastName;
+                userDetail.User.Roles = roles;
+                userDetail.FileResource = new Modal.FileResource { path = path, name = fileName };
+                userDetail.Offices = offices;
+                Context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
         public bool DeleteUser(int id)
         {
             var userDetail = GetUserDetail(id);

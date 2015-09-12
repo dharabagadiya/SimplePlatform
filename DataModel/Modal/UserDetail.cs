@@ -1,4 +1,4 @@
-﻿ 
+﻿
 #region Using Namespaces
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ namespace DataModel.Modal
     {
         public int UserId { get; set; }
         public virtual CustomAuthentication.User User { get; set; }
+        public virtual FileResource FileResource { get; set; }
         public virtual ICollection<Office> Offices { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Convention> Conventions { get; set; }
