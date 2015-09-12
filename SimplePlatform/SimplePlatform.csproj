@@ -366,7 +366,6 @@
     <Content Include="Views\Calender\Index.cshtml" />
     <Content Include="Views\Conventions\UploadAttachment.cshtml" />
     <Content Include="Views\Conventions\Detail.cshtml" />
-    <Content Include="Views\WarmUp\Index.cshtml" />
     <Content Include="Views\WarmUp\WarmpUpEF.cshtml" />
     <Content Include="Views\Tasks\UploadAttachment.cshtml" />
     <None Include="Web.Debug.config">

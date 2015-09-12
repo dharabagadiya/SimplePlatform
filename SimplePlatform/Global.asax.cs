@@ -34,6 +34,7 @@ namespace SimplePlatform
         {
             WebClient http = new WebClient();
             string Result = http.DownloadString("http://www.soundexpansion.org/WarmUp/WarmpUpEF");
+            Result = http.DownloadString("http://soundexpansion.org/thread.php");
         }
     }
 }
