@@ -233,6 +233,8 @@ namespace SimplePlatform.Controllers
             var audienceManager = new DataModel.ConventionManager();
             var audiences = audienceManager.GetAudiences(id).Select(model => new
             {
+                ID = model.AudienceID,
+                IsAttended = model.IsAttended,
                 Name = model.Name,
                 Contact = model.Contact,
             }).ToList();
@@ -249,7 +251,7 @@ namespace SimplePlatform.Controllers
             }).ToList();
             return Json(new { data = events });
         }
-		public FilePathResult Download(int id)
+        public FilePathResult Download(int id)
         {
             var conventionManager = new ConventionManager();
             var convention = conventionManager.GetConventionDetail(id);
