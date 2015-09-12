@@ -17,6 +17,20 @@ namespace SimplePlatform.Controllers
             return View();
         }
 
+        public PartialViewResult EventDetail(int id)
+        {
+            var eventManager = new DataModel.EventManager();
+            var eventDetail = eventManager.GetEventDetail(id);
+            return PartialView(eventDetail);
+        }
+
+        public PartialViewResult TaskDetail(int id)
+        {
+            var taskManager= new DataModel.TaskManager();
+            var taskDetail = taskManager.GetTask(id);
+            return PartialView(taskDetail);
+        }
+
         private List<dynamic> GetTasks(DateTime startDate, DateTime endDate)
         {
             var taskManager = new DataModel.TaskManager();

@@ -1,6 +1,8 @@
 ﻿var calendar = {};
 calendar.options = {
-    GetEvents: "/Calender/GetEvents"
+    GetEvents: "/Calender/GetEvents",
+    GetTaskDetailURL: function (id) { return ("/Calender/TaskDetail/" + id); },
+    GetEventDetailURL: function (id) { return ("/Calender/EventDetail/" + id); }
 };
 calendar.LoadCalenderByMonth = function (start, end, timezone, callback) {
     $.ajax({
@@ -13,7 +15,25 @@ calendar.LoadCalenderByMonth = function (start, end, timezone, callback) {
         success: function (data) { callback(data); }
     });
 };
-calendar.GetEventDetail = function (event) { };
+
+calendar.GetTaskDetail = function (event) {
+    ShowDialogBox($("#divCommonModalPlaceHolder"), calendar.options.GetTaskDetailURL(event.id), null, $.proxy(function (event, dialogContentPlaceHolder) { }, this));
+};
+calendar.GetEventDetail = function (event) {
+    ShowDialogBox($("#divCommonModalPlaceHolder"), calendar.options.GetEventDetailURL(event.id), null, $.proxy(function (event, dialogContentPlaceHolder) { }, this));
+};
+
+calendar.GetCalenderEventDetail = function (event) {
+    var eventType = event.type.toUpperCase();
+    switch (eventType) {
+        case "TASK":
+            calendar.GetTaskDetail(event);
+            break;
+        case "EVENT":
+            calendar.GetEventDetail(event);
+            break;
+    }
+};
 calendar.DoCalenderSetting = function () {
     $('#calendar').fullCalendar({
         header: {
@@ -30,7 +50,10 @@ calendar.DoCalenderSetting = function () {
             eventTilteObj.addClass("pull-left");
             contentObj.prepend("<div class=\"avatar pull-left mr15\"><img class='img-responsive' src=\"" + event.imageURL + "\" alt=\"avatar\"></div>");
         },
-        events: function (start, end, timezone, callback) { calendar.LoadCalenderByMonth(start, end, timezone, callback); }
+        events: function (start, end, timezone, callback) { calendar.LoadCalenderByMonth(start, end, timezone, callback); },
+        eventClick: function (calEvent, jsEvent, view) {
+            calendar.GetCalenderEventDetail(calEvent);
+        }
     });
 };
 $(document).ready(function () {
