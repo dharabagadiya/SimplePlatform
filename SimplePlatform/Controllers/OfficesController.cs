@@ -14,6 +14,11 @@ namespace SimplePlatform.Controllers
     {
         public ActionResult Index()
         {
+            var offices = UserDetail.Offices.Where(model => model.IsDeleted == false).Select(model => model).ToList();
+            var totalOffices = offices.Count();
+            var office = offices.FirstOrDefault();
+            if (totalOffices == 1) { return RedirectToAction("Detail", new { id = office.OfficeId }); }
+
             BundleConfig.AddStyle("/Offices", "Offices.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Offices", "Offices.js", ControllerName);
             Script = string.Format("office.options.isEditDeleteEnable = {0};", IsAdmin.ToString().ToLower());
