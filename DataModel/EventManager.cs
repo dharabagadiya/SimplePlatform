@@ -86,7 +86,6 @@ namespace DataModel
               && model.StartDate >= startDate && model.StartDate <= endDate
               && model.Office.OfficeId == officeID).ToList();
         }
-
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
