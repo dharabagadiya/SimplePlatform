@@ -170,5 +170,9 @@ namespace DataModel
         { return Context.UsersDetail.Where(modal => modal.UserId == id).FirstOrDefault(); }
         public List<Convention> GetActiveConventions()
         { return Context.Conventions.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0).ToList(); }
+        public List<Audience> GetAudiences(int id)
+        { return GetConventionDetail(id).Audiences.ToList(); }
+        public List<Event> GetEvents(int id)
+        { return GetConventionDetail(id).Events.ToList(); }
     }
 }
