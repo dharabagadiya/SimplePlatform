@@ -784,8 +784,18 @@ simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderChangePwdClickEvent();
     this.BindHeaderEditUserClickEvent();
 };
+simplePlatform.UpdateParentMenu = function (obj) {
+    if (obj.closest("ul").parent().find(">a[data-role=\"menu\"]").length > 0) {
+        obj.closest("ul").parent().find(">a[data-role=\"menu\"]").addClass("active");
+        simplePlatform.UpdateParentMenu(obj.closest("ul").parent().find(">a[data-role=\"menu\"]"));
+    }
+};
+simplePlatform.UpdateMenuSelection = function () {
+    $("a[data-role=\"menu\"]").removeClass("active");
+    $("a[data-role=\"menu\"][data-page-name=\"" + pageName + "\"]").addClass("active");
+    simplePlatform.UpdateParentMenu($("a[data-role=\"menu\"][data-page-name=\"" + pageName + "\"]"));
+};
 $(document).ready(function () {
     simplePlatform.BindHeaderAddClickEvents();
-    // Example Of ShowOkCancelDialogBox
-    //ShowOkCancelDialogBox($("#divCommonModalPlaceHolder"), "Test", "this is Good", function (event, dataModalPlaceHolder) { }, function (event, dataModalPlaceHolder) { });
+    simplePlatform.UpdateMenuSelection();
 });

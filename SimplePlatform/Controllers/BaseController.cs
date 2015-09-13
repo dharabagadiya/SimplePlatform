@@ -49,6 +49,9 @@ namespace SimplePlatform.Controllers
 
             Script = string.Empty;
             StartupScript = string.Empty;
+
+            Script = string.Format("var pageName = \"{0}\";", filterContext.RouteData.Values["controller"].ToString());
+
             base.OnActionExecuting(filterContext);
         }
         #endregion

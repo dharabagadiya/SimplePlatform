@@ -177,7 +177,10 @@ tasks.ValidateModalTaskCommentForm = function (obj) {
                 formData: { "taskID": taskID, comment: comment },
                 done: function (data) {
                     var status = data;
-                    if (status) { obj.modal('hide'); ShowSuccessSaveAlert(); } else { }
+                    if (status) {
+                        obj.modal('hide');
+                        tasks.GetTaskDetail(taskID);
+                    } else { }
                 }
             });
             $('#frmTaskUpload').fileupload('send', { files: tasks.filesList });

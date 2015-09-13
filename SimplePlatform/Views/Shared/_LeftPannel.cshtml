@@ -8,16 +8,16 @@
         </div>
         <div class="side-nav">
             <ul class="nav">
-                <li class="">
-                    <a href="@Url.Action("", "Home")" class="active"><i class="fa fa-tachometer"></i><span class="txt">Dashboard</span></a>
+                <li>
+                    <a href="@Url.Action("", "Home")" class="notExpand" data-role="menu" data-page-name="Home"><i class="fa fa-tachometer"></i><span class="txt">Dashboard</span></a>
                 </li>
                 <li class="hasSub">
-                    <a href="@Url.Action("", "Offices")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-bank"></i><span class="txt">Offices</span></a>
+                    <a href="@Url.Action("", "Offices")" class="notExpand" data-role="menu" data-page-name="Offices"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-bank"></i><span class="txt">Offices</span></a>
                     @if (Model.User.Roles.Any(model => new List<int> { 1 }.Contains(model.RoleId)))
                     {
                         <ul class="sub">
-                            <li class="">
-                                <a href="@Url.Action("", "Targets")"><span class="txt">Targets</span></a>
+                            <li>
+                                <a href="@Url.Action("", "Targets")" data-role="menu" data-page-name="Targets"><span class="txt">Targets</span></a>
                             </li>
                         </ul>
                     }
@@ -25,23 +25,23 @@
                 @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
                 {
                     <li class="hasSub">
-                        <a href="@Url.Action("", "Conventions")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-group"></i><span class="txt">Conventions</span></a>
+                        <a href="@Url.Action("", "Conventions")" class="notExpand" data-role="menu" data-page-name="Conventions"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-group"></i><span class="txt">Conventions</span></a>
                     </li>
                 }
                 <li class="hasSub">
-                    <a href="@Url.Action("", "Events")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-th-list"></i><span class="txt">Events</span></a>
+                    <a href="@Url.Action("", "Events")" class="notExpand" data-role="menu" data-page-name="Events"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-th-list"></i><span class="txt">Events</span></a>
                 </li>
                 @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
                 {
                     <li class="hasSub">
-                        <a href="@Url.Action("", "Users")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-user"></i><span class="txt">Users</span></a>
+                        <a href="@Url.Action("", "Users")" class="notExpand" data-role="menu" data-page-name="Users"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-user"></i><span class="txt">Users</span></a>
                     </li>
                 }
                 <li class="hasSub">
-                    <a href="@Url.Action("", "Tasks")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-tasks"></i> <span class="txt">Tasks</span></a>
+                    <a href="@Url.Action("", "Tasks")" class="notExpand" data-role="menu" data-page-name="Tasks"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-tasks"></i> <span class="txt">Tasks</span></a>
                 </li>
                 <li class="hasSub">
-                    <a href="@Url.Action("", "Audiences")" class="notExpand"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-group"></i> <span class="txt">Audiences</span></a>
+                    <a href="@Url.Action("", "Audiences")" class="notExpand" data-role="menu" data-page-name="Audiences"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-group"></i> <span class="txt">Audiences</span></a>
                 </li>
             </ul>
         </div>
