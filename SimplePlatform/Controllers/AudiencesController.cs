@@ -20,29 +20,34 @@ namespace SimplePlatform.Controllers
             ViewData["FSMUsers"] = userManager.GetUsers(4);
             var conventionManager = new DataModel.ConventionManager();
             ViewData["Convention"] = conventionManager.GetActiveConventions();
+            StartupScript = "audiences.DoPageSetting();";
             return View();
         }
 
-        public JsonResult GetAudiences()
+        public JsonResult GetAudiences(string startDate, string endDate)
         {
+            var startDateTime = Convert.ToDateTime(startDate);
+            var endDateTime = Convert.ToDateTime(endDate);
             var officeManager = new DataModel.OfficeMananer();
             var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
             var audienceManager = new DataModel.AudienceManager();
-            var users = audienceManager.GetAudiences(offices).Select(model => new
-            {
-                ID = model.AudienceID,
-                Name = model.Name,
-                Contact = model.Contact,
-                VisitDate = model.VisitDate.ToString("MMM dd,yyyy"),
-                VisitType = model.VisitType.VisitTypeName,
-                EventName = (model.Event == null ? "-" : model.Event.Name),
-                ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
-                Status = model.IsBooked ? "Booked" : "In Progress",
-                FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
-                Attended = model.IsAttended,
-                GSBAmount = model.GSBAmount,
-                DonationAmount = model.Amount
-            }).ToList();
+            var users = audienceManager.GetAudiences(offices)
+                .Where(model => model.VisitDate >= startDateTime && model.VisitDate <= endDateTime)
+                .Select(model => new
+                {
+                    ID = model.AudienceID,
+                    Name = model.Name,
+                    Contact = model.Contact,
+                    VisitDate = model.VisitDate.ToString("MMM dd,yyyy"),
+                    VisitType = model.VisitType.VisitTypeName,
+                    EventName = (model.Event == null ? "-" : model.Event.Name),
+                    ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
+                    Status = model.IsBooked ? "Booked" : "In Progress",
+                    FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
+                    Attended = model.IsAttended,
+                    GSBAmount = model.GSBAmount,
+                    DonationAmount = model.Amount
+                }).ToList();
             return Json(new { data = users });
         }
 

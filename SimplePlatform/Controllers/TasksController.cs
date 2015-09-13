@@ -16,11 +16,15 @@ namespace SimplePlatform.Controllers
             BundleConfig.AddScript("~/Scripts/Tasks", "tasks.js", ControllerName);
             BundleConfig.AddStyle("/Tasks", "tasks.css", ControllerName);
 
+            StartupScript = "tasks.DoPageSetting();";
+
             return View();
         }
 
-        public JsonResult GetTasks()
+        public JsonResult GetTasks(string startDate, string endDate)
         {
+            var startDateTime = Convert.ToDateTime(startDate);
+            var endDateTime = Convert.ToDateTime(endDate);
             var isUpdateEnable = false;
             var taskManager = new DataModel.TaskManager();
             var isOfficeAdmin = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
@@ -39,17 +43,19 @@ namespace SimplePlatform.Controllers
             {
                 taskList = UserDetail.Tasks.ToList();
             }
-            var tasks = taskList.Select(model => new
-            {
-                ID = model.TaskId,
-                Title = model.Name,
-                DueDate = model.EndDate.ToString("dd-MM-yyyy"),
-                AssignTo = (model.UsersDetail == null ? model.Office.Name : (model.UsersDetail.UserId == UserDetail.UserId) ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName)),
-                Status = model.IsCompleted,
-                OfficeID = model.Office.OfficeId,
-                UserID = (model.UsersDetail == null ? 0 : model.UsersDetail.UserId),
-                IsUpdateEnable = isUpdateEnable ? isUpdateEnable : (model.UsersDetail != null && isOfficeAdmin ? true : false)
-            }).ToList();
+            var tasks = taskList
+                .Where(model => model.StartDate >= startDateTime && model.StartDate <= endDateTime)
+                .Select(model => new
+                {
+                    ID = model.TaskId,
+                    Title = model.Name,
+                    DueDate = model.EndDate.ToString("dd-MM-yyyy"),
+                    AssignTo = (model.UsersDetail == null ? model.Office.Name : (model.UsersDetail.UserId == UserDetail.UserId) ? "Me" : (model.UsersDetail.User.FirstName + " " + model.UsersDetail.User.LastName)),
+                    Status = model.IsCompleted,
+                    OfficeID = model.Office.OfficeId,
+                    UserID = (model.UsersDetail == null ? 0 : model.UsersDetail.UserId),
+                    IsUpdateEnable = isUpdateEnable ? isUpdateEnable : (model.UsersDetail != null && isOfficeAdmin ? true : false)
+                }).ToList();
             return Json(new
             {
                 data = tasks

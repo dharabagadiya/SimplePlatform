@@ -2,7 +2,19 @@
 events.options = {
     EditViewURL: "/Events/Edit/",
     UpdateURL: "/Events/Update",
-    DeleteURL: "/Events/Delete"
+    DeleteURL: "/Events/Delete",
+    DetailPageURL: function (id) { return ("/Events/Detail/" + id); },
+    startDate: null,
+    endDate: null
+};
+events.BindEventRowClickEvent = function (obj) {
+    obj.DataTable().off("select.dt").on("select.dt", function (e, dt, type, indexes) {
+        if (type === 'row') {
+            var dataObj = obj.DataTable().rows(indexes).data();
+            var eventID = dataObj.pluck("id")[0];
+            window.location.href = events.options.DetailPageURL(eventID);
+        }
+    });
 };
 events.ValidateModalEventForm = function (obj) {
     obj.find("form")
@@ -112,15 +124,18 @@ events.DeletEventDetail = function (obj) {
         });
     }, function (event, dataModalPlaceHolder) { });
 };
-$(document).ready(function () {
+events.LoadEventsGrid = function () {
+    $('#myDataTable').dataTable().fnDestroy();
     $('#myDataTable').dataTable({
+        "select": "single",
         renderer: {
             "header": "bootstrap",
             "pageButton": "bootstrap"
         },
         "ajax": {
             "url": "/Events/GetEvents",
-            "type": "POST"
+            "type": "POST",
+            "data": { startDate: events.options.startDate.toDateString(), endDate: events.options.endDate.toDateString() }
         },
         "displayLength": 25,
         responsive: true,
@@ -154,4 +169,26 @@ $(document).ready(function () {
                 "width": '2%'
             }]
     }).removeClass('display').addClass('table table-striped table-bordered');
-});
+    events.BindEventRowClickEvent($('#myDataTable'));
+};
+events.UpdateGlobalTimePeriodSelection = function (start, end) {
+    events.options.startDate = start.toDate();
+    events.options.endDate = end.toDate();
+    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+};
+events.LoadGlobalTimeFilter = function () {
+    $('#reportrange').daterangepicker({
+        "startDate": moment().startOf('week').isoWeekday(4),
+        "endDate": moment().endOf('week').isoWeekday(4),
+        ranges: {
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, events.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) {
+        events.LoadEventsGrid();
+    });
+    events.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
+    events.LoadEventsGrid();
+};
+events.DoPageSetting = function () { events.LoadGlobalTimeFilter(); };
