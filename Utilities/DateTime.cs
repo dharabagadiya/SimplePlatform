@@ -32,5 +32,9 @@ namespace Utilities
             return result.AddDays(-3);
         }
 
+        public static DateTime FirstDateOfWeekISO8601(DateTime dateTime)
+        {
+            return FirstDateOfWeekISO8601(dateTime.Year, GetIso8601WeekOfYear(dateTime));
+        }
     }
 }
