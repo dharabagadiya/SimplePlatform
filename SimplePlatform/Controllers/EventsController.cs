@@ -82,5 +82,28 @@ namespace SimplePlatform.Controllers
             var status = eventManager.Delete(id);
             return Json(status);
         }
+        public ActionResult Detail()
+        {
+            BundleConfig.AddScript("~/Scripts/Events", "Detail.js", ControllerName);
+            return View();
+        }
+        public JsonResult GetAudiences(int id)
+        {
+            var audienceManager = new DataModel.EventManager();
+            var audiences = audienceManager.GetAudiences(id).Select(model => new
+            {
+                ID = model.AudienceID,
+                Name = model.Name,
+                Contact = model.Contact,
+                VisitDate = model.VisitDate.ToString("MMM dd,yyyy"),
+                ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
+                Status = model.IsBooked ? "Booked" : "In Progress",
+                FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
+                Attended = model.IsAttended,
+                GSBAmount = model.GSBAmount,
+                DonationAmount = model.Amount
+            }).ToList();
+            return Json(new { data = audiences });
+        }
     }
 }
