@@ -71,6 +71,14 @@ namespace SimplePlatform.Controllers
             return new { Total = totalTargets, ActTotal = totalAchievedTargets };
         }
 
+        public object GetEventsTarget(int id, DateTime startDate, DateTime endDate)
+        {
+            var office = new OfficeMananer().GetOffice(id);
+            var events = office.Events.Where(model => model.IsDeleted == false && model.StartDate >= startDate && model.StartDate <= endDate).ToList();
+            var totalTargets = events.Count();
+            return new { Total = totalTargets, ActTotal = totalTargets };
+        }
+
         [HttpPost]
         public JsonResult GetOffices(int pageNo, int pageSize, string startDate, string endDate)
         {
@@ -90,6 +98,7 @@ namespace SimplePlatform.Controllers
                     Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
                     Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
                     BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
+                    Events = GetEventsTarget(modal.OfficeId, startDateTime, endDateTime),
                     ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
                 }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new

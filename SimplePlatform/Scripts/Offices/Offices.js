@@ -51,6 +51,7 @@ office.GetOfficeWidgetHTML = function (obj) {
     sb.append("</div>");
     sb.append("<div class=\"row\">");
     sb.append("<div class=\"col-md-12\"><div class='divWidgetDetail'>Booking <span class=\"pull-right\"><span class=\"badge\">" + obj.BookingInProcess.ActTotal + "</span> of " + obj.BookingInProcess.Total + "</span></div></div>");
+    sb.append("<div class=\"col-md-12\"><div class='divWidgetDetail'>Events <span class=\"pull-right\">" + obj.Events.Total + "</span></div></div>");
     sb.append("</div>");
     sb.append("</div>");
     sb.append("</div>");
