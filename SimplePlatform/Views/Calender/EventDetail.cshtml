@@ -8,9 +8,13 @@
             <h4 class="modal-title">Event Detail</h4>
         </div>
         <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <div class="col-md-12">
+                <h4 class="pull-left">@Model.Name</h4>
+                <span class="pull-right"><i class="fa fa-calendar"></i>&nbsp;@Model.StartDate.ToString("MMM dd, yyy") - @Model.EndDate.ToString("MMM dd, yyy")</span><br />
+                <div class="clearfix"></div>
+                <span>Total People Attended&nbsp; <span class="badge">@Model.Audiences.Where(audience => audience.IsDeleted == false).Count() </span></span>
+            </div>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>

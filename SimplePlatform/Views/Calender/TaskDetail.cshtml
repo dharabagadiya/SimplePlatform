@@ -7,9 +7,17 @@
             <h4 class="modal-title">Task Detail</h4>
         </div>
         <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <div class="col-md-12">
+                <h4 class="pull-left">
+                    @Model.Name @if (Model.IsCompleted)
+                    {
+                        <i id="divMarkTaskButton" class="glyphicon glyphicon-ok" style="font-size: 22px;"></i>
+                    }
+                </h4><span class="pull-right"><i class="fa fa-calendar"></i>&nbsp;@Model.StartDate.ToString("MMM dd, yyy") - @Model.EndDate.ToString("MMM dd, yyy")</span><br />
+                <div class="clearfix"></div>
+                <span>Assign To : &nbsp;@(Model.UsersDetail == null ? Model.Office.Name : (Model.UsersDetail.User.FirstName + " " + Model.UsersDetail.User.LastName))</span><br />
+            </div>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>

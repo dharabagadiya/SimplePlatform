@@ -1,6 +1,6 @@
 ﻿#calendar { position: relative; }
 .fc-view-container { background-color: #ffffff; }
-.fc-event, #event-categories .event-category { padding: 2px 5px; background: #edeef0 !important; border: 1px solid #e8e9ec !important; color: #8B91A0 !important; }
+.fc-event, #event-categories .event-category { padding: 2px 5px; background: #00BFFF !important; border: 1px solid #e8e9ec !important; color: #fff !important; }
 #event-categories .event-category { cursor: move; }
 .fc-day-number { margin: 2px 2px 0 0; }
 .fc-header-title h2 { color: #8B91A0; font-weight: 200; letter-spacing: -1px; }

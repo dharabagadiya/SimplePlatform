@@ -50,7 +50,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a class="avatar" url="@Url.Action("Edit", "Users", new { id = Model.UserId })" id="lnkUpdateUserDetail"><img class='img-responsive pull-left' src="@(Model.FileResource == null ? Url.Content("~/Content/Images/Common/avatar.png") : Url.Content(Model.FileResource.path) )" alt="av avatar"> @Model.User.FirstName @Model.User.LastName</a>
+                <a class="avatar" href="#" url="@Url.Action("Edit", "Users", new { id = Model.UserId })" id="lnkUpdateUserDetail"><img class='img-responsive pull-left' src="@(Model.FileResource == null ? Url.Content("~/Content/Images/Common/avatar.png") : Url.Content(Model.FileResource.path) )" alt="av avatar"> @Model.User.FirstName @Model.User.LastName</a>
             </li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown">
