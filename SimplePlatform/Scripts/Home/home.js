@@ -44,7 +44,7 @@ home.LoadBookingChart = function (data) {
             title: { text: 'No. of Booking' }
         },
         credits: { enabled: false },
-        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e, %b} : {point.y:.2f}$' },
+        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e, %b} : {point.y}' },
         plotOptions: { spline: { marker: { enabled: true } } },
         series: data
     });
@@ -86,7 +86,7 @@ home.LoadArrivalChart = function (data) {
             title: { text: 'No. of Arrival' }
         },
         credits: { enabled: false },
-        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e, %b} : {point.y:.2f}$' },
+        tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '{point.x:%e, %b} : {point.y}' },
         plotOptions: { spline: { marker: { enabled: true } } },
         series: data
     });
