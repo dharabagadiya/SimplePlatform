@@ -10,7 +10,9 @@ tasks.options = {
     DeleteURL: "/Tasks/Delete",
     AddCommentURL: "/Comments/Add",
     UploadAttachment: "/Tasks/UploadAttachment/",
-    DetailURL: function (id) { return ("/Tasks/GetDetail/" + id); }
+    DetailURL: function (id) { return ("/Tasks/GetDetail/" + id); },
+    startDate: null,
+    endDate: null
 };
 tasks.ValidateModalTaskForm = function (obj) {
     obj.find("form")
@@ -298,7 +300,8 @@ tasks.ReloadTaskList = function () {
         },
         "ajax": {
             "url": "/Tasks/GetTasks",
-            "type": "POST"
+            "type": "POST",
+            "data": { startDate: tasks.options.startDate.toDateString(), endDate: tasks.options.endDate.toDateString() }
         },
         "displayLength": 25,
         responsive: true,
@@ -354,4 +357,24 @@ tasks.ReloadTaskList = function () {
     tasks.BindTaskRowClickEvent($('#userTaskList'));
     tasks.tableObj = tableObj;
 };
-$(document).ready(function () { tasks.ReloadTaskList(); });
+tasks.LoadTasksGrid = function () { tasks.ReloadTaskList(); };
+tasks.UpdateGlobalTimePeriodSelection = function (start, end) {
+    tasks.options.startDate = start.toDate();
+    tasks.options.endDate = end.toDate();
+    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+};
+tasks.LoadGlobalTimeFilter = function () {
+    $('#reportrange').daterangepicker({
+        "startDate": moment().startOf('week').isoWeekday(4),
+        "endDate": moment().endOf('week').isoWeekday(4),
+        ranges: {
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, tasks.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) { tasks.LoadTasksGrid(); });
+    tasks.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
+    tasks.LoadTasksGrid();
+};
+tasks.DoPageSetting = function () { tasks.LoadGlobalTimeFilter(); };
+

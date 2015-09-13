@@ -4,7 +4,9 @@ audiences.options = {
     UpdateDataURL: "/Audiences/Update",
     DeleteDataURL: "/Audiences/Delete",
     UpdateAttendStatusURL: "/Audiences/AttendStatus",
-    EditDataURL: function (id) { return ("/Audiences/Edit/" + id); }
+    EditDataURL: function (id) { return ("/Audiences/Edit/" + id); },
+    startDate: null,
+    endDate: null
 };
 audiences.AddAudienceAjaxCall = function (obj, containerObj) {
     $.ajax({
@@ -322,7 +324,8 @@ audiences.LoadAudienceList = function () {
         },
         "ajax": {
             "url": "/Audiences/GetAudiences",
-            "type": "POST"
+            "type": "POST",
+            "data": { startDate: audiences.options.startDate.toDateString(), endDate: audiences.options.endDate.toDateString() }
         },
         "displayLength": 25,
         responsive: true,
@@ -376,7 +379,30 @@ audiences.LoadAudienceList = function () {
             }]
     }).removeClass('display').addClass('table table-striped table-bordered');
 };
-$(document).ready(function () {
+
+audiences.UpdateGlobalTimePeriodSelection = function (start, end) {
+    audiences.options.startDate = start.toDate();
+    audiences.options.endDate = end.toDate();
+    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+};
+audiences.LoadGlobalTimeFilter = function () {
+    $('#reportrange').daterangepicker({
+        "startDate": moment().startOf('week').isoWeekday(4),
+        "endDate": moment().endOf('week').isoWeekday(4),
+        ranges: {
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, audiences.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) {
+        audiences.LoadAudienceList();
+    });
+    audiences.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
     audiences.LoadAudienceList();
+};
+
+audiences.DoPageSetting = function () {
+    audiences.LoadGlobalTimeFilter();
     audiences.LoadQuickBooking();
-});
+};
+
