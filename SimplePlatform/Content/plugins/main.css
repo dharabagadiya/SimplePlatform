@@ -345,6 +345,8 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected { bo
 
 .daterangepicker.opensright:before { top: -18px; left: 30px; }
 .daterangepicker.opensright:after { top: -16px; left: 29px; }
+.daterangepicker.opensleft:before { top: -18px; left: 30px; }
+.daterangepicker.opensleft:after { top: -16px; left: 29px; }
 
 /* -----------------------------------------
    Responsive media queries

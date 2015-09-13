@@ -12,6 +12,7 @@ namespace SimplePlatform.Controllers
         public ActionResult Index()
         {
             BundleConfig.AddScript("~/Scripts/Events", "Events.js", ControllerName);
+            StartupScript = "events.DoPageSetting()";
             return View();
         }
         public ActionResult Add()
@@ -38,13 +39,17 @@ namespace SimplePlatform.Controllers
             var eventManager = new EventManager();
             return Json(eventManager.Add(name, startDate, endDate, description, officeID, conventionID, city));
         }
-        public JsonResult GetEvents()
+        public JsonResult GetEvents(string startDate, string endDate)
         {
+            var startDateTime = Convert.ToDateTime(startDate);
+            var endDateTime = Convert.ToDateTime(endDate);
             var isUpdateEnable = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
             var officesManager = new OfficeMananer();
             var offices = IsAdmin ? officesManager.GetOffices() : UserDetail.Offices;
             var eventList = offices.Where(model => model.IsDeleted == false).SelectMany(model => model.Events).ToList();
-            var events = eventList.Where(model => model.IsDeleted == false).Select(modal => new
+            var events = eventList.Where(model => model.IsDeleted == false)
+                .Where(model => model.StartDate >= startDateTime && model.StartDate <= endDateTime)
+                .Select(modal => new
             {
                 id = modal.EventId,
                 name = modal.Name,
