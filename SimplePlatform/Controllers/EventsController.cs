@@ -53,8 +53,8 @@ namespace SimplePlatform.Controllers
             {
                 id = modal.EventId,
                 name = modal.Name,
-                startDate = modal.StartDate.ToString("dd-MM-yyyy HH:mm"),
-                endDate = modal.EndDate.ToString("dd-MM-yyyy HH:mm"),
+                startDate = modal.StartDate.ToString("MMM dd,yyyy HH:mm"),
+                endDate = modal.EndDate.ToString("MMM dd,yyyy HH:mm"),
                 description = modal.Description,
                 city = modal.City,
                 IsUpdateEnable = isUpdateEnable
