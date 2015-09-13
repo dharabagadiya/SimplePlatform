@@ -41,7 +41,7 @@ namespace DataModel
         public List<Event> GetEvents()
         { return Context.Events.Where(model => model.IsDeleted == false).ToList(); }
         public Event GetEventDetail(int id)
-        { return Context.Events.Where(modal => modal.EventId == id).FirstOrDefault(); }
+        { return Context.Events.Where(model => model.IsDeleted == false).Where(modal => modal.EventId == id).FirstOrDefault(); }
         public bool Update(string name, DateTime startDate, DateTime endDate, string description, int officeID, int eventID, int conventionID, string city)
         {
             try
