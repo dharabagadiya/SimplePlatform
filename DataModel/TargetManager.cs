@@ -109,7 +109,7 @@ namespace DataModel
             var targetSeriesData = targets.Where(model => model.DueDate >= startDate && model.DueDate <= endDate)
                 .OrderBy(model => model.DueDate)
                 .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate))
-                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (model.FirstOrDefault().DueDate - startYear).TotalMilliseconds, y = model.Sum(x => x.FundRaising) }).ToList();
+                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(model.FirstOrDefault().DueDate).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(x => x.FundRaising) }).ToList();
             var totalTarget = targetSeriesData.Sum(model => model.y);
             return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData, };
         }
@@ -129,7 +129,7 @@ namespace DataModel
             var targetSeriesData = targets.Where(model => model.DueDate >= startDate && model.DueDate <= endDate)
                 .OrderBy(model => model.DueDate)
                 .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate))
-                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (model.FirstOrDefault().DueDate - startYear).TotalMilliseconds, y = model.Sum(x => x.Booking) }).ToList();
+                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(model.FirstOrDefault().DueDate).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(x => x.Booking) }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
 
@@ -148,7 +148,7 @@ namespace DataModel
             var targetSeriesData = targets.Where(model => model.DueDate >= startDate && model.DueDate <= endDate)
                 .OrderBy(model => model.DueDate)
                 .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate))
-                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (model.FirstOrDefault().DueDate - startYear).TotalMilliseconds, y = model.Sum(x => x.GSB) }).ToList();
+                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(model.FirstOrDefault().DueDate).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(x => x.GSB) }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
 
@@ -167,7 +167,7 @@ namespace DataModel
             var targetSeriesData = targets.Where(model => model.DueDate >= startDate && model.DueDate <= endDate)
                 .OrderBy(model => model.DueDate)
                 .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.DueDate))
-                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (model.FirstOrDefault().DueDate - startYear).TotalMilliseconds, y = model.Sum(x => x.Arrivals) }).ToList();
+                .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(model.FirstOrDefault().DueDate).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(x => x.Arrivals) }).ToList();
             return new Modal.ChartSeries { type = "line", name = "Tagert Year - " + DateTime.Now.Year, data = targetSeriesData };
         }
     }
