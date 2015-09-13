@@ -1,6 +1,93 @@
 ﻿var simplePlatform = {};
 simplePlatform.jqXHRData = null;
 simplePlatform.filesList = [], simplePlatform.paramNames = [];
+simplePlatform.ValidateModalUserChangePwdForm = function (obj) {
+    obj.find("form")
+    .bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            oldPassword: {
+                message: 'The name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The old password is required and cannot be empty'
+                    },
+                }
+            },
+            newPassword: {
+                validators: {
+                    identical: {
+                        field: 'confirmPassword',
+                        message: 'The password and its confirm are not the same'
+                    },
+                    notEmpty: {
+                        message: 'The new password is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 50,
+                        message: 'The password name must be more than 3 and less than 50 characters long'
+                    }
+                }
+            },
+            confirmPassword: {
+                validators: {
+                    identical: {
+                        field: 'newPassword',
+                        message: 'The new password and its confirm are not the same'
+                    },
+                    notEmpty: {
+                        message: 'The confirm password is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 50,
+                        message: 'The Password name must be more than 3 and less than 50 characters long'
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function (e) {
+        e.preventDefault();
+        var formObj = $(e.target);;
+        var oldPassword = formObj.find("#txtoldPassword").val();
+        var newPassword = formObj.find("#txtnewPassword").val();
+        var changePassword = formObj.find("#txtconfirmPassword").val();
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: "/Users/UpdatePassword",
+            async: false,
+            data: JSON.stringify({ "oldPassword": oldPassword, "newPassword": newPassword }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    obj.modal('hide');
+                    ShowSuccessSaveAlert();
+                } else {
+                    obj.find("#divCommonMessage").removeClass("hidden");
+                }
+            }
+        });
+    });
+};
+simplePlatform.BindHeaderChangePwdClickEvent = function () {
+    var obj = $("#lnkChangePassword");
+    obj.off("click.lnkChangePassword").on("click.lnkChangePassword", $.proxy(function (event) {
+        var currentObj = $(event.currentTarget);
+        $("#divCommonModalPlaceHolder").empty();
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+            this.ValidateModalUserChangePwdForm(dialogContentPlaceHolder);
+            dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+        }, this));
+        return false;
+    }, this));
+};
 simplePlatform.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -694,6 +781,7 @@ simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderAddEventClickEvent();
     this.BindHeaderAddConventionClickEvent();
     this.BindHeaderAddAudienceClickEvent();
+    this.BindHeaderChangePwdClickEvent();
     this.BindHeaderEditUserClickEvent();
 };
 $(document).ready(function () {

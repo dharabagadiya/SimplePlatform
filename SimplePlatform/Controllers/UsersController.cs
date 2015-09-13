@@ -99,13 +99,18 @@ namespace SimplePlatform.Controllers
 
 
         }
-
-
         [HttpPost]
         public JsonResult Delete(int id)
         {
             var userManager = new DataModel.UserManager();
             var status = userManager.DeleteUser(id);
+            return Json(status);
+        }
+        [HttpPost]
+        public JsonResult UpdatePassword(string oldPassword, string newPassword)
+        {
+            var userManager = new UserManager();
+            var status = userManager.UpdatePassword(oldPassword, newPassword, UserDetail.UserId);
             return Json(status);
         }
     }
