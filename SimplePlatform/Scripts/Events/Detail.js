@@ -10,8 +10,7 @@ eventDetail.LoadAudienceList = function () {
             "pageButton": "bootstrap"
         },
         "ajax": {
-            //"url": "/Events/GetAudiences/" + $("#txtConventionID").val(),
-            "url": "/Events/GetAudiences/2",
+            "url": "/Events/GetAudiences/" + $("#txtEventID").val(),
             "type": "POST",
         },
         "displayLength": 25,

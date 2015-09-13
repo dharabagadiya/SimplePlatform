@@ -3,8 +3,18 @@ events.options = {
     EditViewURL: "/Events/Edit/",
     UpdateURL: "/Events/Update",
     DeleteURL: "/Events/Delete",
+    DetailPageURL: function (id) { return ("/Events/Detail/" + id); },
     startDate: null,
     endDate: null
+};
+events.BindEventRowClickEvent = function (obj) {
+    obj.DataTable().off("select.dt").on("select.dt", function (e, dt, type, indexes) {
+        if (type === 'row') {
+            var dataObj = obj.DataTable().rows(indexes).data();
+            var eventID = dataObj.pluck("id")[0];
+            window.location.href = events.options.DetailPageURL(eventID);
+        }
+    });
 };
 events.ValidateModalEventForm = function (obj) {
     obj.find("form")
@@ -117,6 +127,7 @@ events.DeletEventDetail = function (obj) {
 events.LoadEventsGrid = function () {
     $('#myDataTable').dataTable().fnDestroy();
     $('#myDataTable').dataTable({
+        "select": "single",
         renderer: {
             "header": "bootstrap",
             "pageButton": "bootstrap"
@@ -158,6 +169,7 @@ events.LoadEventsGrid = function () {
                 "width": '2%'
             }]
     }).removeClass('display').addClass('table table-striped table-bordered');
+    events.BindEventRowClickEvent($('#myDataTable'));
 };
 events.UpdateGlobalTimePeriodSelection = function (start, end) {
     events.options.startDate = start.toDate();

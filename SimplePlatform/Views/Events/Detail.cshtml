@@ -1,16 +1,12 @@
-﻿
-@{
-    ViewBag.Title = "Detail";
-}
+﻿@model DataModel.Modal.Event
+@{ ViewBag.Title = "Event Detail"; }
 
 <div class="row">
     <div class="col-lg-12">
         <div id="page-header" class="clearfix">
             <div class="page-header">
-                @*<a class="avatar pull-left"><img class='img-responsive' style="width : 64px; height : 64px; margin-top : 5px;" src="@(Model.FileResource == null ? Url.Content("~/Content/Images/Common/avatar.png") : Url.Content(Model.FileResource.path) )" alt="av avatar" /></a>
-                    <h2 class="pull-left">@Model.Name</h2>
-                    <input type="hidden" id="txtConventionID" value="@Model.ConventionId" />*@
-                <h2 class="pull-left">Event Detail</h2>
+                <h2 class="pull-left">@Model.Name</h2>
+                <input type="hidden" id="txtEventID" value="@Model.EventId" />
             </div>
             <div class="clearfix"></div>
         </div>

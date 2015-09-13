@@ -87,10 +87,11 @@ namespace SimplePlatform.Controllers
             var status = eventManager.Delete(id);
             return Json(status);
         }
-        public ActionResult Detail()
+        public ActionResult Detail(int id)
         {
             BundleConfig.AddScript("~/Scripts/Events", "Detail.js", ControllerName);
-            return View();
+            var eventManager = new DataModel.EventManager();
+            return View(eventManager.GetEventDetail(id));
         }
         public JsonResult GetAudiences(int id)
         {
