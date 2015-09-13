@@ -56,8 +56,8 @@ namespace SimplePlatform.Controllers
                 id = model.TaskId,
                 className = "Calender-Event",
                 title = model.Name,
-                start = model.StartDate.ToString("yyyy-MM-dd"),
-                end = model.EndDate.ToString("yyyy-MM-dd"),
+                start = model.StartDate.ToString("yyyy-MM-ddThh:mm:ss"),
+                end = model.EndDate.ToString("yyyy-MM-ddThh:mm:ss"),
                 imageURL = model.UsersDetail == null ? (model.Office == null ? "Content/Images/Common/avatar.png" : Url.Content(model.Office.FileResource.path)) : Url.Content(model.UsersDetail.FileResource.path)
             }).ToList<dynamic>();
         }
@@ -73,8 +73,8 @@ namespace SimplePlatform.Controllers
                 type = "EVENT",
                 id = model.EventId,
                 title = model.Name,
-                start = model.StartDate.ToString("yyyy-MM-dd"),
-                end = model.EndDate.ToString("yyyy-MM-dd"),
+                start = model.StartDate.ToString("yyyy-MM-ddThh:mm:ss"),
+                end = model.EndDate.ToString("yyyy-MM-ddThh:mm:ss"),
                 imageURL = (model.Office == null ? "Content/Images/Common/avatar.png" : Url.Content(model.Office.FileResource.path))
             }).ToList<dynamic>();
         }

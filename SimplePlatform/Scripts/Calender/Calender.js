@@ -41,6 +41,7 @@ calendar.DoCalenderSetting = function () {
             center: 'title',
             right: 'month'
         },
+        nextDayThreshold: "00:00:00",
         defaultDate: new Date(),
         editable: false,
         eventLimit: 5,
