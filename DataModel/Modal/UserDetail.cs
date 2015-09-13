@@ -19,5 +19,8 @@ namespace DataModel.Modal
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Convention> Conventions { get; set; }
         public virtual ICollection<Audience> Audience { get; set; }
+        public DateTime? StartDate { get; set; }
+        [DefaultValue(null)]
+        public DateTime? EndDate { get; set; }
     }
 }

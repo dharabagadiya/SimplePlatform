@@ -106,12 +106,27 @@ namespace SimplePlatform.Controllers
             var status = userManager.DeleteUser(id);
             return Json(status);
         }
+        public PartialViewResult ChangePassword()
+        {
+            return PartialView();
+        }
         [HttpPost]
         public JsonResult UpdatePassword(string oldPassword, string newPassword)
         {
             var userManager = new UserManager();
             var status = userManager.UpdatePassword(oldPassword, newPassword, UserDetail.UserId);
             return Json(status);
+        }
+        public PartialViewResult DateDuration()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public JsonResult AddDateDuration(DateTime startDate, DateTime endDate)
+        {
+            var userManager = new UserManager();
+            var status = userManager.AddDateDuration(startDate, endDate, UserDetail.UserId);
+            return Json(true);
         }
     }
 }

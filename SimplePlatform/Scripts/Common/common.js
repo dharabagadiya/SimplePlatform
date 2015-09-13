@@ -1,6 +1,54 @@
 ﻿var simplePlatform = {};
 simplePlatform.jqXHRData = null;
 simplePlatform.filesList = [], simplePlatform.paramNames = [];
+simplePlatform.ValidateModalUserDateDurationForm = function (obj) {
+    obj.find("form")
+    .bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        }
+    }).on('success.form.bv', function (e) {
+        e.preventDefault();
+        var formObj = $(e.target);;
+        var dates = formObj.find("#datetimerange").val().split('-');
+        var startDate = dates[0].trim();
+        var endDate = dates[1].trim();
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: "/Users/AddDateDuration",
+            async: false,
+            data: JSON.stringify({ "startDate": startDate, "endDate": endDate }),
+            success: function (data) {
+                var status = data;
+                if (status) {
+                    obj.modal('hide');
+                    ShowSuccessSaveAlert();
+                } else {
+                    obj.find("#divCommonMessage").removeClass("hidden");
+                }
+            }
+        });
+    });
+};
+simplePlatform.BindHeaderDateDurationClickEvent = function () {
+    var obj = $("#lnkDateDuration");
+    obj.off("click.lnkDateDuration").on("click.lnkDateDuration", $.proxy(function (event) {
+        var currentObj = $(event.currentTarget);
+        $("#divCommonModalPlaceHolder").empty();
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+            this.ValidateModalUserDateDurationForm(dialogContentPlaceHolder);
+            dialogContentPlaceHolder.find('#datetimerange').daterangepicker();
+            dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+        }, this));
+        return false;
+    }, this));
+};
 simplePlatform.ValidateModalUserChangePwdForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -783,6 +831,7 @@ simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderAddAudienceClickEvent();
     this.BindHeaderChangePwdClickEvent();
     this.BindHeaderEditUserClickEvent();
+    this.BindHeaderDateDurationClickEvent();
 };
 $(document).ready(function () {
     simplePlatform.BindHeaderAddClickEvents();

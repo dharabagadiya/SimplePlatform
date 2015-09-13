@@ -31,7 +31,7 @@ namespace DataModel
                 Context.SaveChanges();
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
@@ -116,6 +116,15 @@ namespace DataModel
             if (userDetail == null) return false;
             if(!userDetail.User.Password.Equals(oldPassword)) return false;
             userDetail.User.Password = newPassword;
+            Context.SaveChanges();
+            return true;
+        }
+        public bool AddDateDuration(DateTime startDate,DateTime endDate, int userID)
+        {
+            var userDetail = GetUserDetail(userID);
+            if (userDetail == null) return false;
+            userDetail.StartDate = startDate;
+            userDetail.EndDate = endDate;
             Context.SaveChanges();
             return true;
         }

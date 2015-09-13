@@ -373,6 +373,7 @@
     <Content Include="Views\Events\Detail.cshtml" />
     <Content Include="Views\Calender\EventDetail.cshtml" />
     <Content Include="Views\Calender\TaskDetail.cshtml" />
+    <Content Include="Views\Users\DateDuration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
