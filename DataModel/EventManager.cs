@@ -89,5 +89,9 @@ namespace DataModel
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
+        public List<Audience> GetAudiences(int id)
+        {
+            return GetEventDetail(id).Audiences.Where(model => model.IsDeleted == false).ToList();
+        }
     }
 }

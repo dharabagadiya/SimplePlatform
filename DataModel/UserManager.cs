@@ -110,5 +110,14 @@ namespace DataModel
         { return Context.UsersDetail.Where(model => model.User.IsDeleted == false).ToList(); }
         public UserDetail GetUserDetail(int id)
         { return Context.UsersDetail.Where(modal => modal.UserId == id).FirstOrDefault(); }
+        public bool UpdatePassword(string oldPassword, string newPassword,int userID)
+        {
+            var userDetail = GetUserDetail(userID);
+            if (userDetail == null) return false;
+            if(!userDetail.User.Password.Equals(oldPassword)) return false;
+            userDetail.User.Password = newPassword;
+            Context.SaveChanges();
+            return true;
+        }
     }
 }

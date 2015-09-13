@@ -207,6 +207,7 @@
     <Content Include="Scripts\Conventions\Convention.js" />
     <Content Include="Scripts\Conventions\Detail.js" />
     <Content Include="Scripts\DataTables\Extentions\dataTables.select.js" />
+    <Content Include="Scripts\Events\Detail.js" />
     <Content Include="Scripts\Events\Events.js" />
     <Content Include="Scripts\Home\home.js" />
     <Content Include="Scripts\Offices\Detail.js" />
@@ -368,6 +369,8 @@
     <Content Include="Views\Conventions\Detail.cshtml" />
     <Content Include="Views\WarmUp\WarmpUpEF.cshtml" />
     <Content Include="Views\Tasks\UploadAttachment.cshtml" />
+    <Content Include="Views\Users\ChangePassword.cshtml" />
+    <Content Include="Views\Events\Detail.cshtml" />
     <Content Include="Views\Calender\EventDetail.cshtml" />
     <Content Include="Views\Calender\TaskDetail.cshtml" />
     <None Include="Web.Debug.config">
