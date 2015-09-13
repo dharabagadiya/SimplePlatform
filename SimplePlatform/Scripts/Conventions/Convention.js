@@ -251,7 +251,7 @@ conventions.GetConventionWidgetHTML = function (obj) {
     sb.append("<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12 CP\">");
     sb.append("<div class=\"panel panel-info tile panelClose panelRefresh\" id=\"dyn_0\">");
     sb.append("<div class=\"panel-heading\">");
-    sb.append("<h4 class=\"panel-title\">" + obj.Name + "</h4>");
+    sb.append("<h4 class=\"panel-title\">" + obj.Name + "&nbsp;</h4>");
     sb.append("<div class=\"panel-controls panel-controls-right\"><a href=\"" + (this.options.DownloadAttachments + obj.id) + "\" class=\"panel-download\"><i class=\"fa fa-download\"></i></a>");
     if (conventions.options.isEditDeleteEnable) {
         sb.append("<a class=\"panel-upload\"><i class=\"fa fa-upload\"></i></a><a class=\"panel-edit\"><i class=\"fa fa-edit\"></i></a><a class=\"panel-close\"><i class=\"fa fa-times\"></i></a>");
@@ -275,6 +275,7 @@ conventions.GetConventionWidgetHTML = function (obj) {
     sb.append("</div>");
     sb.append("</div>");
     sb.append("</div>");
+    sb.append("<span class='divWidgetDetail'><i class=\"fa fa-calendar\"></i>&nbsp; From " + (obj.StartDate + " To " + obj.EndDate) + "</span>");
     sb.append("</div>");
     sb.append("</div>");
     sb.append("</div>");
