@@ -16,8 +16,8 @@ namespace Utilities
         public static int GetIso8601WeekOfYear(DateTime time)
         {
             var day = cal.GetDayOfWeek(time);
-            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday) { time = time.AddDays(3); }
-            return cal.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday) { time = time.AddDays(day - DayOfWeek.Thursday); }
+            return cal.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Thursday);
         }
         public static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
         {
@@ -25,11 +25,11 @@ namespace Utilities
             int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
             DateTime firstThursday = jan1.AddDays(daysOffset);
             var cal = CultureInfo.CurrentCulture.Calendar;
-            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Thursday);
             var weekNum = weekOfYear;
             if (firstWeek <= 1) { weekNum -= 1; }
             var result = firstThursday.AddDays(weekNum * 7);
-            return result.AddDays(-3);
+            return result;
         }
 
         public static DateTime FirstDateOfWeekISO8601(DateTime dateTime)
