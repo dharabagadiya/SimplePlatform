@@ -78,9 +78,9 @@ namespace DataModel
                 audience.VisitDate = visitDate;
                 audience.VisitType = visitType;
                 audience.Office = office;
-                audience.Event = eventDetail;
+                audience.Event = eventID == 0 ? null : eventDetail;
                 audience.FSMName = fsmName;
-                audience.Convention = convention;
+                audience.Convention = conventionID == 0 ? null : convention;
                 audience.GSBAmount = GSBAmount;
                 audience.UpdateDate = DateTime.Now;
                 audience.Amount = amount;
