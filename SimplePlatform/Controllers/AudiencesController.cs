@@ -42,13 +42,16 @@ namespace SimplePlatform.Controllers
                     VisitType = model.VisitType.VisitTypeName,
                     EventName = (model.Event == null ? "-" : model.Event.Name),
                     ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
-                    Status = model.IsBooked ? "Booked" : "In Progress",
+                    Status = (model.VisitType.VisitTypeId == 1) ? "-" : (model.IsBooked ? "Booked" : "In Progress"),
                     FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
                     Attended = model.IsAttended,
                     GSBAmount = model.GSBAmount,
                     DonationAmount = model.Amount
                 }).ToList();
-            return Json(new { data = users });
+            return Json(new
+            {
+                data = users
+            });
         }
 
         public PartialViewResult Edit(int id)

@@ -133,6 +133,8 @@ audiences.LoadQuickBooking = function () {
     for (var i = 1 ; i < 3; i++) { audienceDetailRow.after(audienceDetailRow.clone()); }
     $(".btnAddUsers").off("click.btnAddUsers").on("click.btnAddUsers", $.proxy(function () { }, this));
     $(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
+    $(".dwnBookStatus").chosen({ width: "100%" });
+    $(".dwnOffices").chosen({ width: "100%" });
     $(".dwnVisitType").each(function () {
         $(this).chosen({ width: "100%" }).off("change").on("change", function () {
             var rowObj = $(this).closest(".audienceDetailRow");
@@ -141,11 +143,11 @@ audiences.LoadQuickBooking = function () {
             if (groupObj.length > 0) { visitType = groupObj.attr("id"); placeID = $(this).val(); } else { placeID = $(this).val(); }
             rowObj.find("#hdnVisitType").val(visitType);
             rowObj.find("#hdnVisitPlaceID").val(placeID);
+            if (parseInt(visitType) == 1) { rowObj.find(".dwnBookStatus").parent().hide(); }
+            else { rowObj.find(".dwnBookStatus").parent().show(); }
         }).change();
     });
     //$(".dwnFSMList").chosen({ width: "100%" });
-    $(".dwnBookStatus").chosen({ width: "100%" });
-    $(".dwnOffices").chosen({ width: "100%" });
     audiences.ValidateModalAudienceQuickForm($("#divAudienceBulkInsert"));
 };
 audiences.ValidateModalAudienceForm = function (obj) {
@@ -228,6 +230,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
         if (IsNullOrEmpty(conventionID) && conventionID <= 0) { conventionID = 0; }
         if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
         if (IsNullOrEmpty(donationAmount) && donationAmount <= 0) { donationAmount = 0; }
+        if (visitTypeID == 1) { eventID = 0; conventionID = 0; }
         var dataObj = {
             audienceID: audienceID,
             name: name,
@@ -263,6 +266,8 @@ audiences.BindHeaderAddAudienceDropDownChangeEvent = function (obj) {
     obj.find("#dwnPeopleVistiType").off("change.dwnPeopleVistiType").on("change.dwnPeopleVistiType", function () {
         obj.find(".divVisitTypeControl").hide();
         obj.find(".divVisitTypeControl[data-id='" + $(this).val() + "']").show();
+        if (parseInt($(this).val()) == 1) { obj.find(".ddlBookingStatus").hide(); }
+        else { obj.find(".ddlBookingStatus").show(); }
     });
 };
 audiences.EditAudienceDetail = function (obj) {
@@ -276,7 +281,7 @@ audiences.EditAudienceDetail = function (obj) {
         //dialogContentPlaceHolder.find("#dwnFSMList").val(dialogContentPlaceHolder.find("#hdnFSMID").val());
         dialogContentPlaceHolder.find("#dwnBookStatus").val(dialogContentPlaceHolder.find("#hdnBookinStatus").val());
         dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
-        simplePlatform.BindHeaderAddAudienceDropDownChangeEvent(dialogContentPlaceHolder);
+        audiences.BindHeaderAddAudienceDropDownChangeEvent(dialogContentPlaceHolder);
         dialogContentPlaceHolder.find("#dwnPeopleVistiType").val(dialogContentPlaceHolder.find("#hdnVisitTypeID").val()).change();
         audiences.ValidateModalAudienceForm(dialogContentPlaceHolder);
     }, this));
@@ -379,7 +384,6 @@ audiences.LoadAudienceList = function () {
             }]
     }).removeClass('display').addClass('table table-striped table-bordered');
 };
-
 audiences.UpdateGlobalTimePeriodSelection = function (start, end) {
     audiences.options.startDate = start.toDate();
     audiences.options.endDate = end.toDate();
@@ -400,7 +404,6 @@ audiences.LoadGlobalTimeFilter = function () {
     audiences.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
     audiences.LoadAudienceList();
 };
-
 audiences.DoPageSetting = function () {
     audiences.LoadGlobalTimeFilter();
     audiences.LoadQuickBooking();
