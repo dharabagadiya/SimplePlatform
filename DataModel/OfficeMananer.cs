@@ -59,6 +59,7 @@ namespace DataModel
         {
             try
             {
+                if (Context.Offices.Any(model => model.OfficeId != id && model.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))) { return false; }
                 var officeDetail = Context.Offices.Where(model => model.OfficeId == id).FirstOrDefault();
                 officeDetail.UsersDetail.Remove(officeDetail.UsersDetail.FirstOrDefault());
                 Context.SaveChanges();

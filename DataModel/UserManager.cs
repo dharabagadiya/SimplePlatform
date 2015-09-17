@@ -12,13 +12,11 @@ namespace DataModel
     public class UserManager
     {
         readonly DataContext Context = new DataContext();
-
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserDetail>().HasKey(e => e.UserId);
             modelBuilder.Entity<UserDetail>().HasRequired(e => e.User).WithRequiredDependent(model => (UserDetail)model.UserDetail);
         }
-
         public bool CreateUser(string firstName, string lastName, string emildID, int userRoleID, int officeID)
         {
             try
@@ -31,7 +29,7 @@ namespace DataModel
                 Context.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -62,7 +60,6 @@ namespace DataModel
             }
 
         }
-
         public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID, int officeID, string fileName, string path)
         {
             try
@@ -104,22 +101,24 @@ namespace DataModel
                 return false;
             }
         }
+        public List<UserDetail> GetUsers()
+        { return Context.UsersDetail.Where(model => model.User.IsDeleted == false).ToList(); }
         public List<UserDetail> GetUsers(int roleID)
         { return Context.UsersDetail.Where(model => model.User.Roles.Any(roleModel => roleModel.RoleId == roleID) && model.User.IsDeleted == false).ToList(); }
         public List<UserDetail> GetUsersDetails()
         { return Context.UsersDetail.Where(model => model.User.IsDeleted == false).ToList(); }
         public UserDetail GetUserDetail(int id)
         { return Context.UsersDetail.Where(modal => modal.UserId == id).FirstOrDefault(); }
-        public bool UpdatePassword(string oldPassword, string newPassword,int userID)
+        public bool UpdatePassword(string oldPassword, string newPassword, int userID)
         {
             var userDetail = GetUserDetail(userID);
             if (userDetail == null) return false;
-            if(!userDetail.User.Password.Equals(oldPassword)) return false;
+            if (!userDetail.User.Password.Equals(oldPassword)) return false;
             userDetail.User.Password = newPassword;
             Context.SaveChanges();
             return true;
         }
-        public bool AddDateDuration(DateTime startDate,DateTime endDate, int userID)
+        public bool AddDateDuration(DateTime startDate, DateTime endDate, int userID)
         {
             var userDetail = GetUserDetail(userID);
             if (userDetail == null) return false;
