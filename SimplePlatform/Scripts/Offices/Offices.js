@@ -41,7 +41,7 @@ office.GetOfficeWidgetHTML = function (obj) {
     sb.append("<div class=\"progress animated-bar flat transparent progress-bar-xs mb10 mt0\"><div class=\"progress-bar progress-bar-white\" role=\"progressbar\" data-transitiongoal=\"" + ((obj.Fundraising.ActTotal / obj.Fundraising.Total) * 100) + "\"></div></div>");
     if (IsNullOrEmpty(obj.ProfilePics)) {
         sb.append("<div class=\"col-md-5\">");
-        sb.append("<img src=\"" + obj.ProfilePic + "\" alt=\"\" class=\"img-responsive\"/>");
+        sb.append("<img src=\"" + obj.ProfilePic + "\" alt=\"\" height=\"125px\" weight=\"185px\" class=\"img-responsive\"/>");
         sb.append("</div>");
     }
     sb.append("<div class=\"col-md-7\">");
@@ -159,8 +159,8 @@ office.ValidateModalOfficeForm = function (obj) {
         var userID = formObj.find("#dwnUserID").val();
         $('#myFile').fileupload("option", {
             formData: { "id": id, "name": name, "contactNo": contactNo, "city": city, "userID": userID },
-            done: function (data) {
-                var status = data;
+            done: function (e, data) {
+                var status = data.result;
                 if (status) {
                     obj.modal('hide');
                     ShowUpdateSuccessSaveAlert();
@@ -195,8 +195,8 @@ office.EditOfficeDetail = function (obj) {
     var currentObj = obj;
     var officeDetail = obj.data("office_detail");
     $("#divCommonModalPlaceHolder").empty();
-    ShowDialogBox($("#divCommonModalPlaceHolder"), (office.options.EditViewURL + officeDetail.ID), null, $.proxy(function (event, dialogContentPlaceHolder) {
-        this.ValidateModalOfficeForm(dialogContentPlaceHolder);
+    ShowDialogBox($("#divCommonModalPlaceHolder"), (office.options.EditViewURL + officeDetail.ID), null, function (event, dialogContentPlaceHolder) {
+        office.ValidateModalOfficeForm(dialogContentPlaceHolder);
         $('#myFile').fileupload({
             url: '/Offices/UpdateFile',
             dataType: 'json',
@@ -207,8 +207,9 @@ office.EditOfficeDetail = function (obj) {
         $("#myFile").on('change', function () {
             $("#txtFileName").val(this.files[0].name);
         });
+        dialogContentPlaceHolder.find("#dwnUserID").val(parseInt(dialogContentPlaceHolder.find("#txtUserID").val()));
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
-    }, this));
+    });
 };
 office.DeleteOfficeDetail = function (obj) {
     var currentObj = obj;

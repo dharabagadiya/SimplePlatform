@@ -84,7 +84,8 @@ namespace SimplePlatform.Controllers
                 Donation = GetFundRaisingTarget(modal.ConventionId),
                 GSBAmount = GetGSBAountTarget(modal.ConventionId),
                 Events = GetEventsTarget(modal.ConventionId),
-                ProfilePic = modal.FileResource == null ? "" : Url.Content(modal.FileResource.path)
+                IsResourceAttached = (modal.ConventionAttachments != null && modal.ConventionAttachments.Count > 0),
+                ProfilePic = modal.FileResource == null ? Url.Content("~/Content/Images/Common/office_convention_avatar.png") : Url.Content(modal.FileResource.path)
             }).OrderByDescending(modal => modal.StartDate).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
             {

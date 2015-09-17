@@ -576,6 +576,7 @@ simplePlatform.BindHeaderAddTaskClickEvent = function () {
         return false;
     }, this));
 };
+
 simplePlatform.ValidateModalOfficeForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -668,9 +669,9 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
         var file = formObj.find('#myFile').val();
         $('#myFile').fileupload("option", {
             formData: { "name": name, "contactNo": contactNo, "city": city, "userID": userID },
-            done: function (data) {
-                var status = data;
-                if (status) {
+            done: function (e, data) {
+                var status = data.result;
+                if (status === true) {
                     obj.modal('hide');
                     ShowSuccessSaveAlert();
                 } else {
@@ -703,6 +704,7 @@ simplePlatform.BindHeaderAddOfficeClickEvent = function () {
         return false;
     }, this));
 };
+
 simplePlatform.ValidateModalUserForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({

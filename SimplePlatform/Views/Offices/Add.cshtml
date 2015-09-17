@@ -7,6 +7,7 @@
                 <h4 class="modal-title">Add Office</h4>
             </div>
             <div class="modal-body">
+                <p class="bg-danger" id="divCommonMessage">Office Name already exits.</p>
                 <div class="form-group">
                     <label for="Name">Name</label>
                     <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
@@ -37,7 +38,7 @@
                         <option value="">Select User</option>
                         @foreach (var role in Model)
                         {
-                            <option value="@role.UserId">@role.FirstName @role.LastName</option>
+                            <option value="@role.UserId">@role.FirstName @role.LastName  (@role.Email)</option>
                         }
                     </select>
                     <div class="clearfix"></div>

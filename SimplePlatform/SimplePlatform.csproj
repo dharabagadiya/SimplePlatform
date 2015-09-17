@@ -111,6 +111,7 @@
     <Content Include="Content\Conventions\Conventions.css" />
     <Content Include="Content\DataTables\css\select.bootstrap.css" />
     <Content Include="Content\Images\Common\avatar.png" />
+    <Content Include="Content\Images\Common\office_convention_avatar.png" />
     <Content Include="Content\Offices\Detail.css" />
     <Content Include="Content\Plugins\bootstrap\bootstrap_timepicker.css" />
     <Content Include="Content\Plugins\bootstrap\daterangepicker.css" />

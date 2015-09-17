@@ -1,6 +1,8 @@
-﻿@{var users = (List<CustomAuthentication.User>)ViewData["Users"];  }
+﻿@model DataModel.Modal.Office
+@{var users = (List<CustomAuthentication.User>)ViewData["Users"];  }
 <form action="#" type="post">
     <input type="hidden" id="txtOfficeID" value="@Model.OfficeId" />
+    <input type="hidden" id="txtUserID" value="@(Model.UsersDetail == null || Model.UsersDetail.Count <=0 ? 0: Model.UsersDetail.FirstOrDefault().UserId)" />
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -8,17 +10,18 @@
                 <h4 class="modal-title">Edit Office</h4>
             </div>
             <div class="modal-body">
+                <p class="bg-danger" id="divCommonMessage">Office Name already exits.</p>
                 <div class="form-group">
                     <label for="Name">Name</label>
-                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" value="@Model.Name"/>
+                    <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" value="@Model.Name" />
                 </div>
                 <div class="form-group">
                     <label for="ContactNo">Contact</label>
-                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" name="contactNo" value="@Model.ContactNo"/>
+                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" name="contactNo" value="@Model.ContactNo" />
                 </div>
                 <div class="form-group">
                     <label for="City">City</label>
-                    <input type="text" class="form-control" id="txtCity" placeholder="City" name="city" value="@Model.City"/>
+                    <input type="text" class="form-control" id="txtCity" placeholder="City" name="city" value="@Model.City" />
                 </div>
                 <div class="form-group">
                     <label for="">File upload</label>
@@ -38,7 +41,7 @@
                         <option value="">Select User</option>
                         @foreach (var role in users)
                         {
-                            <option value="@role.UserId">@role.FirstName @role.LastName</option>
+                            <option value="@role.UserId">@role.FirstName @role.LastName (@role.Email)</option>
                         }
                     </select>
                     <div class="clearfix"></div>

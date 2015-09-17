@@ -17,13 +17,19 @@ namespace SimplePlatform.Controllers
             return View();
         }
 
+
+        public List<DataModel.Modal.UserDetail> GetUersByOffices()
+        {
+            var offices = UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
+            var users = offices.SelectMany(model => model.UsersDetail).Distinct().ToList();
+            return users;
+        }
+
         public JsonResult GetUsers()
         {
             var userManager = new DataModel.UserManager();
-            var officesManager = new OfficeMananer();
-            var offices = IsAdmin ? officesManager.GetOffices() : UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
-            var userDetails = offices.SelectMany(model => model.UsersDetail).ToList();
-            var users = userDetails.Where(model => (!model.User.Roles.Any(roleModel => roleModel.RoleId == 1) || IsAdmin) && model.User.IsDeleted == false)
+            var userDetails = IsAdmin ? userManager.GetUsers() : GetUersByOffices();
+            var users = userDetails.Where(model => (!model.User.Roles.Any(roleModel => roleModel.RoleId == 1) || IsAdmin))
                 .Select(modal => new { id = modal.UserId, firstName = modal.User.FirstName, lastName = modal.User.LastName, createDate = modal.User.CreateDate.ToString("dd-MM-yyyy"), userRoles = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleName).ToArray()), userRolesID = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleId).ToArray()), userOfficesID = string.Join(", ", modal.Offices.Select(officeModel => officeModel.OfficeId).ToArray()) })
                 .ToList();
             return Json(new { data = users });
