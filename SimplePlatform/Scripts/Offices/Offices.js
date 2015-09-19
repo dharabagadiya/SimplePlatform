@@ -141,6 +141,17 @@ office.ValidateModalOfficeForm = function (obj) {
                     }
                 }
             },
+            image: {
+                message: 'The selected file is not valid',
+                validators: {
+                    file: {
+                        extension: 'jpeg,png,jpg,gif',
+                        type: 'image/jpeg,image/png,image/jpg,image/gif',
+                        maxSize: 2097152,   // 2048 * 1024
+                        message: 'The selected file is not valid'
+                    }
+                }
+            },
             ddlUser: {
                 validators: {
                     notEmpty: {

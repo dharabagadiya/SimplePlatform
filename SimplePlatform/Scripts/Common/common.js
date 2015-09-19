@@ -368,22 +368,20 @@ simplePlatform.BindHeaderAddConventionClickEvent = function () {
     obj.off("click.lnkAddConventions").on("click.lnkAddConventions", $.proxy(function (event) {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
-        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, function (event, dialogContentPlaceHolder) {
             dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm' } });
-            $('#frmConvention').fileupload({
+            simplePlatform.ValidateModalConventionForm(dialogContentPlaceHolder);
+            dialogContentPlaceHolder.find('#fuImage').fileupload({
                 url: '/Conventions/UploadFile',
                 dataType: 'json',
                 add: function (e, data) {
-                    //simplePlatform.filesList.push(data.files[0]);
-                    //paramNames.push(data.fileInput[0].name);
                     simplePlatform.jqXHRData = data;
                 }
             });
-            $("#fuImage").on('change', function () {
+            dialogContentPlaceHolder.find("#fuImage").on('change', function () {
                 $("#fuImageName").val(this.files[0].name);
-            });
-            this.ValidateModalConventionForm(dialogContentPlaceHolder);
-        }, this));
+            });            
+        });
         return false;
     }, this));
 };
@@ -576,7 +574,6 @@ simplePlatform.BindHeaderAddTaskClickEvent = function () {
         return false;
     }, this));
 };
-
 simplePlatform.ValidateModalOfficeForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
