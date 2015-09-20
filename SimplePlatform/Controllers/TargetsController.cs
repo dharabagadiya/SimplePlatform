@@ -22,7 +22,7 @@ namespace SimplePlatform.Controllers
 
         public JsonResult GetTasks()
         {
-            var targetManager = new DataModel.TargetManager();
+            var targetManager = new DataAccess.TargetManager();
             var targetList = targetManager.GetTargets();
             var targets = targetList.Select(model => new
             {
@@ -39,7 +39,7 @@ namespace SimplePlatform.Controllers
 
         public JsonResult Add(int officeID, string dueDate, int bookingTargets, float fundRaisingAmount, float gsbAmount, int arrivalTargets)
         {
-            var targetManager = new DataModel.TargetManager();
+            var targetManager = new DataAccess.TargetManager();
             var dueDateDateTime = Convert.ToDateTime(dueDate);
             var status = targetManager.Add(officeID, dueDateDateTime, bookingTargets, fundRaisingAmount, gsbAmount, arrivalTargets);
             return Json(status);
@@ -49,14 +49,14 @@ namespace SimplePlatform.Controllers
         {
             var officeManager = new DataModel.OfficeMananer();
             ViewData["Offices"] = officeManager.GetOffices();
-            var targetManager = new DataModel.TargetManager();
+            var targetManager = new DataAccess.TargetManager();
             var target = targetManager.GetTarget(id);
             return PartialView(target);
         }
 
         public JsonResult Update(int targetID, int officeID, string dueDate, int bookingTargets, float fundRaisingAmount, float gsbAmount, int arrivalTargets)
         {
-            var targetManager = new DataModel.TargetManager();
+            var targetManager = new DataAccess.TargetManager();
             var dueDateDateTime = Convert.ToDateTime(dueDate);
             var status = targetManager.Update(targetID, officeID, dueDateDateTime, bookingTargets, fundRaisingAmount, gsbAmount, arrivalTargets);
             return Json(status);
@@ -65,7 +65,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var targetManager = new DataModel.TargetManager();
+            var targetManager = new DataAccess.TargetManager();
             var status = targetManager.Delete(id);
             return Json(status);
         }
