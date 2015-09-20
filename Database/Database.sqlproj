@@ -61,6 +61,7 @@
     <Folder Include="StoredProcedure\Comments" />
     <Folder Include="Functions" />
     <Folder Include="StoredProcedure\VisitTypes" />
+    <Folder Include="StoredProcedure\Targets" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -77,5 +78,38 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\VisitTypes\sproc_SimplePlatForm_GetVisitTypes.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_AddTarget.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_UpdateTarget.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_DeletTarget.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_GetTargetByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_GetTargets.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_GetTargetsByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Functions\func_SimplePlatForm_StartOfWeek.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_GetFundingTargetsByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_GetBookingTargetsByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_GetGSBTargetsByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_GetArrivalTargetsByOfficeIDs.sql" />
   </ItemGroup>
 </Project>

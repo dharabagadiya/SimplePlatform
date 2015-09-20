@@ -51,6 +51,7 @@
     <Compile Include="CommentManager.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TargetManager.cs" />
     <Compile Include="VisitTypeManager.cs" />
   </ItemGroup>
   <ItemGroup>
