@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudienceManager.cs" />
-    <Compile Include="CommentManager.cs" />
     <Compile Include="FileResourceManager.cs" />
     <Compile Include="Migrations\201508181825281_DataModel_Initial.cs" />
     <Compile Include="Migrations\201508181825281_DataModel_Initial.Designer.cs">
@@ -99,7 +98,6 @@
     <Compile Include="TargetManager.cs" />
     <Compile Include="TaskManager.cs" />
     <Compile Include="UserManager.cs" />
-    <Compile Include="VisitTypeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

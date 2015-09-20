@@ -25,7 +25,6 @@ namespace DataModel
             UserManager.OnModelCreating(modelBuilder);
             OfficeMananer.OnModelCreating(modelBuilder);
             ConventionManager.OnModelCreating(modelBuilder);
-            VisitTypeManager.OnModelCreating(modelBuilder);
             EventManager.OnModelCreating(modelBuilder);
             AudienceManager.OnModelCreating(modelBuilder);
         }
