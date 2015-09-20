@@ -62,6 +62,7 @@
     <Folder Include="Functions" />
     <Folder Include="StoredProcedure\VisitTypes" />
     <Folder Include="StoredProcedure\Targets" />
+    <Folder Include="StoredProcedure\Tasks" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -71,7 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_GetCommentByID.sql" />
-    <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_GetCommentsByTaskIDByTaskID.sql" />
+    <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_GetCommentsByTaskID.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_GetCommentAttachmentByID.sql" />
@@ -111,5 +112,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Targets\sproc_SimplePlatForm_GetArrivalTargetsByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_AddTask.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_UpdateTask.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_DeleteTask.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_UpdateTaskStatus.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_GetTasks.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_GetTasksByUserID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_GetTasksByOfficeIDUserID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_GetTaskByID.sql" />
   </ItemGroup>
 </Project>

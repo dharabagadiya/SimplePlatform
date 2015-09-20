@@ -22,7 +22,7 @@
                         <div class="message col-lg-10 @(isCurrentUser ? "col-lg-offset-2"  : "")">
                             <h5 class="@(isCurrentUser ? "pull-left"  : "pull-right")">
                                 @comment.UpdateDate.ToString("MMM dd,yyyy")
-                                @if (comment.CommentAttachments != null && comment.CommentAttachments.Count > 0)
+                                @if (comment.IsFileAttached)
                                 {
                                     <a href="@Url.Action("Download", "Tasks", new { id =  comment.CommentId })"><i class="fa fa-paperclip"></i></a>
                                 }

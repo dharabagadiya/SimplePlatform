@@ -39,8 +39,8 @@ namespace SimplePlatform.Controllers
 
         public object GetTaskTargets(int id, DateTime startDate, DateTime endDate)
         {
-            var taskManager = new TaskManager();
-            var tasks = taskManager.GetTasks(id, startDate, endDate);
+            var taskManager = new DataAccess.TaskManager();
+            var tasks = taskManager.GetTasks(startDate, endDate, id, 0);
             var totalTask = tasks.Count();
             var totalTaskCompleted = tasks.Where(model => model.IsCompleted == true && model.UsersDetail == null).Count();
             return new { Total = totalTask, ActTotal = totalTaskCompleted };
@@ -201,21 +201,20 @@ namespace SimplePlatform.Controllers
             var isOfficeAdmin = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
             var currentYear = DateTime.Now.Year;
             var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
-            var taskManager = new TaskManager();
-            var tasks = taskManager.GetTasks(id, startDate, endDate);
+            var taskManager = new DataAccess.TaskManager();
             List<DataModel.Modal.Task> taskList;
             if (IsAdmin)
             {
-                taskList = tasks.Where(model => model.UsersDetail == null).ToList();
+                taskList = taskManager.GetTasks(startDate, endDate, id, 0).Where(model => model.UsersDetail == null).ToList();
                 isUpdateEnable = true;
             }
             else if (isOfficeAdmin)
             {
-                taskList = tasks.ToList();
+                taskList = taskManager.GetTasks(startDate, endDate, id, 0).ToList();
             }
             else
             {
-                taskList = tasks.Where(model => model.UsersDetail != null && model.UsersDetail.UserId == UserDetail.UserId).ToList();
+                taskList = taskManager.GetTasks(startDate, endDate, id, UserDetail.UserId).ToList();
             }
             return taskList.Select(model => new
             {

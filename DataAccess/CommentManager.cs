@@ -59,7 +59,7 @@ namespace DataAccess
             }
         }
 
-        public List<DataModel.Modal.CommentAttachment> GetComment(int id)
+        public List<DataModel.Modal.CommentAttachment> GetCommentAttachment(int id)
         {
             try
             {
@@ -83,6 +83,45 @@ namespace DataAccess
                                               }
                                           }).ToList();
                 return commentAttachments;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<DataModel.Modal.Comment> GetComments(int taskID)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetCommentsByTaskID]"))
+                {
+                    database.AddInParameter(command, "@TaskID", DbType.Int32, taskID);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var comments = (from dataRow in dataTable.AsEnumerable()
+                                select new DataModel.Modal.Comment
+                                {
+                                    CommentId = dataRow.Field<int>("CommentId"),
+                                    CommentText = dataRow.Field<string>("CommentText"),
+                                    CreateDate = dataRow.Field<DateTime>("CreateDate"),
+                                    UserDetail = new DataModel.Modal.UserDetail
+                                    {
+                                        UserId = dataRow.Field<int>("UserId"),
+                                        User = new CustomAuthentication.User
+                                        {
+                                            UserId = dataRow.Field<int>("UserId"),
+                                            FirstName = dataRow.Field<string>("FirstName"),
+                                            LastName = dataRow.Field<string>("LastName")
+                                        }
+                                    },
+                                    IsFileAttached = dataRow.Field<int>("IsFileAttached") != 0
+                                }).ToList();
+                return comments;
             }
             catch (Exception ex)
             {

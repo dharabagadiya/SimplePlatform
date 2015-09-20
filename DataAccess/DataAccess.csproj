@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudienceManager.cs" />
     <Compile Include="CommentManager.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TargetManager.cs" />
+    <Compile Include="TaskManager.cs" />
     <Compile Include="VisitTypeManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +63,10 @@
     <Folder Include="StoredProcedure\User\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomAuthentication\CustomAuthentication.csproj">
+      <Project>{bfad8a8e-0154-4a4a-a7f1-8b744018d375}</Project>
+      <Name>CustomAuthentication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataModel\DataModel.csproj">
       <Project>{f409e6ef-e952-4a7e-b962-8e42a18922c4}</Project>
       <Name>DataModel</Name>

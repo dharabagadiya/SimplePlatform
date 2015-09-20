@@ -26,25 +26,24 @@ namespace SimplePlatform.Controllers
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var isUpdateEnable = false;
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var isOfficeAdmin = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
             List<DataModel.Modal.Task> taskList;
             if (IsAdmin)
             {
-                taskList = taskManager.GetTasks().Where(model => model.UsersDetail == null).ToList();
+                taskList = taskManager.GetTasks(startDateTime, endDateTime, 0).Where(model => model.UsersDetail == null).ToList();
                 isUpdateEnable = true;
             }
             else if (isOfficeAdmin)
             {
                 var officeIDs = UserDetail.Offices.Where(model => model.IsDeleted == false).Select(model => model.OfficeId).ToList();
-                taskList = taskManager.GetTasks().Where(model => officeIDs.Contains(model.Office.OfficeId)).ToList();
+                taskList = taskManager.GetTasks(startDateTime, endDateTime, 0).Where(model => officeIDs.Contains(model.Office.OfficeId)).ToList();
             }
             else
             {
-                taskList = UserDetail.Tasks.ToList();
+                taskList = taskManager.GetTasks(startDateTime, endDateTime, UserDetail.UserId).ToList();
             }
             var tasks = taskList
-                .Where(model => model.StartDate >= startDateTime && model.StartDate <= endDateTime)
                 .Select(model => new
                 {
                     ID = model.TaskId,
@@ -82,7 +81,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Add(string name, string startDate, string endDate, string description, int officeID, int userID)
         {
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var status = taskManager.Add(name, startDate, endDate, description, officeID, userID);
             return Json(status);
         }
@@ -90,7 +89,7 @@ namespace SimplePlatform.Controllers
         public ActionResult Edit(int id)
         {
             var officeMananer = new DataModel.OfficeMananer();
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var task = taskManager.GetTask(id);
             var offices = IsAdmin ? officeMananer.GetOffices() : UserDetail.Offices.ToList();
             ViewData["Offices"] = offices.Where(model => model.IsDeleted == false).ToList();
@@ -99,35 +98,35 @@ namespace SimplePlatform.Controllers
 
         public JsonResult Update(int taskID, string name, string startDate, string endDate, string description, int officeID, int userID)
         {
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var status = taskManager.Update(taskID, name, startDate, endDate, description, officeID, userID);
             return Json(status);
         }
 
         public JsonResult Delete(int id)
         {
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var status = taskManager.Delete(id);
             return Json(status);
         }
 
         public PartialViewResult GetDetail(int id)
         {
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var task = taskManager.GetTask(id);
             return PartialView(task);
         }
 
         public JsonResult Status(int id)
         {
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var status = taskManager.Status(id);
             return Json(status);
         }
 
         public PartialViewResult UploadAttachment(int id)
         {
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var taskDetail = taskManager.GetTask(id);
             return PartialView(taskDetail);
         }
@@ -170,7 +169,7 @@ namespace SimplePlatform.Controllers
         public FilePathResult Download(int id)
         {
             var commentManager = new DataAccess.CommentManager();
-            var commentAttachments = commentManager.GetComment(id);
+            var commentAttachments = commentManager.GetCommentAttachment(id);
             var fileAttachments = commentAttachments.Select(model => model.FileResource).ToList();
 
             var outputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}\\{2}", Server.MapPath(@"\"), id, DateTime.Now.ToString("ddMMyyyyhhmmss")));

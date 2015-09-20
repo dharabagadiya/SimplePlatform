@@ -26,29 +26,29 @@ namespace SimplePlatform.Controllers
 
         public PartialViewResult TaskDetail(int id)
         {
-            var taskManager= new DataModel.TaskManager();
+            var taskManager= new DataAccess.TaskManager();
             var taskDetail = taskManager.GetTask(id);
             return PartialView(taskDetail);
         }
 
         private List<dynamic> GetTasks(DateTime startDate, DateTime endDate)
         {
-            var taskManager = new DataModel.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var isOfficeAdmin = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
             List<DataModel.Modal.Task> taskList;
 
             if (IsAdmin)
             {
-                taskList = taskManager.GetTasks(startDate, endDate).Where(model => model.UsersDetail == null).ToList();
+                taskList = taskManager.GetTasks(startDate, endDate, 0).Where(model => model.UsersDetail == null).ToList();
             }
             else if (isOfficeAdmin)
             {
                 var officeIDs = UserDetail.Offices.Where(model => model.IsDeleted == false).Select(model => model.OfficeId).ToList();
-                taskList = taskManager.GetTasks(startDate, endDate).Where(model => officeIDs.Contains(model.Office.OfficeId)).ToList();
+                taskList = taskManager.GetTasks(startDate, endDate, 0).Where(model => officeIDs.Contains(model.Office.OfficeId)).ToList();
             }
             else
             {
-                taskList = UserDetail.Tasks.Where(model => model.IsDeleted == false && (model.StartDate >= startDate && model.StartDate <= endDate)).ToList();
+                taskList = taskManager.GetTasks(startDate, endDate, UserDetail.UserId).ToList();
             }
             return taskList.Select(model => new
             {
