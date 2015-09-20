@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Util
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{70202B9E-074B-4E40-9C75-9E9B5995F0EE}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{46932BA7-8E96-43F1-BDDC-FDB3048B8BFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,12 @@ Global
 		{70202B9E-074B-4E40-9C75-9E9B5995F0EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70202B9E-074B-4E40-9C75-9E9B5995F0EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70202B9E-074B-4E40-9C75-9E9B5995F0EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46932BA7-8E96-43F1-BDDC-FDB3048B8BFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46932BA7-8E96-43F1-BDDC-FDB3048B8BFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46932BA7-8E96-43F1-BDDC-FDB3048B8BFB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{46932BA7-8E96-43F1-BDDC-FDB3048B8BFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46932BA7-8E96-43F1-BDDC-FDB3048B8BFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46932BA7-8E96-43F1-BDDC-FDB3048B8BFB}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
