@@ -63,6 +63,7 @@
     <Folder Include="StoredProcedure\VisitTypes" />
     <Folder Include="StoredProcedure\Targets" />
     <Folder Include="StoredProcedure\Tasks" />
+    <Folder Include="StoredProcedure\Audiences" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -136,5 +137,32 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Tasks\sproc_SimplePlatForm_GetTaskByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_AddAudience.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_UpdateAudience.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_DeleteAudience.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_UpdateAudienceStatus.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_GetAudienceByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_GetAudienceByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_FundingTargetsAchivedByOfficeIDs.sql" />
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_GSBTargetsAchivedByOfficeIDs.sql" />
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_BookingTargetsAchivedByOfficeIDs.sql" />
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_ArrivalTargetsAchivedByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_GetArrivalAudienceByOfficeID.sql" />
   </ItemGroup>
 </Project>

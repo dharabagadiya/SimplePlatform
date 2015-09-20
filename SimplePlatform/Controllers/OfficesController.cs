@@ -28,10 +28,10 @@ namespace SimplePlatform.Controllers
         public object GetFundRaisingTargets(int id, DateTime startDate, DateTime endDate)
         {
             var targetManager = new DataAccess.TargetManager();
-            var audienceManager = new AudienceManager();
+            var audienceManager = new DataAccess.AudienceManager();
             var offices = new OfficeMananer().GetOffice(id);
             var targets = targetManager.GetFundingTargets(new List<int> { offices.OfficeId }, startDate, endDate);
-            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<DataModel.Modal.Office> { offices }, startDate, endDate);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<int> { offices.OfficeId }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
             var totalAchievedTargets = achievedTargets.data.Sum(model => model.y);
             return new { Total = totalTargets, ActTotal = totalAchievedTargets };
@@ -50,10 +50,10 @@ namespace SimplePlatform.Controllers
         {
             var dataSeries = new List<object>();
             var targetManager = new DataAccess.TargetManager();
-            var audienceManager = new AudienceManager();
+            var audienceManager = new DataAccess.AudienceManager();
             var office = new OfficeMananer().GetOffice(id);
             var targets = targetManager.GetBookingTargets(new List<int> { office.OfficeId }, startDate, endDate);
-            var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<DataModel.Modal.Office> { office }, startDate, endDate);
+            var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<int> { office.OfficeId }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
             var totalAchievedTargets = achievedTargets.data.Count();
             return new { Total = totalTargets, ActTotal = totalAchievedTargets };
@@ -62,10 +62,10 @@ namespace SimplePlatform.Controllers
         public object GetArrivalTargets(int id, DateTime startDate, DateTime endDate)
         {
             var targetManager = new DataAccess.TargetManager();
-            var audienceManager = new AudienceManager();
+            var audienceManager = new DataAccess.AudienceManager();
             var offices = new OfficeMananer().GetOffice(id);
             var targets = targetManager.GetArrivalTargets(new List<int> { offices.OfficeId }, startDate, endDate);
-            var achievedTargets = audienceManager.GetArrivalTargetsAchived(new List<DataModel.Modal.Office> { offices }, startDate, endDate);
+            var achievedTargets = audienceManager.GetArrivalTargetsAchived(new List<int> { offices.OfficeId }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
             var totalAchievedTargets = achievedTargets.data.Sum(model => model.y);
             return new { Total = totalTargets, ActTotal = totalAchievedTargets };
@@ -184,10 +184,10 @@ namespace SimplePlatform.Controllers
         {
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
             var targetManager = new DataAccess.TargetManager();
-            var audienceManager = new AudienceManager();
+            var audienceManager = new DataAccess.AudienceManager();
             var office = new OfficeMananer().GetOffice(id);
             var targets = targetManager.GetFundingTargets(new List<int> { office.OfficeId }, startDate, endDate);
-            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<DataModel.Modal.Office> { office }, startDate, endDate);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<int> { office.OfficeId }, startDate, endDate);
             dataSeries.Add(targets);
             dataSeries.Add(achievedTargets);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -230,10 +230,10 @@ namespace SimplePlatform.Controllers
 
         public object GetUserArrivalForCurrentWeek(int id, DateTime startDate, DateTime endDate)
         {
-            var currentYear = DateTime.Now.Year;
             var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
-            var audienceManager = new AudienceManager();
+            var audienceManager = new DataAccess.AudienceManager();
             var audiences = audienceManager.GetArrivalAudiences(id, startDate, endDate);
+            if (audiences == null) { return null; }
             return audiences.Select(model => new
             {
                 ID = model.AudienceID,

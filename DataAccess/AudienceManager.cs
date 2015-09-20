@@ -1,246 +1,364 @@
 ﻿
-//#region Using Namespaces
-//using System;
-//using System.Collections.Generic;
-//using System.Data.Entity;
-//using System.Data.Entity.SqlServer;
-//using System.Globalization;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//#endregion
+#region Using Namespaces
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+#endregion
 
-//namespace DataAccess
-//{
-//    public class AudienceManager : DBManager
-//    {
-//        //public List<int> GetConventionIDs(DateTime startDate, DateTime endDate)
-//        //{
-//        //    return Context.Conventions.Where(model => model.IsDeleted == false && model.StartDate >= startDate && model.StartDate <= startDate).Select(model => model.ConventionId).ToList();
-//        //}
+namespace DataAccess
+{
+    public class AudienceManager : DBManager
+    {
+        //public List<int> GetConventionIDs(DateTime startDate, DateTime endDate)
+        //{
+        //    return Context.Conventions.Where(model => model.IsDeleted == false && model.StartDate >= startDate && model.StartDate <= startDate).Select(model => model.ConventionId).ToList();
+        //}
 
-//        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
-//        {
-//            try
-//            {
-//                Modal.Office office = null;
-//                Modal.Event eventDetail = null;
-//                Modal.Convention convention = null;
-//                var visitType = Context.VisitTypes.Where(model => model.VisitTypeId == visitTypeID).FirstOrDefault();
-//                office = Context.Offices.Where(model => model.OfficeId == officeID && model.IsDeleted == false).FirstOrDefault();
-//                eventDetail = Context.Events.Where(model => model.EventId == eventID && model.IsDeleted == false).FirstOrDefault();
-//                convention = Context.Conventions.Where(model => model.ConventionId == conventionID && model.IsDeleted == false).FirstOrDefault();
-//                Context.Audiences.Add(new Modal.Audience
-//                {
-//                    Name = name,
-//                    Contact = contact,
-//                    VisitDate = visitDate,
-//                    VisitType = visitType,
-//                    Office = office,
-//                    Event = eventDetail,
-//                    FSMName = fsmName,
-//                    Convention = convention,
-//                    GSBAmount = GSBAmount,
-//                    CreateDate = DateTime.Now,
-//                    UpdateDate = DateTime.Now,
-//                    Amount = amount,
-//                    IsBooked = isBooked
-//                });
-//                Context.SaveChanges();
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                return false;
-//            }
-//        }
+        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
+        {
+            try
+            {
+                var returnVale = 0;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_AddAudience]"))
+                {
+                    database.AddInParameter(command, "@Name", DbType.String, name);
+                    database.AddInParameter(command, "@Contact", DbType.String, contact);
+                    database.AddInParameter(command, "@VisitDate", DbType.DateTime, visitDate);
+                    database.AddInParameter(command, "@VisitTypeID", DbType.Int32, visitTypeID);
+                    database.AddInParameter(command, "@OfficeID", DbType.Int32, officeID);
+                    database.AddInParameter(command, "@EventID", DbType.Int32, eventID);
+                    database.AddInParameter(command, "@FSMName", DbType.String, fsmName);
+                    database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
+                    database.AddInParameter(command, "@IsBooked", DbType.Boolean, isBooked);
+                    database.AddInParameter(command, "@GSBAmount", DbType.Single, GSBAmount);
+                    database.AddInParameter(command, "@Amount", DbType.Single, amount);
+                    database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
+                    database.ExecuteNonQuery(command);
+                    returnVale = (int)database.GetParameterValue(command, "@Status");
+                }
+                return returnVale == 1;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
-//        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
-//        {
-//            try
-//            {
-//                Modal.Office office = null;
-//                Modal.Event eventDetail = null;
-//                Modal.Convention convention = null;
-//                var visitType = Context.VisitTypes.Where(model => model.VisitTypeId == visitTypeID).FirstOrDefault();
-//                office = Context.Offices.Where(model => model.OfficeId == officeID && model.IsDeleted == false).FirstOrDefault();
-//                eventDetail = Context.Events.Where(model => model.EventId == eventID && model.IsDeleted == false).FirstOrDefault();
-//                convention = Context.Conventions.Where(model => model.ConventionId == conventionID && model.IsDeleted == false).FirstOrDefault();
-//                var audience = GetAudience(audienceID);
-//                if (audience == null) { return false; }
-//                audience.Name = name;
-//                audience.Contact = contact;
-//                audience.VisitDate = visitDate;
-//                audience.VisitType = visitType;
-//                audience.Office = office;
-//                audience.Event = eventID == 0 ? null : eventDetail;
-//                audience.FSMName = fsmName;
-//                audience.Convention = conventionID == 0 ? null : convention;
-//                audience.GSBAmount = GSBAmount;
-//                audience.UpdateDate = DateTime.Now;
-//                audience.Amount = amount;
-//                audience.IsBooked = isBooked;
-//                Context.SaveChanges();
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                return false;
-//            }
-//        }
+        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
+        {
+            try
+            {
+                var returnVale = 0;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_UpdateAudience]"))
+                {
+                    database.AddInParameter(command, "@AudienceID", DbType.Int32, audienceID);
+                    database.AddInParameter(command, "@Name", DbType.String, name);
+                    database.AddInParameter(command, "@Contact", DbType.String, contact);
+                    database.AddInParameter(command, "@VisitDate", DbType.DateTime, visitDate);
+                    database.AddInParameter(command, "@VisitTypeID", DbType.Int32, visitTypeID);
+                    database.AddInParameter(command, "@OfficeID", DbType.Int32, officeID);
+                    database.AddInParameter(command, "@EventID", DbType.Int32, eventID);
+                    database.AddInParameter(command, "@FSMName", DbType.String, fsmName);
+                    database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
+                    database.AddInParameter(command, "@IsBooked", DbType.Boolean, isBooked);
+                    database.AddInParameter(command, "@GSBAmount", DbType.Single, GSBAmount);
+                    database.AddInParameter(command, "@Amount", DbType.Single, amount);
+                    database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
+                    database.ExecuteNonQuery(command);
+                    returnVale = (int)database.GetParameterValue(command, "@Status");
+                }
+                return returnVale == 1;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
-//        public bool Delete(int id)
-//        {
+        public bool Delete(int id)
+        {
+            try
+            {
+                var returnVale = 0;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_DeleteAudience]"))
+                {
+                    database.AddInParameter(command, "@AudienceID", DbType.Int32, id);
+                    database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
+                    database.ExecuteNonQuery(command);
+                    returnVale = (int)database.GetParameterValue(command, "@Status");
+                }
+                return returnVale == 1;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
-//            try
-//            {
-//                var audience = GetAudience(id);
-//                if (audience == null) { return false; }
-//                audience.IsDeleted = true;
-//                audience.UpdateDate = DateTime.Now;
-//                Context.SaveChanges();
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                return false;
-//            }
-//        }
+        public bool AttendStatus(int id)
+        {
+            try
+            {
+                var returnVale = 0;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_UpdateAudienceStatus]"))
+                {
+                    database.AddInParameter(command, "@AudienceID", DbType.Int32, id);
+                    database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
+                    database.ExecuteNonQuery(command);
+                    returnVale = (int)database.GetParameterValue(command, "@Status");
+                }
+                return returnVale == 1;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
-//        public bool AttendStatus(int id)
-//        {
+        public DataModel.Modal.Audience GetAudience(int id)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetAudienceByID]"))
+                {
+                    database.AddInParameter(command, "@ID", DbType.Int32, id);
+                    dataSet = database.ExecuteDataSet(command);
+                }
 
-//            try
-//            {
-//                var audience = GetAudience(id);
-//                if (audience == null) { return false; }
-//                audience.IsAttended = !audience.IsAttended;
-//                audience.UpdateDate = DateTime.Now;
-//                Context.SaveChanges();
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                return false;
-//            }
-//        }
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var audience = (from dataRow in dataTable.AsEnumerable()
+                                select new DataModel.Modal.Audience
+                                {
+                                    AudienceID = dataRow.Field<int>("AudienceID"),
+                                    Name = dataRow.Field<String>("Name"),
+                                    Contact = dataRow.Field<String>("Contact"),
+                                    VisitDate = dataRow.Field<DateTime>("VisitDate"),
+                                    GSBAmount = dataRow.Field<float>("GSBAmount"),
+                                    IsAttended = dataRow.Field<bool>("IsAttended"),
+                                    FSMName = dataRow.Field<String>("FSMName"),
+                                    Amount = dataRow.Field<float>("Amount"),
+                                    IsBooked = dataRow.Field<bool>("IsBooked"),
+                                    Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
+                                    Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
+                                    Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
+                                    VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
+                                }).FirstOrDefault();
+                return audience;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-//        //public List<Modal.Audience> GetAudiences() { return Context.Audiences.Where(model => model.IsDeleted == false).ToList(); }
+        public List<DataModel.Modal.Audience> GetAudiences(List<int> officeIDs, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetAudienceByOfficeIDs]"))
+                {
+                    database.AddInParameter(command, "@IDs", DbType.String, String.Join("|", officeIDs.ToArray()));
+                    database.AddInParameter(command, "@StartDate", DbType.DateTime, startDate);
+                    database.AddInParameter(command, "@EndDate", DbType.DateTime, endDate);
+                    dataSet = database.ExecuteDataSet(command);
+                }
 
-//        //public Modal.Audience GetAudience(int id) { return Context.Audiences.Where(model => model.AudienceID == id && model.IsDeleted == false).FirstOrDefault(); }
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var audiences = (from dataRow in dataTable.AsEnumerable()
+                                select new DataModel.Modal.Audience
+                                {
+                                    AudienceID = dataRow.Field<int>("AudienceID"),
+                                    Name = dataRow.Field<String>("Name"),
+                                    Contact = dataRow.Field<String>("Contact"),
+                                    VisitDate = dataRow.Field<DateTime>("VisitDate"),
+                                    GSBAmount = dataRow.Field<float>("GSBAmount"),
+                                    IsAttended = dataRow.Field<bool>("IsAttended"),
+                                    FSMName = dataRow.Field<String>("FSMName"),
+                                    Amount = dataRow.Field<float>("Amount"),
+                                    IsBooked = dataRow.Field<bool>("IsBooked"),
+                                    Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
+                                    Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
+                                    Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
+                                    VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
+                                }).ToList();
+                return audiences;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-//        //public List<Modal.Audience> GetAudiences(List<Modal.Office> offices)
-//        //{
-//        //    var officesID = offices.Select(model => model.OfficeId).ToList();
-//        //    return Context.Audiences.Where(modal => modal.IsDeleted == false && officesID.Contains(modal.Office.OfficeId)).ToList();
-//        //}
+        public DataModel.Modal.ChartSeries GetFundingTargetsAchived(List<int> officeIDs, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                DataSet dataSet;
+                var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_FundingTargetsAchivedByOfficeIDs]"))
+                {
+                    database.AddInParameter(command, "@IDs", DbType.String, string.Join("|", officeIDs.ToArray()));
+                    database.AddInParameter(command, "@StartDate", DbType.DateTime, startDate);
+                    database.AddInParameter(command, "@EndDate", DbType.DateTime, endDate);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var targetSeriesData = (from dataRow in dataTable.AsEnumerable()
+                                        select new DataModel.Modal.ChartSeries.DataPoint
+                                        {
+                                            weekNumber = dataRow.Field<int>("WeekNumber"),
+                                            x = (dataRow.Field<DateTime>("WeekStartDate").AddDays(6) - startYear).TotalMilliseconds,
+                                            y = dataRow.Field<double>("FundRaised")
+                                        }).ToList();
+                var totalTarget = targetSeriesData.Sum(model => model.y);
+                return new DataModel.Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = targetSeriesData, };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        
+        public DataModel.Modal.ChartSeries GetGSBTargetsAchived(List<int> officeIDs, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                DataSet dataSet;
+                var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GSBTargetsAchivedByOfficeIDs]"))
+                {
+                    database.AddInParameter(command, "@IDs", DbType.String, string.Join("|", officeIDs.ToArray()));
+                    database.AddInParameter(command, "@StartDate", DbType.DateTime, startDate);
+                    database.AddInParameter(command, "@EndDate", DbType.DateTime, endDate);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var targetSeriesData = (from dataRow in dataTable.AsEnumerable()
+                                        select new DataModel.Modal.ChartSeries.DataPoint
+                                        {
+                                            weekNumber = dataRow.Field<int>("WeekNumber"),
+                                            x = (dataRow.Field<DateTime>("WeekStartDate").AddDays(6) - startYear).TotalMilliseconds,
+                                            y = dataRow.Field<double>("GSBAmount")
+                                        }).ToList();
+                var totalTarget = targetSeriesData.Sum(model => model.y);
+                return new DataModel.Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = targetSeriesData, };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-//        //public DataModel.Modal.ChartSeries GetFundingTargetsAchived(List<Modal.Office> offices, int year)
-//        //{
-//        //    var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-//        //    var audiences = GetAudiences(offices).ToList();
-//        //    var audiencesSeriesData = audiences
-//        //        .Where(model => model.VisitDate.Year == year && model.IsDeleted == false)
-//        //        .OrderBy(model => model.VisitDate)
-//        //        .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
-//        //        .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.Amount) }).ToList();
-//        //    var totalTargetAchieved = audiencesSeriesData.Sum(model => model.y);
-//        //    return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
-//        //}
+        public DataModel.Modal.ChartSeries GetBookingTargetsAchived(List<int> officeIDs, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                DataSet dataSet;
+                var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_BookingTargetsAchivedByOfficeIDs]"))
+                {
+                    database.AddInParameter(command, "@IDs", DbType.String, string.Join("|", officeIDs.ToArray()));
+                    database.AddInParameter(command, "@StartDate", DbType.DateTime, startDate);
+                    database.AddInParameter(command, "@EndDate", DbType.DateTime, endDate);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var targetSeriesData = (from dataRow in dataTable.AsEnumerable()
+                                        select new DataModel.Modal.ChartSeries.DataPoint
+                                        {
+                                            weekNumber = dataRow.Field<int>("WeekNumber"),
+                                            x = (dataRow.Field<DateTime>("WeekStartDate").AddDays(6) - startYear).TotalMilliseconds,
+                                            y = dataRow.Field<Int32>("Booking")
+                                        }).ToList();
+                var totalTarget = targetSeriesData.Sum(model => model.y);
+                return new DataModel.Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = targetSeriesData, };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-//        //public DataModel.Modal.ChartSeries GetFundingTargetsAchived(List<Modal.Office> offices, DateTime startDate, DateTime endDate)
-//        //{
-//        //    var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-//        //    var audiences = GetAudiences(offices).ToList();
-//        //    var audiencesSeriesData = audiences
-//        //        .Where(model => model.VisitDate >= startDate && model.VisitDate <= endDate && model.IsDeleted == false)
-//        //        .OrderBy(model => model.VisitDate)
-//        //        .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
-//        //        .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(model.Last().VisitDate.Year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.Amount) }).ToList();
-//        //    var totalTargetAchieved = audiencesSeriesData.Sum(model => model.y);
-//        //    return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
-//        //}
+        public DataModel.Modal.ChartSeries GetArrivalTargetsAchived(List<int> officeIDs, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                DataSet dataSet;
+                var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_ArrivalTargetsAchivedByOfficeIDs]"))
+                {
+                    database.AddInParameter(command, "@IDs", DbType.String, string.Join("|", officeIDs.ToArray()));
+                    database.AddInParameter(command, "@StartDate", DbType.DateTime, startDate);
+                    database.AddInParameter(command, "@EndDate", DbType.DateTime, endDate);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var targetSeriesData = (from dataRow in dataTable.AsEnumerable()
+                                        select new DataModel.Modal.ChartSeries.DataPoint
+                                        {
+                                            weekNumber = dataRow.Field<int>("WeekNumber"),
+                                            x = (dataRow.Field<DateTime>("WeekStartDate").AddDays(6) - startYear).TotalMilliseconds,
+                                            y = dataRow.Field<Int32>("Arrival")
+                                        }).ToList();
+                var totalTarget = targetSeriesData.Sum(model => model.y);
+                return new DataModel.Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = targetSeriesData, };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-//        //public DataModel.Modal.ChartSeries GetGSBTargetsAchived(List<Modal.Office> offices, int year)
-//        //{
-//        //    var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-//        //    var audiences = GetAudiences(offices).ToList();
-//        //    var audiencesSeriesData = audiences
-//        //        .Where(model => model.VisitDate.Year == year && model.IsDeleted == false)
-//        //        .OrderBy(model => model.VisitDate)
-//        //        .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
-//        //        .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.GSBAmount) }).ToList();
-//        //    return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
-//        //}
+        public List<DataModel.Modal.Audience> GetArrivalAudiences(int officeID, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetArrivalAudienceByOfficeID]"))
+                {
+                    database.AddInParameter(command, "@OfficeID", DbType.Int32, officeID);
+                    database.AddInParameter(command, "@StartDate", DbType.DateTime, startDate);
+                    database.AddInParameter(command, "@EndDate", DbType.DateTime, endDate);
+                    dataSet = database.ExecuteDataSet(command);
+                }
 
-//        //public DataModel.Modal.ChartSeries GetGSBTargetsAchived(List<Modal.Office> offices, DateTime startDate, DateTime endDate)
-//        //{
-//        //    var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-//        //    var audiences = GetAudiences(offices).ToList();
-//        //    var audiencesSeriesData = audiences
-//        //        .Where(model => model.VisitDate >= startDate && model.VisitDate <= endDate && model.IsDeleted == false)
-//        //        .OrderBy(model => model.VisitDate)
-//        //        .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
-//        //        .Select(model => new Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(model.Last().VisitDate.Year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Sum(tempModel => tempModel.GSBAmount) }).ToList();
-//        //    return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
-//        //}
-
-//        //public DataModel.Modal.ChartSeries GetBookingTargetsAchived(List<Modal.Office> offices, int year)
-//        //{
-//        //    var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-//        //    var audiences = GetAudiences(offices).ToList();
-//        //    var audiencesSeriesData = audiences
-//        //        .Where(model => model.VisitDate.Year == year && model.IsBooked == true && model.Convention != null && model.IsDeleted == false)
-//        //        .OrderBy(model => model.VisitDate)
-//        //        .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
-//        //        .Select(model => new DataModel.Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
-//        //    return new DataModel.Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
-//        //}
-
-//        //public DataModel.Modal.ChartSeries GetBookingTargetsAchived(List<Modal.Office> offices, DateTime startDate, DateTime endDate)
-//        //{
-//        //    var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-//        //    var audiences = GetAudiences(offices).ToList();
-//        //    var audiencesSeriesData = audiences
-//        //        .Where(model => model.VisitDate >= startDate && model.VisitDate <= endDate && model.IsBooked == true && model.Convention != null && model.IsDeleted == false)
-//        //        .OrderBy(model => model.VisitDate)
-//        //        .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.VisitDate))
-//        //        .Select(model => new DataModel.Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(model.Last().VisitDate.Year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
-//        //    return new DataModel.Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
-//        //}
-
-//        //public DataModel.Modal.ChartSeries GetArrivalTargetsAchived(List<Modal.Office> offices, int year)
-//        //{
-//        //    var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-//        //    var audiences = GetAudiences(offices).ToList();
-//        //    var audiencesSeriesData = audiences
-//        //        .Where(model => model.VisitDate.Year == year && model.IsAttended == true && model.IsBooked == true && model.Convention != null && model.IsDeleted == false)
-//        //        .OrderBy(model => model.VisitDate)
-//        //        .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.Convention.StartDate))
-//        //        .Select(model => new DataModel.Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
-//        //    return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
-//        //}
-
-//        //public DataModel.Modal.ChartSeries GetArrivalTargetsAchived(List<Modal.Office> offices, DateTime startDate, DateTime endDate)
-//        //{
-//        //    var startYear = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-//        //    var audiences = GetAudiences(offices).ToList();
-//        //    var audiencesSeriesData = audiences
-//        //        .Where(model => model.VisitDate >= startDate && model.VisitDate <= endDate && model.IsAttended == true && model.IsBooked == true && model.Convention != null && model.IsDeleted == false)
-//        //        .OrderBy(model => model.VisitDate)
-//        //        .GroupBy(model => Utilities.DateTimeUtilities.GetIso8601WeekOfYear(model.Convention.StartDate))
-//        //        .Select(model => new DataModel.Modal.ChartSeries.DataPoint { weekNumber = model.Key, x = (Utilities.DateTimeUtilities.FirstDateOfWeekISO8601(model.Last().VisitDate.Year, model.Key).AddDays(6) - startYear).TotalMilliseconds, y = model.Count() }).ToList();
-//        //    return new Modal.ChartSeries { type = "line", name = "Achived Tagert Year - " + DateTime.Now.Year, data = audiencesSeriesData };
-//        //}
-
-//        //public List<Modal.Audience> GetArrivalAudiences(int officeID, DateTime startDate, DateTime endDate)
-//        {
-//            var conventions = GetConventionIDs(startDate, endDate);
-//            return Context.Audiences.Where(model => model.IsDeleted == false
-//            && model.IsBooked == true
-//            && model.IsAttended == false
-//            && model.Office.OfficeId == officeID
-//            && conventions.Contains(model.Convention.ConventionId)).ToList();
-//        }
-//    }
-//}
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var audiences = (from dataRow in dataTable.AsEnumerable()
+                                 select new DataModel.Modal.Audience
+                                 {
+                                     AudienceID = dataRow.Field<int>("AudienceID"),
+                                     Name = dataRow.Field<String>("Name"),
+                                     //Contact = dataRow.Field<String>("Contact"),
+                                     //VisitDate = dataRow.Field<DateTime>("VisitDate"),
+                                     //GSBAmount = dataRow.Field<float>("GSBAmount"),
+                                     //IsAttended = dataRow.Field<bool>("IsAttended"),
+                                     //FSMName = dataRow.Field<String>("FSMName"),
+                                     //Amount = dataRow.Field<float>("Amount"),
+                                     //IsBooked = dataRow.Field<bool>("IsBooked"),
+                                     //Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
+                                     //Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
+                                     Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName"), StartDate = dataRow.Field<DateTime>("StartDate") },
+                                     //VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
+                                 }).ToList();
+                return audiences;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+    }
+}
