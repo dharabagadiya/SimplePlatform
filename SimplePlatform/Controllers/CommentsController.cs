@@ -16,8 +16,8 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Add(int id, string message)
         {
-            var commentManager = new DataModel.CommentManager();
-            var status = commentManager.Add(id, UserDetail.UserId, message);
+            var commentManager = new DataAccess.CommentManager();
+            var status = commentManager.Add(id, UserDetail.UserId, message, null);
             return Json(status);
         }
     }

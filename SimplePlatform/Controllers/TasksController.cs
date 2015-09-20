@@ -162,18 +162,18 @@ namespace SimplePlatform.Controllers
             }
 
             if (!IsAdmin) { return Json(false); }
-            var commentManager = new DataModel.CommentManager();
+            var commentManager = new DataAccess.CommentManager();
             status = commentManager.Add(Convert.ToInt32(Request.Form["taskID"].ToString()), UserDetail.UserId, Request.Form["comment"].ToString(), fileResources);
             return Json(status);
         }
 
         public FilePathResult Download(int id)
         {
-            var commentManager = new DataModel.CommentManager();
-            var comment = commentManager.GetComment(id);
-            var fileAttachments = comment.CommentAttachments.Select(model => model.FileResource).ToList();
+            var commentManager = new DataAccess.CommentManager();
+            var commentAttachments = commentManager.GetComment(id);
+            var fileAttachments = commentAttachments.Select(model => model.FileResource).ToList();
 
-            var outputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}\\{2}", Server.MapPath(@"\"), comment.CommentId, DateTime.Now.ToString("ddMMyyyyhhmmss")));
+            var outputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}\\{2}", Server.MapPath(@"\"), id, DateTime.Now.ToString("ddMMyyyyhhmmss")));
             var outputDirectoryPathString = System.IO.Path.Combine(outputDirectory.ToString(), "");
             var isExists = System.IO.Directory.Exists(outputDirectoryPathString);
             if (isExists) System.IO.Directory.Delete(outputDirectoryPathString, true);
@@ -189,7 +189,7 @@ namespace SimplePlatform.Controllers
                 }
             }
 
-            var zipOutputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}", Server.MapPath(@"\"), comment.CommentId));
+            var zipOutputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}", Server.MapPath(@"\"), id));
             var zipOutputDirectoryPathString = System.IO.Path.Combine(zipOutputDirectory.ToString(), (DateTime.Now.ToString("ddMMyyyyhhmmss") + ".zip"));
             ZipFile.CreateFromDirectory(outputDirectoryPathString, zipOutputDirectoryPathString);
             return File(zipOutputDirectoryPathString, "application/zip", DateTime.Now.ToString("ddMMyyyyhhmmss") + ".zip");

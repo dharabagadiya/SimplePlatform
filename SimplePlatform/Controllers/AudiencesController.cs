@@ -56,7 +56,7 @@ namespace SimplePlatform.Controllers
 
         public PartialViewResult Edit(int id)
         {
-            var visitTypeManager = new DataModel.VisitTypeManager();
+            var visitTypeManager = new DataAccess.VisitTypeManager();
             ViewData["VisitTypes"] = visitTypeManager.GetVisitTypes();
             var officeManager = new DataModel.OfficeMananer();
             ViewData["Offices"] = officeManager.GetOffices();
@@ -73,7 +73,7 @@ namespace SimplePlatform.Controllers
 
         public PartialViewResult Add()
         {
-            var visitTypeManager = new DataModel.VisitTypeManager();
+            var visitTypeManager = new DataAccess.VisitTypeManager();
             ViewData["VisitTypes"] = visitTypeManager.GetVisitTypes();
             var officeManager = new DataModel.OfficeMananer();
             ViewData["Offices"] = officeManager.GetOffices();
