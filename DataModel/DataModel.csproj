@@ -52,7 +52,6 @@
     <Compile Include="ConventionManager.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
-    <Compile Include="EventManager.cs" />
     <Compile Include="Modal\Audience.cs" />
     <Compile Include="Modal\ChartSeries.cs" />
     <Compile Include="Modal\Convention.cs" />

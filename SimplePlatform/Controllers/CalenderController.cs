@@ -19,7 +19,7 @@ namespace SimplePlatform.Controllers
 
         public PartialViewResult EventDetail(int id)
         {
-            var eventManager = new DataModel.EventManager();
+            var eventManager = new DataAccess.EventManager();
             var eventDetail = eventManager.GetEventDetail(id);
             return PartialView(eventDetail);
         }
@@ -63,12 +63,11 @@ namespace SimplePlatform.Controllers
         }
         private List<dynamic> GetEvents(DateTime startDate, DateTime endDate)
         {
-            var eventManager = new EventManager();
+            var eventManager = new DataAccess.EventManager();
             var officeManager = new OfficeMananer();
             var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
-            var events = eventManager.GetEvents(offices.Select(model => model.OfficeId).ToList());
-            var eventList = events.Where(model => model.IsDeleted == false && (model.StartDate >= startDate && model.StartDate <= endDate)).ToList();
-            return eventList.Select(model => new
+            var events = eventManager.GetEvents(offices.Select(model => model.OfficeId).ToList(), startDate, endDate);
+            return events.Select(model => new
             {
                 type = "EVENT",
                 id = model.EventId,

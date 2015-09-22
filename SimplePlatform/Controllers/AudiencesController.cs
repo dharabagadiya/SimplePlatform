@@ -14,7 +14,7 @@ namespace SimplePlatform.Controllers
             var officeManager = new DataModel.OfficeMananer();
             var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
             ViewData["Offices"] = offices;
-            var eventManager = new DataModel.EventManager();
+            var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
             var userManager = new DataModel.UserManager();
             ViewData["FSMUsers"] = userManager.GetUsers(4);
@@ -60,9 +60,10 @@ namespace SimplePlatform.Controllers
             var visitTypeManager = new DataAccess.VisitTypeManager();
             ViewData["VisitTypes"] = visitTypeManager.GetVisitTypes();
             var officeManager = new DataModel.OfficeMananer();
-            ViewData["Offices"] = officeManager.GetOffices();
-            var eventManager = new DataModel.EventManager();
-            ViewData["Events"] = eventManager.GetActiveEvents();
+            var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
+            ViewData["Offices"] = offices;
+            var eventManager = new DataAccess.EventManager();
+            ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
             var userManager = new DataModel.UserManager();
             ViewData["FSMUsers"] = userManager.GetUsers(4);
             var conventionManager = new DataModel.ConventionManager();
@@ -77,9 +78,10 @@ namespace SimplePlatform.Controllers
             var visitTypeManager = new DataAccess.VisitTypeManager();
             ViewData["VisitTypes"] = visitTypeManager.GetVisitTypes();
             var officeManager = new DataModel.OfficeMananer();
-            ViewData["Offices"] = officeManager.GetOffices();
-            var eventManager = new DataModel.EventManager();
-            ViewData["Events"] = eventManager.GetActiveEvents();
+            var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
+            ViewData["Offices"] = offices;
+            var eventManager = new DataAccess.EventManager();
+            ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
             //var userManager = new DataModel.UserManager();
             //ViewData["FSMUsers"] = userManager.GetUsers(4);
             var conventionManager = new DataModel.ConventionManager();

@@ -246,8 +246,8 @@ namespace SimplePlatform.Controllers
 
         public object GetEventsForCurrentWeek(int id, DateTime startDate, DateTime endDate)
         {
-            var eventManager = new EventManager();
-            var events = eventManager.GetEvents(id, startDate, endDate);
+            var eventManager = new DataAccess.EventManager();
+            var events = eventManager.GetEvents(new List<int> { id }, startDate, endDate);
             return events.OrderBy(model => model.StartDate - DateTime.Now)
                 .Select(model => new
                 {
@@ -255,7 +255,7 @@ namespace SimplePlatform.Controllers
                     Name = model.Name,
                     StartDate = model.StartDate.ToString("MM dd,yyyy"),
                     EndDate = model.EndDate.ToString("MM dd,yyyy"),
-                    TotalPeopleAttended = model.Audiences.Where(audienceModel => audienceModel.IsDeleted == false).Count()
+                    TotalPeopleAttended = model.TotalAttended
                 });
         }
 

@@ -64,6 +64,7 @@
     <Folder Include="StoredProcedure\Targets" />
     <Folder Include="StoredProcedure\Tasks" />
     <Folder Include="StoredProcedure\Audiences" />
+    <Folder Include="StoredProcedure\Events" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -164,5 +165,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_GetArrivalAudienceByOfficeID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Events\sproc_SimplePlatForm_AddEvent.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Events\sproc_SimplePlatForm_UpdateEvent.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Events\sproc_SimplePlatForm_DeleteEvent.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Events\sproc_SimplePlatForm_GetEventByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Events\sproc_SimplePlatForm_GetActiveEventByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_GetAudienceByEventID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Events\sproc_SimplePlatForm_GetEventByID.sql" />
   </ItemGroup>
 </Project>

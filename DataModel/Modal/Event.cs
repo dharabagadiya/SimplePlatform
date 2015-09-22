@@ -16,6 +16,7 @@ namespace DataModel.Modal
         public String City { get; set; }
         public virtual Office Office { get; set; }
         public bool IsDeleted { get; set; }
+        public int TotalAttended { get; set; }
         public virtual Convention convention { get; set; }
         public virtual ICollection<Audience> Audiences { get; set; }
     }

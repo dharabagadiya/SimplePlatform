@@ -32,7 +32,14 @@ BEGIN
 		BEGIN TRANSACTION;
 
 			IF (@ConventionID = 0) SET @ConventionID = NULL;
-			IF (@EventID = 0) SET @EventID = NULL;
+			IF (@EventID = 0) 
+			BEGIN
+				SET @EventID = NULL;
+			END
+			ELSE
+			BEGIN
+				SELECT @ConventionID = convention_ConventionId FROM dbo.Events WHERE EventId = @EventID AND IsDeleted = 0;
+			END;
 
 			INSERT INTO dbo.Audiences(
 					  Name ,
