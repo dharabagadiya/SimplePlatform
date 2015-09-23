@@ -64,8 +64,8 @@ namespace SimplePlatform.Controllers
         public ActionResult Add()
         {
             if (!IsAdmin) { return RedirectToAction("AddByOffice"); }
-            var officeMananer = new DataModel.OfficeMananer();
-            var offices = IsAdmin ? officeMananer.GetOffices() : UserDetail.Offices.ToList();
+            var officeMananer = new DataAccess.OfficeMananer();
+            var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices.Where(model => model.IsDeleted == false).ToList();
             return PartialView();
         }
@@ -88,10 +88,10 @@ namespace SimplePlatform.Controllers
 
         public ActionResult Edit(int id)
         {
-            var officeMananer = new DataModel.OfficeMananer();
+            var officeMananer = new DataAccess.OfficeMananer();
             var taskManager = new DataAccess.TaskManager();
             var task = taskManager.GetTask(id);
-            var offices = IsAdmin ? officeMananer.GetOffices() : UserDetail.Offices.ToList();
+            var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices.Where(model => model.IsDeleted == false).ToList();
             return PartialView(task);
         }

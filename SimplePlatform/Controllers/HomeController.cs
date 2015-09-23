@@ -25,7 +25,7 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
+            var offices = new DataAccess.OfficeMananer().GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var targets = targetManager.GetFundingTargets(offices.Select(model => model.OfficeId).ToList(), startDateTime, endDateTime);
@@ -43,7 +43,7 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<object>();
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
+            var offices = new DataAccess.OfficeMananer().GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var targets = targetManager.GetBookingTargets(offices.Select(model => model.OfficeId).ToList(), startDateTime, endDateTime);
@@ -61,7 +61,7 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<object>();
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
+            var offices = new DataAccess.OfficeMananer().GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var targets = targetManager.GetGSBTargets(offices.Select(model => model.OfficeId).ToList(), startDateTime, endDateTime);
@@ -79,7 +79,7 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<object>();
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var offices = IsAdmin ? new DataModel.OfficeMananer().GetOffices() : UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
+            var offices = new DataAccess.OfficeMananer().GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var targets = targetManager.GetArrivalTargets(offices.Select(model => model.OfficeId).ToList(), startDateTime, endDateTime);

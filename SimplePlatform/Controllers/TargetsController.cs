@@ -14,8 +14,8 @@ namespace SimplePlatform.Controllers
         // GET: Targets
         public ActionResult Index()
         {
-            var officeManager = new DataModel.OfficeMananer();
-            ViewData["Offices"] = officeManager.GetOffices();
+            var officeManager = new DataAccess.OfficeMananer();
+            ViewData["Offices"] = officeManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             BundleConfig.AddScript("~/Scripts/Offices", "targets.js", ControllerName);
             return View();
         }
@@ -47,8 +47,8 @@ namespace SimplePlatform.Controllers
 
         public PartialViewResult Edit(int id)
         {
-            var officeManager = new DataModel.OfficeMananer();
-            ViewData["Offices"] = officeManager.GetOffices();
+            var officeManager = new DataAccess.OfficeMananer();
+            ViewData["Offices"] = officeManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var targetManager = new DataAccess.TargetManager();
             var target = targetManager.GetTarget(id);
             return PartialView(target);

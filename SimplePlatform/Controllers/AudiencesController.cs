@@ -11,8 +11,8 @@ namespace SimplePlatform.Controllers
         public ActionResult Index()
         {
             BundleConfig.AddScript("~/Scripts/Audiences", "audiences.js", ControllerName);
-            var officeManager = new DataModel.OfficeMananer();
-            var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
+            var officeManager = new DataAccess.OfficeMananer();
+            var offices = officeManager.GetOffices(IsAdmin ?  0 : UserDetail.UserId);
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
@@ -28,8 +28,8 @@ namespace SimplePlatform.Controllers
         {
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
-            var officeManager = new DataModel.OfficeMananer();
-            var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
+            var officeManager = new DataAccess.OfficeMananer();
+            var offices = officeManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var audienceManager = new DataAccess.AudienceManager();
             var audiences = audienceManager.GetAudiences(offices.Select(model => model.OfficeId).ToList(), startDateTime, endDateTime);
             if (audiences == null) { return Json(new { data = new { } }); }
@@ -59,8 +59,8 @@ namespace SimplePlatform.Controllers
         {
             var visitTypeManager = new DataAccess.VisitTypeManager();
             ViewData["VisitTypes"] = visitTypeManager.GetVisitTypes();
-            var officeManager = new DataModel.OfficeMananer();
-            var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
+            var officeManager = new DataAccess.OfficeMananer();
+            var offices = officeManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
@@ -77,8 +77,8 @@ namespace SimplePlatform.Controllers
         {
             var visitTypeManager = new DataAccess.VisitTypeManager();
             ViewData["VisitTypes"] = visitTypeManager.GetVisitTypes();
-            var officeManager = new DataModel.OfficeMananer();
-            var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
+            var officeManager = new DataAccess.OfficeMananer();
+            var offices = officeManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());

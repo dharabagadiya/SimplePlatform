@@ -18,9 +18,9 @@ namespace SimplePlatform.Controllers
         public ActionResult Add()
         {
             var userDetailManager = new UserManager();
-            var officeMananer = new OfficeMananer();
+            var officeMananer = new DataAccess.OfficeMananer();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
-            var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
+            var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices;
             var conventionManager = new ConventionManager();
             var conventions = conventionManager.GetConventions();
@@ -44,9 +44,9 @@ namespace SimplePlatform.Controllers
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var isUpdateEnable = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
-            var officesManager = new OfficeMananer();
+            var officesManager = new DataAccess.OfficeMananer();
             var eventManager = new DataAccess.EventManager();
-            var offices = IsAdmin ? officesManager.GetOffices() : UserDetail.Offices;
+            var offices = officesManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var events = eventManager.GetEvents(offices.Select(model => model.OfficeId).ToList(), startDateTime, endDateTime)
                 .Select(modal => new
                 {
@@ -63,9 +63,9 @@ namespace SimplePlatform.Controllers
         public PartialViewResult Edit(int id)
         {
             var userDetailManager = new UserManager();
-            var officeMananer = new OfficeMananer();
+            var officeMananer = new DataAccess.OfficeMananer();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
-            var offices = IsAdmin ? officeMananer.GetOffices() : user.Offices.ToList();
+            var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices;
             var conventionManager = new ConventionManager();
             var conventions = conventionManager.GetConventions();

@@ -12,8 +12,8 @@ namespace SimplePlatform.Controllers
         {
             var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
             var users = customMembershipProvider.GetUsers();
-            var officeManager = new DataModel.OfficeMananer();
-            var office = officeManager.GetOffices();
+            var officeManager = new DataAccess.OfficeMananer();
+            var office = officeManager.GetOffices(0);
             return PartialView();
         }
     }

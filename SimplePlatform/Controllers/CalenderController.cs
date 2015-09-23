@@ -64,8 +64,8 @@ namespace SimplePlatform.Controllers
         private List<dynamic> GetEvents(DateTime startDate, DateTime endDate)
         {
             var eventManager = new DataAccess.EventManager();
-            var officeManager = new OfficeMananer();
-            var offices = IsAdmin ? officeManager.GetOffices() : officeManager.GetOffices(UserDetail.UserId);
+            var officeManager = new DataAccess.OfficeMananer();
+            var offices = officeManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var events = eventManager.GetEvents(offices.Select(model => model.OfficeId).ToList(), startDate, endDate);
             return events.Select(model => new
             {

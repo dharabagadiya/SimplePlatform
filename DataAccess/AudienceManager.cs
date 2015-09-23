@@ -192,7 +192,6 @@ namespace DataAccess
             }
         }
 
-
         public List<DataModel.Modal.Audience> GetAudiencesByEventID(int eventID)
         {
             try

@@ -65,6 +65,7 @@
     <Folder Include="StoredProcedure\Tasks" />
     <Folder Include="StoredProcedure\Audiences" />
     <Folder Include="StoredProcedure\Events" />
+    <Folder Include="StoredProcedure\Offices" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -186,5 +187,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Events\sproc_SimplePlatForm_GetEventByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Offices\sproc_SimplePlatForm_AddOffice.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Offices\sproc_SimplePlatForm_UpdateOffice.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Offices\sproc_SimplePlatForm_DeleteOffice.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Offices\sproc_SimplePlatForm_GetOfficesByUserID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Offices\sproc_SimplePlatForm_GetOfficesByID.sql" />
   </ItemGroup>
 </Project>

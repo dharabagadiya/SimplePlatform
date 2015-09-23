@@ -29,7 +29,7 @@ namespace SimplePlatform.Controllers
         {
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var offices = new OfficeMananer().GetOffice(id);
+            var offices = new DataAccess.OfficeMananer().GetOffice(id);
             var targets = targetManager.GetFundingTargets(new List<int> { offices.OfficeId }, startDate, endDate);
             var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<int> { offices.OfficeId }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -51,7 +51,7 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<object>();
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var office = new OfficeMananer().GetOffice(id);
+            var office = new DataAccess.OfficeMananer().GetOffice(id);
             var targets = targetManager.GetBookingTargets(new List<int> { office.OfficeId }, startDate, endDate);
             var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<int> { office.OfficeId }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -63,7 +63,7 @@ namespace SimplePlatform.Controllers
         {
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var offices = new OfficeMananer().GetOffice(id);
+            var offices = new DataAccess.OfficeMananer().GetOffice(id);
             var targets = targetManager.GetArrivalTargets(new List<int> { offices.OfficeId }, startDate, endDate);
             var achievedTargets = audienceManager.GetArrivalTargetsAchived(new List<int> { offices.OfficeId }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -73,8 +73,7 @@ namespace SimplePlatform.Controllers
 
         public object GetEventsTarget(int id, DateTime startDate, DateTime endDate)
         {
-            var office = new OfficeMananer().GetOffice(id);
-            var events = office.Events.Where(model => model.IsDeleted == false && model.StartDate >= startDate && model.StartDate <= endDate).ToList();
+            var events = new DataAccess.EventManager().GetEvents(new List<int> { id }, startDate, endDate);
             var totalTargets = events.Count();
             return new { Total = totalTargets, ActTotal = totalTargets };
         }
@@ -82,8 +81,8 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult GetOffices(int pageNo, int pageSize, string startDate, string endDate)
         {
-            var officesManager = new OfficeMananer();
-            var offices = IsAdmin ? officesManager.GetOffices() : UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
+            var officesManager = new DataAccess.OfficeMananer();
+            var offices = officesManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             var totalRecord = offices.Count();
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
@@ -126,7 +125,7 @@ namespace SimplePlatform.Controllers
             var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
             var Users = customMembershipProvider.GetUsers(roleID.RoleId);
             ViewData["Users"] = Users;
-            var officesManager = new OfficeMananer();
+            var officesManager = new DataAccess.OfficeMananer();
             return PartialView(officesManager.GetOffice(id));
         }
 
@@ -134,7 +133,7 @@ namespace SimplePlatform.Controllers
         public JsonResult Add(string name, string contactNo, string city, int userID)
         {
             if (!IsAdmin) { return Json(false); }
-            var officesManager = new OfficeMananer();
+            var officesManager = new DataAccess.OfficeMananer();
             return Json(officesManager.Add(name, contactNo, city, userID));
         }
 
@@ -142,7 +141,7 @@ namespace SimplePlatform.Controllers
         public JsonResult Update(int id, string name, string contactNo, string city, int userID)
         {
             if (!IsAdmin) { return Json(false); }
-            var officesManager = new OfficeMananer();
+            var officesManager = new DataAccess.OfficeMananer();
             return Json(officesManager.Update(id, name, contactNo, city, userID));
         }
         [HttpPost]
@@ -161,8 +160,8 @@ namespace SimplePlatform.Controllers
                         string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
-                        var officesManager = new OfficeMananer();
-                        status = officesManager.Update(Convert.ToInt32(Request.Form["id"]), Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path);
+                        var officesManager = new DataAccess.OfficeMananer();
+                        status = officesManager.Update(Convert.ToInt32(Request.Form["id"]), Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path, myFile.FileName);
                     }
                     catch (Exception ex)
                     {
@@ -175,7 +174,7 @@ namespace SimplePlatform.Controllers
         public JsonResult Delete(int id)
         {
             if (!IsAdmin) { return Json(false); }
-            var officesManager = new OfficeMananer();
+            var officesManager = new DataAccess.OfficeMananer();
             return Json(officesManager.Delete(id));
         }
 
@@ -185,7 +184,7 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var office = new OfficeMananer().GetOffice(id);
+            var office = new DataAccess.OfficeMananer().GetOffice(id);
             var targets = targetManager.GetFundingTargets(new List<int> { office.OfficeId }, startDate, endDate);
             var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<int> { office.OfficeId }, startDate, endDate);
             dataSeries.Add(targets);
@@ -261,7 +260,7 @@ namespace SimplePlatform.Controllers
 
         public ActionResult Detail(int id)
         {
-            var offices = new OfficeMananer().GetOffice(id);
+            var offices = new DataAccess.OfficeMananer().GetOffice(id);
             BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Offices", "Detail.js", ControllerName);
             Script = string.Format("officeDetail.options.officeID = {0};", id);
@@ -272,7 +271,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Detail(int id, string startDate, string endDate)
         {
-            var offices = new OfficeMananer().GetOffice(id);
+            var offices = new DataAccess.OfficeMananer().GetOffice(id);
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var fundRaisingTargetData = GetFundRaisingTargetsChart(id, startDateTime, endDateTime);
@@ -299,7 +298,7 @@ namespace SimplePlatform.Controllers
                         string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
-                        var officesManager = new OfficeMananer();
+                        var officesManager = new DataAccess.OfficeMananer();
                         status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path, myFile.FileName);
                     }
                     catch (Exception ex)

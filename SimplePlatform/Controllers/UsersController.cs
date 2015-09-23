@@ -38,10 +38,10 @@ namespace SimplePlatform.Controllers
         public PartialViewResult Add()
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
-            var officeMananer = new DataModel.OfficeMananer();
+            var officeMananer = new DataAccess.OfficeMananer();
             // Remove Admin from User Role
             var roles = IsAdmin ? customRoleProvider.GetAllRoles() : customRoleProvider.GetAllRoles().Where(model => model.RoleId != 1).ToList();
-            ViewData["Offices"] = officeMananer.GetOffices();
+            ViewData["Offices"] = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             return PartialView(roles);
         }
 
@@ -51,8 +51,8 @@ namespace SimplePlatform.Controllers
             var userManager = new DataModel.UserManager();
             var user = userManager.GetUserDetail(id);
             ViewData["UserRoles"] = customRoleProvider.GetAllRoles();
-            var officeMananer = new DataModel.OfficeMananer();
-            ViewData["Offices"] = officeMananer.GetOffices();
+            var officeMananer = new DataAccess.OfficeMananer();
+            ViewData["Offices"] = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             return PartialView(user);
         }
 
