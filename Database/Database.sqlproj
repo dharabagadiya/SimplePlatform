@@ -66,6 +66,7 @@
     <Folder Include="StoredProcedure\Audiences" />
     <Folder Include="StoredProcedure\Events" />
     <Folder Include="StoredProcedure\Offices" />
+    <Folder Include="StoredProcedure\Conventions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -202,5 +203,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Offices\sproc_SimplePlatForm_GetOfficesByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_AddConvention.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_UpdateConvention.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_DeleteConvention.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_AddAttachmentConvention.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_DeleteAttachmentConvention.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_GetAudienceByConventionID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Events\sproc_SimplePlatForm_GetEventByConventionID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_GetConventions.sql" />
   </ItemGroup>
 </Project>

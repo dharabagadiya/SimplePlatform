@@ -65,13 +65,13 @@ namespace SimplePlatform.Controllers
         public JsonResult Add(string name, DateTime startDate, DateTime endDate, string description, int userId, string city)
         {
             if (!IsAdmin) { return Json(false); }
-            var conventionManager = new ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             return Json(conventionManager.Add(name, startDate, endDate, description, userId, city));
         }
 
         public JsonResult GetConventions(int pageNo = 1, int pageSize = 3)
         {
-            var conventionManager = new ConventionManager();
+            var conventionManager = new  DataAccess.ConventionManager();
             var conventions = conventionManager.GetConventions();
             var totalRecord = conventions.Count();
             var filteredConventions = conventions.Select(modal => new
@@ -84,7 +84,7 @@ namespace SimplePlatform.Controllers
                 Donation = GetFundRaisingTarget(modal.ConventionId),
                 GSBAmount = GetGSBAountTarget(modal.ConventionId),
                 Events = GetEventsTarget(modal.ConventionId),
-                IsResourceAttached = (modal.ConventionAttachments != null && modal.ConventionAttachments.Count > 0),
+                IsResourceAttached = modal.IsFileAttached,
                 ProfilePic = modal.FileResource == null ? Url.Content("~/Content/Images/Common/office_convention_avatar.png") : Url.Content(modal.FileResource.path)
             }).OrderByDescending(modal => modal.StartDate).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
@@ -109,14 +109,14 @@ namespace SimplePlatform.Controllers
         public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID, string city)
         {
             if (!IsAdmin) { return Json(false); }
-            var conventionManager = new ConventionManager();
+            var conventionManager = new  DataAccess.ConventionManager();
             return Json(conventionManager.Update(name, startDate, endDate, description, userID, conventionID, city));
         }
 
         public JsonResult Delete(int id)
         {
             if (!IsAdmin) { return Json(false); }
-            var conventionManager = new ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             var status = conventionManager.Delete(id);
             return Json(status);
         }
@@ -137,7 +137,7 @@ namespace SimplePlatform.Controllers
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
                         if (!IsAdmin) { return Json(false); }
-                        var conventionManager = new ConventionManager();
+                        var conventionManager = new DataAccess.ConventionManager();
                         status = conventionManager.Add(Request.Form["name"].ToString(), Convert.ToDateTime(Request.Form["startDate"]), Convert.ToDateTime(Request.Form["endDate"]), Request.Form["description"].ToString(), Convert.ToInt32(Request.Form["userId"]), null, path, myFile.FileName);
                     }
                     catch (Exception ex)
@@ -164,7 +164,7 @@ namespace SimplePlatform.Controllers
                         string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
-                        var conventionManager = new ConventionManager();
+                        var conventionManager = new DataAccess.ConventionManager();
                         status = conventionManager.Update(Request.Form["name"].ToString(), Convert.ToDateTime(Request.Form["startDate"]), Convert.ToDateTime(Request.Form["endDate"]), Request.Form["description"].ToString(), Convert.ToInt32(Request.Form["userId"]), Convert.ToInt32(Request.Form["conventionID"]), null, path, myFile.FileName);
                     }
                     catch (Exception ex)
@@ -201,7 +201,7 @@ namespace SimplePlatform.Controllers
                             myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                             string path = "~/AttachmentUploads/" + fileName;
                             if (!IsAdmin) { return Json(false); }
-                            var conventionManager = new ConventionManager();
+                            var conventionManager = new DataAccess.ConventionManager();
                             status = conventionManager.AddAttachment(Convert.ToInt32(Request.Form["conventionID"].ToString()), path, myFile.FileName);
                         }
                         catch (Exception ex)
@@ -217,7 +217,7 @@ namespace SimplePlatform.Controllers
         public JsonResult DeleteAttachment(int id, int conventionID)
         {
             if (!IsAdmin) { return Json(false); }
-            var conventionManager = new ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             var status = conventionManager.DeleteAttachment(id, conventionID);
             return Json(status);
         }
@@ -231,7 +231,7 @@ namespace SimplePlatform.Controllers
         }
         public JsonResult GetAudiences(int id)
         {
-            var audienceManager = new DataModel.ConventionManager();
+            var audienceManager = new DataAccess.AudienceManager();
             var audiences = audienceManager.GetAudiences(id).Select(model => new
             {
                 ID = model.AudienceID,
@@ -243,8 +243,8 @@ namespace SimplePlatform.Controllers
         }
         public JsonResult GetEvents(int id)
         {
-            var audienceManager = new DataModel.ConventionManager();
-            var events = audienceManager.GetEvents(id).Select(model => new
+            var eventManager = new DataAccess.EventManager();
+            var events = eventManager.GetEvents(id).Select(model => new
             {
                 Name = model.Name,
                 StartDate = model.StartDate.ToString("MM/dd/yyyy"),

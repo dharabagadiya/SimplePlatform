@@ -192,6 +192,44 @@ namespace DataAccess
             }
         }
 
+        public List<DataModel.Modal.Audience> GetAudiences(int conventionID)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetAudienceByConventionID]"))
+                {
+                    database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var audiences = (from dataRow in dataTable.AsEnumerable()
+                                 select new DataModel.Modal.Audience
+                                 {
+                                     AudienceID = dataRow.Field<int>("AudienceID"),
+                                     Name = dataRow.Field<String>("Name"),
+                                     Contact = dataRow.Field<String>("Contact"),
+                                     VisitDate = dataRow.Field<DateTime>("VisitDate"),
+                                     GSBAmount = dataRow.Field<float>("GSBAmount"),
+                                     IsAttended = dataRow.Field<bool>("IsAttended"),
+                                     FSMName = dataRow.Field<String>("FSMName"),
+                                     Amount = dataRow.Field<float>("Amount"),
+                                     IsBooked = dataRow.Field<bool>("IsBooked"),
+                                     Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
+                                     Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
+                                     Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
+                                     VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
+                                 }).ToList();
+                return audiences;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public List<DataModel.Modal.Audience> GetAudiencesByEventID(int eventID)
         {
             try

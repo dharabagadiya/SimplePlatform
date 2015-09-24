@@ -32,14 +32,14 @@ BEGIN
 
 				DECLARE @fileResourceID AS INT = 0;
 
-				IF (ISNULL(@name, '') <> '')
+				IF (ISNULL(@fileName, '') <> '')
 				BEGIN
 
 					SELECT	@fileResourceID = FileResource_Id FROM dbo.Offices WHERE OfficeId = @officeID
 
 					UPDATE dbo.FileResources SET
-							path = @path, 
-							name = @name
+							[path] = @path, 
+							name = @fileName
 					WHERE Id = @fileResourceID;
 				END;
 

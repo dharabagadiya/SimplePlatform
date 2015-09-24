@@ -31,12 +31,12 @@ BEGIN
 
 				DECLARE @fileResourceID AS INT = 0, @officeID AS INT = 0;
 
-				IF (ISNULL(@name, '') <> '')
+				IF (ISNULL(@fileName, '') <> '')
 				BEGIN
 					INSERT INTO dbo.FileResources
-							( path, name )
+							( [path], name )
 					VALUES  ( @path, -- path - nvarchar(max)
-							  @name  -- name - nvarchar(max)
+							  @fileName  -- name - nvarchar(max)
 							  );
 
 					SET @fileResourceID = SCOPE_IDENTITY();

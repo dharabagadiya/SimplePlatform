@@ -22,7 +22,7 @@ namespace SimplePlatform.Controllers
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices;
-            var conventionManager = new ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             var conventions = conventionManager.GetConventions();
             ViewData["Conventions"] = conventions;
             if (IsAdmin)
@@ -67,7 +67,7 @@ namespace SimplePlatform.Controllers
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices;
-            var conventionManager = new ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             var conventions = conventionManager.GetConventions();
             ViewData["Conventions"] = conventions;
             var eventManager = new DataAccess.EventManager();

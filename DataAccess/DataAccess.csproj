@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AudienceManager.cs" />
     <Compile Include="CommentManager.cs" />
+    <Compile Include="ConventionManager.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="OfficeMananer.cs" />
