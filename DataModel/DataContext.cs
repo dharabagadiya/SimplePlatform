@@ -23,7 +23,6 @@ namespace DataModel
         {
             CustomAuthentication.CustomMembershipProvider.OnModelCreating(modelBuilder);
             UserManager.OnModelCreating(modelBuilder);
-            ConventionManager.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

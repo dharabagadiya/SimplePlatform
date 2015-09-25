@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConventionManager.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitilizer.cs" />
     <Compile Include="Modal\Audience.cs" />

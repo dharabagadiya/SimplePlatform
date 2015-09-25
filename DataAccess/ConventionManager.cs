@@ -144,7 +144,6 @@ namespace DataAccess
 
         public List<Convention> GetConventions()
         {
-
             try
             {
                 DataSet dataSet;
@@ -175,16 +174,97 @@ namespace DataAccess
             }
         }
 
-        //public Convention GetConventionDetail(int id)
-        //{ return Context.Conventions.Where(modal => modal.ConventionId == id).FirstOrDefault(); }
-        //public List<ConventionAttachment> GetAttachmentListOfConvention(int id)
-        //{ return GetConventionDetail(id).ConventionAttachments.ToList(); }
-        //public List<Convention> GetActiveConventions()
-        //{ return Context.Conventions.Where(model => model.IsDeleted == false && DateTime.Compare(DateTime.Now, model.EndDate) > 0).ToList(); }
-        //public List<Audience> GetAudiences(int id)
-        //{ return GetConventionDetail(id).Audiences.ToList(); }
-        //public List<Event> GetEvents(int id)
-        //{ return GetConventionDetail(id).Events.ToList(); }
+        public List<ConventionAttachment> GetAttachmentListOfConvention(int id)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetConventionAttachmentsByID]"))
+                {
+                    database.AddInParameter(command, "@ConventionID", DbType.Int32, id);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var conventionAttachments = (from dataRow in dataTable.AsEnumerable()
+                                select new DataModel.Modal.ConventionAttachment
+                                {
+                                    ConventionAttachmentId = dataRow.Field<int>("ConventionAttachmentId"),
+                                    Convention =  new Convention { ConventionId = dataRow.Field<int>("Convention_ConventionId") },
+                                    FileResource = new FileResource { Id = dataRow.Field<int>("FileResourceID"), name = dataRow.Field<string>("FileResourceName"), path = dataRow.Field<string>("FileResourcePath") }
+                                }).ToList();
+                return conventionAttachments;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public List<Convention> GetActiveConventions()
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetActiveConventions]"))
+                {
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var comments = (from dataRow in dataTable.AsEnumerable()
+                                select new DataModel.Modal.Convention
+                                {
+                                    ConventionId = dataRow.Field<int>("ConventionId"),
+                                    Name = dataRow.Field<string>("Name"),
+                                    StartDate = dataRow.Field<DateTime>("StartDate"),
+                                    EndDate = dataRow.Field<DateTime>("EndDate"),
+                                    Description = dataRow.Field<string>("Description"),
+                                    City = dataRow.Field<string>("City"),
+                                    IsFileAttached = dataRow.Field<int>("IsAttachment") != 0,
+                                    FileResource = dataRow.Field<int?>("FileResourcesID").GetValueOrDefault(0) == 0 ? null : new FileResource { Id = dataRow.Field<int>("FileResourcesID"), name = dataRow.Field<string>("FileResourcesName"), path = dataRow.Field<string>("FileResourcesPath") }
+                                }).ToList();
+                return comments;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Convention GetConventionDetail(int id)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetConventionDetailByID]"))
+                {
+                    database.AddInParameter(command, "@ConventionID", DbType.Int32, id);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var convention = (from dataRow in dataTable.AsEnumerable()
+                                select new DataModel.Modal.Convention
+                                {
+                                    ConventionId = dataRow.Field<int>("ConventionId"),
+                                    Name = dataRow.Field<string>("Name"),
+                                    StartDate = dataRow.Field<DateTime>("StartDate"),
+                                    EndDate = dataRow.Field<DateTime>("EndDate"),
+                                    Description = dataRow.Field<string>("Description"),
+                                    City = dataRow.Field<string>("City"),
+                                    IsFileAttached = dataRow.Field<int>("IsAttachment") != 0,
+                                    FileResource = dataRow.Field<int?>("FileResourcesID").GetValueOrDefault(0) == 0 ? null : new FileResource { Id = dataRow.Field<int>("FileResourcesID"), name = dataRow.Field<string>("FileResourcesName"), path = dataRow.Field<string>("FileResourcesPath") }
+                                }).FirstOrDefault();
+                return convention;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
 

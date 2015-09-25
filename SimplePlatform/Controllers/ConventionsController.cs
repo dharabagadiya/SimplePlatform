@@ -14,33 +14,33 @@ namespace SimplePlatform.Controllers
     {
         public object GetConventionBookingTarget(int id)
         {
-            var conventionManager = new ConventionManager();
-            var convention = conventionManager.GetConventionDetail(id);
-            var totalAchievedTargets = convention.Audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).ToList().Count();
+            var audienceManager = new DataAccess.AudienceManager();
+            var audiences = audienceManager.GetAudiences(id);
+            var totalAchievedTargets = audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).ToList().Count();
             return new { Total = 0, ActTotal = totalAchievedTargets };
         }
 
         public object GetFundRaisingTarget(int id)
         {
-            var conventionManager = new ConventionManager();
-            var convention = conventionManager.GetConventionDetail(id);
-            var totalAchievedTargets = convention.Audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).Sum(model => model.Amount);
+            var audienceManager = new DataAccess.AudienceManager();
+            var audiences = audienceManager.GetAudiences(id);
+            var totalAchievedTargets = audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).Sum(model => model.Amount);
             return new { Total = 0, ActTotal = totalAchievedTargets };
         }
 
         public object GetGSBAountTarget(int id)
         {
-            var conventionManager = new ConventionManager();
-            var convention = conventionManager.GetConventionDetail(id);
-            var totalAchievedTargets = convention.Audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).Sum(model => model.GSBAmount);
+            var audienceManager = new DataAccess.AudienceManager();
+            var audiences = audienceManager.GetAudiences(id);
+            var totalAchievedTargets = audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).Sum(model => model.GSBAmount);
             return new { Total = 0, ActTotal = totalAchievedTargets };
         }
 
         public object GetEventsTarget(int id)
         {
-            var conventionManager = new ConventionManager();
-            var convention = conventionManager.GetConventionDetail(id);
-            var totalAchievedTargets = convention.Events.Where(model => model.IsDeleted == false && model.EndDate <= DateTime.Now).ToList().Count();
+            var eventManager = new DataAccess.EventManager();
+            var events = eventManager.GetEvents(id);
+            var totalAchievedTargets = events.Where(model => model.IsDeleted == false && model.EndDate <= DateTime.Now).ToList().Count();
             return new { Total = 0, ActTotal = totalAchievedTargets };
         }
 
@@ -71,7 +71,7 @@ namespace SimplePlatform.Controllers
 
         public JsonResult GetConventions(int pageNo = 1, int pageSize = 3)
         {
-            var conventionManager = new  DataAccess.ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             var conventions = conventionManager.GetConventions();
             var totalRecord = conventions.Count();
             var filteredConventions = conventions.Select(modal => new
@@ -100,7 +100,7 @@ namespace SimplePlatform.Controllers
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
             var roleID = customRoleProvider.GetRole("Speakers");
             var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
-            var conventionManager = new ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             var conventionDetail = conventionManager.GetConventionDetail(id);
             return PartialView(conventionDetail);
         }
@@ -109,7 +109,7 @@ namespace SimplePlatform.Controllers
         public JsonResult Update(string name, DateTime startDate, DateTime endDate, string description, int userID, int conventionID, string city)
         {
             if (!IsAdmin) { return Json(false); }
-            var conventionManager = new  DataAccess.ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             return Json(conventionManager.Update(name, startDate, endDate, description, userID, conventionID, city));
         }
 
@@ -176,7 +176,7 @@ namespace SimplePlatform.Controllers
         }
         public PartialViewResult UploadAttachment(int id)
         {
-            var conventionManager = new ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             var conventionDetail = conventionManager.GetConventionDetail(id);
             var conventionAttachments = conventionManager.GetAttachmentListOfConvention(id);
             ViewData["Attachments"] = conventionAttachments;
@@ -223,7 +223,7 @@ namespace SimplePlatform.Controllers
         }
         public ActionResult Detail(int id)
         {
-            var convention = new ConventionManager().GetConventionDetail(id);
+            var convention = new DataAccess.ConventionManager().GetConventionDetail(id);
             //BundleConfig.AddStyle("/Offices", "Detail.css", ControllerName);
             BundleConfig.AddScript("~/Scripts/Conventions", "Detail.js", ControllerName);
             //Script = string.Format("officeDetail.options.officeID = {0};", id);
@@ -254,9 +254,9 @@ namespace SimplePlatform.Controllers
         }
         public FilePathResult Download(int id)
         {
-            var conventionManager = new ConventionManager();
+            var conventionManager = new DataAccess.ConventionManager();
             var convention = conventionManager.GetConventionDetail(id);
-            var fileAttachments = convention.ConventionAttachments.Select(model => model.FileResource).ToList();
+            var fileAttachments = conventionManager.GetAttachmentListOfConvention(id).Select(model => model.FileResource).ToList();
 
             var outputDirectory = new DirectoryInfo(string.Format("{0}ExportFiles\\{1}\\{2}", Server.MapPath(@"\"), convention.Name, DateTime.Now.ToString("ddMMyyyyhhmmss")));
             var outputDirectoryPathString = System.IO.Path.Combine(outputDirectory.ToString(), "");

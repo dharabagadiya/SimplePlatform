@@ -228,4 +228,13 @@
   <ItemGroup>
     <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_GetConventions.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_GetConventionAttachmentsByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_GetActiveConventions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_GetConventionDetailByID.sql" />
+  </ItemGroup>
 </Project>
