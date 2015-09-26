@@ -10,7 +10,7 @@ using System.Web;
 
 namespace DataModel.Modal
 {
-    public class UserDetail : CustomAuthentication.IUserDetail
+    public class UserDetail
     {
         public int UserId { get; set; }
         public virtual CustomAuthentication.User User { get; set; }

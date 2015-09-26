@@ -63,9 +63,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="StoredProcedure\User\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CustomAuthentication\CustomAuthentication.csproj">
       <Project>{bfad8a8e-0154-4a4a-a7f1-8b744018d375}</Project>

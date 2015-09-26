@@ -26,6 +26,5 @@ namespace CustomAuthentication
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
-        public virtual IUserDetail UserDetail { get; set; }
     }
 }

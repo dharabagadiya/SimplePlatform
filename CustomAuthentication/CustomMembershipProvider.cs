@@ -4,6 +4,7 @@ using CustomAuthentication.Security;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -12,10 +13,8 @@ using System.Web.Security;
 
 namespace CustomAuthentication
 {
-    public class CustomMembershipProvider
+    public class CustomMembershipProvider : DataAccess.DBManager
     {
-        readonly DataContext Context = new DataContext();
-
         #region Private Methods
         private void InitializeUserSession(User user)
         {
@@ -33,111 +32,129 @@ namespace CustomAuthentication
         }
         #endregion
 
-        public bool CreateUser(string username, string password, string email)
-        {
-            try
-            {
-                if (Context.Users.Any(model => model.UserName.Equals(username, StringComparison.InvariantCultureIgnoreCase))) { return false; }
-                Context.Users.Add(new User
-                {
-                    UserName = username,
-                    Password = password,
-                    Email = email,
-                    CreateDate = DateTime.UtcNow,
-                });
-                Context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
-
-        public bool CreateUser(string firstName, string lastName, string emildID, int userRoleID)
-        {
-            try
-            {
-                if (Context.Users.Any(model => model.UserName.Equals(emildID, StringComparison.InvariantCultureIgnoreCase))) { return false; }
-                var roles = Context.Roles.Where(model => model.RoleId == userRoleID).ToList();
-                Context.Users.Add(new User
-                {
-                    UserName = emildID,
-                    Password = "12345",
-                    Email = emildID,
-                    FirstName = firstName,
-                    LastName = lastName,
-                    Roles = roles,
-                    CreateDate = DateTime.UtcNow,
-                });
-                Context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
-
         public bool Authenticate(string username, string password)
         {
-            var user = Context.Users.Where(model => (model.UserName.Equals(username) || model.Email.Equals(username)) && model.Password.Equals(password)).FirstOrDefault();
-            if (user == null) { return false; }
-            else { InitializeUserSession(user); return true; };
-        }
-        public bool DeleteUser(int id)
-        {
-            var User = Context.Users.FirstOrDefault(Usr => Usr.UserId == id);
-            if (User != null)
+            try
             {
-                User.IsDeleted = true;
-                Context.SaveChanges();
-                return true;
+                var returnVale = 0;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_AuthenticateUsers]"))
+                {
+                    database.AddInParameter(command, "@username", DbType.String, username);
+                    database.AddInParameter(command, "@password", DbType.String, password);
+                    database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
+                    database.ExecuteNonQuery(command);
+                    returnVale = (int)database.GetParameterValue(command, "@Status");
+                }
+                return returnVale == 1;
             }
-            else
+            catch (Exception ex)
             {
                 return false;
             }
         }
-        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID)
+        public List<User> GetUsers()
         {
             try
             {
-                var user = Context.Users.Where(model => model.UserId == id).FirstOrDefault();
-                if (user == null) { return false; }
-                var roles = Context.Roles.Where(model => model.RoleId == userRoleID).ToList();
-                user.UserName = emildID;
-                user.Email = emildID;
-                user.FirstName = firstName;
-                user.LastName = lastName;
-                Context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
-        public List<User> GetUsers()
-        { return Context.Users.Where(modal => modal.IsDeleted == false).ToList(); }
-        public User GetUser(int id)
-        { return Context.Users.Where(modal => modal.IsDeleted == false && modal.UserId == id).FirstOrDefault(); }
-        public List<User> GetUsers(int roleID)
-        { return Context.Users.Where(modal => modal.Roles.Any(roleModel => roleModel.RoleId == roleID)).ToList(); }
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Roles)
-                .WithMany(r => r.Users)
-                .Map(model =>
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetUsers]"))
                 {
-                    model.ToTable("UserRoles");
-                    model.MapLeftKey("UserId");
-                    model.MapRightKey("RoleId");
-                });
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var users = (from dataRow in dataTable.AsEnumerable()
+                             select new User
+                             {
+                                 UserId = dataRow.Field<int>("UserId"),
+                                 UserName = dataRow.Field<string>("UserName"),
+                                 FirstName = dataRow.Field<string>("FirstName"),
+                                 LastName = dataRow.Field<string>("LastName"),
+                                 Email = dataRow.Field<string>("Email"),
+                                 Roles = new List<Role> {
+                                            new Role {
+                                                RoleId = dataRow.Field<int>("RoleId"),
+                                                RoleName = dataRow.Field<string>("RoleName")
+                                            }
+                                   }
+                             }).ToList();
+                return users;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public User GetUser(int id)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetUserByID]"))
+                {
+                    database.AddInParameter(command, "@ID", DbType.Int32, id);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var user = (from dataRow in dataTable.AsEnumerable()
+                             select new User
+                             {
+                                 UserId = dataRow.Field<int>("UserId"),
+                                 UserName = dataRow.Field<string>("UserName"),
+                                 FirstName = dataRow.Field<string>("FirstName"),
+                                 LastName = dataRow.Field<string>("LastName"),
+                                 Email = dataRow.Field<string>("Email"),
+                                 Roles = new List<Role> {
+                                            new Role {
+                                                RoleId = dataRow.Field<int>("RoleId"),
+                                                RoleName = dataRow.Field<string>("RoleName")
+                                            }
+                                   }
+                             }).FirstOrDefault();
+                return user;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public List<User> GetUsers(int roleID)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetUserByRoleID]"))
+                {
+                    database.AddInParameter(command, "@RoleID", DbType.Int32, roleID);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var users = (from dataRow in dataTable.AsEnumerable()
+                             select new User
+                             {
+                                 UserId = dataRow.Field<int>("UserId"),
+                                 UserName = dataRow.Field<string>("UserName"),
+                                 FirstName = dataRow.Field<string>("FirstName"),
+                                 LastName = dataRow.Field<string>("LastName"),
+                                 Email = dataRow.Field<string>("Email"),
+                                 Roles = new List<Role> {
+                                            new Role {
+                                                RoleId = dataRow.Field<int>("RoleId"),
+                                                RoleName = dataRow.Field<string>("RoleName")
+                                            }
+                                   }
+                             }).ToList();
+                return users;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
