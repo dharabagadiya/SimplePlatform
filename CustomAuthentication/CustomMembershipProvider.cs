@@ -45,7 +45,12 @@ namespace CustomAuthentication
                     database.ExecuteNonQuery(command);
                     returnVale = (int)database.GetParameterValue(command, "@Status");
                 }
-                return returnVale == 1;
+
+                if (returnVale != 0)
+                {
+                    InitializeUserSession(GetUser(returnVale));
+                }
+                return returnVale != 0;
             }
             catch (Exception ex)
             {
@@ -100,20 +105,20 @@ namespace CustomAuthentication
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
                 var dataTable = dataSet.Tables[0];
                 var user = (from dataRow in dataTable.AsEnumerable()
-                             select new User
-                             {
-                                 UserId = dataRow.Field<int>("UserId"),
-                                 UserName = dataRow.Field<string>("UserName"),
-                                 FirstName = dataRow.Field<string>("FirstName"),
-                                 LastName = dataRow.Field<string>("LastName"),
-                                 Email = dataRow.Field<string>("Email"),
-                                 Roles = new List<Role> {
+                            select new User
+                            {
+                                UserId = dataRow.Field<int>("UserId"),
+                                UserName = dataRow.Field<string>("UserName"),
+                                FirstName = dataRow.Field<string>("FirstName"),
+                                LastName = dataRow.Field<string>("LastName"),
+                                Email = dataRow.Field<string>("Email"),
+                                Roles = new List<Role> {
                                             new Role {
                                                 RoleId = dataRow.Field<int>("RoleId"),
                                                 RoleName = dataRow.Field<string>("RoleName")
                                             }
                                    }
-                             }).FirstOrDefault();
+                            }).FirstOrDefault();
                 return user;
             }
             catch (Exception ex)

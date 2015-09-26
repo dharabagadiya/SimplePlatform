@@ -14,12 +14,13 @@ namespace DataAccess
 
         static DBManager()
         {
+            DatabaseFactory.ClearDatabaseProviderFactory();
             DatabaseFactory.SetDatabaseProviderFactory(new DatabaseProviderFactory());
         }
 
         public DBManager()
         {
-            
+
             database = DatabaseFactory.CreateDatabase();
         }
     }

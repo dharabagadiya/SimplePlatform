@@ -21,7 +21,7 @@ BEGIN
 
 	IF EXISTS(SELECT 1 FROM dbo.Users WHERE Email = @username AND [Password] = @password AND IsDeleted = 0)
 	BEGIN
-		SET @Status = 1;
+		SELECT @Status = UserId FROM dbo.Users WHERE Email = @username AND [Password] = @password AND IsDeleted = 0;
 	END;
 
 END;
