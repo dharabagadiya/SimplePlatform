@@ -17,7 +17,6 @@ namespace SimplePlatform.Controllers
             return View();
         }
 
-
         public List<DataModel.Modal.UserDetail> GetUersByOffices()
         {
             var offices = UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();

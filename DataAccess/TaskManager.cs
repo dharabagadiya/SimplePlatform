@@ -22,28 +22,28 @@ namespace DataAccess
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
                 var dataTable = dataSet.Tables[0];
                 var task = (from dataRow in dataTable.AsEnumerable()
-                             select new DataModel.Modal.Task
-                             {
-                                 TaskId = dataRow.Field<int>("TaskId"),
-                                 Name = dataRow.Field<string>("Name"),
-                                 StartDate = dataRow.Field<DateTime>("StartDate"),
-                                 EndDate = dataRow.Field<DateTime>("EndDate"),
-                                 Description = dataRow.Field<string>("Description"),
-                                 IsCompleted = dataRow.Field<bool>("IsCompleted"),
-                                 CreateDate = dataRow.Field<DateTime>("CreateDate"),
-                                 UpdateDate = dataRow.Field<DateTime>("UpdateDate"),
-                                 Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<string>("OfficeName") },
-                                 UsersDetail = dataRow.Field<int?>("UserId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.UserDetail
-                                 {
-                                     UserId = dataRow.Field<int>("UserId"),
-                                     User = new CustomAuthentication.User
-                                     {
-                                         UserId = dataRow.Field<int>("UserId"),
-                                         FirstName = dataRow.Field<string>("FirstName"),
-                                         LastName = dataRow.Field<string>("LastName")
-                                     }
-                                 }
-                             }).FirstOrDefault();
+                            select new DataModel.Modal.Task
+                            {
+                                TaskId = dataRow.Field<int>("TaskId"),
+                                Name = dataRow.Field<string>("Name"),
+                                StartDate = dataRow.Field<DateTime>("StartDate"),
+                                EndDate = dataRow.Field<DateTime>("EndDate"),
+                                Description = dataRow.Field<string>("Description"),
+                                IsCompleted = dataRow.Field<bool>("IsCompleted"),
+                                CreateDate = dataRow.Field<DateTime>("CreateDate"),
+                                UpdateDate = dataRow.Field<DateTime>("UpdateDate"),
+                                Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<string>("OfficeName") },
+                                UsersDetail = dataRow.Field<int?>("UserId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.UserDetail
+                                {
+                                    UserId = dataRow.Field<int>("UserId"),
+                                    User = new CustomAuthentication.User
+                                    {
+                                        UserId = dataRow.Field<int>("UserId"),
+                                        FirstName = dataRow.Field<string>("FirstName"),
+                                        LastName = dataRow.Field<string>("LastName")
+                                    }
+                                }
+                            }).FirstOrDefault();
                 return task;
             }
             catch (Exception ex)
@@ -168,7 +168,17 @@ namespace DataAccess
                                  IsCompleted = dataRow.Field<bool>("IsCompleted"),
                                  CreateDate = dataRow.Field<DateTime>("CreateDate"),
                                  UpdateDate = dataRow.Field<DateTime>("UpdateDate"),
-                                 Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<string>("OfficeName") },
+                                 Office = new DataModel.Modal.Office
+                                 {
+                                     OfficeId = dataRow.Field<int>("OfficeId"),
+                                     Name = dataRow.Field<string>("OfficeName"),
+                                     FileResource = new DataModel.Modal.FileResource
+                                     {
+                                         Id = dataRow.Field<int>("FileResourceID"),
+                                         name = dataRow.Field<string>("FileResourceName"),
+                                         path = dataRow.Field<string>("FileResourcePath")
+                                     }
+                                 },
                                  UsersDetail = dataRow.Field<int?>("UserId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.UserDetail
                                  {
                                      UserId = dataRow.Field<int>("UserId"),
@@ -177,6 +187,12 @@ namespace DataAccess
                                          UserId = dataRow.Field<int>("UserId"),
                                          FirstName = dataRow.Field<string>("FirstName"),
                                          LastName = dataRow.Field<string>("LastName")
+                                     },
+                                     FileResource = new DataModel.Modal.FileResource
+                                     {
+                                         Id = dataRow.Field<int>("FileResourceID"),
+                                         name = dataRow.Field<string>("FileResourceName"),
+                                         path = dataRow.Field<string>("FileResourcePath")
                                      }
                                  }
                              }).ToList();

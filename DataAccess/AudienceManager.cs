@@ -243,7 +243,8 @@ namespace DataAccess
 
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
                 var dataTable = dataSet.Tables[0];
-                var audiences = (from dataRow in dataTable.AsEnumerable()
+                var audiences = new List<DataModel.Modal.Audience>();
+                audiences = (from dataRow in dataTable.AsEnumerable()
                                  select new DataModel.Modal.Audience
                                  {
                                      AudienceID = dataRow.Field<int>("AudienceID"),

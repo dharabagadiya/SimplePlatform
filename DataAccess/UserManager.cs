@@ -232,6 +232,7 @@ namespace DataAccess
 
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
                 var dataTable = dataSet.Tables[0];
+                var officeMananer = new OfficeMananer();
                 var userDetails = (from dataRow in dataTable.AsEnumerable()
                                    select new DataModel.Modal.UserDetail
                                    {
@@ -250,6 +251,7 @@ namespace DataAccess
                                             }
                                         }
                                        },
+                                       Offices = officeMananer.GetOffices(dataRow.Field<int>("UserId")),
                                        FileResource = new FileResource
                                        {
                                            Id = dataRow.Field<int>("FileResourceID"),

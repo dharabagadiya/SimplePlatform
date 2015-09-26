@@ -26,7 +26,7 @@ namespace SimplePlatform.Controllers
 
         public PartialViewResult TaskDetail(int id)
         {
-            var taskManager= new DataAccess.TaskManager();
+            var taskManager = new DataAccess.TaskManager();
             var taskDetail = taskManager.GetTask(id);
             return PartialView(taskDetail);
         }
@@ -35,7 +35,7 @@ namespace SimplePlatform.Controllers
         {
             var taskManager = new DataAccess.TaskManager();
             var isOfficeAdmin = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
-            List<DataModel.Modal.Task> taskList;
+            var taskList = new List<DataModel.Modal.Task>();
 
             if (IsAdmin)
             {

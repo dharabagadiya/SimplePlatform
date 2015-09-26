@@ -21,7 +21,7 @@ BEGIN
 			[I].[OfficeId]
 		FROM dbo.UserOffices AS [I]
 		INNER JOIN dbo.Offices AS [II] ON [II].[IsDeleted] = 0 AND [II].[OfficeId] = [I].[OfficeId]
-		WHERE I.UserId = @UserID OR @UserID <> 0
+		WHERE I.UserId = @UserID OR @UserID = 0
 		GROUP BY [I].[OfficeId]
 	),
 	[OfficeUserMapping] AS
@@ -41,6 +41,7 @@ BEGIN
 			[I].Password, 
 			[I].FirstName, 
 			[I].LastName,
+			[I].CreateDate,
 			[II].[RoleId],
 			[III].[RoleName]
 		FROM dbo.Users AS [I]
@@ -58,11 +59,12 @@ BEGIN
 			[III].LastName,
 			[III].[RoleId],
 			[III].[RoleName],
+			[III].CreateDate,
 			[I].[Id] AS [FileResourceID],
 			[I].[name] AS [FileResourceName],
 			[I].[path] AS [FileResourcePath]
 	FROM [dbo].[FileResources] AS [I]
 	INNER JOIN [dbo].[UserDetails] AS [II] ON II.FileResource_Id = I.Id
-	INNER JOIN UserList AS  [III] ON III.UserId = II.UserId;
+	INNER JOIN UserList AS  [III] ON III.UserId = II.UserId
 
 END;
