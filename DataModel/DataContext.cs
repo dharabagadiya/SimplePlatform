@@ -22,7 +22,6 @@ namespace DataModel
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             CustomAuthentication.CustomMembershipProvider.OnModelCreating(modelBuilder);
-            UserManager.OnModelCreating(modelBuilder);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

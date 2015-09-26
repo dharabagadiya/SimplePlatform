@@ -67,6 +67,7 @@
     <Folder Include="StoredProcedure\Events" />
     <Folder Include="StoredProcedure\Offices" />
     <Folder Include="StoredProcedure\Conventions" />
+    <Folder Include="StoredProcedure\Users" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -236,5 +237,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_GetConventionDetailByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Users\sproc_SimplePlatForm_GetUserByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Users\sproc_SimplePlatForm_GetUserByRoleID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Users\sproc_SimplePlatForm_UpdateUserDateDuration.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Users\sproc_SimplePlatForm_UpdateUserPassword.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Users\sproc_SimplePlatForm_DeleteUserByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Users\sproc_SimplePlatForm_UpdateUserByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Users\sproc_SimplePlatForm_CreateUser.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Users\sproc_SimplePlatForm_GetUsers.sql" />
   </ItemGroup>
 </Project>

@@ -27,8 +27,8 @@ namespace SimplePlatform.Controllers
 
         public JsonResult GetUsers()
         {
-            var userManager = new DataModel.UserManager();
-            var userDetails = IsAdmin ? userManager.GetUsers() : GetUersByOffices();
+            var userManager = new DataAccess.UserManager();
+            var userDetails = userManager.GetUsers(IsAdmin ? 0 : UserDetail.UserId);
             var users = userDetails.Where(model => (!model.User.Roles.Any(roleModel => roleModel.RoleId == 1) || IsAdmin))
                 .Select(modal => new { id = modal.UserId, firstName = modal.User.FirstName, lastName = modal.User.LastName, createDate = modal.User.CreateDate.ToString("dd-MM-yyyy"), userRoles = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleName).ToArray()), userRolesID = string.Join(", ", modal.User.Roles.Select(roleModal => roleModal.RoleId).ToArray()), userOfficesID = string.Join(", ", modal.Offices.Select(officeModel => officeModel.OfficeId).ToArray()) })
                 .ToList();
@@ -48,7 +48,7 @@ namespace SimplePlatform.Controllers
         public PartialViewResult Edit(int id)
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
-            var userManager = new DataModel.UserManager();
+            var userManager = new DataAccess.UserManager();
             var user = userManager.GetUserDetail(id);
             ViewData["UserRoles"] = customRoleProvider.GetAllRoles();
             var officeMananer = new DataAccess.OfficeMananer();
@@ -59,7 +59,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Add(string firstName, string lastName, string emildID, int userRoleID, int officeID)
         {
-            var userManager = new DataModel.UserManager();
+            var userManager = new DataAccess.UserManager();
             var status = userManager.CreateUser(firstName, lastName, emildID, userRoleID, officeID);
             return Json(status);
         }
@@ -67,7 +67,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Update(int id, string firstName, string lastName, string emildID, int userRoleID, int officesID)
         {
-            var userManager = new DataModel.UserManager();
+            var userManager = new DataAccess.UserManager();
             var status = userManager.UpdateUser(id, firstName, lastName, emildID, userRoleID, officesID);
             return Json(status);
         }
@@ -92,7 +92,7 @@ namespace SimplePlatform.Controllers
                         string fileName = DateTime.Now.ToString("MMddyyyyHHmmss") + Path.GetExtension(myFile.FileName);
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
-                        var userManager = new DataModel.UserManager();
+                        var userManager = new DataAccess.UserManager();
                         status = userManager.UpdateUser(Convert.ToInt32(Request.Form["id"]), Request.Form["firstName"].ToString(), Request.Form["lastName"].ToString(), Request.Form["emildID"].ToString(), Convert.ToInt32(Request.Form["userRoleID"]), Convert.ToInt32(Request.Form["officesID"]), fileName, path);
                     }
                     catch (Exception ex)
@@ -108,7 +108,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var userManager = new DataModel.UserManager();
+            var userManager = new DataAccess.UserManager();
             var status = userManager.DeleteUser(id);
             return Json(status);
         }
@@ -119,7 +119,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult UpdatePassword(string oldPassword, string newPassword)
         {
-            var userManager = new UserManager();
+            var userManager = new DataAccess.UserManager();
             var status = userManager.UpdatePassword(oldPassword, newPassword, UserDetail.UserId);
             return Json(status);
         }
@@ -130,7 +130,7 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult AddDateDuration(DateTime startDate, DateTime endDate)
         {
-            var userManager = new UserManager();
+            var userManager = new DataAccess.UserManager();
             var status = userManager.AddDateDuration(startDate, endDate, UserDetail.UserId);
             return Json(true);
         }

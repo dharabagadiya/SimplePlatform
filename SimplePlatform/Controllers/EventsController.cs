@@ -17,7 +17,7 @@ namespace SimplePlatform.Controllers
         }
         public ActionResult Add()
         {
-            var userDetailManager = new UserManager();
+            var userDetailManager = new DataAccess.UserManager();
             var officeMananer = new DataAccess.OfficeMananer();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
@@ -62,7 +62,7 @@ namespace SimplePlatform.Controllers
         }
         public PartialViewResult Edit(int id)
         {
-            var userDetailManager = new UserManager();
+            var userDetailManager = new DataAccess.UserManager();
             var officeMananer = new DataAccess.OfficeMananer();
             var user = userDetailManager.GetUserDetail(UserDetail.UserId);
             var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);

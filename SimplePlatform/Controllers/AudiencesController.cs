@@ -16,8 +16,8 @@ namespace SimplePlatform.Controllers
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
-            var userManager = new DataModel.UserManager();
-            ViewData["FSMUsers"] = userManager.GetUsers(4);
+            var userManager = new DataAccess.UserManager();
+            ViewData["FSMUsers"] = userManager.GetUsersByRoleID(4);
             var conventionManager = new DataAccess.ConventionManager();
             ViewData["Convention"] = conventionManager.GetActiveConventions();
             StartupScript = "audiences.DoPageSetting();";
@@ -64,8 +64,8 @@ namespace SimplePlatform.Controllers
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
-            var userManager = new DataModel.UserManager();
-            ViewData["FSMUsers"] = userManager.GetUsers(4);
+            var userManager = new DataAccess.UserManager();
+            ViewData["FSMUsers"] = userManager.GetUsersByRoleID(4);
             var conventionManager = new DataAccess.ConventionManager();
             ViewData["Convention"] = conventionManager.GetActiveConventions();
             var audienceManager = new DataAccess.AudienceManager();

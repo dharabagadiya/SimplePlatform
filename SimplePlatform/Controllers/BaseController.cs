@@ -36,7 +36,7 @@ namespace SimplePlatform.Controllers
         {
             #region User Specific Settings
             var sessionUser = (CustomAuthentication.User)(Session["User"]);
-            var userManager = new DataModel.UserManager();
+            var userManager = new DataAccess.UserManager();
             user = userManager.GetUserDetail(sessionUser.UserId);
             isAdmin = sessionUser.Roles.Any(model => model.RoleName.Equals(ADMIN_ROLE, StringComparison.InvariantCultureIgnoreCase));
             #endregion
