@@ -47,7 +47,7 @@ BEGIN
 		FROM dbo.Users AS [I]
 		INNER JOIN dbo.UserRoles AS [II] ON II.UserId = I.UserId
 		INNER JOIN dbo.Roles AS [III] ON [III].[IsDeleted] = 0 AND [III].[RoleId] = [II].[RoleId]
-		INNER JOIN OfficeUserMapping AS [IV] ON [IV].[UserId] = [II].[UserId]
+		LEFT JOIN OfficeUserMapping AS [IV] ON [IV].[UserId] = [II].[UserId]
 		WHERE I.IsDeleted = 0
 	)
 	SELECT
@@ -64,7 +64,7 @@ BEGIN
 			[I].[name] AS [FileResourceName],
 			[I].[path] AS [FileResourcePath]
 	FROM [dbo].[FileResources] AS [I]
-	INNER JOIN [dbo].[UserDetails] AS [II] ON II.FileResource_Id = I.Id
+	RIGHT JOIN [dbo].[UserDetails] AS [II] ON II.FileResource_Id = I.Id
 	INNER JOIN UserList AS  [III] ON III.UserId = II.UserId
 
 END;

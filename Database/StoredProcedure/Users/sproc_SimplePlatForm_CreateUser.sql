@@ -12,7 +12,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_CreateUser]
 	@Status			INT OUTPUT,
 	@firstName		VARCHAR(MAX),
 	@lastName		VARCHAR(MAX),
-	@password		VARCHAR(MAX),
+	@password		VARCHAR(MAX) = '12345',
 	@emildID		VARCHAR(MAX),
 	@userRoleID		INT,
 	@officeID		INT
@@ -79,6 +79,8 @@ BEGIN
 				          NULL, -- StartDate - datetime
 				          NULL  -- EndDate - datetime
 				        );
+
+				SET @Status = 1;
 			END;
 
 		COMMIT TRANSACTION;

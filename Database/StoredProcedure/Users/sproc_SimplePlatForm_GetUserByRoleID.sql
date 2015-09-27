@@ -44,7 +44,7 @@ BEGIN
 			[I].[name] AS [FileResourceName],
 			[I].[path] AS [FileResourcePath]
 	FROM [dbo].[FileResources] AS [I]
-	INNER JOIN [dbo].[UserDetails] AS [II] ON II.FileResource_Id = I.Id
+	RIGHT JOIN [dbo].[UserDetails] AS [II] ON II.FileResource_Id = I.Id
 	INNER JOIN UserList AS  [III] ON III.UserId = II.UserId;
 
 END;

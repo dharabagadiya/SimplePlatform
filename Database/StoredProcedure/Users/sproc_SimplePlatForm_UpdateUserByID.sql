@@ -16,8 +16,8 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_UpdateUserByID]
 	@emildID		VARCHAR(MAX),
 	@userRoleID		INT,
 	@officeID		INT, 
-	@fileName		VARCHAR(MAX),
-	@path			VARCHAR(MAX)
+	@fileName		VARCHAR(MAX) = '',
+	@path			VARCHAR(MAX) = ''
 )
 AS
 BEGIN

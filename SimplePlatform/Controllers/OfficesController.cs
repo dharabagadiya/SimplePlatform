@@ -113,7 +113,7 @@ namespace SimplePlatform.Controllers
         public PartialViewResult Add()
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
-            var roleID = customRoleProvider.GetRole("Offices");
+            var roleID = customRoleProvider.GetRole("Office");
             var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
             var Users = customMembershipProvider.GetUsers(roleID.RoleId);
             return PartialView(Users);

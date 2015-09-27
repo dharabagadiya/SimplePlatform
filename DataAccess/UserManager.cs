@@ -42,7 +42,7 @@ namespace DataAccess
                                             }
                                         }
                                        },
-                                       FileResource = new FileResource
+                                       FileResource = dataRow.Field<int?>("FileResourceID").GetValueOrDefault(0) == 0 ? null : new FileResource
                                        {
                                            Id = dataRow.Field<int>("FileResourceID"),
                                            name = dataRow.Field<string>("FileResourceName"),
@@ -87,7 +87,7 @@ namespace DataAccess
                                             }
                                         }
                                       },
-                                      FileResource = new FileResource
+                                      FileResource = dataRow.Field<int?>("FileResourceID").GetValueOrDefault(0) == 0 ? null : new FileResource
                                       {
                                           Id = dataRow.Field<int>("FileResourceID"),
                                           name = dataRow.Field<string>("FileResourceName"),
@@ -244,6 +244,7 @@ namespace DataAccess
                                            FirstName = dataRow.Field<string>("FirstName"),
                                            LastName = dataRow.Field<string>("LastName"),
                                            Email = dataRow.Field<string>("Email"),
+                                           CreateDate = dataRow.Field<DateTime>("CreateDate"),
                                            Roles = new List<Role> {
                                             new Role {
                                                 RoleId = dataRow.Field<int>("RoleId"),
@@ -252,7 +253,7 @@ namespace DataAccess
                                         }
                                        },
                                        Offices = officeMananer.GetOffices(dataRow.Field<int>("UserId")),
-                                       FileResource = new FileResource
+                                       FileResource = dataRow.Field<int?>("FileResourceID").GetValueOrDefault(0) == 0 ? null : new FileResource
                                        {
                                            Id = dataRow.Field<int>("FileResourceID"),
                                            name = dataRow.Field<string>("FileResourceName"),
