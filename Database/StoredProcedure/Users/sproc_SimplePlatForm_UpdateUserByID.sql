@@ -50,13 +50,19 @@ BEGIN
 					SET
 						RoleId = @userRoleID
 					WHERE UserId =  @UserID;
+					
+					DECLARE @UserDetailID AS INT = 0;
+
+					IF(@officeID <= 0) SET @officeID = 0;
+
+					SELECT @UserDetailID = UserId FROM dbo.UserDetails WHERE UserId = @UserID;
 
 					IF(@officeID <> 0)
 					BEGIN
 						UPDATE dbo.UserOffices
 						SET
 							OfficeId = @officeID
-						WHERE UserId = @UserID;
+						WHERE UserId = @UserDetailID;
 					END;
 
 					UPDATE dbo.Users SET

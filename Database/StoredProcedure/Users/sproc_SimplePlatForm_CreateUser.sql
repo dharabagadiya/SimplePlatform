@@ -59,15 +59,6 @@ BEGIN
 				          @userRoleID  -- RoleId - int
 				          );
 
-				IF (@officeID <> 0)
-				BEGIN
-					INSERT INTO dbo.UserOffices
-							( UserId, OfficeId )
-					VALUES  ( @UserID, -- UserId - int
-							  @officeID  -- OfficeId - int
-							  )
-				END;
-
 				INSERT INTO dbo.UserDetails
 				        ( UserId ,
 				          FileResource_Id ,
@@ -80,12 +71,24 @@ BEGIN
 				          NULL  -- EndDate - datetime
 				        );
 
+				IF (@officeID <= 0) SET @officeID = 0;
+
+				IF (@officeID <> 0)
+				BEGIN
+					INSERT INTO dbo.UserOffices
+							( UserId, OfficeId )
+					VALUES  ( @UserID, -- UserId - int
+							  @officeID  -- OfficeId - int
+							  )
+				END;
+
 				SET @Status = 1;
 			END;
 
 		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
+		SELECT ERROR_MESSAGE();
 		ROLLBACK TRANSACTION;
 	END CATCH;
 

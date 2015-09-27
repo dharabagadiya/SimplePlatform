@@ -47,7 +47,7 @@ BEGIN
 		FROM dbo.Users AS [I]
 		INNER JOIN dbo.UserRoles AS [II] ON II.UserId = I.UserId
 		INNER JOIN dbo.Roles AS [III] ON [III].[IsDeleted] = 0 AND [III].[RoleId] = [II].[RoleId]
-		LEFT JOIN OfficeUserMapping AS [IV] ON [IV].[UserId] = [II].[UserId]
+		INNER JOIN OfficeUserMapping AS [IV] ON [IV].[UserId] = [II].[UserId]
 		WHERE I.IsDeleted = 0
 	)
 	SELECT
