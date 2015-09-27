@@ -46,6 +46,21 @@ BEGIN
 			[III].[RoleName]
 		FROM dbo.Users AS [I]
 		INNER JOIN dbo.UserRoles AS [II] ON II.UserId = I.UserId
+		INNER JOIN dbo.Roles AS [III] ON [III].[IsDeleted] = 0 AND III.RoleId = 1 AND [III].[RoleId] = [II].[RoleId]
+		WHERE I.IsDeleted = 0 AND @UserID = 0
+		UNION
+		SELECT 
+			[I].UserId, 
+			[I].UserName, 
+			[I].Email, 
+			[I].Password, 
+			[I].FirstName, 
+			[I].LastName,
+			[I].CreateDate,
+			[II].[RoleId],
+			[III].[RoleName]
+		FROM dbo.Users AS [I]
+		INNER JOIN dbo.UserRoles AS [II] ON II.UserId = I.UserId
 		INNER JOIN dbo.Roles AS [III] ON [III].[IsDeleted] = 0 AND [III].[RoleId] = [II].[RoleId]
 		INNER JOIN OfficeUserMapping AS [IV] ON [IV].[UserId] = [II].[UserId]
 		WHERE I.IsDeleted = 0
