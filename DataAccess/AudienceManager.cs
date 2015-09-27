@@ -217,7 +217,7 @@ namespace DataAccess
                                      FSMName = dataRow.Field<String>("FSMName"),
                                      Amount = dataRow.Field<float>("Amount"),
                                      IsBooked = dataRow.Field<bool>("IsBooked"),
-                                     Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
+                                     Office = dataRow.Field<int?>("OfficeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
                                      Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
                                      Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
                                      VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }

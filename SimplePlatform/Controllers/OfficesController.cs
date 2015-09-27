@@ -14,7 +14,8 @@ namespace SimplePlatform.Controllers
     {
         public ActionResult Index()
         {
-            var offices = UserDetail.Offices.Where(model => model.IsDeleted == false).Select(model => model).ToList();
+            var officeMananer = new DataAccess.OfficeMananer();
+            var offices = officeMananer.GetOffices(UserDetail.UserId);
             var totalOffices = offices.Count();
             var office = offices.FirstOrDefault();
             if (totalOffices == 1) { return RedirectToAction("Detail", new { id = office.OfficeId }); }

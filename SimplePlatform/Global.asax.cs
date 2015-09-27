@@ -22,8 +22,6 @@ namespace SimplePlatform
             GlobalFilters.Filters.Add(new HandleErrorAttribute());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            Database.SetInitializer<DataModel.DataContext>(new DataModel.DataContextInitilizer());
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
