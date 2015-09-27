@@ -65,6 +65,6 @@ BEGIN
 			[I].[path] AS [FileResourcePath]
 	FROM [dbo].[FileResources] AS [I]
 	RIGHT JOIN [dbo].[UserDetails] AS [II] ON II.FileResource_Id = I.Id
-	INNER JOIN UserList AS  [III] ON III.UserId = II.UserId
+	INNER JOIN UserList AS  [III] ON (III.RoleId <> 1 OR @UserID = 0) AND III.UserId = II.UserId
 
 END;

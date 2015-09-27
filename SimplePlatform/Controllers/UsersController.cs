@@ -17,13 +17,6 @@ namespace SimplePlatform.Controllers
             return View();
         }
 
-        public List<DataModel.Modal.UserDetail> GetUersByOffices()
-        {
-            var offices = UserDetail.Offices.Where(model => model.IsDeleted == false).ToList();
-            var users = offices.SelectMany(model => model.UsersDetail).Distinct().ToList();
-            return users;
-        }
-
         public JsonResult GetUsers()
         {
             var userManager = new DataAccess.UserManager();
