@@ -63,6 +63,11 @@ BEGIN
 						SET
 							OfficeId = @officeID
 						WHERE UserId = @UserDetailID;
+					END
+					ELSE IF @userRoleID = 1 -- User Role is Set To Admin And Admin Dont Have Any Mapping
+					BEGIN
+						DELETE dbo.UserOffices
+						WHERE UserId = @UserDetailID;
 					END;
 
 					UPDATE dbo.Users SET

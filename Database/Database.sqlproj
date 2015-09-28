@@ -209,9 +209,6 @@
     <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_AddConvention.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_UpdateConvention.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_DeleteConvention.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -261,5 +258,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Users\sproc_SimplePlatForm_GetUsers.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Conventions\sproc_SimplePlatForm_UpdateConvention.sql" />
   </ItemGroup>
 </Project>

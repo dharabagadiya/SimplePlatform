@@ -147,7 +147,7 @@ namespace DataAccess
                                   Name = dataRow.Field<string>("Name"),
                                   ContactNo = dataRow.Field<string>("ContactNo"),
                                   City = dataRow.Field<string>("City"),
-                                  UsersDetail = new List<DataModel.Modal.UserDetail> { new DataModel.Modal.UserDetail { UserId = dataRow.Field<int>("Id"), User = new CustomAuthentication.User { UserId = dataRow.Field<int>("Id") } } },
+                                  UsersDetail = new List<DataModel.Modal.UserDetail> { new DataModel.Modal.UserDetail { UserId = dataRow.Field<int>("UserId"), User = new CustomAuthentication.User { UserId = dataRow.Field<int>("UserId") } } },
                                   FileResource = new DataModel.Modal.FileResource { Id = dataRow.Field<int>("Id"), name = dataRow.Field<string>("name"), path = dataRow.Field<string>("path") }
                               }).FirstOrDefault();
                 return office;
@@ -157,10 +157,5 @@ namespace DataAccess
                 return null;
             }
         }
-
-        //public List<Modal.Task> GetTasks(int officeID)
-        //{
-        //    return Context.Tasks.Where(model => model.Office.OfficeId == officeID && model.UsersDetail == null).OrderByDescending(model => model.EndDate).ToList();
-        //}
     }
 }

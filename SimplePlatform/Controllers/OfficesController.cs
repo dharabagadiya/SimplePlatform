@@ -30,9 +30,8 @@ namespace SimplePlatform.Controllers
         {
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var offices = new DataAccess.OfficeMananer().GetOffice(id);
-            var targets = targetManager.GetFundingTargets(new List<int> { offices.OfficeId }, startDate, endDate);
-            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<int> { offices.OfficeId }, startDate, endDate);
+            var targets = targetManager.GetFundingTargets(new List<int> { id }, startDate, endDate);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<int> { id }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
             var totalAchievedTargets = achievedTargets.data.Sum(model => model.y);
             return new { Total = totalTargets, ActTotal = totalAchievedTargets };
@@ -52,9 +51,8 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<object>();
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var office = new DataAccess.OfficeMananer().GetOffice(id);
-            var targets = targetManager.GetBookingTargets(new List<int> { office.OfficeId }, startDate, endDate);
-            var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<int> { office.OfficeId }, startDate, endDate);
+            var targets = targetManager.GetBookingTargets(new List<int> { id }, startDate, endDate);
+            var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<int> { id }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
             var totalAchievedTargets = achievedTargets.data.Count();
             return new { Total = totalTargets, ActTotal = totalAchievedTargets };
@@ -64,9 +62,8 @@ namespace SimplePlatform.Controllers
         {
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var offices = new DataAccess.OfficeMananer().GetOffice(id);
-            var targets = targetManager.GetArrivalTargets(new List<int> { offices.OfficeId }, startDate, endDate);
-            var achievedTargets = audienceManager.GetArrivalTargetsAchived(new List<int> { offices.OfficeId }, startDate, endDate);
+            var targets = targetManager.GetArrivalTargets(new List<int> { id }, startDate, endDate);
+            var achievedTargets = audienceManager.GetArrivalTargetsAchived(new List<int> { id }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
             var totalAchievedTargets = achievedTargets.data.Sum(model => model.y);
             return new { Total = totalTargets, ActTotal = totalAchievedTargets };
@@ -122,7 +119,7 @@ namespace SimplePlatform.Controllers
         public PartialViewResult Edit(int id)
         {
             var customRoleProvider = new CustomAuthentication.CustomRoleProvider();
-            var roleID = customRoleProvider.GetRole("Offices");
+            var roleID = customRoleProvider.GetRole("Office");
             var customMembershipProvider = new CustomAuthentication.CustomMembershipProvider();
             var Users = customMembershipProvider.GetUsers(roleID.RoleId);
             ViewData["Users"] = Users;
@@ -185,9 +182,8 @@ namespace SimplePlatform.Controllers
             var dataSeries = new List<DataModel.Modal.ChartSeries>();
             var targetManager = new DataAccess.TargetManager();
             var audienceManager = new DataAccess.AudienceManager();
-            var office = new DataAccess.OfficeMananer().GetOffice(id);
-            var targets = targetManager.GetFundingTargets(new List<int> { office.OfficeId }, startDate, endDate);
-            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<int> { office.OfficeId }, startDate, endDate);
+            var targets = targetManager.GetFundingTargets(new List<int> { id }, startDate, endDate);
+            var achievedTargets = audienceManager.GetFundingTargetsAchived(new List<int> { id }, startDate, endDate);
             dataSeries.Add(targets);
             dataSeries.Add(achievedTargets);
             var totalTargets = targets.data.Sum(model => model.y);
@@ -272,7 +268,6 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult Detail(int id, string startDate, string endDate)
         {
-            var offices = new DataAccess.OfficeMananer().GetOffice(id);
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var fundRaisingTargetData = GetFundRaisingTargetsChart(id, startDateTime, endDateTime);

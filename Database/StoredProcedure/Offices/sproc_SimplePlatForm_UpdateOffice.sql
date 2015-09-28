@@ -15,8 +15,8 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_UpdateOffice]
 	@contactNo		VARCHAR(MAX),
 	@city			VARCHAR(MAX),
 	@userID			INT,
-	@path			VARCHAR(MAX) = NULL,
-	@fileName		VARCHAR(MAX)
+	@path			VARCHAR(MAX) = '',
+	@fileName		VARCHAR(MAX) =  ''
 )
 AS
 BEGIN
@@ -49,7 +49,10 @@ BEGIN
 				          City = @city
 				WHERE OfficeId = @officeID;
 
-				DELETE FROM dbo.UserOffices WHERE OfficeId = @officeID;
+				DELETE [I]
+				FROM dbo.UserOffices AS [I]
+				INNER JOIN	dbo.UserRoles AS [II] ON II.RoleId = 2 AND II.UserId = I.UserId 
+				WHERE OfficeId = @officeID;
 
 				INSERT INTO dbo.UserOffices ( UserId, OfficeId ) VALUES  (@userID, @officeID);
 

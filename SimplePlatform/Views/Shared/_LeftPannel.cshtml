@@ -25,18 +25,19 @@
                 @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
                 {
                     <li class="hasSub">
+                        <a href="@Url.Action("", "Users")" class="notExpand" data-role="menu" data-page-name="Users"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-user"></i><span class="txt">Users</span></a>
+                    </li>
+                }
+                @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
+                {
+                    <li class="hasSub">
                         <a href="@Url.Action("", "Conventions")" class="notExpand" data-role="menu" data-page-name="Conventions"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-group"></i><span class="txt">Conventions</span></a>
                     </li>
                 }
                 <li class="hasSub">
                     <a href="@Url.Action("", "Events")" class="notExpand" data-role="menu" data-page-name="Events"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-th-list"></i><span class="txt">Events</span></a>
                 </li>
-                @if (Model.User.Roles.Any(model => new List<int> { 1, 2 }.Contains(model.RoleId)))
-                {
-                    <li class="hasSub">
-                        <a href="@Url.Action("", "Users")" class="notExpand" data-role="menu" data-page-name="Users"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-user"></i><span class="txt">Users</span></a>
-                    </li>
-                }
+                
                 <li class="hasSub">
                     <a href="@Url.Action("", "Tasks")" class="notExpand" data-role="menu" data-page-name="Tasks"><i class="icon-arrows-right sideNav-arrow"></i><i class="fa fa-tasks"></i> <span class="txt">Tasks</span></a>
                 </li>

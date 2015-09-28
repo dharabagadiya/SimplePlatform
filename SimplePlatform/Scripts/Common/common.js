@@ -371,7 +371,7 @@ simplePlatform.BindHeaderAddConventionClickEvent = function () {
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, function (event, dialogContentPlaceHolder) {
             dialogContentPlaceHolder.find("#datetimerange").daterangepicker({ timePicker24Hour: true, timePicker: true, timePickerIncrement: 15, locale: { format: 'MM/DD/YYYY HH:mm' } });
             simplePlatform.ValidateModalConventionForm(dialogContentPlaceHolder);
-            dialogContentPlaceHolder.find('#fuImage').fileupload({
+            dialogContentPlaceHolder.find('#frmConvention').fileupload({
                 url: '/Conventions/UploadFile',
                 dataType: 'json',
                 add: function (e, data) {
@@ -701,7 +701,6 @@ simplePlatform.BindHeaderAddOfficeClickEvent = function () {
         return false;
     }, this));
 };
-
 simplePlatform.ValidateModalUserForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({

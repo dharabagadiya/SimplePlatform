@@ -14,7 +14,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_AddConvention]
 	@startDate		DATETIME,
 	@endDate		DATETIME,
 	@description	VARCHAR(MAX),
-	@userID			INT,
+	@userID			INT = 0,
 	@city			VARCHAR(MAX),
 	@path			VARCHAR(MAX),
 	@fileName		VARCHAR(MAX)
