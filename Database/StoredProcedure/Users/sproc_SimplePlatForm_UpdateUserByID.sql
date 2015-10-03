@@ -15,7 +15,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_UpdateUserByID]
 	@lastName		VARCHAR(MAX),
 	@emildID		VARCHAR(MAX),
 	@userRoleID		INT,
-	@officeID		INT, 
+	@officeID		VARCHAR(MAX), 
 	@fileName		VARCHAR(MAX) = '',
 	@path			VARCHAR(MAX) = ''
 )
@@ -40,10 +40,29 @@ BEGIN
 					BEGIN
 						SELECT	@fileResourceID = FileResource_Id FROM dbo.UserDetails WHERE UserId = @UserID;
 
-						UPDATE dbo.FileResources SET
-								[path] = @path, 
-								name = @fileName
-						WHERE Id = @fileResourceID;
+						IF(@fileResourceID <> 0)
+						BEGIN
+							UPDATE dbo.FileResources SET
+									[path] = @path, 
+									name = @fileName
+							WHERE Id = @fileResourceID;
+						END
+						ELSE
+						BEGIN
+
+							INSERT INTO dbo.FileResources
+							        ( path, name )
+							VALUES  ( @path, -- path - nvarchar(max)
+							          @fileName  -- name - nvarchar(max)
+							          );
+
+						 	SET @fileResourceID = SCOPE_IDENTITY();
+
+							UPDATE dbo.UserDetails SET
+									[FileResource_Id] = @fileResourceID
+							WHERE UserId = @UserID;
+							
+						END
 					END;
 
 					UPDATE dbo.UserRoles
@@ -53,16 +72,25 @@ BEGIN
 					
 					DECLARE @UserDetailID AS INT = 0;
 
-					IF(@officeID <= 0) SET @officeID = 0;
-
 					SELECT @UserDetailID = UserId FROM dbo.UserDetails WHERE UserId = @UserID;
 
-					IF(@officeID <> 0)
+					IF(@officeID <> '')
 					BEGIN
-						UPDATE dbo.UserOffices
-						SET
-							OfficeId = @officeID
-						WHERE UserId = @UserDetailID;
+						DELETE dbo.UserOffices WHERE UserId = @UserDetailID;
+
+						WITH [OfficeID] AS 
+						(
+							SELECT
+								[Value] AS [OfficeID]
+							FROM dbo.func_SimplePlatForm_GetParamsToList(@officeID) AS [I]
+							INNER JOIN dbo.Offices AS [II] ON [II].OfficeId = I.Value
+						)
+						INSERT INTO dbo.UserOffices (UserId, OfficeId)
+						SELECT
+							@UserID AS [UserId],
+							[OfficeID] AS [OfficeId]
+						FROM OfficeID;
+
 					END
 					ELSE IF @userRoleID = 1 -- User Role is Set To Admin And Admin Dont Have Any Mapping
 					BEGIN

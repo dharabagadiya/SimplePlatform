@@ -68,6 +68,7 @@ namespace DataAccess
                 }
 
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var officeManager = new DataAccess.OfficeMananer();
                 var dataTable = dataSet.Tables[0];
                 var userDetail = (from dataRow in dataTable.AsEnumerable()
                                   select new DataModel.Modal.UserDetail
@@ -87,6 +88,7 @@ namespace DataAccess
                                             }
                                         }
                                       },
+                                      Offices = officeManager.GetOffices(dataRow.Field<int>("UserId")),
                                       FileResource = dataRow.Field<int?>("FileResourceID").GetValueOrDefault(0) == 0 ? null : new FileResource
                                       {
                                           Id = dataRow.Field<int>("FileResourceID"),
@@ -162,7 +164,7 @@ namespace DataAccess
                 return false;
             }
         }
-        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID, int officeID, string fileName, string path)
+        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID, List<string> officesID, string fileName, string path)
         {
             try
             {
@@ -174,7 +176,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@lastName", DbType.String, lastName);
                     database.AddInParameter(command, "@emildID", DbType.String, emildID);
                     database.AddInParameter(command, "@userRoleID", DbType.Int32, userRoleID);
-                    database.AddInParameter(command, "@officeID", DbType.Int32, officeID);
+                    database.AddInParameter(command, "@officeID", DbType.String, string.Join("|", officesID));
                     if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName))
                     {
                         database.AddInParameter(command, "@path", DbType.String, path);
@@ -191,12 +193,12 @@ namespace DataAccess
                 return false;
             }
         }
-        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID, int officeID)
+        public bool UpdateUser(int id, string firstName, string lastName, string emildID, int userRoleID, List<string> officesID)
         {
-            return UpdateUser(id, firstName, lastName, emildID, userRoleID, officeID, string.Empty, string.Empty);
+            return UpdateUser(id, firstName, lastName, emildID, userRoleID, officesID, string.Empty, string.Empty);
         }
 
-        public bool CreateUser(string firstName, string lastName, string emildID, int userRoleID, int officeID)
+        public bool CreateUser(string firstName, string lastName, string emildID, int userRoleID, List<string> officeID)
         {
             try
             {
@@ -207,7 +209,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@lastName", DbType.String, lastName);
                     database.AddInParameter(command, "@emildID", DbType.String, emildID);
                     database.AddInParameter(command, "@userRoleID", DbType.Int32, userRoleID);
-                    database.AddInParameter(command, "@officeID", DbType.Int32, officeID);
+                    database.AddInParameter(command, "@officeID", DbType.String, string.Join("|", officeID.ToArray()));
                     database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
                     database.ExecuteNonQuery(command);
                     returnVale = (int)database.GetParameterValue(command, "@Status");

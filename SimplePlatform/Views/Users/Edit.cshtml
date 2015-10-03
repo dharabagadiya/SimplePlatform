@@ -1,6 +1,7 @@
 ﻿@model DataModel.Modal.UserDetail
 @{var userRoles = (List<CustomAuthentication.Role>)ViewData["UserRoles"];  }
-@{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+@{var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+@{var currentUser = (DataModel.Modal.UserDetail)ViewData["UserDetail"];  }
 
 <form action="#" method="post">
     <input type="hidden" id="txtUserID" value="@Model.UserId" />
@@ -47,37 +48,40 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <label for="SelectUserRole">Select User Role</label>
-                        <select class="form-control" id="dwnUserRoles">
-                            @foreach (var role in userRoles)
-                            {
-                                <option value="@role.RoleId">@role.RoleName</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                @if (offices != null && offices.Count > 0)
+                @if (Model.UserId != currentUser.UserId)
                 {
-                    <div class="form-group divOfficeListContainer">
+                    <div class="form-group">
                         <div class="col-sm-12">
-                            <label for="SelectUserRole">Select Office</label>
-                            <select class="form-control" id="dwnOfficeList">
-                                <option value="-1">Select Office</option>
-                                @foreach (var office in offices)
+                            <label for="SelectUserRole">Select User Role</label>
+                            <select class="form-control" id="dwnUserRoles">
+                                @foreach (var role in userRoles)
                                 {
-                                    <option value="@office.OfficeId">@office.Name</option>
+                                    <option value="@role.RoleId">@role.RoleName</option>
                                 }
                             </select>
                         </div>
                         <div class="clearfix"></div>
                     </div>
+                    if (offices != null && offices.Count > 0)
+                    {
+                        <div class="form-group divOfficeListContainer">
+                            <div class="col-sm-12">
+                                <label for="SelectUserRole">Select Office</label>
+                                <select class="form-control" id="dwnOfficeList" multiple>
+                                    <option value="-1">Select Office</option>
+                                    @foreach (var office in offices)
+                                    {
+                                        <option value="@office.OfficeId">@office.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
                 }
             </div>
             <div class="modal-footer">
-                 <button type="submit" class="btn btn-primary" id="btnAddUser">Save</button>
+                <button type="submit" class="btn btn-primary" id="btnAddUser">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>

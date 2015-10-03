@@ -380,7 +380,7 @@ simplePlatform.BindHeaderAddConventionClickEvent = function () {
             });
             dialogContentPlaceHolder.find("#fuImage").on('change', function () {
                 $("#fuImageName").val(this.files[0].name);
-            });            
+            });
         });
         return false;
     }, this));
@@ -795,6 +795,8 @@ simplePlatform.BindHeaderAddUserClickEvent = function () {
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             this.ValidateModalUserForm(dialogContentPlaceHolder);
             dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+
+            dialogContentPlaceHolder.find(".divOfficeListContainer").find("#dwnOfficeList").chosen({ width: "100%" });
             dialogContentPlaceHolder.find("#dwnUserRoles").off("change.dwnUserRoles").on("change.dwnUserRoles", function () {
                 dialogContentPlaceHolder.find(".divOfficeListContainer").show();
                 var userType = $(this).val();
@@ -813,7 +815,7 @@ simplePlatform.BindHeaderEditUserClickEvent = function () {
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, function (event, dialogContentPlaceHolder) {
             var userDetail = {};
             userDetail.id = parseInt(dialogContentPlaceHolder.find("#txtUserID").val());
-            userDetail.userOfficesID = parseInt(dialogContentPlaceHolder.find("#userOfficesID").val());
+            userDetail.userOfficesID = dialogContentPlaceHolder.find("#userOfficesID").val();
             userDetail.userRolesID = parseInt(dialogContentPlaceHolder.find("#userRoleID").val());
             users.BindUserEditModelEvents(dialogContentPlaceHolder, userDetail);
         });

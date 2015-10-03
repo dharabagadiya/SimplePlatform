@@ -15,7 +15,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_CreateUser]
 	@password		VARCHAR(MAX) = '12345',
 	@emildID		VARCHAR(MAX),
 	@userRoleID		INT,
-	@officeID		INT
+	@officeID		VARCHAR(MAX) = ''
 )
 AS
 BEGIN
@@ -71,15 +71,20 @@ BEGIN
 				          NULL  -- EndDate - datetime
 				        );
 
-				IF (@officeID <= 0) SET @officeID = 0;
-
-				IF (@officeID <> 0)
+				IF (@officeID <> '')
 				BEGIN
-					INSERT INTO dbo.UserOffices
-							( UserId, OfficeId )
-					VALUES  ( @UserID, -- UserId - int
-							  @officeID  -- OfficeId - int
-							  )
+					WITH [OfficeID] AS 
+					(
+						SELECT
+							[Value] AS [OfficeID]
+						FROM dbo.func_SimplePlatForm_GetParamsToList(@officeID) AS [I]
+						INNER JOIN dbo.Offices AS [II] ON [II].OfficeId = I.Value
+					)
+					INSERT INTO dbo.UserOffices ( UserId, OfficeId )
+					SELECT
+						@UserID AS [UserId],
+						[OfficeID] AS [OfficeId]
+					FROM OfficeID;
 				END;
 
 				SET @Status = 1;
