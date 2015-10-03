@@ -25,8 +25,8 @@ BEGIN
 		[III].[name],
 		[III].[path]
 	FROM [dbo].[Offices] AS [I]
-	INNER JOIN dbo.UserOffices AS [II] ON II.OfficeId = I.OfficeId
-	INNER JOIN dbo.UserRoles AS  [IV] ON IV.RoleId = 2 AND IV.UserId = II.UserId
+	LEFT JOIN dbo.UserOffices AS [II] ON II.OfficeId = I.OfficeId
+	LEFT JOIN dbo.UserRoles AS  [IV] ON IV.RoleId = 2 AND IV.UserId = II.UserId
 	RIGHT JOIN dbo.FileResources AS [III] ON III.Id = I.FileResource_Id
 	WHERE I.IsDeleted = 0 AND I.OfficeId = @ID;
 END;

@@ -218,7 +218,8 @@ office.EditOfficeDetail = function (obj) {
         $("#myFile").on('change', function () {
             $("#txtFileName").val(this.files[0].name);
         });
-        dialogContentPlaceHolder.find("#dwnUserID").val(parseInt(dialogContentPlaceHolder.find("#txtUserID").val()));
+        dialogContentPlaceHolder.find("#dwnUserID").chosen({ width: "100%" });
+        dialogContentPlaceHolder.find("#dwnUserID").val(dialogContentPlaceHolder.find("#txtUserID").val().split(",")).change().trigger("chosen:updated");
         dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
     });
 };

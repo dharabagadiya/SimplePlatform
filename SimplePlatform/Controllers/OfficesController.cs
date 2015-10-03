@@ -128,7 +128,7 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(string name, string contactNo, string city, int userID)
+        public JsonResult Add(string name, string contactNo, string city, List<string> userID)
         {
             if (!IsAdmin) { return Json(false); }
             var officesManager = new DataAccess.OfficeMananer();
@@ -136,7 +136,7 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
-        public JsonResult Update(int id, string name, string contactNo, string city, int userID)
+        public JsonResult Update(int id, string name, string contactNo, string city, List<string> userID)
         {
             if (!IsAdmin) { return Json(false); }
             var officesManager = new DataAccess.OfficeMananer();
@@ -159,7 +159,7 @@ namespace SimplePlatform.Controllers
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
                         var officesManager = new DataAccess.OfficeMananer();
-                        status = officesManager.Update(Convert.ToInt32(Request.Form["id"]), Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path, myFile.FileName);
+                        status = officesManager.Update(Convert.ToInt32(Request.Form["id"]), Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Request.Form["userID"].Split(',').ToList(), path, myFile.FileName);
                     }
                     catch (Exception ex)
                     {
@@ -295,7 +295,7 @@ namespace SimplePlatform.Controllers
                         myFile.SaveAs(Path.Combine(pathForSaving, fileName));
                         string path = "~/ImageUploads/" + fileName;
                         var officesManager = new DataAccess.OfficeMananer();
-                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Convert.ToInt32(Request.Form["userID"]), path, myFile.FileName);
+                        status = officesManager.Add(Request.Form["name"].ToString(), Request.Form["contactNo"].ToString(), Request.Form["city"].ToString(), Request.Form["userID"].Split(',').ToList(), path, myFile.FileName);
                     }
                     catch (Exception ex)
                     {

@@ -13,7 +13,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_AddOffice]
 	@name			VARCHAR(MAX),
 	@contactNo		VARCHAR(MAX),
 	@city			VARCHAR(MAX),
-	@userID			INT,
+	@userID			VARCHAR(MAX) = '',
 	@path			VARCHAR(MAX) = NULL,
 	@fileName		VARCHAR(MAX)
 )
@@ -58,7 +58,21 @@ BEGIN
 
 				SET @officeID = SCOPE_IDENTITY();
 
-				INSERT INTO dbo.UserOffices ( UserId, OfficeId ) VALUES  ( @userID, @officeID );
+				IF(@userID <> '')
+				BEGIN
+					WITH [UserIDs] AS 
+					(
+						SELECT
+							[Value] AS [UserID]
+						FROM dbo.func_SimplePlatForm_GetParamsToList(@userID) AS [I]
+						INNER JOIN dbo.Users AS [II] ON [II].UserId = I.Value
+					)
+					INSERT INTO dbo.UserOffices ( UserId, OfficeId )
+					SELECT
+						[UserID] AS [UserId],
+						@officeID AS [OfficeId]
+					FROM UserIDs;
+				END
 			
 				SET @Status = 1;
 			END;

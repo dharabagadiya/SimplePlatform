@@ -18,8 +18,13 @@ BEGIN
 	WITH [officeIDs] AS(
 		SELECT 
 			[OfficeId] AS [OfficeId]
+		FROM dbo.Offices
+		WHERE @userID = 0
+		UNION
+		SELECT 
+			[OfficeId] AS [OfficeId]
 		FROM dbo.UserOffices
-		WHERE UserId = @userID OR @userID = 0
+		WHERE UserId = @userID
 		GROUP BY [OfficeId]
 	)
 	SELECT

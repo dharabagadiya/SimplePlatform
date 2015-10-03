@@ -664,6 +664,7 @@ simplePlatform.ValidateModalOfficeForm = function (obj) {
         var city = formObj.find("#txtCity").val();
         var userID = formObj.find("#dwnUserID").val();
         var file = formObj.find('#myFile').val();
+        if (IsNullOrEmpty(userID)) { userID = "0"; }
         $('#myFile').fileupload("option", {
             formData: { "name": name, "contactNo": contactNo, "city": city, "userID": userID },
             done: function (e, data) {
@@ -684,8 +685,8 @@ simplePlatform.BindHeaderAddOfficeClickEvent = function () {
     obj.off("click.lnkAddOffice").on("click.lnkAddOffice", $.proxy(function (event) {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
-        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
-            this.ValidateModalOfficeForm(dialogContentPlaceHolder);
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, function (event, dialogContentPlaceHolder) {
+            simplePlatform.ValidateModalOfficeForm(dialogContentPlaceHolder);
             $('#myFile').fileupload({
                 url: '/Offices/UploadFile',
                 dataType: 'json',
@@ -697,7 +698,8 @@ simplePlatform.BindHeaderAddOfficeClickEvent = function () {
                 $("#txtFileName").val(this.files[0].name);
             });
             dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
-        }, this));
+            dialogContentPlaceHolder.find("#dwnUserID").chosen({ width: "100%" });
+        });
         return false;
     }, this));
 };
@@ -795,7 +797,6 @@ simplePlatform.BindHeaderAddUserClickEvent = function () {
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
             this.ValidateModalUserForm(dialogContentPlaceHolder);
             dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
-
             dialogContentPlaceHolder.find(".divOfficeListContainer").find("#dwnOfficeList").chosen({ width: "100%" });
             dialogContentPlaceHolder.find("#dwnUserRoles").off("change.dwnUserRoles").on("change.dwnUserRoles", function () {
                 dialogContentPlaceHolder.find(".divOfficeListContainer").show();

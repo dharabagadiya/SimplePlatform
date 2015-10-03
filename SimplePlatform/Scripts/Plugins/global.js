@@ -175,12 +175,12 @@ function ConvertValueToThousandMillionsBillions(value) {
     return obj;
 };
 function ShowDialogBox(dataModalPlaceHolder, dataModalURL, dataPayLoad, callbackFunction) {
-    dataModalPlaceHolder.modal({ show: true });
-    dataModalPlaceHolder.empty().load(dataModalURL, $.proxy(function () {
+    dataModalPlaceHolder.empty().load(dataModalURL, function () {
         dataModalPlaceHolder.off('show.bs.modal').on('show.bs.modal', $.proxy(function (event) {
             callbackFunction(event, dataModalPlaceHolder);
-        }, this)).modal("show");
-    }, this))
+        }, this));
+        $(this).modal('show');
+    });
 };
 function ShowOkDialogBox(dataModalPlaceHolder, title, message, successCallbackFunction) {
     var sb = new StringBuilder();

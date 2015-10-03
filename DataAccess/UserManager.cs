@@ -269,5 +269,52 @@ namespace DataAccess
                 return null;
             }
         }
+
+        public List<UserDetail> GetUserByOfficeID(int officeID) {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetUserByOfficeID]"))
+                {
+                    database.AddInParameter(command, "@OfficeID", DbType.Int32, officeID);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var officeMananer = new OfficeMananer();
+                var userDetails = new List<UserDetail>();
+                userDetails = (from dataRow in dataTable.AsEnumerable()
+                                   select new DataModel.Modal.UserDetail
+                                   {
+                                       UserId = dataRow.Field<int>("UserId"),
+                                       User = new User
+                                       {
+                                           UserId = dataRow.Field<int>("UserId"),
+                                           UserName = dataRow.Field<string>("UserName"),
+                                           FirstName = dataRow.Field<string>("FirstName"),
+                                           LastName = dataRow.Field<string>("LastName"),
+                                           Email = dataRow.Field<string>("Email"),
+                                           Roles = new List<Role> {
+                                            new Role {
+                                                RoleId = dataRow.Field<int>("RoleId"),
+                                                RoleName = dataRow.Field<string>("RoleName")
+                                            }
+                                        }
+                                       },
+                                       FileResource = dataRow.Field<int?>("FileResourceID").GetValueOrDefault(0) == 0 ? null : new FileResource
+                                       {
+                                           Id = dataRow.Field<int>("FileResourceID"),
+                                           name = dataRow.Field<string>("FileResourceName"),
+                                           path = dataRow.Field<string>("FileResourcePath")
+                                       }
+                                   }).ToList();
+                return userDetails;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace DataAccess
 {
     public class OfficeMananer : DBManager
     {
-        public bool Add(string name, string contactNo, string city, int userID, string path, string fileName)
+        public bool Add(string name, string contactNo, string city, List<string> userID, string path, string fileName)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@name", DbType.String, name);
                     database.AddInParameter(command, "@contactNo", DbType.String, contactNo);
                     database.AddInParameter(command, "@city", DbType.String, city);
-                    database.AddInParameter(command, "@userID", DbType.Int32, userID);
+                    database.AddInParameter(command, "@userID", DbType.String, string.Join("|", userID));
                     if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName))
                     {
                         database.AddInParameter(command, "@path", DbType.String, path);
@@ -38,12 +38,12 @@ namespace DataAccess
             }
         }
 
-        public bool Add(string name, string contactNo, string city, int userID)
+        public bool Add(string name, string contactNo, string city, List<string> userID)
         {
             return Add(name, contactNo, city, userID, string.Empty, string.Empty);
         }
 
-        public bool Update(int id, string name, string contactNo, string city, int userID, string path, string fileName)
+        public bool Update(int id, string name, string contactNo, string city, List<string> userID, string path, string fileName)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@name", DbType.String, name);
                     database.AddInParameter(command, "@contactNo", DbType.String, contactNo);
                     database.AddInParameter(command, "@city", DbType.String, city);
-                    database.AddInParameter(command, "@userID", DbType.Int32, userID);
+                    database.AddInParameter(command, "@userID", DbType.String, string.Join("|", userID));
                     if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName))
                     {
                         database.AddInParameter(command, "@path", DbType.String, path);
@@ -72,7 +72,7 @@ namespace DataAccess
             }
         }
 
-        public bool Update(int id, string name, string contactNo, string city, int userID)
+        public bool Update(int id, string name, string contactNo, string city, List<string> userID)
         {
             return Update(id, name, contactNo, city, userID, string.Empty, string.Empty);
         }
@@ -140,6 +140,7 @@ namespace DataAccess
 
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
                 var dataTable = dataSet.Tables[0];
+                var userManager = new DataAccess.UserManager();
                 var office = (from dataRow in dataTable.AsEnumerable()
                               select new DataModel.Modal.Office
                               {
@@ -147,7 +148,7 @@ namespace DataAccess
                                   Name = dataRow.Field<string>("Name"),
                                   ContactNo = dataRow.Field<string>("ContactNo"),
                                   City = dataRow.Field<string>("City"),
-                                  UsersDetail = new List<DataModel.Modal.UserDetail> { new DataModel.Modal.UserDetail { UserId = dataRow.Field<int>("UserId"), User = new CustomAuthentication.User { UserId = dataRow.Field<int>("UserId") } } },
+                                  UsersDetail = userManager.GetUserByOfficeID(dataRow.Field<int>("OfficeId")),
                                   FileResource = new DataModel.Modal.FileResource { Id = dataRow.Field<int>("Id"), name = dataRow.Field<string>("name"), path = dataRow.Field<string>("path") }
                               }).FirstOrDefault();
                 return office;

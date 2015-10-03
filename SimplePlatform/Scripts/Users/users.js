@@ -65,7 +65,7 @@ users.ValidateModalUserForm = function (obj) {
         var lastName = formObj.find("#txtUserLastName").val();
         var emailID = formObj.find("#txtUserEmailAddress").val();
         var userRoleID = formObj.find("#dwnUserRoles").length > 0 ? formObj.find("#dwnUserRoles").val() : formObj.find("#userRoleID").val();
-        var officesID = formObj.find("#dwnOfficeList").length > 0 ? formObj.find("#dwnOfficeList").val() : formObj.find("#userOfficesID").val();
+        var officesID = formObj.find("#dwnOfficeList").length > 0 ? formObj.find("#dwnOfficeList").val() : formObj.find("#userOfficesID").val().split(",");
         if (IsNullOrEmpty(officesID) || userRoleID == 1) { officesID = "0"; }
         $('#myFile').fileupload("option", {
             formData: { "id": id, "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID, "officesID": officesID },
@@ -88,7 +88,7 @@ users.ValidateModalUserForm = function (obj) {
                 type: "POST",
                 url: users.options.UpdateURL,
                 async: false,
-                data: JSON.stringify({ "id": id, "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID, "officesID": officesID.split(",") }),
+                data: JSON.stringify({ "id": id, "firstName": firstName, "lastName": lastName, "emildID": emailID, "userRoleID": userRoleID, "officesID": officesID }),
                 success: function (data) {
                     var status = data;
                     if (status) {
