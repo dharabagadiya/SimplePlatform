@@ -46,8 +46,8 @@ namespace SimplePlatform.Controllers
             var isUpdateEnable = UserDetail.User.Roles.Any(role => new List<int> { 1, 2 }.Contains(role.RoleId));
             var officesManager = new DataAccess.OfficeMananer();
             var eventManager = new DataAccess.EventManager();
-            var offices = officesManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
-            var events = eventManager.GetEvents(offices.Select(model => model.OfficeId).ToList(), startDateTime, endDateTime)
+            var offices = officesManager.GetOfficeIDs(IsAdmin ? 0 : UserDetail.UserId);
+            var events = eventManager.GetEvents(offices.ToList(), startDateTime, endDateTime)
                 .Select(modal => new
                 {
                     id = modal.EventId,

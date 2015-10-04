@@ -33,8 +33,8 @@ BEGIN
 			          EndDate ,
 			          Description ,
 			          IsDeleted ,
-			          convention_ConventionId ,
 			          Office_OfficeId ,
+			          convention_ConventionId ,
 			          City
 			        )
 			VALUES  ( @name , -- Name - nvarchar(max)

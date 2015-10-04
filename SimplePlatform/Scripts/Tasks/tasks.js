@@ -192,6 +192,9 @@ tasks.UploadTaskAttachment = function (obj) {
     $("#divCommonModalPlaceHolder").empty();
     ShowDialogBox($("#divCommonModalPlaceHolder"), (tasks.options.UploadAttachment + taskID), null, $.proxy(function (event, dialogContentPlaceHolder) {
         this.ValidateModalTaskCommentForm(dialogContentPlaceHolder);
+        tasks.jqXHRData = null;
+        tasks.filesList = [];
+        tasks.filesName = [];
         $('#frmTaskUpload').fileupload({
             url: tasks.options.UploadAttachment,
             dataType: 'json',
@@ -332,7 +335,9 @@ tasks.ReloadTaskList = function () {
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                     var currentObj = $(cell);
                     currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
-                    currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { tasks.EditTaskDetail($(this)); });
+                    if (rowData.IsUpdateEnable) {
+                        currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { tasks.EditTaskDetail($(this)); });
+                    }
                 },
                 render: function (o) {
                     if (!o.IsUpdateEnable) { return "-"; }
@@ -345,7 +350,9 @@ tasks.ReloadTaskList = function () {
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                     var currentObj = $(cell);
                     currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
-                    currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { tasks.DeletTaskDetail($(this)); });
+                    if (rowData.IsUpdateEnable) {
+                        currentObj.off("click.dataTableEditLink").on("click.dataTableEditLink", function () { tasks.DeletTaskDetail($(this)); });
+                    }
                 },
                 render: function (o) {
                     if (!o.IsUpdateEnable) { return "-"; }

@@ -9,7 +9,8 @@ GO
 
 CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_GetUserByOfficeID]
 (
-	@OfficeID		INT
+	@OfficeID		INT,
+	@RoleID			INT =  0
 )
 AS
 BEGIN
@@ -28,7 +29,7 @@ BEGIN
 			[III].[RoleName]
 		FROM dbo.Users AS [I]
 		INNER JOIN dbo.UserRoles AS [II] ON II.UserId = I.UserId
-		INNER JOIN dbo.Roles AS [III] ON [III].[IsDeleted] = 0 AND [III].[RoleId] = 2 AND [III].[RoleId] = [II].[RoleId]
+		INNER JOIN dbo.Roles AS [III] ON [III].[IsDeleted] = 0 AND ([III].[RoleId] = @RoleID OR @RoleID = 0) AND [III].[RoleId] = [II].[RoleId]
 		INNER JOIN dbo.UserOffices AS [IV] ON IV.OfficeId = @OfficeID AND IV.UserId = I.UserId
 		WHERE I.IsDeleted = 0
 	)

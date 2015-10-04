@@ -265,4 +265,7 @@
   <ItemGroup>
     <None Include="StoredProcedure\Users\sproc_SimplePlatForm_GetUserByOfficeID.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Offices\sproc_SimplePlatForm_GetOfficeIDsByUserID.sql" />
+  </ItemGroup>
 </Project>

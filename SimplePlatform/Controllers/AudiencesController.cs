@@ -29,9 +29,9 @@ namespace SimplePlatform.Controllers
             var startDateTime = Convert.ToDateTime(startDate);
             var endDateTime = Convert.ToDateTime(endDate);
             var officeManager = new DataAccess.OfficeMananer();
-            var offices = officeManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
+            var offices = officeManager.GetOfficeIDs(IsAdmin ? 0 : UserDetail.UserId);
             var audienceManager = new DataAccess.AudienceManager();
-            var audiences = audienceManager.GetAudiences(offices.Select(model => model.OfficeId).ToList(), startDateTime, endDateTime);
+            var audiences = audienceManager.GetAudiences(offices.ToList(), startDateTime, endDateTime);
             if (audiences == null) { return Json(new { data = new { } }); }
             var users = audiences.Select(model => new
             {

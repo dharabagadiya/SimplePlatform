@@ -31,7 +31,7 @@ namespace DataAccess
                         datatable.Rows.Add(row);
                     }
                 }
-                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-7QFA5C9\\MSSQLSERVER_2012;Initial Catalog=SimplePlatform;user id=sa;password=sa;"))
+                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-7QFA5C9\\MSSQLSERVER_2012;Initial Catalog=SimplePlatformTemp;user id=sa;password=sa;"))
                 {
                     con.Open();
                     using (var command = new SqlCommand())
@@ -109,6 +109,7 @@ namespace DataAccess
                                     CommentId = dataRow.Field<int>("CommentId"),
                                     CommentText = dataRow.Field<string>("CommentText"),
                                     CreateDate = dataRow.Field<DateTime>("CreateDate"),
+                                    UpdateDate = dataRow.Field<DateTime>("UpdateDate"),
                                     UserDetail = new DataModel.Modal.UserDetail
                                     {
                                         UserId = dataRow.Field<int>("UserId"),

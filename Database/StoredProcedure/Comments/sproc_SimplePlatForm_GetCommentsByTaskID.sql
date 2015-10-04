@@ -24,6 +24,7 @@ BEGIN
 			[I].[CommentText] AS [CommentText],
 			[I].[Task_TaskId] AS [Task_TaskId],
 			[I].[CreateDate] AS [CreateDate],
+			[I].[UpdateDate] AS [UpdateDate],
 			[II].[UserId] AS [UserId],
 			[II].[FirstName] AS [FirstName],
 			[II].[LastName] AS [LastName]
@@ -44,6 +45,7 @@ BEGIN
 		[I].[CommentText] AS [CommentText],
 		[I].[Task_TaskId] AS [Task_TaskId],
 		[I].[CreateDate] AS [CreateDate],
+		[I].[UpdateDate] AS [UpdateDate],
 		[I].[UserId] AS [UserId],
 		[I].[FirstName] AS [FirstName],
 		[I].[LastName] AS [LastName],

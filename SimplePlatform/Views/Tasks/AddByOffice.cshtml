@@ -29,9 +29,9 @@
                         @foreach (var office in offices)
                         {
                             <optgroup label="@office.Name" id="@office.OfficeId">
-                                @foreach (var user in office.UsersDetail.Where(model => model.UserId != userID))
+                                @foreach (var user in office.UsersDetail.Where(model => model.UserId != userID && model.User.Roles.Any(roleModel => roleModel.RoleId == 4)))
                                 {
-                                    <option value="@user.User.UserId">@user.User.FirstName @user.User.FirstName</option>
+                                    <option value="@user.User.UserId">@user.User.FirstName @user.User.LastName</option>
                                 }
                             </optgroup>
                         }

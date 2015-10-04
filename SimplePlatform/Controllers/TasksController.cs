@@ -66,14 +66,15 @@ namespace SimplePlatform.Controllers
             if (!IsAdmin) { return RedirectToAction("AddByOffice"); }
             var officeMananer = new DataAccess.OfficeMananer();
             var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
-            ViewData["Offices"] = offices.Where(model => model.IsDeleted == false).ToList();
+            ViewData["Offices"] = offices.ToList();
             return PartialView();
         }
 
         public ActionResult AddByOffice()
         {
-            var offices = UserDetail.Offices.ToList();
-            ViewData["Offices"] = offices.Where(model => model.IsDeleted == false).ToList();
+            var officeMananer = new DataAccess.OfficeMananer();
+            var offices = officeMananer.GetOffices(IsAdmin ? 0 : UserDetail.UserId, 4);
+            ViewData["Offices"] = offices;
             ViewData["UserID"] = UserDetail.UserId;
             return PartialView();
         }
@@ -159,8 +160,6 @@ namespace SimplePlatform.Controllers
                     }
                 }
             }
-
-            if (!IsAdmin) { return Json(false); }
             var commentManager = new DataAccess.CommentManager();
             status = commentManager.Add(Convert.ToInt32(Request.Form["taskID"].ToString()), UserDetail.UserId, Request.Form["comment"].ToString(), fileResources);
             return Json(status);

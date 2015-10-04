@@ -97,6 +97,30 @@ namespace DataAccess
             }
         }
 
+        public List<int> GetOfficeIDs(int userID)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetOfficeIDsByUserID]"))
+                {
+                    database.AddInParameter(command, "@userID", DbType.Int32, userID);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var userManager = new DataAccess.UserManager();
+                var offices = (from dataRow in dataTable.AsEnumerable()
+                               select dataRow.Field<int>("OfficeId")).ToList();
+                return offices;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public List<DataModel.Modal.Office> GetOffices(int userID)
         {
             try
@@ -110,6 +134,7 @@ namespace DataAccess
 
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
                 var dataTable = dataSet.Tables[0];
+                var userManager = new DataAccess.UserManager();
                 var offices = (from dataRow in dataTable.AsEnumerable()
                                select new DataModel.Modal.Office
                                {
@@ -117,6 +142,39 @@ namespace DataAccess
                                    Name = dataRow.Field<string>("Name"),
                                    ContactNo = dataRow.Field<string>("ContactNo"),
                                    City = dataRow.Field<string>("City"),
+                                   UsersDetail = userManager.GetUserByOfficeID(dataRow.Field<int>("OfficeId"), 2),
+                                   FileResource = new DataModel.Modal.FileResource { Id = dataRow.Field<int>("Id"), name = dataRow.Field<string>("name"), path = dataRow.Field<string>("path") }
+                               }).ToList();
+                return offices;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<DataModel.Modal.Office> GetOffices(int userID, int roleID)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetOfficesByUserID]"))
+                {
+                    database.AddInParameter(command, "@userID", DbType.Int32, userID);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var userManager = new DataAccess.UserManager();
+                var offices = (from dataRow in dataTable.AsEnumerable()
+                               select new DataModel.Modal.Office
+                               {
+                                   OfficeId = dataRow.Field<int>("OfficeId"),
+                                   Name = dataRow.Field<string>("Name"),
+                                   ContactNo = dataRow.Field<string>("ContactNo"),
+                                   City = dataRow.Field<string>("City"),
+                                   UsersDetail = userManager.GetUserByOfficeID(dataRow.Field<int>("OfficeId"), roleID),
                                    FileResource = new DataModel.Modal.FileResource { Id = dataRow.Field<int>("Id"), name = dataRow.Field<string>("name"), path = dataRow.Field<string>("path") }
                                }).ToList();
                 return offices;
@@ -148,7 +206,7 @@ namespace DataAccess
                                   Name = dataRow.Field<string>("Name"),
                                   ContactNo = dataRow.Field<string>("ContactNo"),
                                   City = dataRow.Field<string>("City"),
-                                  UsersDetail = userManager.GetUserByOfficeID(dataRow.Field<int>("OfficeId")),
+                                  UsersDetail = userManager.GetUserByOfficeID(dataRow.Field<int>("OfficeId"), 2),
                                   FileResource = new DataModel.Modal.FileResource { Id = dataRow.Field<int>("Id"), name = dataRow.Field<string>("name"), path = dataRow.Field<string>("path") }
                               }).FirstOrDefault();
                 return office;

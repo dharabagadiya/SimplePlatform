@@ -26,7 +26,7 @@ BEGIN
 			[II].[name] AS FileResourcesName
 		FROM dbo.Conventions AS [I]
 		LEFT JOIN dbo.FileResources AS [II] ON II.Id = I.FileResource_Id
-		WHERE IsDeleted =  0 AND I.StartDate >= GETDATE()
+		WHERE IsDeleted =  0 AND I.EndDate >= GETDATE()
 	),
 	[ConventionAttachmentCount] AS (
 		SELECT 
