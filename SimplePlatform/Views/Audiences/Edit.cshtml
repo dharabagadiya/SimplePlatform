@@ -12,7 +12,7 @@
     <input type="hidden" id="hdnEventID" value="@(Model.Event ==  null ? 0 : Model.Event.EventId)" />
     <input type="hidden" id="hdnConventionID" value="@(Model.Convention == null? 0 :  Model.Convention.ConventionId)" />
     @*<input type="hidden" id="hdnFSMID" value="@(Model.UserDetail == null ?  0 : Model.UserDetail.UserId)" />*@
-    <input type="hidden" id="hdnBookinStatus" value="@(Model.IsBooked ?  1 : 0)" />
+    <input type="hidden" id="hdnBookinStatus" value="@(Model.BookingStatus)" />
     <div class="modal-dialog divUserModalDialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -112,8 +112,9 @@
                         <div class="col-sm-12">
                             <label for="SelectUserRole">Booking Status</label>
                             <select id="dwnBookStatus" class="chosen-select form-control dwnBookStatus">
-                                <option value="0">In Progress</option>
-                                <option value="1">Booked</option>
+                                <option value="1">In Progress</option>
+                                <option value="2">Booked</option>
+                                <option value="3">Reach</option>
                             </select>
                         </div>
                         <div class="clearfix"></div>

@@ -21,7 +21,7 @@ namespace DataModel.Modal
         public virtual VisitType VisitType { get; set; }
         public virtual string FSMName { get; set; }
         public float Amount { get; set; }
-        public bool IsBooked { get; set; }
+        public int BookingStatus { get; set; }
         public virtual Office Office { get; set; }
         public virtual Event Event { get; set; }
         [DefaultValue(false)]

@@ -85,12 +85,12 @@ audiences.ValidateModalAudienceQuickForm = function (obj) {
                 validators: {
                     stringLength: {
                         min: 3,
-                        max: 15,
-                        message: 'The name must be more than 3 and less than 15 characters long'
+                        max: 30,
+                        message: 'The name must be more than 3 and less than 30 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_ ]+$/,
-                        message: 'The name can containe a-z, A-Z, 0-9, ( ), or (_) only'
+                        regexp: /^['a-zA-Z0-9_ ]+$/,
+                        message: 'The name can containe a-z, A-Z, 0-9, \',( ), or (_) only'
                     }
                 }
             },
@@ -167,12 +167,12 @@ audiences.ValidateModalAudienceForm = function (obj) {
                     },
                     stringLength: {
                         min: 3,
-                        max: 15,
-                        message: 'The first name must be more than 3 and less than 15 characters long'
+                        max: 30,
+                        message: 'The first name must be more than 3 and less than 30 characters long'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_ ]+$/,
-                        message: 'The first name can containe a-z, A-Z, 0-9, ( ), or (_) only'
+                        regexp: /^['a-zA-Z0-9_ ]+$/,
+                        message: 'The first name can containe a-z, A-Z, 0-9, \',( ), or (_) only'
                     }
                 }
             },

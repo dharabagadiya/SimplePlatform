@@ -102,7 +102,7 @@ namespace SimplePlatform.Controllers
                 Contact = model.Contact,
                 VisitDate = model.VisitDate.ToString("MMM dd,yyyy"),
                 ConventionName = (model.Convention == null ? (model.Event == null ? "-" : model.Event.convention.Name) : model.Convention.Name),
-                Status = model.IsBooked ? "Booked" : "In Progress",
+                Status = model.BookingStatus == 1 ? "In Progress" : (model.BookingStatus == 2 ? "Booked" : "Reach"),
                 FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
                 Attended = model.IsAttended,
                 GSBAmount = model.GSBAmount,

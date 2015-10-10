@@ -29,7 +29,7 @@ BEGIN
 		FROM dbo.Audiences AS [I]
 		-- Need to Add Convetion NULL
 		INNER JOIN OfficeIDs AS [VI] ON [VI].[ID] = [I].[Office_OfficeId]
-		WHERE [I].[IsDeleted] = 0 AND [I].[VisitDate] BETWEEN @StartDate AND @EndDate AND I.IsBooked = 1
+		WHERE [I].[IsDeleted] = 0 AND [I].[VisitDate] BETWEEN @StartDate AND @EndDate AND I.BookingStatus = 1
 	)
 	SELECT
 		BookingTargets.WeekStartDate AS [WeekStartDate],

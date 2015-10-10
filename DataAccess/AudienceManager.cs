@@ -13,7 +13,7 @@ namespace DataAccess
 {
     public class AudienceManager : DBManager
     {
-        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
+        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@EventID", DbType.Int32, eventID);
                     database.AddInParameter(command, "@FSMName", DbType.String, fsmName);
                     database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
-                    database.AddInParameter(command, "@IsBooked", DbType.Boolean, isBooked);
+                    database.AddInParameter(command, "@BookingStatus", DbType.Int32, bookingStatus);
                     database.AddInParameter(command, "@GSBAmount", DbType.Single, GSBAmount);
                     database.AddInParameter(command, "@Amount", DbType.Single, amount);
                     database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
@@ -43,7 +43,7 @@ namespace DataAccess
             }
         }
 
-        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, bool isBooked, float GSBAmount, float amount)
+        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@EventID", DbType.Int32, eventID);
                     database.AddInParameter(command, "@FSMName", DbType.String, fsmName);
                     database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
-                    database.AddInParameter(command, "@IsBooked", DbType.Boolean, isBooked);
+                    database.AddInParameter(command, "@BookingStatus", DbType.Int32, bookingStatus);
                     database.AddInParameter(command, "@GSBAmount", DbType.Single, GSBAmount);
                     database.AddInParameter(command, "@Amount", DbType.Single, amount);
                     database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
@@ -138,7 +138,7 @@ namespace DataAccess
                                     IsAttended = dataRow.Field<bool>("IsAttended"),
                                     FSMName = dataRow.Field<String>("FSMName"),
                                     Amount = dataRow.Field<float>("Amount"),
-                                    IsBooked = dataRow.Field<bool>("IsBooked"),
+                                    BookingStatus = dataRow.Field<int>("BookingStatus"),
                                     Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
                                     Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
                                     Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
@@ -168,22 +168,22 @@ namespace DataAccess
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
                 var dataTable = dataSet.Tables[0];
                 var audiences = (from dataRow in dataTable.AsEnumerable()
-                                select new DataModel.Modal.Audience
-                                {
-                                    AudienceID = dataRow.Field<int>("AudienceID"),
-                                    Name = dataRow.Field<String>("Name"),
-                                    Contact = dataRow.Field<String>("Contact"),
-                                    VisitDate = dataRow.Field<DateTime>("VisitDate"),
-                                    GSBAmount = dataRow.Field<float>("GSBAmount"),
-                                    IsAttended = dataRow.Field<bool>("IsAttended"),
-                                    FSMName = dataRow.Field<String>("FSMName"),
-                                    Amount = dataRow.Field<float>("Amount"),
-                                    IsBooked = dataRow.Field<bool>("IsBooked"),
-                                    Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
-                                    Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
-                                    Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
-                                    VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
-                                }).ToList();
+                                 select new DataModel.Modal.Audience
+                                 {
+                                     AudienceID = dataRow.Field<int>("AudienceID"),
+                                     Name = dataRow.Field<String>("Name"),
+                                     Contact = dataRow.Field<String>("Contact"),
+                                     VisitDate = dataRow.Field<DateTime>("VisitDate"),
+                                     GSBAmount = dataRow.Field<float>("GSBAmount"),
+                                     IsAttended = dataRow.Field<bool>("IsAttended"),
+                                     FSMName = dataRow.Field<String>("FSMName"),
+                                     Amount = dataRow.Field<float>("Amount"),
+                                     BookingStatus = dataRow.Field<int>("BookingStatus"),
+                                     Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
+                                     Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
+                                     Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
+                                     VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
+                                 }).ToList();
                 return audiences;
             }
             catch (Exception ex)
@@ -216,7 +216,7 @@ namespace DataAccess
                                      IsAttended = dataRow.Field<bool>("IsAttended"),
                                      FSMName = dataRow.Field<String>("FSMName"),
                                      Amount = dataRow.Field<float>("Amount"),
-                                     IsBooked = dataRow.Field<bool>("IsBooked"),
+                                     BookingStatus = dataRow.Field<int>("BookingStatus"),
                                      Office = dataRow.Field<int?>("OfficeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
                                      Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
                                      Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
@@ -245,22 +245,22 @@ namespace DataAccess
                 var dataTable = dataSet.Tables[0];
                 var audiences = new List<DataModel.Modal.Audience>();
                 audiences = (from dataRow in dataTable.AsEnumerable()
-                                 select new DataModel.Modal.Audience
-                                 {
-                                     AudienceID = dataRow.Field<int>("AudienceID"),
-                                     Name = dataRow.Field<String>("Name"),
-                                     Contact = dataRow.Field<String>("Contact"),
-                                     VisitDate = dataRow.Field<DateTime>("VisitDate"),
-                                     GSBAmount = dataRow.Field<float>("GSBAmount"),
-                                     IsAttended = dataRow.Field<bool>("IsAttended"),
-                                     FSMName = dataRow.Field<String>("FSMName"),
-                                     Amount = dataRow.Field<float>("Amount"),
-                                     IsBooked = dataRow.Field<bool>("IsBooked"),
-                                     Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
-                                     Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
-                                     Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
-                                     VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
-                                 }).ToList();
+                             select new DataModel.Modal.Audience
+                             {
+                                 AudienceID = dataRow.Field<int>("AudienceID"),
+                                 Name = dataRow.Field<String>("Name"),
+                                 Contact = dataRow.Field<String>("Contact"),
+                                 VisitDate = dataRow.Field<DateTime>("VisitDate"),
+                                 GSBAmount = dataRow.Field<float>("GSBAmount"),
+                                 IsAttended = dataRow.Field<bool>("IsAttended"),
+                                 FSMName = dataRow.Field<String>("FSMName"),
+                                 Amount = dataRow.Field<float>("Amount"),
+                                 BookingStatus = dataRow.Field<int>("BookingStatus"),
+                                 Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
+                                 Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
+                                 Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
+                                 VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
+                             }).ToList();
                 return audiences;
             }
             catch (Exception ex)
@@ -299,7 +299,7 @@ namespace DataAccess
                 return null;
             }
         }
-        
+
         public DataModel.Modal.ChartSeries GetGSBTargetsAchived(List<int> officeIDs, DateTime startDate, DateTime endDate)
         {
             try
@@ -419,7 +419,7 @@ namespace DataAccess
                                      //IsAttended = dataRow.Field<bool>("IsAttended"),
                                      //FSMName = dataRow.Field<String>("FSMName"),
                                      //Amount = dataRow.Field<float>("Amount"),
-                                     //IsBooked = dataRow.Field<bool>("IsBooked"),
+                                     //BookingStatus = dataRow.Field<int>("BookingStatus"),
                                      //Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
                                      //Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
                                      Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName"), StartDate = dataRow.Field<DateTime>("StartDate") },

@@ -29,7 +29,7 @@ BEGIN
 		[I].IsAttended ,
 		[I].FSMName ,
 		[I].Amount ,
-		[I].IsBooked,
+		[I].BookingStatus,
 		[II].[ConventionId],
 		[II].[Name] AS [ConventionName],
 		[III].[EventId],

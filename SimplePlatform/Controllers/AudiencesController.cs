@@ -12,14 +12,14 @@ namespace SimplePlatform.Controllers
         {
             BundleConfig.AddScript("~/Scripts/Audiences", "audiences.js", ControllerName);
             var officeManager = new DataAccess.OfficeMananer();
-            var offices = officeManager.GetOffices(IsAdmin ?  0 : UserDetail.UserId);
+            var offices = officeManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
             var userManager = new DataAccess.UserManager();
             ViewData["FSMUsers"] = userManager.GetUsersByRoleID(4);
             var conventionManager = new DataAccess.ConventionManager();
-            ViewData["Convention"] = conventionManager.GetActiveConventions();
+            ViewData["Convention"] = conventionManager.GetConventions();
             StartupScript = "audiences.DoPageSetting();";
             return View();
         }
@@ -42,7 +42,7 @@ namespace SimplePlatform.Controllers
                 VisitType = model.VisitType.VisitTypeName,
                 EventName = (model.Event == null ? "-" : model.Event.Name),
                 ConventionName = (model.Convention == null ? "-" : model.Convention.Name),
-                Status = (model.VisitType.VisitTypeId == 1) ? "-" : (model.IsBooked ? "Booked" : "In Progress"),
+                Status = (model.VisitType.VisitTypeId == 1) ? "-" : (model.BookingStatus == 1 ? "In Progress" : (model.BookingStatus == 2 ? "Booked" : "Reach")),
                 FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
                 Attended = model.IsAttended,
                 GSBAmount = model.GSBAmount,
@@ -67,7 +67,7 @@ namespace SimplePlatform.Controllers
             var userManager = new DataAccess.UserManager();
             ViewData["FSMUsers"] = userManager.GetUsersByRoleID(4);
             var conventionManager = new DataAccess.ConventionManager();
-            ViewData["Convention"] = conventionManager.GetActiveConventions();
+            ViewData["Convention"] = conventionManager.GetConventions();
             var audienceManager = new DataAccess.AudienceManager();
             var audience = audienceManager.GetAudience(id);
             return PartialView(audience);
@@ -85,7 +85,7 @@ namespace SimplePlatform.Controllers
             //var userManager = new DataModel.UserManager();
             //ViewData["FSMUsers"] = userManager.GetUsers(4);
             var conventionManager = new DataAccess.ConventionManager();
-            ViewData["Convention"] = conventionManager.GetActiveConventions();
+            ViewData["Convention"] = conventionManager.GetConventions();
             return PartialView();
         }
 
@@ -94,7 +94,7 @@ namespace SimplePlatform.Controllers
         {
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, bookingStatus == 1, gsbAmount, donationAmount);
+            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, bookingStatus, gsbAmount, donationAmount);
             return Json(status);
         }
 
@@ -103,7 +103,7 @@ namespace SimplePlatform.Controllers
         {
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, bookingStatus == 1, gsbAmount, donationAmount);
+            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, bookingStatus, gsbAmount, donationAmount);
             return Json(status);
         }
 

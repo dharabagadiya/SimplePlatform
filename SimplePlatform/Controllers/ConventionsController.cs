@@ -16,7 +16,7 @@ namespace SimplePlatform.Controllers
         {
             var audienceManager = new DataAccess.AudienceManager();
             var audiences = audienceManager.GetAudiences(id);
-            var totalAchievedTargets = audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).ToList().Count();
+            var totalAchievedTargets = audiences.Where(model => model.BookingStatus == 2 && model.IsDeleted == false).ToList().Count();
             return new { Total = 0, ActTotal = totalAchievedTargets };
         }
 
@@ -24,7 +24,7 @@ namespace SimplePlatform.Controllers
         {
             var audienceManager = new DataAccess.AudienceManager();
             var audiences = audienceManager.GetAudiences(id);
-            var totalAchievedTargets = audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).Sum(model => model.Amount);
+            var totalAchievedTargets = audiences.Where(model => model.BookingStatus == 2 && model.IsDeleted == false).Sum(model => model.Amount);
             return new { Total = 0, ActTotal = totalAchievedTargets };
         }
 
@@ -32,7 +32,7 @@ namespace SimplePlatform.Controllers
         {
             var audienceManager = new DataAccess.AudienceManager();
             var audiences = audienceManager.GetAudiences(id);
-            var totalAchievedTargets = audiences.Where(model => model.IsBooked == true && model.IsDeleted == false).Sum(model => model.GSBAmount);
+            var totalAchievedTargets = audiences.Where(model => model.BookingStatus == 2 && model.IsDeleted == false).Sum(model => model.GSBAmount);
             return new { Total = 0, ActTotal = totalAchievedTargets };
         }
 

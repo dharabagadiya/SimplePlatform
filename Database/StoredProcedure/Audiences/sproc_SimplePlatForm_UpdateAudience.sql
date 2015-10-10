@@ -19,7 +19,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_UpdateAudience]
 	@EventID		INT,
 	@FSMName		VARCHAR(MAX),
 	@ConventionID	INT, 
-	@IsBooked		BIT, 
+	@BookingStatus	INT, 
 	@GSBAmount		REAL, 
 	@Amount			REAL
 )
@@ -49,7 +49,7 @@ BEGIN
 						  GSBAmount = @GSBAmount,
 						  FSMName = @FSMName,
 						  Amount =  @Amount,
-						  IsBooked = @IsBooked
+						  BookingStatus = @BookingStatus
 				WHERE AudienceID =  @AudienceID AND IsDeleted = 0;
 
 				SET @Status = 1;
