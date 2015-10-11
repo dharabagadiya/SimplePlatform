@@ -13,7 +13,7 @@ namespace DataAccess
 {
     public class AudienceManager : DBManager
     {
-        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, int bookingStatus, float GSBAmount, float amount)
+        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@EventID", DbType.Int32, eventID);
                     database.AddInParameter(command, "@FSMName", DbType.String, fsmName);
                     database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
+                    database.AddInParameter(command, "@ServiceID", DbType.Int32, serviceID);
                     database.AddInParameter(command, "@BookingStatus", DbType.Int32, bookingStatus);
                     database.AddInParameter(command, "@GSBAmount", DbType.Single, GSBAmount);
                     database.AddInParameter(command, "@Amount", DbType.Single, amount);
@@ -43,7 +44,7 @@ namespace DataAccess
             }
         }
 
-        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, int bookingStatus, float GSBAmount, float amount)
+        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, string fsmName, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -59,6 +60,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@EventID", DbType.Int32, eventID);
                     database.AddInParameter(command, "@FSMName", DbType.String, fsmName);
                     database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
+                    database.AddInParameter(command, "@ServiceID", DbType.Int32, serviceID);
                     database.AddInParameter(command, "@BookingStatus", DbType.Int32, bookingStatus);
                     database.AddInParameter(command, "@GSBAmount", DbType.Single, GSBAmount);
                     database.AddInParameter(command, "@Amount", DbType.Single, amount);
@@ -142,7 +144,8 @@ namespace DataAccess
                                     Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
                                     Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
                                     Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
-                                    VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
+                                    VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") },
+                                    Service = dataRow.Field<int?>("ServiceId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Service { ServiceId = dataRow.Field<int>("ServiceId"), ServiceName = dataRow.Field<String>("ServiceName") }
                                 }).FirstOrDefault();
                 return audience;
             }
@@ -182,7 +185,8 @@ namespace DataAccess
                                      Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
                                      Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },
                                      Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
-                                     VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") }
+                                     VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") },
+                                     Service = dataRow.Field<int?>("ServiceId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Service { ServiceId = dataRow.Field<int>("ServiceId"), ServiceName = dataRow.Field<String>("ServiceName") }
                                  }).ToList();
                 return audiences;
             }

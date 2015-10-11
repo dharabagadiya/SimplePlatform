@@ -2,6 +2,7 @@
 @*@{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }*@
 @{ var conventions = (List<DataModel.Modal.Convention>)ViewData["Convention"]; }
 @{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+@{ var services = (List<DataModel.Modal.Service>)ViewData["Services"]; }
 
 @{
     ViewBag.Title = "Audiences";
@@ -89,6 +90,12 @@
                                                         <option value="@convention.ConventionId">@convention.Name</option>
                                                     }
                                                 </optgroup>
+                                                <optgroup label="Services" id="4">
+                                                    @foreach (var service in services)
+                                                    {
+                                                        <option value="@service.ServiceId">@service.ServiceName</option>
+                                                    }
+                                                </optgroup>
                                             </select>
                                         </div>
                                     </td>
@@ -147,6 +154,7 @@
                             <th>Visit Type</th>
                             <th>Event Name</th>
                             <th>Convention Name</th>
+                            <th>Service Name</th>
                             <th>FSM Name</th>
                             <th>Booking Status</th>
                             <th>GSM (in $)</th>

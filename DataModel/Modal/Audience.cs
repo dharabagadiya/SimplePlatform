@@ -24,6 +24,7 @@ namespace DataModel.Modal
         public int BookingStatus { get; set; }
         public virtual Office Office { get; set; }
         public virtual Event Event { get; set; }
+        public virtual Service Service { get; set; }
         [DefaultValue(false)]
         public bool IsAttended { get; set; }
         [DefaultValue(false)]

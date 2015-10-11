@@ -41,6 +41,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
         var officeID = parseInt(formObj.find("#dwnOffices").val());
         var eventID = 0;
         var convensionID = 0;
+        var serviceID = 0;
         var gsbAmount = formObj.find(".txtGSBAmount").val();
         var donationAmount = formObj.find(".txtDonationAmount").val();
         var bookingStatus = formObj.find(".dwnBookStatus").val();
@@ -52,6 +53,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
         bookingStatus = parseFloat(bookingStatus);
         if (visitType == 2) { eventID = placeID; }
         else if (visitType == 3) { convensionID = placeID; }
+        else if (visitType == 4) { serviceID = placeID; }
         if (!IsNullOrEmpty(name) || !IsNullOrEmpty(contact) || !(officeID == 0 && eventID == 0 && convensionID == 0)) {
             var dataObj = {
                 name: name,
@@ -61,6 +63,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
                 officeID: officeID,
                 eventID: eventID,
                 convensionID: convensionID,
+                serviceID: serviceID,
                 fsmName: fsmName,
                 bookingStatus: bookingStatus,
                 gsbAmount: gsbAmount,
@@ -143,7 +146,7 @@ audiences.LoadQuickBooking = function () {
             if (groupObj.length > 0) { visitType = groupObj.attr("id"); placeID = $(this).val(); } else { placeID = $(this).val(); }
             rowObj.find("#hdnVisitType").val(visitType);
             rowObj.find("#hdnVisitPlaceID").val(placeID);
-            if (parseInt(visitType) == 1) { rowObj.find(".dwnBookStatus").parent().hide(); }
+            if (parseInt(visitType) == 1 || parseInt(visitType) == 4) { rowObj.find(".dwnBookStatus").parent().hide(); }
             else { rowObj.find(".dwnBookStatus").parent().show(); }
         }).change();
     });
@@ -220,6 +223,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
         var eventID = formObj.find("#dwnEvetns").val();
         var conventionID = formObj.find("#dwnConvensions").val();
         var fsmName = formObj.find(".txtFSMName").val();
+        var serviceID = formObj.find("#dwnServices").val();
         //var fsmID = formObj.find("#dwnFSMList").val();
         var bookingStatus = formObj.find("#dwnBookStatus").val();
         var gsbAmount = formObj.find("#txtGSBAmount").val();
@@ -228,6 +232,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
         if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
         //if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
         if (IsNullOrEmpty(conventionID) && conventionID <= 0) { conventionID = 0; }
+        if (IsNullOrEmpty(serviceID) && serviceID <= 0) { serviceID = 0; }
         if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
         if (IsNullOrEmpty(donationAmount) && donationAmount <= 0) { donationAmount = 0; }
         if (visitTypeID == 1) { eventID = 0; conventionID = 0; }
@@ -240,6 +245,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
             officeID: officeID,
             eventID: eventID,
             convensionID: conventionID,
+            serviceID: serviceID,
             fsmName: fsmName,
             bookingStatus: bookingStatus,
             gsbAmount: gsbAmount,
@@ -278,6 +284,7 @@ audiences.EditAudienceDetail = function (obj) {
         dialogContentPlaceHolder.find("#dwnOffices").val(dialogContentPlaceHolder.find("#hdnOfficeID").val());
         dialogContentPlaceHolder.find("#dwnEvetns").val(dialogContentPlaceHolder.find("#hdnEventID").val());
         dialogContentPlaceHolder.find("#dwnConvensions").val(dialogContentPlaceHolder.find("#hdnConventionID").val());
+        dialogContentPlaceHolder.find("#dwnServices").val(dialogContentPlaceHolder.find("#hdnServiceID").val());
         //dialogContentPlaceHolder.find("#dwnFSMList").val(dialogContentPlaceHolder.find("#hdnFSMID").val());
         dialogContentPlaceHolder.find("#dwnBookStatus").val(dialogContentPlaceHolder.find("#hdnBookinStatus").val());
         dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
@@ -357,6 +364,7 @@ audiences.LoadAudienceList = function () {
             { "data": "VisitType" },
             { "data": "EventName" },
             { "data": "ConventionName" },
+            { "data": "ServiceName" },
             { "data": "FSMName" },
             { "data": "Status" },
             { "data": "GSBAmount" },

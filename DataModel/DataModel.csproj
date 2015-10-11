@@ -58,6 +58,7 @@
     <Compile Include="Modal\Event.cs" />
     <Compile Include="Modal\FileResource.cs" />
     <Compile Include="Modal\Office.cs" />
+    <Compile Include="Modal\Service.cs" />
     <Compile Include="Modal\Target.cs" />
     <Compile Include="Modal\Task.cs" />
     <Compile Include="Modal\UserDetail.cs" />

@@ -3,6 +3,7 @@
 @*@{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }*@
 @{ var conventions = (List<DataModel.Modal.Convention>)ViewData["Convention"]; }
 @{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
+@{ var services = (List<DataModel.Modal.Service>)ViewData["Services"]; }
 
 <form action="@Url.Action("Add", "Users")" method="post">
     <div class="modal-dialog divUserModalDialog">
@@ -82,6 +83,21 @@
                                     {
                                         <option value="@convention.ConventionId">@convention.Name</option>
                                     }
+                                }
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="divServiceList divVisitTypeControl" data-id="4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="SelectUserRole">Select Service</label>
+                            <select class="form-control" id="dwnServices">
+                                <option value="0">Select Service</option>
+                                @foreach (var service in services)
+                                {
+                                    <option value="@service.ServiceId">@service.ServiceName</option>
                                 }
                             </select>
                         </div>

@@ -18,7 +18,8 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_UpdateAudience]
 	@OfficeID		INT, 
 	@EventID		INT,
 	@FSMName		VARCHAR(MAX),
-	@ConventionID	INT, 
+	@ConventionID	INT,
+	@ServiceID		INT,
 	@BookingStatus	INT, 
 	@GSBAmount		REAL, 
 	@Amount			REAL
@@ -34,6 +35,7 @@ BEGIN
 
 			IF (@ConventionID = 0) SET @ConventionID = NULL;
 			IF (@EventID = 0) SET @EventID = NULL;
+			IF (@ServiceID = 0) SET @ServiceID = NULL;
 			
 			IF EXISTS(SELECT 1 FROM dbo.Audiences WHERE AudienceID =  @AudienceID AND IsDeleted = 0)
 			BEGIN
@@ -46,6 +48,7 @@ BEGIN
 						  Event_EventId = @EventID,
 						  Office_OfficeId = @OfficeID,
 						  VisitType_VisitTypeId = @VisitTypeID,
+						  Sevice_ServiceId = @ServiceID,
 						  GSBAmount = @GSBAmount,
 						  FSMName = @FSMName,
 						  Amount =  @Amount,

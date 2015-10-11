@@ -20,6 +20,8 @@ namespace SimplePlatform.Controllers
             ViewData["FSMUsers"] = userManager.GetUsersByRoleID(4);
             var conventionManager = new DataAccess.ConventionManager();
             ViewData["Convention"] = conventionManager.GetConventions();
+            var serviceManager = new DataAccess.ServiceManager();
+            ViewData["Services"] = serviceManager.GetServices();
             StartupScript = "audiences.DoPageSetting();";
             return View();
         }
@@ -42,6 +44,7 @@ namespace SimplePlatform.Controllers
                 VisitType = model.VisitType.VisitTypeName,
                 EventName = (model.Event == null ? "-" : model.Event.Name),
                 ConventionName = (model.Convention == null ? "-" : model.Convention.Name),
+                ServiceName = (model.Service == null ? "-" : model.Service.ServiceName),
                 Status = (model.VisitType.VisitTypeId == 1) ? "-" : (model.BookingStatus == 1 ? "In Progress" : (model.BookingStatus == 2 ? "Booked" : "Reach")),
                 FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
                 Attended = model.IsAttended,
@@ -68,6 +71,8 @@ namespace SimplePlatform.Controllers
             ViewData["FSMUsers"] = userManager.GetUsersByRoleID(4);
             var conventionManager = new DataAccess.ConventionManager();
             ViewData["Convention"] = conventionManager.GetConventions();
+            var serviceManager = new DataAccess.ServiceManager();
+            ViewData["Services"] = serviceManager.GetServices();
             var audienceManager = new DataAccess.AudienceManager();
             var audience = audienceManager.GetAudience(id);
             return PartialView(audience);
@@ -86,24 +91,26 @@ namespace SimplePlatform.Controllers
             //ViewData["FSMUsers"] = userManager.GetUsers(4);
             var conventionManager = new DataAccess.ConventionManager();
             ViewData["Convention"] = conventionManager.GetConventions();
+            var serviceManager = new DataAccess.ServiceManager();
+            ViewData["Services"] = serviceManager.GetServices();
             return PartialView();
         }
 
         [HttpPost]
-        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, string fsmName, int bookingStatus, float gsbAmount, float donationAmount)
+        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, string fsmName, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, bookingStatus, gsbAmount, donationAmount);
+            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
             return Json(status);
         }
 
         [HttpPost]
-        public JsonResult Update(int audienceID, string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, string fsmName, int bookingStatus, float gsbAmount, float donationAmount)
+        public JsonResult Update(int audienceID, string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, string fsmName, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, bookingStatus, gsbAmount, donationAmount);
+            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
             return Json(status);
         }
 

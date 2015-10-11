@@ -52,6 +52,7 @@
     <Compile Include="CommentManager.cs" />
     <Compile Include="ConventionManager.cs" />
     <Compile Include="DBManager.cs" />
+    <Compile Include="ServiceManager.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="OfficeMananer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

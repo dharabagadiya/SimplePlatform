@@ -68,6 +68,7 @@
     <Folder Include="StoredProcedure\Offices" />
     <Folder Include="StoredProcedure\Conventions" />
     <Folder Include="StoredProcedure\Users" />
+    <Folder Include="StoredProcedure\Services" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -267,5 +268,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Offices\sproc_SimplePlatForm_GetOfficeIDsByUserID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Services\sproc_SimplePlatForm_GetServices.sql" />
   </ItemGroup>
 </Project>

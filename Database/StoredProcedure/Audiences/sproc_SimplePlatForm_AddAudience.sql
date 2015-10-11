@@ -17,7 +17,8 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_AddAudience]
 	@OfficeID		INT, 
 	@EventID		INT,
 	@FSMName		VARCHAR(MAX),
-	@ConventionID	INT, 
+	@ConventionID	INT,
+	@ServiceID		INT,
 	@BookingStatus	INT, 
 	@GSBAmount		REAL, 
 	@Amount			REAL
@@ -32,6 +33,8 @@ BEGIN
 		BEGIN TRANSACTION;
 
 			IF (@ConventionID = 0) SET @ConventionID = NULL;
+			IF (@ServiceID = 0) SET @ServiceID = NULL;
+
 			IF (@EventID = 0) 
 			BEGIN
 				SET @EventID = NULL;
@@ -51,6 +54,7 @@ BEGIN
 			          Convention_ConventionId ,
 			          Event_EventId ,
 			          Office_OfficeId,
+					  Sevice_ServiceId,
 			          VisitType_VisitTypeId,
 			          GSBAmount ,
 			          IsAttended ,
@@ -67,6 +71,7 @@ BEGIN
 			          @ConventionID, -- Convention_ConventionId - int
 			          @EventID, -- Event_EventId - int
 			          @OfficeID, -- Office_OfficeId - int
+					  @ServiceID,
 			          @VisitTypeID, -- VisitType_VisitTypeId - int
 			          @GSBAmount, -- GSBAmount - real
 			          0, -- IsAttended - bit
