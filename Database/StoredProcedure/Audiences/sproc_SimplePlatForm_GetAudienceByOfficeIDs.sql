@@ -39,7 +39,10 @@ BEGIN
 		[V].[VisitTypeId],
 		[V].[VisitTypeName],
 		[VII].[ServiceId],
-		[VII].[ServiceName]
+		[VII].[ServiceName],
+		[VIII].[Id] AS [FSMDetailID],
+		[VIII].[Name] AS [FSMDetailName],
+		[VIII].[PhoneNumber] AS [FSMDetailPhoneNumber]
 	FROM dbo.Audiences AS [I]
 	INNER JOIN OfficeIDs AS [VI] ON [VI].[ID] = [I].[Office_OfficeId]
 	LEFT JOIN dbo.Conventions AS  [II] ON [II].[ConventionId] = [I].[Convention_ConventionId]
@@ -47,6 +50,7 @@ BEGIN
 	LEFT JOIN dbo.Offices AS [IV] ON IV.OfficeId = I.Office_OfficeId
 	LEFT JOIN dbo.VisitTypes AS [V] ON V.VisitTypeId = I.VisitType_VisitTypeId
 	LEFT JOIN dbo.[Services] AS [VII] ON [VII].ServiceId = I.Sevice_ServiceId
+	LEFT JOIN dbo.[FSMDetails] AS [VIII] ON [VIII].Id = I.[FSMDetail_UserId]
 	WHERE [I].[IsDeleted] = 0 AND [I].[VisitDate] BETWEEN @StartDate AND @EndDate;
 
 END;

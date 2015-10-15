@@ -205,15 +205,15 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
         var eventID = formObj.find("#dwnEvetns").val();
         var conventionID = formObj.find("#dwnConvensions").val();
         var serviceID = formObj.find("#dwnServices").val();
-        var fsmName = formObj.find(".txtFSMName").val();
-        //var fsmID = formObj.find("#dwnFSMList").val();
+        //var fsmName = formObj.find(".txtFSMName").val();
+        var fsmID = formObj.find("#dwnFSMList").val();
         var bookingStatus = formObj.find("#dwnBookStatus").val();
         var gsbAmount = formObj.find("#txtGSBAmount").val();
         var donationAmount = formObj.find("#txtDonationAmount").val();
         if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
         if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
         if (IsNullOrEmpty(serviceID) && serviceID <= 0) { serviceID = 0; }
-        //if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; 
+        if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
         if (IsNullOrEmpty(conventionID) && conventionID <= 0) { conventionID = 0; }
         if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
         if (IsNullOrEmpty(donationAmount) && donationAmount <= 0) { donationAmount = 0; }
@@ -226,7 +226,7 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
             eventID: eventID,
             convensionID: conventionID,
             serviceID: serviceID,
-            fsmName: fsmName,
+            fsmID: fsmID,
             bookingStatus: bookingStatus,
             gsbAmount: gsbAmount,
             donationAmount: donationAmount
@@ -764,7 +764,7 @@ simplePlatform.ValidateModalUserForm = function (obj) {
                 }
             }
         }
-    }).on('success.form.bv', function (e) {
+    }).off('success.form.bv').on('success.form.bv', function (e) {
         e.preventDefault();
         var formObj = $(e.target);;
         var firstName = formObj.find("#txtUserFirstName").val();

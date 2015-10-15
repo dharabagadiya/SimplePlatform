@@ -69,6 +69,7 @@
     <Folder Include="StoredProcedure\Conventions" />
     <Folder Include="StoredProcedure\Users" />
     <Folder Include="StoredProcedure\Services" />
+    <Folder Include="StoredProcedure\FSMDetails" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -271,5 +272,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Services\sproc_SimplePlatForm_GetServices.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\FSMDetails\sproc_SimplePlatForm_GetFSMDetails.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\FSMDetails\sproc_SimplePlatForm_AddFSMDetail.sql" />
   </ItemGroup>
 </Project>

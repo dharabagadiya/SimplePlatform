@@ -16,8 +16,8 @@ namespace SimplePlatform.Controllers
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
-            var userManager = new DataAccess.UserManager();
-            ViewData["FSMUsers"] = userManager.GetUsersByRoleID(4);
+            var userManager = new DataAccess.FSMDetailManager();
+            ViewData["FSMUsers"] = userManager.FSMDetails();
             var conventionManager = new DataAccess.ConventionManager();
             ViewData["Convention"] = conventionManager.GetConventions();
             var serviceManager = new DataAccess.ServiceManager();
@@ -46,7 +46,7 @@ namespace SimplePlatform.Controllers
                 ConventionName = (model.Convention == null ? "-" : model.Convention.Name),
                 ServiceName = (model.Service == null ? "-" : model.Service.ServiceName),
                 Status = (model.VisitType.VisitTypeId == 1) ? "-" : (model.BookingStatus == 1 ? "In Progress" : (model.BookingStatus == 2 ? "Booked" : "Reach")),
-                FSMName = string.IsNullOrWhiteSpace(model.FSMName) ? " - " : model.FSMName,
+                FSMName = model.FSMDetail == null ? " - " : model.FSMDetail.Name,
                 Attended = model.IsAttended,
                 GSBAmount = model.GSBAmount,
                 DonationAmount = model.Amount
@@ -67,8 +67,8 @@ namespace SimplePlatform.Controllers
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
-            var userManager = new DataAccess.UserManager();
-            ViewData["FSMUsers"] = userManager.GetUsersByRoleID(4);
+            var userManager = new DataAccess.FSMDetailManager();
+            ViewData["FSMUsers"] = userManager.FSMDetails();
             var conventionManager = new DataAccess.ConventionManager();
             ViewData["Convention"] = conventionManager.GetConventions();
             var serviceManager = new DataAccess.ServiceManager();
@@ -87,8 +87,8 @@ namespace SimplePlatform.Controllers
             ViewData["Offices"] = offices;
             var eventManager = new DataAccess.EventManager();
             ViewData["Events"] = eventManager.GetActiveEvents(offices.Select(model => model.OfficeId).ToList());
-            //var userManager = new DataModel.UserManager();
-            //ViewData["FSMUsers"] = userManager.GetUsers(4);
+            var userManager = new DataAccess.FSMDetailManager();
+            ViewData["FSMUsers"] = userManager.FSMDetails();
             var conventionManager = new DataAccess.ConventionManager();
             ViewData["Convention"] = conventionManager.GetConventions();
             var serviceManager = new DataAccess.ServiceManager();
@@ -97,20 +97,20 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, string fsmName, int bookingStatus, float gsbAmount, float donationAmount)
+        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
+            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
             return Json(status);
         }
 
         [HttpPost]
-        public JsonResult Update(int audienceID, string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, string fsmName, int bookingStatus, float gsbAmount, float donationAmount)
+        public JsonResult Update(int audienceID, string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmName, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
+            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
             return Json(status);
         }
 

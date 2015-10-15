@@ -1,5 +1,5 @@
 ﻿@{ var events = (List<DataModel.Modal.Event>)ViewData["Events"]; }
-@*@{ var users = (List<DataModel.Modal.UserDetail>)ViewData["FSMUsers"]; }*@
+@{ var fsmUsers = (List<DataModel.Modal.FSMDetail>)ViewData["FSMUsers"]; }
 @{ var conventions = (List<DataModel.Modal.Convention>)ViewData["Convention"]; }
 @{ var offices = (List<DataModel.Modal.Office>)ViewData["Offices"]; }
 @{ var services = (List<DataModel.Modal.Service>)ViewData["Services"]; }
@@ -101,15 +101,15 @@
                                     </td>
                                     <th class="col-lg-2">
                                         <div class="form-group">
-                                            <input type="text" name="FSMName" class="form-control txtFSMName" id="txtFSMName" placeholder="FSM Name" />
-                                            @*<select id="dwnFSMList" class="chosen-select form-control dwnFSMList">
-                                                    <option value="0">Select FSM</option>
-                                                    @foreach (var user in users)
-                                                    {
-                                                        <option value="@user.UserId">@user.User.FirstName @user.User.LastName</option>
-                                                    }
-                                                </select>*@
-
+                                            @*<input type="text" name="FSMName" class="form-control txtFSMName" id="txtFSMName" placeholder="FSM Name" />*@
+                                            <select id="dwnFSMList" class="chosen-select form-control dwnFSMList">
+                                                <option value="0">Select FSM</option>
+                                                <option value="-1">New FSM</option>
+                                                @foreach (var fsmUser in fsmUsers)
+                                                {
+                                                    <option value="@fsmUser.ID">@fsmUser.Name</option>
+                                                }
+                                            </select>
                                         </div>
                                     </th>
                                     <td class="col-lg-1">

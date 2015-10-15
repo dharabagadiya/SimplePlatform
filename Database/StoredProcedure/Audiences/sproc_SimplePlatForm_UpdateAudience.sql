@@ -17,7 +17,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_UpdateAudience]
 	@VisitTypeID	INT, 
 	@OfficeID		INT, 
 	@EventID		INT,
-	@FSMName		VARCHAR(MAX),
+	@FSMID			INT,
 	@ConventionID	INT,
 	@ServiceID		INT,
 	@BookingStatus	INT, 
@@ -50,7 +50,7 @@ BEGIN
 						  VisitType_VisitTypeId = @VisitTypeID,
 						  Sevice_ServiceId = @ServiceID,
 						  GSBAmount = @GSBAmount,
-						  FSMName = @FSMName,
+						  FSMDetail_UserId = @FSMID,
 						  Amount =  @Amount,
 						  BookingStatus = @BookingStatus
 				WHERE AudienceID =  @AudienceID AND IsDeleted = 0;

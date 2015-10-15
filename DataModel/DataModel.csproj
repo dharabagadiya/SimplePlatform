@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modal\FSMDetail.cs" />
     <Compile Include="Modal\Audience.cs" />
     <Compile Include="Modal\ChartSeries.cs" />
     <Compile Include="Modal\Convention.cs" />

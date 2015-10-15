@@ -326,6 +326,7 @@
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ConventionsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\FSMDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfficesController.cs" />
@@ -383,6 +384,7 @@
     <Content Include="Views\Calender\EventDetail.cshtml" />
     <Content Include="Views\Calender\TaskDetail.cshtml" />
     <Content Include="Views\Users\DateDuration.cshtml" />
+    <Content Include="Views\FSMDetail\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

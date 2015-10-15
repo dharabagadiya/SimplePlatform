@@ -4,6 +4,7 @@ audiences.options = {
     UpdateDataURL: "/Audiences/Update",
     DeleteDataURL: "/Audiences/Delete",
     UpdateAttendStatusURL: "/Audiences/AttendStatus",
+    AddFSMDetail: "/FSMDetail/Add",
     EditDataURL: function (id) { return ("/Audiences/Edit/" + id); },
     startDate: null,
     endDate: null
@@ -35,8 +36,8 @@ audiences.SubmitBulkInsertForm = function (obj) {
         var visitDate = formObj.find(".txtVisitDate").val();
         var contact = formObj.find(".txtContact").val();
         var visitType = parseInt(formObj.find("#hdnVisitType").val());
-        var fsmName = formObj.find(".txtFSMName").val();
-        //var fsmID = parseInt(formObj.find(".dwnFSMList").val());
+        //var fsmName = formObj.find(".txtFSMName").val();
+        var fsmID = parseInt(formObj.find("#dwnFSMList").val());
         var placeID = parseInt(formObj.find("#hdnVisitPlaceID").val());
         var officeID = parseInt(formObj.find("#dwnOffices").val());
         var eventID = 0;
@@ -48,6 +49,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
         if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
         if (IsNullOrEmpty(donationAmount)) { donationAmount = 0; }
         if (IsNullOrEmpty(bookingStatus)) { bookingStatus = 0; }
+        if (IsNullOrEmpty(fsmID)) { fsmID = 0; }
         gsbAmount = parseFloat(gsbAmount);
         donationAmount = parseFloat(donationAmount);
         bookingStatus = parseFloat(bookingStatus);
@@ -64,7 +66,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
                 eventID: eventID,
                 convensionID: convensionID,
                 serviceID: serviceID,
-                fsmName: fsmName,
+                fsmID: fsmID,
                 bookingStatus: bookingStatus,
                 gsbAmount: gsbAmount,
                 donationAmount: donationAmount
@@ -150,8 +152,102 @@ audiences.LoadQuickBooking = function () {
             else { rowObj.find(".dwnBookStatus").parent().show(); }
         }).change();
     });
-    //$(".dwnFSMList").chosen({ width: "100%" });
+    $(".dwnFSMList").chosen({ width: "100%" }).off("change").on("change", function () {
+        var currentObj = $(this);
+        var fsmID = parseInt(currentObj.val());
+        if (fsmID == -1) { audiences.AddFSMDetailDialogBox(); }
+    });
     audiences.ValidateModalAudienceQuickForm($("#divAudienceBulkInsert"));
+};
+audiences.ValidateModalFSMDetailForm = function (obj) {
+    obj.find("form").bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            txtUserName: {
+                message: 'The name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The name is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 30,
+                        message: 'The name must be more than 3 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^['a-zA-Z0-9_ ]+$/,
+                        message: 'The name can containe a-z, A-Z, 0-9, \',( ), or (_) only'
+                    }
+                }
+            },
+            emailAddress: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+                }
+            },
+            txtPhoneNumber: {
+                message: 'The phone number is not valid',
+                validators: {
+                    stringLength: {
+                        min: 8,
+                        max: 20,
+                        message: 'The phone number must be min 8 to 20 characters long'
+                    },
+                    notEmpty: {
+                        message: 'The phone number is required'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]+$/,
+                        message: 'The phone number can contain 0-9, or ( ) only'
+                    }
+                }
+            }
+        }
+    }).off('success.form.bv').on('success.form.bv', function (e) {
+        e.preventDefault();
+        var formObj = $(e.target);;
+        var name = formObj.find("#txtUserName").val();
+        var emailID = formObj.find("#txtUserEmailAddress").val();
+        var phoneNumber = formObj.find("#txtPhoneNumber").val();
+        var dataObj = {
+            name: name,
+            emailID: emailID,
+            phoneNumber: phoneNumber
+        };
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: audiences.options.AddFSMDetail,
+            data: JSON.stringify(dataObj),
+            success: function (data) {
+                var status = data;
+                if (status != 0) {
+                    obj.modal('hide');
+                    $(".dwnFSMList").append("<option value='" + status + "' >" + name + "</option>");
+                    $(".dwnFSMList").trigger("chosen:updated");
+                } else {
+                    obj.find("#divCommonMessage").removeClass("hidden");
+                }
+            }
+        });
+    });
+};
+audiences.AddFSMDetailDialogBox = function () {
+    $("#divCommonModalPlaceHolder").empty();
+    ShowDialogBox($("#divCommonModalPlaceHolder"), audiences.options.AddFSMDetail, null, function (event, dialogContentPlaceHolder) {
+        audiences.ValidateModalFSMDetailForm(dialogContentPlaceHolder);
+        dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+    });
 };
 audiences.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
@@ -171,11 +267,11 @@ audiences.ValidateModalAudienceForm = function (obj) {
                     stringLength: {
                         min: 3,
                         max: 30,
-                        message: 'The first name must be more than 3 and less than 30 characters long'
+                        message: 'The name must be more than 3 and less than 30 characters long'
                     },
                     regexp: {
                         regexp: /^['a-zA-Z0-9_ ]+$/,
-                        message: 'The first name can containe a-z, A-Z, 0-9, \',( ), or (_) only'
+                        message: 'The name can containe a-z, A-Z, 0-9, \',( ), or (_) only'
                     }
                 }
             },
@@ -222,15 +318,15 @@ audiences.ValidateModalAudienceForm = function (obj) {
         var officeID = formObj.find("#dwnOffices").val();
         var eventID = formObj.find("#dwnEvetns").val();
         var conventionID = formObj.find("#dwnConvensions").val();
-        var fsmName = formObj.find(".txtFSMName").val();
+        //var fsmName = formObj.find(".txtFSMName").val();
         var serviceID = formObj.find("#dwnServices").val();
-        //var fsmID = formObj.find("#dwnFSMList").val();
+        var fsmID = formObj.find("#dwnFSMList").val();
         var bookingStatus = formObj.find("#dwnBookStatus").val();
         var gsbAmount = formObj.find("#txtGSBAmount").val();
         var donationAmount = formObj.find("#txtDonationAmount").val();
         if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
         if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
-        //if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
+        if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
         if (IsNullOrEmpty(conventionID) && conventionID <= 0) { conventionID = 0; }
         if (IsNullOrEmpty(serviceID) && serviceID <= 0) { serviceID = 0; }
         if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
@@ -246,7 +342,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
             eventID: eventID,
             convensionID: conventionID,
             serviceID: serviceID,
-            fsmName: fsmName,
+            fsmID: fsmID,
             bookingStatus: bookingStatus,
             gsbAmount: gsbAmount,
             donationAmount: donationAmount
@@ -285,7 +381,7 @@ audiences.EditAudienceDetail = function (obj) {
         dialogContentPlaceHolder.find("#dwnEvetns").val(dialogContentPlaceHolder.find("#hdnEventID").val());
         dialogContentPlaceHolder.find("#dwnConvensions").val(dialogContentPlaceHolder.find("#hdnConventionID").val());
         dialogContentPlaceHolder.find("#dwnServices").val(dialogContentPlaceHolder.find("#hdnServiceID").val());
-        //dialogContentPlaceHolder.find("#dwnFSMList").val(dialogContentPlaceHolder.find("#hdnFSMID").val());
+        dialogContentPlaceHolder.find("#dwnFSMList").val(dialogContentPlaceHolder.find("#hdnFSMID").val());
         dialogContentPlaceHolder.find("#dwnBookStatus").val(dialogContentPlaceHolder.find("#hdnBookinStatus").val());
         dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
         audiences.BindHeaderAddAudienceDropDownChangeEvent(dialogContentPlaceHolder);
