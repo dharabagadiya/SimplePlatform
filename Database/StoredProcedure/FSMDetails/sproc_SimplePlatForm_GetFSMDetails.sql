@@ -15,6 +15,7 @@ BEGIN
 	SELECT
 		[Id] AS [Id],
 		[Name] AS [Name],
+		[EmailId] AS [EmailId],
 		[PhoneNumber] AS [PhoneNumber]
 	FROM dbo.[FSMDetails]
 	WHERE IsDeleted = 0;

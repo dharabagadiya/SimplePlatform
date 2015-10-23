@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Report";
+}
+
+<div class="row">
+    <form style="visibility:hidden; height: 0;" action="#" id="frmDownloadReport">
+        <input type="hidden" name="startDate" id="startDate" />
+        <input type="hidden" name="endDate" id="endDate" />
+        <button type="submit" id="btnSubmit"></button>
+    </form>
+    <div class="col-lg-12">
+        <div id="page-header" class="clearfix">
+            <div class="page-header">
+                <h2>Reports</h2>
+            </div>
+            <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; margin-top : 20px; ">
+                <i class=" glyphicon glyphicon-calendar fa fa-calendar">
+                </i>&nbsp;
+                <span></span> <b class="caret"></b>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+            <div class="panel-heading">
+                <h4 class="panel-title">List of Report</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Report Type</th>
+                            <th width="10%" style="text-align:center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align:middle">People of Arrivals</td>
+                            <td><button type="button" onclick="report.ArrivalReportDownload();" class="btn btn-default">Download</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -58,7 +58,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@VisitTypeID", DbType.Int32, visitTypeID);
                     database.AddInParameter(command, "@OfficeID", DbType.Int32, officeID);
                     database.AddInParameter(command, "@EventID", DbType.Int32, eventID);
-                    database.AddInParameter(command, "@FSMID", DbType.String, fsmID);
+                    database.AddInParameter(command, "@FSMID", DbType.Int32, fsmID);
                     database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
                     database.AddInParameter(command, "@ServiceID", DbType.Int32, serviceID);
                     database.AddInParameter(command, "@BookingStatus", DbType.Int32, bookingStatus);

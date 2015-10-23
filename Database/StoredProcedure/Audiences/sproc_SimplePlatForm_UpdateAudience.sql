@@ -36,7 +36,8 @@ BEGIN
 			IF (@ConventionID = 0) SET @ConventionID = NULL;
 			IF (@EventID = 0) SET @EventID = NULL;
 			IF (@ServiceID = 0) SET @ServiceID = NULL;
-			
+			IF (@FSMID = 0) SET @FSMID = NULL;
+
 			IF EXISTS(SELECT 1 FROM dbo.Audiences WHERE AudienceID =  @AudienceID AND IsDeleted = 0)
 			BEGIN
 				UPDATE dbo.Audiences SET
@@ -61,6 +62,7 @@ BEGIN
 		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
+		SELECT ERROR_MESSAGE();
 		ROLLBACK TRANSACTION;
 	END CATCH;
 END;

@@ -47,6 +47,10 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -63,6 +67,10 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="OfficeExports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\OfficeExports.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -209,8 +217,13 @@
     <Content Include="Content\Plugins\linea-font\weather\styles.css" />
     <Content Include="Content\Plugins\main.css" />
     <Content Include="Content\Tasks\tasks.css" />
+    <Content Include="ExportTemplate\Excel\Template.xlsx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Library\DocumentFormat.OpenXml.dll" />
+    <Content Include="Library\OfficeExports.dll" />
+    <Content Include="Scripts\FSMDetail\fsmdetail.js" />
+    <Content Include="Scripts\Report\report.js" />
     <Content Include="Scripts\Audiences\audiences.js" />
     <Content Include="Scripts\Calender\Calender.js" />
     <Content Include="Scripts\Conventions\Convention.js" />
@@ -320,6 +333,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\AudiencesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CalenderController.cs" />
@@ -372,6 +386,7 @@
     <Content Include="Views\Audiences\Add.cshtml" />
     <Content Include="Views\Audiences\Index.cshtml" />
     <Content Include="Views\Targets\Index.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
     <None Include="Views\Audiences\Edit.cshtml" />
     <Content Include="Views\Targets\Edit.cshtml" />
     <Content Include="Views\Calender\Index.cshtml" />
@@ -385,6 +400,8 @@
     <Content Include="Views\Calender\TaskDetail.cshtml" />
     <Content Include="Views\Users\DateDuration.cshtml" />
     <Content Include="Views\FSMDetail\Add.cshtml" />
+    <Content Include="Views\FSMDetail\Index.cshtml" />
+    <Content Include="Views\FSMDetail\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

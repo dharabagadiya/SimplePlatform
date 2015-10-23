@@ -122,7 +122,7 @@ div.toggle-custom label.toggle + label { font-weight: normal; cursor: pointer; m
 .modal-dialog .modal-header .close { color: inherit; opacity: 1; }
 
 /* Page Content Setting */
-.page-content { min-height: 100%; padding-top: 30px; }
+.page-content { min-height: 100%; padding-top: 50px; }
 .page-content.sidebar-page { margin-left: 210px; }
 .page-content.right-sidebar-page { margin-right: 0; }
 .page-content.collapsed-sidebar { margin-left: 60px; }

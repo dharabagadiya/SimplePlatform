@@ -1,6 +1,102 @@
 ﻿var simplePlatform = {};
 simplePlatform.jqXHRData = null;
 simplePlatform.filesList = [], simplePlatform.paramNames = [];
+
+simplePlatform.ValidateModalFSMDetailForm = function (obj) {
+    obj.find("form").bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            txtUserName: {
+                message: 'The name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The name is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 30,
+                        message: 'The name must be more than 3 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^['a-zA-Z0-9_ ]+$/,
+                        message: 'The name can containe a-z, A-Z, 0-9, \',( ), or (_) only'
+                    }
+                }
+            },
+            emailAddress: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+                }
+            },
+            txtPhoneNumber: {
+                message: 'The phone number is not valid',
+                validators: {
+                    stringLength: {
+                        min: 8,
+                        max: 20,
+                        message: 'The phone number must be min 8 to 20 characters long'
+                    },
+                    notEmpty: {
+                        message: 'The phone number is required'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]+$/,
+                        message: 'The phone number can contain 0-9, or ( ) only'
+                    }
+                }
+            }
+        }
+    }).off('success.form.bv').on('success.form.bv', function (e) {
+        e.preventDefault();
+        var formObj = $(e.target);;
+        var name = formObj.find("#txtUserName").val();
+        var emailID = formObj.find("#txtUserEmailAddress").val();
+        var phoneNumber = formObj.find("#txtPhoneNumber").val();
+        var dataObj = {
+            name: name,
+            emailID: emailID,
+            phoneNumber: phoneNumber
+        };
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: "/FSMDetail/Add",
+            data: JSON.stringify(dataObj),
+            success: function (data) {
+                var status = data;
+                if (status != 0) {
+                    obj.modal('hide');
+                    window.location.reload();
+                } else {
+                    dialogContentPlaceHolder.find("#divCommonMessage").removeClass("hidden");
+                }
+            }
+        });
+    });
+};
+simplePlatform.BindHeaderAddFSMDetailEvent = function () {
+    var obj = $("#lnkAddFSMDetail");
+    obj.off("click.lnkAddFSMDetail").on("click.lnkAddFSMDetail", $.proxy(function (event) {
+        var currentObj = $(event.currentTarget);
+        $("#divCommonModalPlaceHolder").empty();
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+            dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+            simplePlatform.ValidateModalFSMDetailForm(dialogContentPlaceHolder);
+        }, this));
+        return false;
+    }, this));
+};
+
 simplePlatform.ValidateModalUserDateDurationForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -833,6 +929,8 @@ simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderAddEventClickEvent();
     this.BindHeaderAddConventionClickEvent();
     this.BindHeaderAddAudienceClickEvent();
+    this.BindHeaderAddFSMDetailEvent();
+
     this.BindHeaderChangePwdClickEvent();
     this.BindHeaderEditUserClickEvent();
     this.BindHeaderDateDurationClickEvent();

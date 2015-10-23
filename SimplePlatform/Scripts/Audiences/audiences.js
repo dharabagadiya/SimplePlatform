@@ -358,7 +358,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
                 var status = data;
                 if (status) {
                     obj.modal('hide');
-                    ShowUpdateSuccessSaveAlert();
+                    audiences.LoadAudienceList();
                 } else { }
             }
         });
@@ -403,7 +403,7 @@ audiences.DeletAudienceDetail = function (obj) {
             success: function (data) {
                 var status = data;
                 if (status) {
-                    window.location.reload();
+                    audiences.LoadAudienceList();
                 } else {
                 }
             }
@@ -439,24 +439,9 @@ audiences.LoadAudienceList = function () {
         responsive: true,
         "deferRender": true,
         "columns": [
-            {
-                "data": "Attended",
-                "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
-                    var currentObj = $(cell);
-                    currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
-                    currentObj.off("click.updateStatus").on("click.updateStatus", function () {
-                        audiences.UpdateAudienceAttendStatus(rowData.ID);
-                    });
-                },
-                render: function (o) {
-                    return "<a href=\"#\">" + (o ? "<i class=\"icon ion-android-checkbox-outline\" style=\"font-size: 22px;\"></i>" : "<i class=\"icon ion-android-checkbox-outline-blank\" style=\"font-size: 22px;\"></i>") + "</a>";
-                },
-                "orderable": false,
-                "width": '2%'
-            },
+            { "data": "VisitDate" },
             { "data": "Name" },
             { "data": "Contact" },
-            { "data": "VisitDate" },
             { "data": "VisitType" },
             { "data": "EventName" },
             { "data": "ConventionName" },
@@ -485,7 +470,22 @@ audiences.LoadAudienceList = function () {
                 render: function (o) { return '<a href="#"><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i></a>'; },
                 "orderable": false,
                 "width": '2%'
-            }]
+            }, {
+                "data": "Attended",
+                "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
+                    var currentObj = $(cell);
+                    currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
+                    currentObj.off("click.updateStatus").on("click.updateStatus", function () {
+                        audiences.UpdateAudienceAttendStatus(rowData.ID);
+                    });
+                },
+                render: function (o) {
+                    return "<a href=\"#\">" + (o ? "<i class=\"icon ion-android-checkbox-outline\" style=\"font-size: 22px;\"></i>" : "<i class=\"icon ion-android-checkbox-outline-blank\" style=\"font-size: 22px;\"></i>") + "</a>";
+                },
+                "orderable": false,
+                "width": '2%'
+            }
+        ]
     }).removeClass('display').addClass('table table-striped table-bordered');
 };
 audiences.UpdateGlobalTimePeriodSelection = function (start, end) {
@@ -512,4 +512,3 @@ audiences.DoPageSetting = function () {
     audiences.LoadGlobalTimeFilter();
     audiences.LoadQuickBooking();
 };
-

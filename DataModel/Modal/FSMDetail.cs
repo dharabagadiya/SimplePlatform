@@ -14,6 +14,7 @@ namespace DataModel.Modal
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public string EmailID { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreateDate { get; set; }

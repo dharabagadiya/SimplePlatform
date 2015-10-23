@@ -12,7 +12,7 @@ namespace SimplePlatform.Controllers
         public ActionResult Index()
         {
             BundleConfig.AddScript("~/Scripts/Events", "Events.js", ControllerName);
-            StartupScript = "events.DoPageSetting()";
+            StartupScript = "events.DoPageSetting();";
             return View();
         }
         public ActionResult Add()

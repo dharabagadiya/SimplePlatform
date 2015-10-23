@@ -70,6 +70,7 @@
     <Folder Include="StoredProcedure\Users" />
     <Folder Include="StoredProcedure\Services" />
     <Folder Include="StoredProcedure\FSMDetails" />
+    <Folder Include="StoredProcedure\Reports" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\Comments\sproc_SimplePlatForm_AddComment.sql" />
@@ -278,5 +279,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\FSMDetails\sproc_SimplePlatForm_AddFSMDetail.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Reports\sproc_SimplePlatForm_GetArrivalsByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\FSMDetails\sproc_SimplePlatForm_GetFSMDetailByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\FSMDetails\sproc_SimplePlatForm_DeleteFSMDetail.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\FSMDetails\Copy of sproc_SimplePlatForm_UpdateFSMDetail.sql" />
   </ItemGroup>
 </Project>

@@ -314,19 +314,6 @@ tasks.ReloadTaskList = function () {
         "deferRender": true,
         "autoWidth": false,
         "columns": [
-            {
-                "data": "Status",
-                "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
-                    var currentObj = $(cell);
-                    currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
-                    currentObj.off("click.updateStatus").on("click.updateStatus", function () {
-                        tasks.UpdateTaskStatus(rowData.ID);
-                    });
-                },
-                render: function (o) { return '<a href="#">' + (o ? "<i class=\"icon ion-android-checkbox-outline\" style=\"font-size: 22px;\"></i>" : "<i class=\"icon ion-android-checkbox-outline-blank\" style=\"font-size: 22px;\"></i>") + '</a>'; },
-                "width": '2%',
-                "orderable": false,
-            },
             { "data": "Title", "width": "45em" },
             { "data": "AssignTo" },
             { "data": "DueDate" },
@@ -360,6 +347,19 @@ tasks.ReloadTaskList = function () {
                 },
                 "orderable": false,
                 "width": '2%'
+            },
+            {
+                "data": "Status",
+                "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
+                    var currentObj = $(cell);
+                    currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
+                    currentObj.off("click.updateStatus").on("click.updateStatus", function () {
+                        tasks.UpdateTaskStatus(rowData.ID);
+                    });
+                },
+                render: function (o) { return '<a href="#">' + (o ? "<i class=\"icon ion-android-checkbox-outline\" style=\"font-size: 22px;\"></i>" : "<i class=\"icon ion-android-checkbox-outline-blank\" style=\"font-size: 22px;\"></i>") + '</a>'; },
+                "width": '10%',
+                "orderable": false,
             }
         ]
     });

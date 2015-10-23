@@ -53,6 +53,7 @@
     <Compile Include="ConventionManager.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="EventManager.cs" />
+    <Compile Include="ReportManager.cs" />
     <Compile Include="FSMDetailManager.cs" />
     <Compile Include="ServiceManager.cs" />
     <Compile Include="OfficeMananer.cs" />
