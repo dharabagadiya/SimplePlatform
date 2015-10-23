@@ -46,28 +46,21 @@ D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.dll
 D:\Project\SimplePlatform\SimplePlatform\bin\WebGrease.dll
 D:\Project\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.pdb
 D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.xml
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\csc.exe
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\Microsoft.CodeAnalysis.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\Microsoft.CSharp.Core.targets
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\Microsoft.VisualBasic.Core.targets
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\System.Collections.Immutable.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\System.Reflection.Metadata.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\vbc.exe
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\VBCSCompiler.exe
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\roslyn\VBCSCompiler.exe.config
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.csprojResolveAssemblyReference.cache
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\SimplePlatform.dll.config
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\SimplePlatform.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\SimplePlatform.pdb
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\CustomAuthentication.dll
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataAccess.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataModel.dll
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DocumentFormat.OpenXml.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.SqlServer.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Web.Infrastructure.dll
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\OfficeExports.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Helpers.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Mvc.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.dll
@@ -75,14 +68,18 @@ D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Razor.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Webpages.Deployment.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Webpages.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Webpages.Razor.dll
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Utilities.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\WebGrease.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Newtonsoft.Json.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\CustomAuthentication.pdb
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataAccess.pdb
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataModel.pdb
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Utilities.pdb
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.pdb
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.SqlServer.xml
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Razor.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Webpages.xml
@@ -91,6 +88,5 @@ D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Webpages.Raz
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Helpers.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Mvc.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Newtonsoft.Json.xml
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.csprojResolveAssemblyReference.cache
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.pdb

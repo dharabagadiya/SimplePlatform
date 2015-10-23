@@ -30,6 +30,8 @@ D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthe
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.pdb
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\EntityFramework.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\EntityFramework.SqlServer.dll
+D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Web.Infrastructure.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Newtonsoft.Json.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.Helpers.dll
@@ -40,6 +42,8 @@ D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Razor.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\EntityFramework.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\EntityFramework.SqlServer.xml
+D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Newtonsoft.Json.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.Helpers.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.Mvc.xml
@@ -47,8 +51,5 @@ D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Razor.xml
-D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Migrations.CustomAuthentication_Init.resources
-D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Migrations.CustomAuthentication_User_Delete_Column.resources
-D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.csproj.GenerateResource.Cache
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.pdb
