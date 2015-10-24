@@ -96,6 +96,11 @@ namespace SimplePlatform.Controllers
             return PartialView();
         }
 
+        public PartialViewResult UpdateAudienceStatus()
+        {
+            return PartialView();
+        }
+
         [HttpPost]
         public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
         {
@@ -123,11 +128,13 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
-        public JsonResult AttendStatus(int id)
+        public JsonResult AttendStatus(int id, string arrivalDateTime)
         {
             var audienceManager = new DataAccess.AudienceManager();
-            var status = audienceManager.AttendStatus(id);
+            var status = audienceManager.AttendStatus(id, Convert.ToDateTime(arrivalDateTime));
             return Json(status);
         }
+
+
     }
 }

@@ -407,6 +407,7 @@
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Services\Add.cshtml" />
     <Content Include="Views\Services\Edit.cshtml" />
+    <Content Include="Views\Audiences\UpdateAudienceStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

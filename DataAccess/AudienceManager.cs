@@ -96,7 +96,7 @@ namespace DataAccess
             }
         }
 
-        public bool AttendStatus(int id)
+        public bool AttendStatus(int id, DateTime arrivalDateTime)
         {
             try
             {
@@ -104,6 +104,7 @@ namespace DataAccess
                 using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_UpdateAudienceStatus]"))
                 {
                     database.AddInParameter(command, "@AudienceID", DbType.Int32, id);
+                    database.AddInParameter(command, "@ArrivalDate", DbType.DateTime, arrivalDateTime);
                     database.AddOutParameter(command, "@Status", DbType.Int32, returnVale);
                     database.ExecuteNonQuery(command);
                     returnVale = (int)database.GetParameterValue(command, "@Status");

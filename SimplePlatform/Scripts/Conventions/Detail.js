@@ -1,24 +1,45 @@
 ﻿var conventionDetail = {};
 conventionDetail.options = {
-    UpdateAttendStatusURL: "/Audiences/AttendStatus"
+    UpdateAudienceAttendStatusURL: "/Audiences/AttendStatus",
+    UpdateAudienceStatusURL: "/Audiences/UpdateAudienceStatus"
 };
-conventionDetail.UpdateAudienceAttendStatus = function (audienceID, obj) {
-    $.ajax({
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        type: "POST",
-        async: false,
-        data: JSON.stringify({ "id": audienceID }),
-        url: conventionDetail.options.UpdateAttendStatusURL,
-        success: function (data) {
-            if (obj.find("i").hasClass("ion-android-checkbox-outline-blank")) {
-                obj.find("i").addClass("ion-android-checkbox-outline").removeClass("ion-android-checkbox-outline-blank");
-            }
-            else {
-                obj.find("i").addClass("ion-android-checkbox-outline-blank").removeClass("ion-android-checkbox-outline");
-            }
+conventionDetail.UpdateAudienceAttendStatus = function (audienceID, status, obj) {
+    $("#divCommonModalPlaceHolder").empty();
+    ShowDialogBox($("#divCommonModalPlaceHolder"), conventionDetail.options.UpdateAudienceStatusURL, null, $.proxy(function (event, dialogContentPlaceHolder) {
+        dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
+        if (status) {
+            dialogContentPlaceHolder.find("#divArrivalDate").hide();
+            dialogContentPlaceHolder.find(".modal-body").hide();
+            dialogContentPlaceHolder.find("#btnUpdateStatus").html("Un-Mark As Arrived");
+        } else {
+            dialogContentPlaceHolder.find("#divArrivalDate").show();
+            dialogContentPlaceHolder.find(".modal-body").show();
+            dialogContentPlaceHolder.find("#btnUpdateStatus").html("Mark As Arrived");
         }
-    });
+        dialogContentPlaceHolder.find("form").bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            }
+        }).off('success.form.bv').on('success.form.bv', function (e) {
+            e.preventDefault();
+            var formObj = $(e.target);
+            var arrivalDate = formObj.find(".txtArrivalDate").val();
+            $.ajax({
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({ "id": audienceID, arrivalDateTime: arrivalDate }),
+                url: conventionDetail.options.UpdateAudienceAttendStatusURL,
+                success: function (data) {
+                    dialogContentPlaceHolder.modal("hide");
+                    conventionDetail.LoadAudienceList();
+                }
+            });
+        });
+    }, this));
 };
 conventionDetail.LoadAudienceList = function () {
     $('#audienceList').dataTable().fnDestroy();
@@ -40,7 +61,7 @@ conventionDetail.LoadAudienceList = function () {
                 var currentObj = $(cell);
                 currentObj.css({ "text-align": "center" });
                 currentObj.off("click.updateStatus").on("click.updateStatus", function () {
-                    conventionDetail.UpdateAudienceAttendStatus(rowData.ID, $(this));
+                    conventionDetail.UpdateAudienceAttendStatus(rowData.ID, rowData.IsAttended, $(this));
                 });
             },
             render: function (o) {

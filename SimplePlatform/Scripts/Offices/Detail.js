@@ -4,6 +4,7 @@ officeDetail.options = {
     GetDetailURL: "/Offices/Detail",
     UpdateTaskStatusURL: "/Tasks/Status",
     UpdateAttendStatusURL: "/Audiences/AttendStatus",
+    UpdateAudienceAttendStatusURL: "/Audiences/UpdateAudienceStatus",
     colors: ["success", "default", "info", "warning", "danger"],
     startDate: null,
     endDate: null
@@ -95,18 +96,44 @@ officeDetail.UpdateAudienceStatus = function (obj) {
     obj.find(".lnkMarkAudienceButton").off("click.lnkMarkAudienceButton").on("click.lnkMarkAudienceButton", function () {
         var currentObj = $(this);
         var audienceID = parseInt(currentObj.attr("data-audience-id"));
-        $.ajax({
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            async: true,
-            data: JSON.stringify({ "id": audienceID }),
-            url: officeDetail.options.UpdateAttendStatusURL,
-            success: function (data) {
-                if (currentObj.hasClass("ion-android-checkbox-outline")) { currentObj.removeClass("ion-android-checkbox-outline").addClass("ion-android-checkbox-outline-blank"); }
-                else { currentObj.addClass("ion-android-checkbox-outline").removeClass("ion-android-checkbox-outline-blank"); }
+        var status = currentObj.hasClass("ion-android-checkbox-outline");
+        $("#divCommonModalPlaceHolder").empty();
+        ShowDialogBox($("#divCommonModalPlaceHolder"), officeDetail.options.UpdateAudienceAttendStatusURL, null, $.proxy(function (event, dialogContentPlaceHolder) {
+            dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
+            if (status) {
+                dialogContentPlaceHolder.find("#divArrivalDate").hide();
+                dialogContentPlaceHolder.find(".modal-body").hide();
+                dialogContentPlaceHolder.find("#btnUpdateStatus").html("Un-Mark As Arrived");
+            } else {
+                dialogContentPlaceHolder.find("#divArrivalDate").show();
+                dialogContentPlaceHolder.find(".modal-body").show();
+                dialogContentPlaceHolder.find("#btnUpdateStatus").html("Mark As Arrived");
             }
-        });
+            dialogContentPlaceHolder.find("form").bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                }
+            }).off('success.form.bv').on('success.form.bv', function (e) {
+                e.preventDefault();
+                var formObj = $(e.target);
+                var arrivalDate = formObj.find(".txtArrivalDate").val();
+                $.ajax({
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    async: false,
+                    data: JSON.stringify({ "id": audienceID, arrivalDateTime: arrivalDate }),
+                    url: officeDetail.options.UpdateAttendStatusURL,
+                    success: function (data) {
+                        dialogContentPlaceHolder.modal("hide");
+                        if (currentObj.hasClass("ion-android-checkbox-outline")) { currentObj.removeClass("ion-android-checkbox-outline").addClass("ion-android-checkbox-outline-blank"); }
+                        else { currentObj.addClass("ion-android-checkbox-outline").removeClass("ion-android-checkbox-outline-blank"); }
+                    }
+                });
+            });
+        }, this));
     });
 };
 officeDetail.GetAudienceWidgetHTML = function (obj) {

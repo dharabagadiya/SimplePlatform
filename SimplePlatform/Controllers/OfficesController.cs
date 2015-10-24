@@ -226,7 +226,6 @@ namespace SimplePlatform.Controllers
 
         public object GetUserArrivalForCurrentWeek(int id, DateTime startDate, DateTime endDate)
         {
-            var currentWeek = Utilities.DateTimeUtilities.GetIso8601WeekOfYear(DateTime.Now);
             var audienceManager = new DataAccess.AudienceManager();
             var audiences = audienceManager.GetArrivalAudiences(id, startDate, endDate);
             if (audiences == null) { return null; }

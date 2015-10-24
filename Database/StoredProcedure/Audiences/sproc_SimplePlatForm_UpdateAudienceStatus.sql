@@ -10,7 +10,8 @@ GO
 CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_UpdateAudienceStatus]
 (
 	@Status			INT OUTPUT,
-	@AudienceID		INT
+	@AudienceID		INT,
+	@ArrivalDate	DATETIME
 )
 AS
 BEGIN
@@ -23,16 +24,28 @@ BEGIN
 
 			IF EXISTS(SELECT 1 FROM dbo.Audiences WHERE AudienceID =  @AudienceID AND IsDeleted = 0)
 			BEGIN
-				DECLARE @CurrentStatus AS BIT;
+				DECLARE @CurrentStatus AS BIT, @BookingStatus AS INT;
 
 				SELECT @CurrentStatus = [IsAttended] FROM dbo.Audiences WHERE AudienceID =  @AudienceID AND IsDeleted = 0;
 
 				IF(@CurrentStatus = 0) SET @CurrentStatus = 1;
 				ELSE SET @CurrentStatus = 0;
 
+				IF(@CurrentStatus = 1) 
+				BEGIN
+					SET @BookingStatus = 2;
+				END
+				ELSE
+				BEGIN
+					SET @BookingStatus = 1;
+					SET @ArrivalDate = NULL;
+				END;
+
 				UPDATE dbo.Audiences SET
 						  UpdateDate = GETDATE(),
-						  IsAttended = @CurrentStatus
+						  IsAttended = @CurrentStatus,
+						  BookingStatus = @BookingStatus,
+						  [ArrivalDate] = @ArrivalDate
 				WHERE AudienceID =  @AudienceID AND IsDeleted = 0;
 
 				SET @Status = 1;

@@ -6,6 +6,7 @@ audiences.options = {
     UpdateAttendStatusURL: "/Audiences/AttendStatus",
     AddFSMDetail: "/FSMDetail/Add",
     EditDataURL: function (id) { return ("/Audiences/Edit/" + id); },
+    UpdateAudienceStatusURL: "/Audiences/UpdateAudienceStatus",
     startDate: null,
     endDate: null
 };
@@ -410,18 +411,43 @@ audiences.DeletAudienceDetail = function (obj) {
         });
     }, function (event, dataModalPlaceHolder) { });
 };
-audiences.UpdateAudienceAttendStatus = function (audienceID) {
-    $.ajax({
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        type: "POST",
-        async: false,
-        data: JSON.stringify({ "id": audienceID }),
-        url: audiences.options.UpdateAttendStatusURL,
-        success: function (data) {
-            audiences.LoadAudienceList();
+audiences.UpdateAudienceAttendStatus = function (audienceID, status) {
+    $("#divCommonModalPlaceHolder").empty();
+    ShowDialogBox($("#divCommonModalPlaceHolder"), audiences.options.UpdateAudienceStatusURL, null, $.proxy(function (event, dialogContentPlaceHolder) {
+        dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
+        if (status) {
+            dialogContentPlaceHolder.find("#divArrivalDate").hide();
+            dialogContentPlaceHolder.find(".modal-body").hide();
+            dialogContentPlaceHolder.find("#btnUpdateStatus").html("Un-Mark As Arrived");
+        } else {
+            dialogContentPlaceHolder.find("#divArrivalDate").show();
+            dialogContentPlaceHolder.find(".modal-body").show();
+            dialogContentPlaceHolder.find("#btnUpdateStatus").html("Mark As Arrived");
         }
-    });
+        dialogContentPlaceHolder.find("form").bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            }
+        }).off('success.form.bv').on('success.form.bv', function (e) {
+            e.preventDefault();
+            var formObj = $(e.target);
+            var arrivalDate = formObj.find(".txtArrivalDate").val();
+            $.ajax({
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({ "id": audienceID, arrivalDateTime: arrivalDate }),
+                url: audiences.options.UpdateAttendStatusURL,
+                success: function (data) {
+                    dialogContentPlaceHolder.modal("hide");
+                    audiences.LoadAudienceList();
+                }
+            });
+        });
+    }, this));
 };
 audiences.LoadAudienceList = function () {
     $('#audienceList').dataTable().fnDestroy();
@@ -471,16 +497,17 @@ audiences.LoadAudienceList = function () {
                 "orderable": false,
                 "width": '2%'
             }, {
-                "data": "Attended",
+                "data": null,
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {
                     var currentObj = $(cell);
                     currentObj.css({ "text-align": "center" }).data("task_detail", rowData);
                     currentObj.off("click.updateStatus").on("click.updateStatus", function () {
-                        audiences.UpdateAudienceAttendStatus(rowData.ID);
+                        audiences.UpdateAudienceAttendStatus(rowData.ID, rowData.Attended);
                     });
                 },
                 render: function (o) {
-                    return "<a href=\"#\">" + (o ? "<i class=\"icon ion-android-checkbox-outline\" style=\"font-size: 22px;\"></i>" : "<i class=\"icon ion-android-checkbox-outline-blank\" style=\"font-size: 22px;\"></i>") + "</a>";
+                    if (o.VisitType.toUpperCase() == "OFFICE") { return "-" }
+                    return "<a href=\"#\">" + (o.Attended ? "<i class=\"icon ion-android-checkbox-outline\" style=\"font-size: 22px;\"></i>" : "<i class=\"icon ion-android-checkbox-outline-blank\" style=\"font-size: 22px;\"></i>") + "</a>";
                 },
                 "orderable": false,
                 "width": '2%'

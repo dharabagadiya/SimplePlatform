@@ -31,7 +31,7 @@ BEGIN
 			[I].[EventId],
 			COUNT([I].[EventId]) AS [TotalAttended]
 		FROM dbo.Audiences AS [III]
-		INNER JOIN [dbo].[Events] AS [I] ON I.IsDeleted = 0 AND I.StartDate >= GETDATE() AND [I].[EventId] = [III].[Event_EventId]
+		INNER JOIN [dbo].[Events] AS [I] ON I.IsDeleted = 0 AND CONVERT(DATE,I.StartDate) >= CONVERT(DATE,GETDATE()) AND [I].[EventId] = [III].[Event_EventId]
 		INNER JOIN OfficeList AS [II] ON II.OfficeId = I.Office_OfficeId
 		GROUP BY [I].[EventId]
 	)
@@ -50,7 +50,7 @@ BEGIN
 		[III].[Name] AS [ConventionName],
 		ISNULL([IV].[TotalAttended], 0) AS [TotalAttended]
 	FROM  dbo.Conventions AS [III]
-	INNER JOIN [dbo].[Events] AS [I] ON I.IsDeleted = 0 AND I.StartDate >= GETDATE() AND [I].[convention_ConventionId] = [III].[ConventionId]
+	INNER JOIN [dbo].[Events] AS [I] ON I.IsDeleted = 0 AND CONVERT(DATE,I.StartDate) >= CONVERT(DATE,GETDATE()) AND [I].[convention_ConventionId] = [III].[ConventionId]
 	INNER JOIN OfficeList AS [II] ON II.OfficeId = I.Office_OfficeId
 	LEFT JOIN EventListWithCount  AS [IV] ON [IV].[EventId] = [I].[EventId];
 
