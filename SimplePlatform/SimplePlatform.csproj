@@ -323,6 +323,7 @@
     <Content Include="Scripts\Plugins\modernizr-2.6.2.js" />
     <Content Include="Scripts\Plugins\progressbar.js" />
     <Content Include="Scripts\Plugins\waypoints.js" />
+    <Content Include="Scripts\Services\services.js" />
     <Content Include="Scripts\Tasks\tasks.js" />
     <Content Include="Scripts\Users\users.js" />
     <Content Include="Views\Users\Add.cshtml" />
@@ -344,6 +345,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfficesController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\TargetsController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -402,6 +404,9 @@
     <Content Include="Views\FSMDetail\Add.cshtml" />
     <Content Include="Views\FSMDetail\Index.cshtml" />
     <Content Include="Views\FSMDetail\Edit.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Services\Add.cshtml" />
+    <Content Include="Views\Services\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,7 +1,68 @@
 ﻿var simplePlatform = {};
 simplePlatform.jqXHRData = null;
 simplePlatform.filesList = [], simplePlatform.paramNames = [];
+simplePlatform.ValidateModalAddServiceModelForm = function (obj) {
 
+    obj.find("form").bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            txtServiceName: {
+                message: 'The service name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The service name is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 30,
+                        message: 'The service name must be more than 3 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^['a-zA-Z0-9_ ]+$/,
+                        message: 'The service name can containe a-z, A-Z, 0-9, \',( ), or (_) only'
+                    }
+                }
+            }
+        }
+    }).off('success.form.bv').on('success.form.bv', function (e) {
+        e.preventDefault();
+        var formObj = $(e.target);;
+        var name = formObj.find("#txtServiceName").val();
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: "/Services/Add",
+            data: JSON.stringify({ name: name }),
+            success: function (data) {
+                var status = data;
+                if (status != 0) {
+                    obj.modal('hide');
+                    window.location.reload();
+                } else {
+                    dialogContentPlaceHolder.find("#divCommonMessage").removeClass("hidden");
+                }
+            }
+        });
+    });
+
+};
+simplePlatform.BindHeaderAddServiceEvents = function () {
+    var obj = $("#lnkAddServices");
+    obj.off("click.lnkAddServices").on("click.lnkAddServices", $.proxy(function (event) {
+        var currentObj = $(event.currentTarget);
+        $("#divCommonModalPlaceHolder").empty();
+        ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+            dialogContentPlaceHolder.find("#divCommonMessage").addClass("hidden");
+            simplePlatform.ValidateModalAddServiceModelForm(dialogContentPlaceHolder);
+        }, this));
+        return false;
+    }, this));
+};
 simplePlatform.ValidateModalFSMDetailForm = function (obj) {
     obj.find("form").bootstrapValidator({
         feedbackIcons: {
@@ -96,7 +157,6 @@ simplePlatform.BindHeaderAddFSMDetailEvent = function () {
         return false;
     }, this));
 };
-
 simplePlatform.ValidateModalUserDateDurationForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -930,6 +990,7 @@ simplePlatform.BindHeaderAddClickEvents = function () {
     this.BindHeaderAddConventionClickEvent();
     this.BindHeaderAddAudienceClickEvent();
     this.BindHeaderAddFSMDetailEvent();
+    this.BindHeaderAddServiceEvents();
 
     this.BindHeaderChangePwdClickEvent();
     this.BindHeaderEditUserClickEvent();

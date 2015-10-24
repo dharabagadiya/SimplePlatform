@@ -290,6 +290,16 @@
     <None Include="StoredProcedure\FSMDetails\sproc_SimplePlatForm_DeleteFSMDetail.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="StoredProcedure\FSMDetails\Copy of sproc_SimplePlatForm_UpdateFSMDetail.sql" />
+    <None Include="StoredProcedure\FSMDetails\sproc_SimplePlatForm_UpdateFSMDetail.sql" />
+    <None Include="StoredProcedure\Services\sproc_SimplePlatForm_AddService.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Services\sproc_SimplePlatForm_GetServiceByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Services\sproc_SimplePlatForm_UpdateService.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Services\sproc_SimplePlatForm_DeleteService.sql" />
   </ItemGroup>
 </Project>
