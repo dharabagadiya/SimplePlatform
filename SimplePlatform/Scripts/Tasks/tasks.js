@@ -12,7 +12,9 @@ tasks.options = {
     UploadAttachment: "/Tasks/UploadAttachment/",
     DetailURL: function (id) { return ("/Tasks/GetDetail/" + id); },
     startDate: null,
-    endDate: null
+    endDate: null,
+    addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
+    subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
 };
 tasks.ValidateModalTaskForm = function (obj) {
     obj.find("form")
@@ -375,15 +377,16 @@ tasks.UpdateGlobalTimePeriodSelection = function (start, end) {
 };
 tasks.LoadGlobalTimeFilter = function () {
     $('#reportrange').daterangepicker({
-        "startDate": moment().startOf('week').isoWeekday(4),
-        "endDate": moment().endOf('week').isoWeekday(4),
+        "startDate": moment().startOf('week').isoWeekday(4).add(tasks.options.addWeek, "week"),
+        "endDate": moment().endOf('week').isoWeekday(4).add(tasks.options.addWeek, "week"),
         ranges: {
-            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'Current Week': [moment().startOf('week').isoWeekday(4).add(tasks.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(tasks.options.addWeek, "week")],
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4).subtract(tasks.options.subtractWeek, "week"), moment().endOf('week').isoWeekday(4).subtract(tasks.options.subtractWeek, "week")],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, tasks.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) { tasks.LoadTasksGrid(); });
-    tasks.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
+    tasks.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4).add(tasks.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(tasks.options.addWeek, "week"));
     tasks.LoadTasksGrid();
 };
 tasks.DoPageSetting = function () { tasks.LoadGlobalTimeFilter(); };

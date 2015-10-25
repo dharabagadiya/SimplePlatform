@@ -2,8 +2,9 @@
 report.options = {
     startDate: null,
     endDate: null,
-    arrivalReportURL: "/Report/ArrivalsReport/"
-
+    arrivalReportURL: "/Report/ArrivalsReport/",
+    addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
+    subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
 }
 
 report.ArrivalReportDownload = function () {
@@ -21,17 +22,18 @@ report.UpdateGlobalTimePeriodSelection = function (start, end) {
 };
 report.LoadGlobalTimeFilter = function () {
     $('#reportrange').daterangepicker({
-        "startDate": moment().startOf('week').isoWeekday(4),
-        "endDate": moment().endOf('week').isoWeekday(4),
+        "startDate": moment().startOf('week').isoWeekday(4).add(report.options.addWeek, "week"),
+        "endDate": moment().endOf('week').isoWeekday(4).add(report.options.addWeek, "week"),
         ranges: {
-            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'Current Week': [moment().startOf('week').isoWeekday(4).add(report.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(report.options.addWeek, "week")],
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4).subtract(report.options.subtractWeek, "week"), moment().endOf('week').isoWeekday(4).subtract(report.options.subtractWeek, "week")],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, report.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) {
         //audiences.LoadAudienceList();
     });
-    report.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
+    report.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4).add(report.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(report.options.addWeek, "week"));
     //report.LoadAudienceList();
 };
 report.DoPageSetting = function () {

@@ -5,7 +5,9 @@ home.options = {
     GSBDataURL: "/Home/GetGSBTargets",
     ArrivalDataURL: "/Home/GetArrivalTargets",
     startDate: null,
-    endDate: null
+    endDate: null,
+    addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
+    subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
 };
 home.LoadFundRaisingChart = function (data) {
     var chartArea = $("#divFundRaisingChart");

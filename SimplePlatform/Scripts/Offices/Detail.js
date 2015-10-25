@@ -7,7 +7,9 @@ officeDetail.options = {
     UpdateAudienceAttendStatusURL: "/Audiences/UpdateAudienceStatus",
     colors: ["success", "default", "info", "warning", "danger"],
     startDate: null,
-    endDate: null
+    endDate: null,
+    addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
+    subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
 };
 officeDetail.bookingProgress = new ProgressBar.Circle('#divBookingChart', { color: '#0a97b9', strokeWidth: 2, fill: '#d0f1f9', duration: 4000, easing: 'bounce' });
 officeDetail.AttachScrollBar = function (obj) {
@@ -191,15 +193,16 @@ officeDetail.UpdateGlobalTimePeriodSelection = function (start, end) {
 };
 officeDetail.LoadGlobalTimeFilter = function () {
     $('#reportrange').daterangepicker({
-        "startDate": moment().startOf('week').isoWeekday(4),
-        "endDate": moment().endOf('week').isoWeekday(4),
+        "startDate": moment().startOf('week').isoWeekday(4).add(officeDetail.options.addWeek, "week"),
+        "endDate": moment().endOf('week').isoWeekday(4).add(officeDetail.options.addWeek, "week"),
         ranges: {
-            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'Current Week': [moment().startOf('week').isoWeekday(4).add(officeDetail.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(officeDetail.options.addWeek, "week")],
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4).subtract(officeDetail.options.subtractWeek, "week"), moment().endOf('week').isoWeekday(4).subtract(officeDetail.options.subtractWeek, "week")],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, officeDetail.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) { officeDetail.UpdatePageDataByFilter(); });
-    officeDetail.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
+    officeDetail.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4).add(officeDetail.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(officeDetail.options.addWeek, "week"));
     officeDetail.UpdatePageDataByFilter();
     officeDetail.AttachScrollBar($(".eventWidget, .audienceWidget, .taskWidget"));
 };

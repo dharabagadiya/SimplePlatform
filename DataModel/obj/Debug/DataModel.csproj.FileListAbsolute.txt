@@ -29,8 +29,6 @@ D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\DataModel.dll.config
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\DataModel.dll
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\DataModel.pdb
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\CustomAuthentication.dll
-D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.dll
-D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.SqlServer.dll
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\Utilities.dll
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\System.Web.Mvc.dll
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
@@ -43,8 +41,6 @@ D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\Microsoft.Practices.En
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\System.Web.WebPages.Deployment.dll
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\CustomAuthentication.pdb
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\Utilities.pdb
-D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.xml
-D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\EntityFramework.SqlServer.xml
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\System.Web.Mvc.xml
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
 D:\Test Project\VS2015\SimplePlatform\DataModel\bin\Debug\Newtonsoft.Json.xml

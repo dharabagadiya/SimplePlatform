@@ -46,7 +46,6 @@ D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.dll
 D:\Project\SimplePlatform\SimplePlatform\bin\WebGrease.dll
 D:\Project\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.pdb
 D:\Project\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.xml
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.csprojResolveAssemblyReference.cache
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\SimplePlatform.dll.config
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\SimplePlatform.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\SimplePlatform.pdb
@@ -55,8 +54,6 @@ D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\CustomAuthentication.dl
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataAccess.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataModel.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DocumentFormat.OpenXml.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.dll
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.SqlServer.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Web.Infrastructure.dll
@@ -76,8 +73,6 @@ D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataAccess.pdb
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\DataModel.pdb
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Utilities.pdb
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Antlr3.Runtime.pdb
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.xml
-D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\EntityFramework.SqlServer.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Practices.EnterpriseLibrary.Common.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Optimization.xml
@@ -88,5 +83,6 @@ D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Webpages.Raz
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Helpers.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\System.Web.Mvc.xml
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\bin\Newtonsoft.Json.xml
+D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.csprojResolveAssemblyReference.cache
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.dll
 D:\Test Project\VS2015\SimplePlatform\SimplePlatform\obj\Debug\SimplePlatform.pdb

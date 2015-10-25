@@ -12,7 +12,9 @@ office.options = {
     totalRecords: 10,
     isEditDeleteEnable: false,
     startDate: null,
-    endDate: null
+    endDate: null,
+    addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
+    subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
 };
 office.NoOfficeRecordFound = function () {
     $(".divOfficesGridPagingDetail").hide();
@@ -268,17 +270,18 @@ office.UpdateGlobalTimePeriodSelection = function (start, end) {
 };
 office.LoadGlobalTimeFilter = function () {
     $('#reportrange').daterangepicker({
-        "startDate": moment().startOf('week').isoWeekday(4),
-        "endDate": moment().endOf('week').isoWeekday(4),
+        "startDate": moment().startOf('week').isoWeekday(4).add(office.options.addWeek, "week"),
+        "endDate": moment().endOf('week').isoWeekday(4).add(office.options.addWeek, "week"),
         ranges: {
-            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'Current Week': [moment().startOf('week').isoWeekday(4).add(office.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(office.options.addWeek, "week")],
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4).subtract(office.options.subtractWeek, "week"), moment().endOf('week').isoWeekday(4).subtract(office.options.subtractWeek, "week")],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, office.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) {
         office.GetOfficesData(office.options.currentPage, office.options.pageSize);
     });
-    office.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
+    office.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4).add(office.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(office.options.addWeek, "week"));
     office.GetOfficesData(1, office.options.pageSize);
 };
 office.ReloadOfficeCurrentPageData = function () { this.GetOfficesData(this.options.currentPage, this.options.pageSize); }

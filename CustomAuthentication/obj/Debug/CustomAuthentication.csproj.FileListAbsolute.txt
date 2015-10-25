@@ -28,8 +28,6 @@ D:\Project\SimplePlatform\CustomAuthentication\obj\Debug\CustomAuthentication.Mi
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.dll.config
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\CustomAuthentication.pdb
-D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\EntityFramework.dll
-D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\EntityFramework.SqlServer.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Web.Infrastructure.dll
@@ -40,8 +38,6 @@ D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Deployment.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.dll
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\System.Web.WebPages.Razor.dll
-D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\EntityFramework.xml
-D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\EntityFramework.SqlServer.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
 D:\Test Project\VS2015\SimplePlatform\CustomAuthentication\bin\Debug\Newtonsoft.Json.xml

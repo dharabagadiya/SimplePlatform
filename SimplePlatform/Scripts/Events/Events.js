@@ -5,7 +5,9 @@ events.options = {
     DeleteURL: "/Events/Delete",
     DetailPageURL: function (id) { return ("/Events/Detail/" + id); },
     startDate: null,
-    endDate: null
+    endDate: null,
+    addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
+    subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
 };
 events.BindEventRowClickEvent = function (obj) {
     obj.DataTable().off("select.dt").on("select.dt", function (e, dt, type, indexes) {
@@ -178,17 +180,18 @@ events.UpdateGlobalTimePeriodSelection = function (start, end) {
 };
 events.LoadGlobalTimeFilter = function () {
     $('#reportrange').daterangepicker({
-        "startDate": moment().startOf('week').isoWeekday(4),
-        "endDate": moment().endOf('week').isoWeekday(4),
+        "startDate": moment().startOf('week').isoWeekday(4).add(events.options.addWeek, "week"),
+        "endDate": moment().endOf('week').isoWeekday(4).add(events.options.addWeek, "week"),
         ranges: {
-            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'Current Week': [moment().startOf('week').isoWeekday(4).add(events.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(events.options.addWeek, "week")],
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4).subtract(events.options.subtractWeek, "week"), moment().endOf('week').isoWeekday(4).subtract(events.options.subtractWeek, "week")],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, events.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) {
         events.LoadEventsGrid();
     });
-    events.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
+    events.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4).add(events.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(events.options.addWeek, "week"));
     events.LoadEventsGrid();
 };
 events.DoPageSetting = function () { events.LoadGlobalTimeFilter(); };

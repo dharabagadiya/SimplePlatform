@@ -8,7 +8,9 @@ audiences.options = {
     EditDataURL: function (id) { return ("/Audiences/Edit/" + id); },
     UpdateAudienceStatusURL: "/Audiences/UpdateAudienceStatus",
     startDate: null,
-    endDate: null
+    endDate: null,
+    addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
+    subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
 };
 audiences.AddAudienceAjaxCall = function (obj, containerObj) {
     $.ajax({
@@ -522,17 +524,18 @@ audiences.UpdateGlobalTimePeriodSelection = function (start, end) {
 };
 audiences.LoadGlobalTimeFilter = function () {
     $('#reportrange').daterangepicker({
-        "startDate": moment().startOf('week').isoWeekday(4),
-        "endDate": moment().endOf('week').isoWeekday(4),
+        "startDate": moment().startOf('week').isoWeekday(4).add(audiences.options.addWeek, "week"),
+        "endDate": moment().endOf('week').isoWeekday(4).add(audiences.options.addWeek, "week"),
         ranges: {
-            'Last 7 Days': [moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4)],
+            'Current Week': [moment().startOf('week').isoWeekday(4).add(audiences.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(audiences.options.addWeek, "week")],
+            'Last 7 Days': [moment().startOf('week').isoWeekday(4).subtract(audiences.options.subtractWeek, "week"), moment().endOf('week').isoWeekday(4).subtract(audiences.options.subtractWeek, "week")],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, audiences.UpdateGlobalTimePeriodSelection).off("apply.daterangepicker").on('apply.daterangepicker', function (ev, picker) {
         audiences.LoadAudienceList();
     });
-    audiences.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4), moment().endOf('week').isoWeekday(4));
+    audiences.UpdateGlobalTimePeriodSelection(moment().startOf('week').isoWeekday(4).add(audiences.options.addWeek, "week"), moment().endOf('week').isoWeekday(4).add(audiences.options.addWeek, "week"));
     audiences.LoadAudienceList();
 };
 audiences.DoPageSetting = function () {
