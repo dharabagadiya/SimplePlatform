@@ -3,11 +3,11 @@ GO
 SET QUOTED_IDENTIFIER ON;
 GO
 
-IF EXISTS (SELECT NULL FROM [SYS].[OBJECTS] WITH (NOLOCK) WHERE [OBJECT_ID] = OBJECT_ID(N'[dbo].[sproc_SimplePlatForm_GetAudienceByFSMSelectionByOfficeIDs]') AND [type] IN (N'P', N'TF'))
-DROP PROCEDURE [dbo].[sproc_SimplePlatForm_GetAudienceByFSMSelectionByOfficeIDs];
+IF EXISTS (SELECT NULL FROM [SYS].[OBJECTS] WITH (NOLOCK) WHERE [OBJECT_ID] = OBJECT_ID(N'[dbo].[sproc_SimplePlatForm_GetSelectionSlipGeneralByOfficeIDs]') AND [type] IN (N'P', N'TF'))
+DROP PROCEDURE [dbo].[sproc_SimplePlatForm_GetSelectionSlipGeneralByOfficeIDs];
 GO
 
-CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_GetAudienceByFSMSelectionByOfficeIDs]
+CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_GetSelectionSlipGeneralByOfficeIDs]
 (
 	@IDs		VARCHAR(MAX),
 	@StartDate	DATETIME,
@@ -38,6 +38,8 @@ BEGIN
 	LEFT JOIN dbo.VisitTypes AS [V] ON V.VisitTypeId = I.VisitType_VisitTypeId
 	LEFT JOIN dbo.[Services] AS [VII] ON [VII].ServiceId = I.Sevice_ServiceId
 	LEFT JOIN dbo.[FSMDetails] AS [VIII] ON [VIII].Id = I.[FSMDetail_UserId]
-	WHERE [I].[IsDeleted] = 0 AND [I].[VisitType_VisitTypeId] IN (3, 4) AND [I].[FSMDetail_UserId] IS NOT NULL AND ([I].[VisitDate] BETWEEN @StartDate AND @EndDate);
-
+	WHERE [I].[IsDeleted] = 0 AND [I].[BookingStatus] = 2 
+	AND [I].[VisitType_VisitTypeId] IN (3, 4) 
+	AND [I].[FSMDetail_UserId] IS NOT NULL 
+	AND ([II].[StartDate] BETWEEN @StartDate AND @EndDate OR [I].[ArrivalDate] BETWEEN @StartDate AND @EndDate);
 END;

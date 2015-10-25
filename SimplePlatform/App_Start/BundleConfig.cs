@@ -54,7 +54,7 @@ namespace SimplePlatform
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
 #endif
         }
         public static List<string> GetStylesBundlePath(string controllerName)

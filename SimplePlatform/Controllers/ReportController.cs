@@ -84,7 +84,7 @@ namespace SimplePlatform.Controllers
             var reportManager = new DataAccess.ReportManager();
             var officeManager = new DataAccess.OfficeMananer();
             var offices = officeManager.GetOfficeIDs(IsAdmin ? 0 : UserDetail.UserId);
-            var arrivalsReportData = reportManager.GetSelectionByFSMSelection(offices, startDateTime, endDateTime);
+            var arrivalsReportData = reportManager.GetSelectionSlipGeneral(offices, startDateTime, endDateTime);
             var columnDetails = new List<Utilities.ExcelExport.ColumnDetail>();
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Week Ending", Value = "EndDate", Type = "dateformat", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "FSM Name", Value = "FSMDetailName", Type = "string", TitleStyle = "header1" });
