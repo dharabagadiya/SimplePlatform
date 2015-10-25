@@ -302,4 +302,10 @@
   <ItemGroup>
     <None Include="StoredProcedure\Services\sproc_SimplePlatForm_DeleteService.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Reports\sproc_SimplePlatForm_GetWeeklyCumulativeStatsByOfficeIDs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Reports\sproc_SimplePlatForm_GetAudienceByFSMSelectionByOfficeIDs.sql" />
+  </ItemGroup>
 </Project>

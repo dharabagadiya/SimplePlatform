@@ -3,6 +3,9 @@ report.options = {
     startDate: null,
     endDate: null,
     arrivalReportURL: "/Report/ArrivalsReport/",
+    selectionByFSMSelectionReportURL: "/Report/SelectionByFSMSelection",
+    selectionSlipGeneralReportURL: "/Report/SelectionSlipGeneral",
+    weeklyCumulativeStateByFSMReportURL: "/Report/WeeklyCumulativeStateByFSM",
     addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
     subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
 }
@@ -11,7 +14,28 @@ report.ArrivalReportDownload = function () {
     var formObj = $("#frmDownloadReport");
     formObj.find("#startDate").val(report.options.startDate.toDateString());
     formObj.find("#endDate").val(report.options.endDate.toDateString());
-    formObj.attr("action", report.options.arrivalReportURL)
+    formObj.attr("action", report.options.arrivalReportURL);
+    formObj.submit();
+};
+report.SelectionByFSMReportDownload = function () {
+    var formObj = $("#frmDownloadReport");
+    formObj.find("#startDate").val(report.options.startDate.toDateString());
+    formObj.find("#endDate").val(report.options.endDate.toDateString());
+    formObj.attr("action", report.options.selectionByFSMSelectionReportURL);
+    formObj.submit();
+};
+report.SelectionSlipGeneralReportDownload = function () {
+    var formObj = $("#frmDownloadReport");
+    formObj.find("#startDate").val(report.options.startDate.toDateString());
+    formObj.find("#endDate").val(report.options.endDate.toDateString());
+    formObj.attr("action", report.options.selectionSlipGeneralReportURL);
+    formObj.submit();
+};
+report.WeeklyCumulativeStateByFSMReportDownload = function () {
+    var formObj = $("#frmDownloadReport");
+    formObj.find("#startDate").val(report.options.startDate.toDateString());
+    formObj.find("#endDate").val(report.options.endDate.toDateString());
+    formObj.attr("action", report.options.weeklyCumulativeStateByFSMReportURL);
     formObj.submit();
 };
 
