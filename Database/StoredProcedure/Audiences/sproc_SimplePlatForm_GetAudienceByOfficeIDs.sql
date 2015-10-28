@@ -25,6 +25,7 @@ BEGIN
 		[I].Name ,
 		[I].VisitDate ,
 		[I].Contact ,
+		[I].[EmailAddress],
 		[I].GSBAmount ,
 		[I].IsAttended ,
 		[I].FSMName ,

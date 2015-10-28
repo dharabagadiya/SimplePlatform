@@ -11,7 +11,8 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_AddAudience]
 (
 	@Status			INT OUTPUT,
 	@Name			VARCHAR(MAX), 
-	@Contact		VARCHAR(MAX), 
+	@Contact		VARCHAR(MAX),
+	@EmailAddress	VARCHAR(MAX),
 	@VisitDate		DATETIME, 
 	@VisitTypeID	INT, 
 	@OfficeID		INT, 
@@ -61,7 +62,8 @@ BEGIN
 			          GSBAmount ,
 			          IsAttended,
 			          Amount ,
-			          BookingStatus
+			          BookingStatus,
+					  EmailAddress
 			        )
 			VALUES  ( @Name,
 			          @VisitDate,
@@ -78,7 +80,8 @@ BEGIN
 			          @GSBAmount, -- GSBAmount - real
 			          0, -- IsAttended - bit
 			          @Amount, -- Amount - real
-			          @BookingStatus  -- IsBooked - bit
+			          @BookingStatus,  -- IsBooked - bit
+					  @EmailAddress
 			        )
 
 			SET @Status = 1;

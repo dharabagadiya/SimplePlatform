@@ -33,50 +33,50 @@ audiences.AddAudienceAjaxCall = function (obj, containerObj) {
 };
 audiences.SubmitBulkInsertForm = function (obj) {
     var ajaxSubmit = [];
-    obj.find(".audienceDetailRow").each(function () {
-        var formObj = $(this);
-        var name = formObj.find(".txtUserName").val();
-        var visitDate = formObj.find(".txtVisitDate").val();
-        var contact = formObj.find(".txtContact").val();
-        var visitType = parseInt(formObj.find("#hdnVisitType").val());
-        //var fsmName = formObj.find(".txtFSMName").val();
-        var fsmID = parseInt(formObj.find("#dwnFSMList").val());
-        var placeID = parseInt(formObj.find("#hdnVisitPlaceID").val());
-        var officeID = parseInt(formObj.find("#dwnOffices").val());
-        var eventID = 0;
-        var convensionID = 0;
-        var serviceID = 0;
-        var gsbAmount = formObj.find(".txtGSBAmount").val();
-        var donationAmount = formObj.find(".txtDonationAmount").val();
-        var bookingStatus = formObj.find(".dwnBookStatus").val();
-        if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
-        if (IsNullOrEmpty(donationAmount)) { donationAmount = 0; }
-        if (IsNullOrEmpty(bookingStatus)) { bookingStatus = 0; }
-        if (IsNullOrEmpty(fsmID)) { fsmID = 0; }
-        gsbAmount = parseFloat(gsbAmount);
-        donationAmount = parseFloat(donationAmount);
-        bookingStatus = parseFloat(bookingStatus);
-        if (visitType == 2) { eventID = placeID; }
-        else if (visitType == 3) { convensionID = placeID; }
-        else if (visitType == 4) { serviceID = placeID; }
-        if (!IsNullOrEmpty(name) || !IsNullOrEmpty(contact) || !(officeID == 0 && eventID == 0 && convensionID == 0)) {
-            var dataObj = {
-                name: name,
-                visitDate: visitDate,
-                contact: contact,
-                visitType: visitType,
-                officeID: officeID,
-                eventID: eventID,
-                convensionID: convensionID,
-                serviceID: serviceID,
-                fsmID: fsmID,
-                bookingStatus: bookingStatus,
-                gsbAmount: gsbAmount,
-                donationAmount: donationAmount
-            };
-            ajaxSubmit.push(audiences.AddAudienceAjaxCall(dataObj, formObj));
-        }
-    });
+    var formObj = $("#divAudienceBulkInsert");
+    var name = formObj.find(".txtUserName").val();
+    var visitDate = formObj.find(".txtVisitDate").val();
+    var contact = formObj.find(".txtContact").val();
+    var emailAddress = formObj.find(".txtEmailAddress").val();
+    var visitType = parseInt(formObj.find("#hdnVisitType").val());
+    //var fsmName = formObj.find(".txtFSMName").val();
+    var fsmID = parseInt(formObj.find("#dwnFSMList").val());
+    var placeID = parseInt(formObj.find("#hdnVisitPlaceID").val());
+    var officeID = parseInt(formObj.find("#dwnOffices").val());
+    var eventID = 0;
+    var convensionID = 0;
+    var serviceID = 0;
+    var gsbAmount = formObj.find(".txtGSBAmount").val();
+    var donationAmount = formObj.find(".txtDonationAmount").val();
+    var bookingStatus = formObj.find(".dwnBookStatus").val();
+    if (IsNullOrEmpty(gsbAmount)) { gsbAmount = 0; }
+    if (IsNullOrEmpty(donationAmount)) { donationAmount = 0; }
+    if (IsNullOrEmpty(bookingStatus)) { bookingStatus = 0; }
+    if (IsNullOrEmpty(fsmID)) { fsmID = 0; }
+    gsbAmount = parseFloat(gsbAmount);
+    donationAmount = parseFloat(donationAmount);
+    bookingStatus = parseFloat(bookingStatus);
+    if (visitType == 2) { eventID = placeID; }
+    else if (visitType == 3) { convensionID = placeID; }
+    else if (visitType == 4) { serviceID = placeID; }
+    if (!IsNullOrEmpty(name) || !IsNullOrEmpty(contact) || !(officeID == 0 && eventID == 0 && convensionID == 0)) {
+        var dataObj = {
+            name: name,
+            visitDate: visitDate,
+            contact: contact,
+            emailAddress: emailAddress,
+            visitType: visitType,
+            officeID: officeID,
+            eventID: eventID,
+            convensionID: convensionID,
+            serviceID: serviceID,
+            fsmID: fsmID,
+            bookingStatus: bookingStatus,
+            gsbAmount: gsbAmount,
+            donationAmount: donationAmount
+        };
+        ajaxSubmit.push(audiences.AddAudienceAjaxCall(dataObj, formObj));
+    }
     $.when(ajaxSubmit).done(function () { window.location.reload(); });
 };
 audiences.ValidateModalAudienceQuickForm = function (obj) {
@@ -102,17 +102,27 @@ audiences.ValidateModalAudienceQuickForm = function (obj) {
                     }
                 }
             },
+            emailAddress: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+                }
+            },
             Contact: {
-                message: 'The email address/contact no is not valid',
+                message: 'The contact no is not valid',
                 validators: {
                     stringLength: {
                         min: 8,
                         max: 20,
-                        message: 'The email address/contact no must be min 8 to 20 characters long'
+                        message: 'The contact no must be min 8 to 20 characters long'
                     },
                     regexp: {
-                        regexp: /^[0-9a-zA-Z@._]+$/,
-                        message: 'The contact can contain 0-9, a-z, A-z, #, (.), or (_) only'
+                        regexp: /^[0-9 -]+$/,
+                        message: 'The contact can contain 0-9, (-), or ( ) only'
                     }
                 }
             },
@@ -138,7 +148,7 @@ audiences.ValidateModalAudienceQuickForm = function (obj) {
 };
 audiences.LoadQuickBooking = function () {
     var audienceDetailRow = $(".audienceDetailRow");
-    for (var i = 1 ; i < 3; i++) { audienceDetailRow.after(audienceDetailRow.clone()); }
+    for (var i = 1 ; i < 0; i++) { audienceDetailRow.after(audienceDetailRow.clone()); }
     $(".btnAddUsers").off("click.btnAddUsers").on("click.btnAddUsers", $.proxy(function () { }, this));
     $(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
     $(".dwnBookStatus").chosen({ width: "100%" });
@@ -278,20 +288,27 @@ audiences.ValidateModalAudienceForm = function (obj) {
                     }
                 }
             },
+            emailAddress: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+                }
+            },
             Contact: {
-                message: 'The email address/contact no is not valid',
+                message: 'The contact no is not valid',
                 validators: {
                     stringLength: {
                         min: 8,
                         max: 20,
-                        message: 'The email address/contact no must be min 8 to 20 characters long'
-                    },
-                    notEmpty: {
-                        message: 'The email address/contact no is required'
+                        message: 'The contact no must be min 8 to 20 characters long'
                     },
                     regexp: {
-                        regexp: /^[0-9a-zA-Z@._]+$/,
-                        message: 'The contact can contain 0-9, a-z, A-z, #, (.), or (_) only'
+                        regexp: /^[0-9 -]+$/,
+                        message: 'The contact can contain 0-9, (-), or ( ) only'
                     }
                 }
             },
@@ -316,6 +333,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
         var audienceID = formObj.find("#hdnAudienceID").val();
         var name = formObj.find("#txtName").val();
         var contact = formObj.find("#txtContact").val();
+        var emailAddress = formObj.find(".txtEmailAddress").val();
         var visitDate = formObj.find(".txtVisitDate").val();
         var visitTypeID = formObj.find("#dwnPeopleVistiType").val();
         var officeID = formObj.find("#dwnOffices").val();
@@ -340,6 +358,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
             name: name,
             visitDate: visitDate,
             contact: contact,
+            emailAddress: emailAddress,
             visitType: visitTypeID,
             officeID: officeID,
             eventID: eventID,
@@ -470,14 +489,15 @@ audiences.LoadAudienceList = function () {
             { "data": "VisitDate" },
             { "data": "Name" },
             { "data": "Contact" },
+            { "data": "EmailAddress" },
             { "data": "VisitType" },
             { "data": "EventName" },
             { "data": "ConventionName" },
             { "data": "ServiceName" },
             { "data": "FSMName" },
-            { "data": "Status" },
-            { "data": "GSBAmount" },
-            { "data": "DonationAmount" },
+            { "data": "Status", "width": '5%' },
+            { "data": "GSBAmount", "width": '5%' },
+            { "data": "DonationAmount", "width": '5%' },
             {
                 "data": null,
                 "createdCell": function (cell, cellData, rowData, rowIndex, colIndex) {

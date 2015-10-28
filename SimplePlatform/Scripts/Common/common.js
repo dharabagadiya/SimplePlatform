@@ -292,6 +292,7 @@ simplePlatform.BindHeaderChangePwdClickEvent = function () {
         return false;
     }, this));
 };
+
 simplePlatform.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -318,20 +319,27 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
                     }
                 }
             },
+            emailAddress: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+                }
+            },
             Contact: {
-                message: 'The email address/contact no is not valid',
+                message: 'The contact no is not valid',
                 validators: {
                     stringLength: {
                         min: 8,
                         max: 20,
-                        message: 'The email address/contact no must be min 8 to 20 characters long'
-                    },
-                    notEmpty: {
-                        message: 'The email address/contact no is required'
+                        message: 'The contact no must be min 8 to 20 characters long'
                     },
                     regexp: {
-                        regexp: /^[0-9a-zA-Z@._]+$/,
-                        message: 'The contact can contain 0-9, a-z, A-z, #, (.), or (_) only'
+                        regexp: /^[0-9 -]+$/,
+                        message: 'The contact can contain 0-9, (-), or ( ) only'
                     }
                 }
             },
@@ -361,6 +369,7 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
         var eventID = formObj.find("#dwnEvetns").val();
         var conventionID = formObj.find("#dwnConvensions").val();
         var serviceID = formObj.find("#dwnServices").val();
+        var emailAddress = formObj.find(".txtEmailAddress").val();
         //var fsmName = formObj.find(".txtFSMName").val();
         var fsmID = formObj.find("#dwnFSMList").val();
         var bookingStatus = formObj.find("#dwnBookStatus").val();
@@ -377,6 +386,7 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
             name: name,
             visitDate: visitDate,
             contact: contact,
+            emailAddress: emailAddress,
             visitType: visitTypeID,
             officeID: officeID,
             eventID: eventID,
@@ -424,6 +434,7 @@ simplePlatform.BindHeaderAddAudienceClickEvent = function () {
         return false;
     }, this));
 };
+
 simplePlatform.ValidateModalConventionForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({

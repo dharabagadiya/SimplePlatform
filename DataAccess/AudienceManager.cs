@@ -13,7 +13,7 @@ namespace DataAccess
 {
     public class AudienceManager : DBManager
     {
-        public bool Add(string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
+        public bool Add(string name, string contact, string emailAddress, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -22,6 +22,7 @@ namespace DataAccess
                 {
                     database.AddInParameter(command, "@Name", DbType.String, name);
                     database.AddInParameter(command, "@Contact", DbType.String, contact);
+                    database.AddInParameter(command, "@EmailAddress", DbType.String, emailAddress);
                     database.AddInParameter(command, "@VisitDate", DbType.DateTime, visitDate);
                     database.AddInParameter(command, "@VisitTypeID", DbType.Int32, visitTypeID);
                     database.AddInParameter(command, "@OfficeID", DbType.Int32, officeID);
@@ -44,7 +45,7 @@ namespace DataAccess
             }
         }
 
-        public bool Update(int audienceID, string name, string contact, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
+        public bool Update(int audienceID, string name, string contact, string emailAddress, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -54,6 +55,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@AudienceID", DbType.Int32, audienceID);
                     database.AddInParameter(command, "@Name", DbType.String, name);
                     database.AddInParameter(command, "@Contact", DbType.String, contact);
+                    database.AddInParameter(command, "@EmailAddress", DbType.String, emailAddress);
                     database.AddInParameter(command, "@VisitDate", DbType.DateTime, visitDate);
                     database.AddInParameter(command, "@VisitTypeID", DbType.Int32, visitTypeID);
                     database.AddInParameter(command, "@OfficeID", DbType.Int32, officeID);
@@ -136,6 +138,7 @@ namespace DataAccess
                                     AudienceID = dataRow.Field<int>("AudienceID"),
                                     Name = dataRow.Field<String>("Name"),
                                     Contact = dataRow.Field<String>("Contact"),
+                                    EmailAddress = dataRow.Field<String>("EmailAddress"),
                                     VisitDate = dataRow.Field<DateTime>("VisitDate"),
                                     GSBAmount = dataRow.Field<float>("GSBAmount"),
                                     IsAttended = dataRow.Field<bool>("IsAttended"),
@@ -177,6 +180,7 @@ namespace DataAccess
                                      AudienceID = dataRow.Field<int>("AudienceID"),
                                      Name = dataRow.Field<String>("Name"),
                                      Contact = dataRow.Field<String>("Contact"),
+                                     EmailAddress = dataRow.Field<String>("EmailAddress"),
                                      VisitDate = dataRow.Field<DateTime>("VisitDate"),
                                      GSBAmount = dataRow.Field<float>("GSBAmount"),
                                      IsAttended = dataRow.Field<bool>("IsAttended"),

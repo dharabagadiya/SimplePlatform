@@ -1,5 +1,6 @@
 ﻿body { background: #f2f2f2; }
 #wrapper { height: auto; min-height: 100%; position: relative; }
+.margin-bottom0 { margin-bottom: 0; }
 
 .page-sidebar { width: 210px; position: absolute; height: auto; left: 0; bottom: 0; top: 0; padding-top: 50px; z-index: 2; }
 .page-sidebar:after { content: ""; position: fixed; top: 0; left: 0; bottom: 0; width: 210px; background-color: #303946; z-index: -1; }

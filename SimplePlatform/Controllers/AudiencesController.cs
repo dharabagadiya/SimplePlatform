@@ -40,6 +40,7 @@ namespace SimplePlatform.Controllers
                 ID = model.AudienceID,
                 Name = model.Name,
                 Contact = model.Contact,
+                EmailAddress = model.EmailAddress,
                 VisitDate = model.VisitDate.ToString("MMM dd,yyyy"),
                 VisitType = model.VisitType.VisitTypeName,
                 EventName = (model.Event == null ? "-" : model.Event.Name),
@@ -102,20 +103,20 @@ namespace SimplePlatform.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
+        public JsonResult Add(string name, string visitDate, string contact, string emailAddress, int visitType, int officeID, int eventID, int convensionID, int serviceID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Add(name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
+            var status = audienceManager.Add(name, contact, emailAddress, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
             return Json(status);
         }
 
         [HttpPost]
-        public JsonResult Update(int audienceID, string name, string visitDate, string contact, int visitType, int officeID, int eventID, int convensionID, int serviceID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
+        public JsonResult Update(int audienceID, string name, string visitDate, string contact, string emailAddress, int visitType, int officeID, int eventID, int convensionID, int serviceID, int fsmID, int bookingStatus, float gsbAmount, float donationAmount)
         {
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
-            var status = audienceManager.Update(audienceID, name, contact, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
+            var status = audienceManager.Update(audienceID, name, contact, emailAddress, visitDateTime, visitType, officeID, eventID, fsmID, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
             return Json(status);
         }
 
