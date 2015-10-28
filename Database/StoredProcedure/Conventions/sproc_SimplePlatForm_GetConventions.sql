@@ -47,5 +47,6 @@ BEGIN
 		[I].[FileResourcesName],
 		[II].[IsAttachment]
 	FROM  [ConventonsList] AS [I]
-	INNER JOIN [ConventionAttachmentCount] AS [II] ON II.ConventionId = I.ConventionId;
+	INNER JOIN [ConventionAttachmentCount] AS [II] ON II.ConventionId = I.ConventionId
+	ORDER BY [I].[StartDate] DESC;
 END;

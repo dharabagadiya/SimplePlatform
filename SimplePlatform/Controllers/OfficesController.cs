@@ -79,32 +79,39 @@ namespace SimplePlatform.Controllers
         [HttpPost]
         public JsonResult GetOffices(int pageNo, int pageSize, string startDate, string endDate)
         {
-            var officesManager = new DataAccess.OfficeMananer();
-            var offices = officesManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
-            var totalRecord = offices.Count();
-            var startDateTime = Convert.ToDateTime(startDate);
-            var endDateTime = Convert.ToDateTime(endDate);
-            var filteredOffices = offices
-                .Where(model => model.IsDeleted == false)
-                .OrderBy(model => model.Name)
-                .Select(modal => new
-                {
-                    ID = modal.OfficeId,
-                    Name = modal.Name,
-                    Fundraising = GetFundRaisingTargets(modal.OfficeId, startDateTime, endDateTime),
-                    Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
-                    Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
-                    BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
-                    Events = GetEventsTarget(modal.OfficeId, startDateTime, endDateTime),
-                    ProfilePic = modal.FileResource == null ? Url.Content("~/Content/Images/Common/office_convention_avatar.png") : Url.Content(modal.FileResource.path)
-                }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
-            return Json(new
+            try
             {
-                totalRecord = totalRecord,
-                currentPage = pageNo,
-                pageSize = pageSize,
-                offices = filteredOffices
-            });
+                var officesManager = new DataAccess.OfficeMananer();
+                var offices = officesManager.GetOffices(IsAdmin ? 0 : UserDetail.UserId);
+                var totalRecord = offices.Count();
+                var startDateTime = Convert.ToDateTime(startDate);
+                var endDateTime = Convert.ToDateTime(endDate);
+                var filteredOffices = offices
+                    .Where(model => model.IsDeleted == false)
+                    .OrderBy(model => model.Name)
+                    .Select(modal => new
+                    {
+                        ID = modal.OfficeId,
+                        Name = modal.Name,
+                        Fundraising = GetFundRaisingTargets(modal.OfficeId, startDateTime, endDateTime),
+                        Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
+                        Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
+                        BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
+                        Events = GetEventsTarget(modal.OfficeId, startDateTime, endDateTime),
+                        ProfilePic = modal.FileResource == null ? Url.Content("~/Content/Images/Common/office_convention_avatar.png") : Url.Content(modal.FileResource.path)
+                    }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+                return Json(new
+                {
+                    totalRecord = totalRecord,
+                    currentPage = pageNo,
+                    pageSize = pageSize,
+                    offices = filteredOffices
+                });
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public PartialViewResult Add()

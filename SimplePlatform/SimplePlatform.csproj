@@ -381,7 +381,6 @@
     <Content Include="Views\Audiences\Index.cshtml" />
     <Content Include="Views\Targets\Index.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
-    <None Include="Views\Audiences\Edit.cshtml" />
     <Content Include="Views\Targets\Edit.cshtml" />
     <Content Include="Views\Calender\Index.cshtml" />
     <Content Include="Views\Conventions\UploadAttachment.cshtml" />
@@ -400,6 +399,7 @@
     <Content Include="Views\Services\Add.cshtml" />
     <Content Include="Views\Services\Edit.cshtml" />
     <Content Include="Views\Audiences\UpdateAudienceStatus.cshtml" />
+    <Content Include="Views\Audiences\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

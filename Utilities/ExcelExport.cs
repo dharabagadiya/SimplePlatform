@@ -32,8 +32,8 @@ namespace Utilities
         {
             switch (type)
             {
-                case "dateformat": return "s='dateformat'";
-                case "currencyamount": return "s='currencyamount'";
+                case "dateformat": return "s=\"dateformat\"";
+                case "currencyamount": return "s=\"currencyamount\"";
                 default: return string.Empty;
             }
         }
@@ -41,16 +41,16 @@ namespace Utilities
         public static string ExportExcel(string sheetName, List<ColumnDetail> columnMappings, DataTable dataTable)
         {
             var sb = new StringBuilder("<root>");
-            sb.AppendFormat("<sheet name = 'Sheet1' cellstylemode = 'name' renameto='{0}'>", sheetName);
+            sb.AppendFormat("<sheet name = \"Sheet1\" cellstylemode = \"name\" renameto=\"{0}\">", sheetName);
 
             #region Table Detail
-            sb.Append("<region startat='a1'>");
+            sb.Append("<region startat=\"a1\">");
 
             #region Table Title
             sb.Append("<r>");
             foreach (var columnMapping in columnMappings)
             {
-                sb.AppendFormat("<c v='{0}' s='{1}' />", columnMapping.Name, columnMapping.TitleStyle);
+                sb.AppendFormat("<c v=\"{0}\" s=\"{1}\" />", columnMapping.Name, columnMapping.TitleStyle);
             }
             sb.Append("</r>");
             #endregion
@@ -61,7 +61,7 @@ namespace Utilities
                 sb.Append("<r>");
                 foreach (var columnMapping in columnMappings)
                 {
-                    sb.AppendFormat("<c v='{0}' {1}/>", dataRow[columnMapping.Value] == DBNull.Value ? string.Empty : dataRow[columnMapping.Value].ToString(), GetDataTypeFormat(columnMapping.Type));
+                    sb.AppendFormat("<c v=\"{0}\" {1}/>", dataRow[columnMapping.Value] == DBNull.Value ? string.Empty : dataRow[columnMapping.Value].ToString(), GetDataTypeFormat(columnMapping.Type));
                 }
                 sb.Append("</r>");
             }
@@ -79,7 +79,7 @@ namespace Utilities
         public static string ExportExcel(string sheetName, Dictionary<string, RegionDetail> dicColumnMappings, DataSet dataSet)
         {
             var sb = new StringBuilder("<root>"); var startRow = 1; var tableIndex = 0;
-            sb.AppendFormat("<sheet name = 'Sheet1' cellstylemode = 'name' renameto='{0}'>", sheetName);
+            sb.AppendFormat("<sheet name = \"Sheet1\" cellstylemode = \"name\" renameto=\"{0}\">", sheetName);
 
             foreach (var key in dicColumnMappings.Keys)
             {
@@ -90,17 +90,17 @@ namespace Utilities
                 var dataTable = dataSet.Tables[tableIndex];
 
                 #region Table Detail
-                sb.AppendFormat("<region startat='a{0}'>", startRow);
+                sb.AppendFormat("<region startat=\"a{0}\">", startRow);
 
                 #region Table Title
                 sb.Append("<r>");
-                sb.AppendFormat("<c v='{0}' s='{1}' />", regionDetail.Title, regionDetail.TitleStyle);
+                sb.AppendFormat("<c v=\"{0}\" s=\"{1}\" />", regionDetail.Title, regionDetail.TitleStyle);
                 sb.Append("</r>");
 
                 sb.Append("<r>");
                 foreach (var columnMapping in columnMappings)
                 {
-                    sb.AppendFormat("<c v='{0}' s='{1}' />", columnMapping.Name, columnMapping.TitleStyle);
+                    sb.AppendFormat("<c v=\"{0}\" s=\"{1}\" />", columnMapping.Name, columnMapping.TitleStyle);
                 }
                 sb.Append("</r>");
                 #endregion
@@ -111,7 +111,7 @@ namespace Utilities
                     sb.Append("<r>");
                     foreach (var columnMapping in columnMappings)
                     {
-                        sb.AppendFormat("<c v='{0}' {1}/>", dataRow[columnMapping.Value] == DBNull.Value ? string.Empty : dataRow[columnMapping.Value].ToString(), GetDataTypeFormat(columnMapping.Type));
+                        sb.AppendFormat("<c v=\"{0}\" {1}/>", dataRow[columnMapping.Value] == DBNull.Value ? string.Empty : dataRow[columnMapping.Value].ToString(), GetDataTypeFormat(columnMapping.Type));
                     }
                     sb.Append("</r>");
                 }

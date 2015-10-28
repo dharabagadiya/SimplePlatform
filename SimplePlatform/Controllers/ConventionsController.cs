@@ -86,7 +86,7 @@ namespace SimplePlatform.Controllers
                 Events = GetEventsTarget(modal.ConventionId),
                 IsResourceAttached = modal.IsFileAttached,
                 ProfilePic = modal.FileResource == null ? Url.Content("~/Content/Images/Common/office_convention_avatar.png") : Url.Content(modal.FileResource.path)
-            }).OrderByDescending(modal => modal.StartDate).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+            }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             return Json(new
             {
                 totalRecord = totalRecord,

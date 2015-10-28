@@ -160,7 +160,7 @@ officeDetail.GetEventWidgetHTML = function (obj) {
     sb.append("<li class=\"list-group-item clearfix comment-" + item + "\">");
     sb.append("<p class=\"text-ellipsis\"><span class=\"name strong\">" + obj.Name + "</span></p>");
     sb.append("<span class=\"date small pull-left\">Attend From " + obj.StartDate + " To " + obj.EndDate + "</span>");
-    sb.append("<span class=\"date text-muted small pull-right\">Total People Attended  " + obj.TotalPeopleAttended + "</span>");
+    sb.append("<span class=\"date text-muted small pull-right\">Total People Arrival " + obj.TotalPeopleAttended + "</span>");
     sb.append("</li>");
     return sb.toString();
 }
