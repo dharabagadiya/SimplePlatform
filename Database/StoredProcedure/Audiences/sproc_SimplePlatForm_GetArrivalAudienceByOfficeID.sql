@@ -41,6 +41,6 @@ BEGIN
 	--LEFT JOIN dbo.Events AS  [III] ON [III].[EventId] = [I].[Event_EventId]
 	--LEFT JOIN dbo.Offices AS [IV] ON IV.OfficeId = I.Office_OfficeId
 	--LEFT JOIN dbo.VisitTypes AS [V] ON V.VisitTypeId = I.VisitType_VisitTypeId
-	WHERE [I].[IsDeleted] = 0 AND Convention_ConventionId IS NOT NULL AND [I].[Office_OfficeId] = @OfficeID AND [I].[BookingStatus] = 1 AND [I].[IsAttended] = 0;
+	WHERE [I].[IsDeleted] = 0 AND Convention_ConventionId IS NOT NULL AND [I].[Office_OfficeId] = @OfficeID AND [I].[BookingStatus] IN(2, 3) AND [I].[IsAttended] = 0;
 
 END;

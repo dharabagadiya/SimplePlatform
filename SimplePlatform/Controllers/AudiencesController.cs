@@ -42,6 +42,7 @@ namespace SimplePlatform.Controllers
                 Contact = model.Contact,
                 EmailAddress = model.EmailAddress,
                 VisitDate = model.VisitDate.ToString("MMM dd,yyyy"),
+                OfficeName = model.Office.Name,
                 VisitType = model.VisitType.VisitTypeName,
                 EventName = (model.Event == null ? "-" : model.Event.Name),
                 ConventionName = (model.Convention == null ? "-" : model.Convention.Name),

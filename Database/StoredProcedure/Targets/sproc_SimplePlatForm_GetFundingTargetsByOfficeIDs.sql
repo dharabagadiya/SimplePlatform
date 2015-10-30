@@ -17,7 +17,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	SET DATEFIRST 4;
+	SET DATEFIRST 5;
 
 	WITH [OfficeIDs] AS
 	(	
@@ -34,7 +34,7 @@ BEGIN
 		FROM [dbo].[Targets] AS [I]
 		INNER JOIN [dbo].[Offices] AS [II] ON [II].[IsDeleted] = 0 AND [II].[OfficeId] = [I].[Office_OfficeId]
 		INNER JOIN [OfficeIDs] AS [III] ON [III].[ID] = [II].[OfficeId]
-		WHERE [I].[IsDeleted] = 0 AND [I].DueDate BETWEEN @StartDate AND @EndDate
+		WHERE [I].[IsDeleted] = 0 AND ([I].DueDate BETWEEN @StartDate AND @EndDate)
 		GROUP BY [III].[ID], [I].[DueDate], [I].[FundRaising], [II].[Name], [I].[Office_OfficeId]
 	)
 	SELECT 

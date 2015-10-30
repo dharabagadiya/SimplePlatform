@@ -40,5 +40,6 @@ BEGIN
 	LEFT JOIN dbo.[FSMDetails] AS [VIII] ON [VIII].Id = I.[FSMDetail_UserId]
 	WHERE [I].[IsDeleted] = 0
 	AND [I].[FSMDetail_UserId] IS NOT NULL 
-	AND ([I].[VisitDate] BETWEEN @StartDate AND @EndDate);
+	AND ([I].[VisitDate] BETWEEN @StartDate AND @EndDate)
+	ORDER BY [VIII].[Name] ASC;
 END;

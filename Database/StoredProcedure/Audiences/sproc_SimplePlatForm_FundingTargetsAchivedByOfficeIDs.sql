@@ -17,7 +17,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	
-	SET DATEFIRST 4;
+	SET DATEFIRST 5;
 
 	WITH [OfficeIDs] AS (
 		SELECT [Value] AS [ID] FROM dbo.func_SimplePlatForm_GetParamsToList(@IDs)

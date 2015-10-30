@@ -30,7 +30,7 @@ namespace SimplePlatform.Controllers
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Continent Office", Value = "OfficeName", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Service Selected", Value = "ServiceName", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Date of arrival", Value = "VisitDate", Type = "dateformat", TitleStyle = "header1" });
-            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Status", Value = "ArrivalStatus", Type = "string", TitleStyle = "header1" });
+            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Arrived", Value = "ArrivalStatus", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "GBS", Value = "GSBAmount", Type = "currencyamount", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Funds", Value = "Amount", Type = "currencyamount", TitleStyle = "header1" });
             var excelDataXML = Utilities.ExcelExport.ExportExcel("People of Arrivals From", columnDetails, arrivalsReportData.Tables[0]);
@@ -61,7 +61,7 @@ namespace SimplePlatform.Controllers
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Continent Office", Value = "OfficeName", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Service Selected", Value = "ServiceName", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Date of arrival", Value = "VisitDate", Type = "dateformat", TitleStyle = "header1" });
-            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Status", Value = "ArrivalStatus", Type = "string", TitleStyle = "header1" });
+            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Arrived", Value = "ArrivalStatus", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "GBS", Value = "GSBAmount", Type = "currencyamount", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Funds", Value = "Amount", Type = "currencyamount", TitleStyle = "header1" });
             var excelDataXML = Utilities.ExcelExport.ExportExcel("Selection BY FSM From", columnDetails, arrivalsReportData.Tables[0]);
@@ -92,9 +92,9 @@ namespace SimplePlatform.Controllers
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Continent Office", Value = "OfficeName", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Service Selected", Value = "ServiceName", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Date of arrival", Value = "VisitDate", Type = "dateformat", TitleStyle = "header1" });
-            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Status", Value = "ArrivalStatus", Type = "string", TitleStyle = "header1" });
-            //columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "GBS", Value = "GSBAmount", Type = "currencyamount", TitleStyle = "header1" });
-            //columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Funds", Value = "Amount", Type = "currencyamount", TitleStyle = "header1" });
+            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Arrived", Value = "ArrivalStatus", Type = "string", TitleStyle = "header1" });
+            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "GBS", Value = "GSBAmount", Type = "currencyamount", TitleStyle = "header1" });
+            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Funds", Value = "Amount", Type = "currencyamount", TitleStyle = "header1" });
             var excelDataXML = Utilities.ExcelExport.ExportExcel("Selection Slip General", columnDetails, arrivalsReportData.Tables[0]);
             string templatePath = "~/ExportTemplate/Excel/Template.xlsx";
             string downloadFilename = string.Format("Selection Slip General From {0} to {1}", startDateTime.ToString("MMM-dd-yyyy"), endDateTime.ToString("MMM-dd-yyyy"));
@@ -139,14 +139,14 @@ namespace SimplePlatform.Controllers
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Continent Office", Value = "OfficeName", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Service Selected", Value = "ServiceName", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Date of arrival", Value = "VisitDate", Type = "dateformat", TitleStyle = "header1" });
-            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Status", Value = "ArrivalStatus", Type = "string", TitleStyle = "header1" });
+            columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Arrived", Value = "ArrivalStatus", Type = "string", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "GBS", Value = "GSBAmount", Type = "currencyamount", TitleStyle = "header1" });
             columnDetails.Add(new Utilities.ExcelExport.ColumnDetail { Name = "Funds", Value = "Amount", Type = "currencyamount", TitleStyle = "header1" });
 
-            regions["Arrivals"] = new Utilities.ExcelExport.RegionDetail { Title = "Arrivals", TitleStyle = "header1", ColumnDetail = columnDetails };
             regions["Booked"] = new Utilities.ExcelExport.RegionDetail { Title = "Booked", TitleStyle = "header1", ColumnDetail = columnDetails };
             regions["InProcess"] = new Utilities.ExcelExport.RegionDetail { Title = "In Process", TitleStyle = "header1", ColumnDetail = columnDetails };
             regions["Reachies"] = new Utilities.ExcelExport.RegionDetail { Title = "Reachies", TitleStyle = "header1", ColumnDetail = columnDetails };
+            regions["Arrivals"] = new Utilities.ExcelExport.RegionDetail { Title = "Arrivals", TitleStyle = "header1", ColumnDetail = columnDetails };
             #endregion
 
 

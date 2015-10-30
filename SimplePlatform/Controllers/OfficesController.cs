@@ -54,7 +54,7 @@ namespace SimplePlatform.Controllers
             var targets = targetManager.GetBookingTargets(new List<int> { id }, startDate, endDate);
             var achievedTargets = audienceManager.GetBookingTargetsAchived(new List<int> { id }, startDate, endDate);
             var totalTargets = targets.data.Sum(model => model.y);
-            var totalAchievedTargets = achievedTargets.data.Count();
+            var totalAchievedTargets = achievedTargets.data.Sum(model => model.y);
             return new { Total = totalTargets, ActTotal = totalAchievedTargets };
         }
 

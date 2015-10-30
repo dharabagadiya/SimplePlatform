@@ -17,7 +17,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	SET DATEFIRST 4;
+	SET DATEFIRST 5;
 	
 	WITH [OfficeIDs] AS (
 		SELECT [Value] AS [ID] FROM dbo.func_SimplePlatForm_GetParamsToList(@IDs)
@@ -29,7 +29,7 @@ BEGIN
 		FROM dbo.Audiences AS [I]
 		-- Need to Add Convetion NULL
 		INNER JOIN OfficeIDs AS [VI] ON [VI].[ID] = [I].[Office_OfficeId]
-		WHERE [I].[IsDeleted] = 0 AND [I].[VisitDate] BETWEEN @StartDate AND @EndDate AND I.BookingStatus = 1
+		WHERE [I].[IsDeleted] = 0 AND [I].[VisitDate] BETWEEN @StartDate AND @EndDate AND I.BookingStatus IN (2)
 	)
 	SELECT
 		BookingTargets.WeekStartDate AS [WeekStartDate],

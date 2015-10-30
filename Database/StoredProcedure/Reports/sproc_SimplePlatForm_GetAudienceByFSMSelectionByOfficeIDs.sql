@@ -38,6 +38,6 @@ BEGIN
 	LEFT JOIN dbo.VisitTypes AS [V] ON V.VisitTypeId = I.VisitType_VisitTypeId
 	LEFT JOIN dbo.[Services] AS [VII] ON [VII].ServiceId = I.Sevice_ServiceId
 	LEFT JOIN dbo.[FSMDetails] AS [VIII] ON [VIII].Id = I.[FSMDetail_UserId]
-	WHERE [I].[IsDeleted] = 0 AND [I].[VisitType_VisitTypeId] IN (3, 4) AND [I].[FSMDetail_UserId] IS NOT NULL AND ([I].[VisitDate] BETWEEN @StartDate AND @EndDate);
-
+	WHERE [I].[IsDeleted] = 0 AND [I].[VisitType_VisitTypeId] IN (3, 4) AND [I].[FSMDetail_UserId] IS NOT NULL AND ([I].[VisitDate] BETWEEN @StartDate AND @EndDate)
+	ORDER BY [VIII].[Name] ASC;
 END;

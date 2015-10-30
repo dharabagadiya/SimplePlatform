@@ -118,24 +118,6 @@ BEGIN
 	LEFT JOIN [ArrivalCount] AS [VII] ON [VII].[FSMDetailID] = [I].[FSMDetailID]
 	GROUP BY [I].[FSMDetailID], [FSMDetailName], [III].[FundRaised], [V].[GSBAmount], [IV].[ReachesCount], [IIV].[InProcessCount], [VI].[BookedCount], [VII].[ArrivalCount];
 
-	-- Arrivals
-	SELECT
-		CONVERT(DATE, @EndDate) AS [EndDate],
-		[FSMDetailID] AS [FSMDetailID],
-		[FSMDetailName] AS [FSMDetailName],
-		[AudienceID] AS [AudienceID],
-		[PeopleName] AS [PeopleName],
-		[OfficeName] AS [OfficeName],
-		[ServiceName] AS [ServiceName],
-		[VisitDate] AS [VisitDate],
-		[ArrivalStatus] AS [ArrivalStatus],
-		[GSBAmount] AS [GSBAmount],
-		[Amount] AS [Amount],
-		[BookingStatus] AS [BookingStatus],
-		[IsAttended] AS [IsAttended]
-	FROM #AudienceList
-	WHERE IsAttended = 1;
-
 	-- BOOKED
 	SELECT
 		CONVERT(DATE, @EndDate) AS [EndDate],
@@ -189,4 +171,23 @@ BEGIN
 		[IsAttended] AS [IsAttended]
 	FROM #AudienceList
 	WHERE BookingStatus = 3;
+
+		-- Arrivals
+	SELECT
+		CONVERT(DATE, @EndDate) AS [EndDate],
+		[FSMDetailID] AS [FSMDetailID],
+		[FSMDetailName] AS [FSMDetailName],
+		[AudienceID] AS [AudienceID],
+		[PeopleName] AS [PeopleName],
+		[OfficeName] AS [OfficeName],
+		[ServiceName] AS [ServiceName],
+		[VisitDate] AS [VisitDate],
+		[ArrivalStatus] AS [ArrivalStatus],
+		[GSBAmount] AS [GSBAmount],
+		[Amount] AS [Amount],
+		[BookingStatus] AS [BookingStatus],
+		[IsAttended] AS [IsAttended]
+	FROM #AudienceList
+	WHERE IsAttended = 1;
+
 END;
