@@ -95,8 +95,8 @@ namespace SimplePlatform.Controllers
                         Name = modal.Name,
                         Fundraising = GetFundRaisingTargets(modal.OfficeId, startDateTime, endDateTime),
                         Task = GetTaskTargets(modal.OfficeId, startDateTime, endDateTime),
-                        Arrival = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
-                        BookingInProcess = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
+                        Arrival = GetArrivalTargets(modal.OfficeId, startDateTime, endDateTime),
+                        BookingInProcess = GetBookingTargets(modal.OfficeId, startDateTime, endDateTime),
                         Events = GetEventsTarget(modal.OfficeId, startDateTime, endDateTime),
                         ProfilePic = modal.FileResource == null ? Url.Content("~/Content/Images/Common/office_convention_avatar.png") : Url.Content(modal.FileResource.path)
                     }).OrderBy(modal => modal.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
