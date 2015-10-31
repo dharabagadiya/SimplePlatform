@@ -6,10 +6,10 @@ report.options = {
     selectionByFSMSelectionReportURL: "/Report/SelectionByFSMSelection",
     selectionSlipGeneralReportURL: "/Report/SelectionSlipGeneral",
     weeklyCumulativeStateByFSMReportURL: "/Report/WeeklyCumulativeStateByFSM",
+    officeWeeklyCumulativeStateReportURL: "/Report/OfficeWeeklyCumulativeState",
     addWeek: ((new Date().getDay()) <= 4 ? 0 : 1),
     subtractWeek: ((new Date().getDay()) <= 4 ? 1 : 0)
-}
-
+};
 report.ArrivalReportDownload = function () {
     var formObj = $("#frmDownloadReport");
     formObj.find("#startDate").val(report.options.startDate.toDateString());
@@ -38,7 +38,13 @@ report.WeeklyCumulativeStateByFSMReportDownload = function () {
     formObj.attr("action", report.options.weeklyCumulativeStateByFSMReportURL);
     formObj.submit();
 };
-
+report.OfficeWeeklyCumulativeStateDownload = function () {
+    var formObj = $("#frmDownloadReport");
+    formObj.find("#startDate").val(report.options.startDate.toDateString());
+    formObj.find("#endDate").val(report.options.endDate.toDateString());
+    formObj.attr("action", report.options.officeWeeklyCumulativeStateReportURL);
+    formObj.submit();
+};
 report.UpdateGlobalTimePeriodSelection = function (start, end) {
     report.options.startDate = start.toDate();
     report.options.endDate = end.toDate();

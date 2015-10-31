@@ -213,7 +213,8 @@ namespace DataAccess
 
                 if (dataSet == null || dataSet.Tables.Count <= 0) return null;
                 var dataTable = dataSet.Tables[0];
-                var comments = (from dataRow in dataTable.AsEnumerable()
+                var conventions = new List<Convention>();
+                conventions = (from dataRow in dataTable.AsEnumerable()
                                 select new DataModel.Modal.Convention
                                 {
                                     ConventionId = dataRow.Field<int>("ConventionId"),
@@ -225,7 +226,7 @@ namespace DataAccess
                                     IsFileAttached = dataRow.Field<int>("IsAttachment") != 0,
                                     FileResource = dataRow.Field<int?>("FileResourcesID").GetValueOrDefault(0) == 0 ? null : new FileResource { Id = dataRow.Field<int>("FileResourcesID"), name = dataRow.Field<string>("FileResourcesName"), path = dataRow.Field<string>("FileResourcesPath") }
                                 }).ToList();
-                return comments;
+                return conventions;
             }
             catch (Exception ex)
             {

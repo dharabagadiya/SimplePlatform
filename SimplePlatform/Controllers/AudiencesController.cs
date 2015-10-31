@@ -19,7 +19,7 @@ namespace SimplePlatform.Controllers
             var userManager = new DataAccess.FSMDetailManager();
             ViewData["FSMUsers"] = userManager.FSMDetails();
             var conventionManager = new DataAccess.ConventionManager();
-            ViewData["Convention"] = conventionManager.GetConventions();
+            ViewData["Convention"] = conventionManager.GetActiveConventions();
             var serviceManager = new DataAccess.ServiceManager();
             ViewData["Services"] = serviceManager.GetServices();
             StartupScript = "audiences.DoPageSetting();";
@@ -92,7 +92,7 @@ namespace SimplePlatform.Controllers
             var userManager = new DataAccess.FSMDetailManager();
             ViewData["FSMUsers"] = userManager.FSMDetails();
             var conventionManager = new DataAccess.ConventionManager();
-            ViewData["Convention"] = conventionManager.GetConventions();
+            ViewData["Convention"] = conventionManager.GetActiveConventions();
             var serviceManager = new DataAccess.ServiceManager();
             ViewData["Services"] = serviceManager.GetServices();
             return PartialView();

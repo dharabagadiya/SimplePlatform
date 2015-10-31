@@ -311,4 +311,7 @@
   <ItemGroup>
     <None Include="StoredProcedure\Reports\sproc_SimplePlatForm_GetSelectionSlipGeneralByOfficeIDs.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Reports\sproc_SimplePlatForm_GetOfficeWeeklyCumulativeStatsByOfficeIDs.sql" />
+  </ItemGroup>
 </Project>
