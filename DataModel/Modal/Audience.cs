@@ -15,6 +15,7 @@ namespace DataModel.Modal
         public int AudienceID { get; set; }
         public string Name { get; set; }
         public DateTime VisitDate { get; set; }
+        public DateTime? ArrivalDate { get; set; }
         public string Contact { get; set; }
         public string EmailAddress { get; set; }
         public float GSBAmount { get; set; }

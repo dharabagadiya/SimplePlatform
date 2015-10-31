@@ -292,7 +292,6 @@ simplePlatform.BindHeaderChangePwdClickEvent = function () {
         return false;
     }, this));
 };
-
 simplePlatform.ValidateModalAudienceForm = function (obj) {
     obj.find("form")
     .bootstrapValidator({
@@ -375,6 +374,7 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
         var bookingStatus = formObj.find("#dwnBookStatus").val();
         var gsbAmount = formObj.find("#txtGSBAmount").val();
         var donationAmount = formObj.find("#txtDonationAmount").val();
+        var arrivalDate = (visitTypeID == 4 ? formObj.find(".txtArrivalDate").val() : "");
         if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
         if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
         if (IsNullOrEmpty(serviceID) && serviceID <= 0) { serviceID = 0; }
@@ -385,6 +385,7 @@ simplePlatform.ValidateModalAudienceForm = function (obj) {
         var dataObj = {
             name: name,
             visitDate: visitDate,
+            arrivalDate: arrivalDate,
             contact: contact,
             emailAddress: emailAddress,
             visitType: visitTypeID,
@@ -427,14 +428,20 @@ simplePlatform.BindHeaderAddAudienceClickEvent = function () {
         var currentObj = $(event.currentTarget);
         $("#divCommonModalPlaceHolder").empty();
         ShowDialogBox($("#divCommonModalPlaceHolder"), currentObj.attr("url"), null, $.proxy(function (event, dialogContentPlaceHolder) {
+            dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true }).off("show").on("show", function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            });
+            dialogContentPlaceHolder.find(".txtArrivalDate").datepicker({ autoclose: true, todayHighlight: true }).off("show").on("show", function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            });;
             simplePlatform.BindHeaderAddAudienceDropDownChangeEvent(dialogContentPlaceHolder);
-            dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
             this.ValidateModalAudienceForm(dialogContentPlaceHolder);
         }, this));
         return false;
     }, this));
 };
-
 simplePlatform.ValidateModalConventionForm = function (obj) {
     obj.find("form")
         .bootstrapValidator({

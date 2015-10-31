@@ -20,6 +20,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_AddAudience]
 	@FSMID			INT,
 	@ConventionID	INT,
 	@ServiceID		INT,
+	@ArrivalDate	DATETIME = NULL,
 	@BookingStatus	INT, 
 	@GSBAmount		REAL, 
 	@Amount			REAL
@@ -63,7 +64,8 @@ BEGIN
 			          IsAttended,
 			          Amount ,
 			          BookingStatus,
-					  EmailAddress
+					  EmailAddress,
+					  ArrivalDate
 			        )
 			VALUES  ( @Name,
 			          @VisitDate,
@@ -81,7 +83,8 @@ BEGIN
 			          0, -- IsAttended - bit
 			          @Amount, -- Amount - real
 			          @BookingStatus,  -- IsBooked - bit
-					  @EmailAddress
+					  @EmailAddress,
+					  @ArrivalDate
 			        )
 
 			SET @Status = 1;

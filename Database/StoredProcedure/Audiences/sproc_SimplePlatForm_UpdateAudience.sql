@@ -21,6 +21,7 @@ CREATE PROCEDURE [dbo].[sproc_SimplePlatForm_UpdateAudience]
 	@FSMID			INT,
 	@ConventionID	INT,
 	@ServiceID		INT,
+	@ArrivalDate	DATETIME = NULL,
 	@BookingStatus	INT, 
 	@GSBAmount		REAL, 
 	@Amount			REAL
@@ -55,7 +56,8 @@ BEGIN
 						  GSBAmount = @GSBAmount,
 						  FSMDetail_UserId = @FSMID,
 						  Amount =  @Amount,
-						  BookingStatus = @BookingStatus
+						  BookingStatus = @BookingStatus,
+						  ArrivalDate = @ArrivalDate
 				WHERE AudienceID =  @AudienceID AND IsDeleted = 0;
 
 				SET @Status = 1;

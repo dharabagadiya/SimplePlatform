@@ -116,6 +116,13 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="ArrivalDate">Arrival Date</label>
+                            <input type="text" name="ArrivalDate" class="form-control txtArrivalDate" placeholder="Select Date" value="@(Model.ArrivalDate == null ? DateTime.Now.ToString("MM/dd/yyyy") : Model.ArrivalDate.Value.ToString("MM/dd/yyyy"))" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">

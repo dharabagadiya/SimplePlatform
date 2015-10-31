@@ -13,7 +13,7 @@ namespace DataAccess
 {
     public class AudienceManager : DBManager
     {
-        public bool Add(string name, string contact, string emailAddress, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
+        public bool Add(string name, string contact, string emailAddress, DateTime visitDate, DateTime? arrivalDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -30,6 +30,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@FSMID", DbType.Int32, fsmID);
                     database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
                     database.AddInParameter(command, "@ServiceID", DbType.Int32, serviceID);
+                    if (arrivalDate != null) { database.AddInParameter(command, "@ArrivalDate", DbType.DateTime, arrivalDate); }
                     database.AddInParameter(command, "@BookingStatus", DbType.Int32, bookingStatus);
                     database.AddInParameter(command, "@GSBAmount", DbType.Single, GSBAmount);
                     database.AddInParameter(command, "@Amount", DbType.Single, amount);
@@ -45,7 +46,7 @@ namespace DataAccess
             }
         }
 
-        public bool Update(int audienceID, string name, string contact, string emailAddress, DateTime visitDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
+        public bool Update(int audienceID, string name, string contact, string emailAddress, DateTime visitDate, DateTime? arrivalDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -63,6 +64,7 @@ namespace DataAccess
                     database.AddInParameter(command, "@FSMID", DbType.Int32, fsmID);
                     database.AddInParameter(command, "@ConventionID", DbType.Int32, conventionID);
                     database.AddInParameter(command, "@ServiceID", DbType.Int32, serviceID);
+                    if (arrivalDate != null) { database.AddInParameter(command, "@ArrivalDate", DbType.DateTime, arrivalDate); }
                     database.AddInParameter(command, "@BookingStatus", DbType.Int32, bookingStatus);
                     database.AddInParameter(command, "@GSBAmount", DbType.Single, GSBAmount);
                     database.AddInParameter(command, "@Amount", DbType.Single, amount);
@@ -144,6 +146,7 @@ namespace DataAccess
                                     IsAttended = dataRow.Field<bool>("IsAttended"),
                                     Amount = dataRow.Field<float>("Amount"),
                                     BookingStatus = dataRow.Field<int>("BookingStatus"),
+                                    ArrivalDate = dataRow.Field<DateTime?>("ArrivalDate"),
                                     FSMDetail = dataRow.Field<int?>("FSMDetailID").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.FSMDetail { ID = dataRow.Field<int>("FSMDetailID"), Name = dataRow.Field<String>("FSMDetailName"), PhoneNumber = dataRow.Field<String>("FSMDetailPhoneNumber") },
                                     Office = new DataModel.Modal.Office { OfficeId = dataRow.Field<int>("OfficeId"), Name = dataRow.Field<String>("OfficeName") },
                                     Event = dataRow.Field<int?>("EventId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Event { EventId = dataRow.Field<int>("EventId"), Name = dataRow.Field<String>("EventName") },

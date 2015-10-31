@@ -43,6 +43,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
     var fsmID = parseInt(formObj.find("#dwnFSMList").val());
     var placeID = parseInt(formObj.find("#hdnVisitPlaceID").val());
     var officeID = parseInt(formObj.find("#dwnOffices").val());
+    var arrivalDate = (visitType == 4 ? formObj.find(".txtArrivalDate").val() : "");
     var eventID = 0;
     var convensionID = 0;
     var serviceID = 0;
@@ -63,6 +64,7 @@ audiences.SubmitBulkInsertForm = function (obj) {
         var dataObj = {
             name: name,
             visitDate: visitDate,
+            arrivalDate : arrivalDate,
             contact: contact,
             emailAddress: emailAddress,
             visitType: visitType,
@@ -161,10 +163,13 @@ audiences.LoadQuickBooking = function () {
             if (groupObj.length > 0) { visitType = groupObj.attr("id"); placeID = $(this).val(); } else { placeID = $(this).val(); }
             rowObj.find("#hdnVisitType").val(visitType);
             rowObj.find("#hdnVisitPlaceID").val(placeID);
-            if (parseInt(visitType) == 1 || parseInt(visitType) == 4) { rowObj.find(".dwnBookStatus").parent().hide(); }
-            else { rowObj.find(".dwnBookStatus").parent().show(); }
+            rowObj.find(".dwnBookStatus").parent().hide();
+            rowObj.find(".txtArrivalDate").parent().hide();
+            if (parseInt(visitType) == 3) { rowObj.find(".dwnBookStatus").parent().show(); }
+            if (parseInt(visitType) == 4) { rowObj.find(".txtArrivalDate").parent().show(); }
         }).change();
     });
+    $(".txtArrivalDate").datepicker({ autoclose: true, todayHighlight: true });
     $(".dwnFSMList").chosen({ width: "100%" }).off("change").on("change", function () {
         var currentObj = $(this);
         var fsmID = parseInt(currentObj.val());
@@ -345,6 +350,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
         var bookingStatus = formObj.find("#dwnBookStatus").val();
         var gsbAmount = formObj.find("#txtGSBAmount").val();
         var donationAmount = formObj.find("#txtDonationAmount").val();
+        var arrivalDate = (visitTypeID == 4 ? formObj.find(".txtArrivalDate").val() : "");
         if (IsNullOrEmpty(officeID) && officeID <= 0) { officeID = 0; }
         if (IsNullOrEmpty(eventID) && eventID <= 0) { eventID = 0; }
         if (IsNullOrEmpty(fsmID) && fsmID <= 0) { fsmID = 0; }
@@ -357,6 +363,7 @@ audiences.ValidateModalAudienceForm = function (obj) {
             audienceID: audienceID,
             name: name,
             visitDate: visitDate,
+            arrivalDate: arrivalDate,
             contact: contact,
             emailAddress: emailAddress,
             visitType: visitTypeID,
@@ -405,7 +412,14 @@ audiences.EditAudienceDetail = function (obj) {
         dialogContentPlaceHolder.find("#dwnServices").val(dialogContentPlaceHolder.find("#hdnServiceID").val());
         dialogContentPlaceHolder.find("#dwnFSMList").val(dialogContentPlaceHolder.find("#hdnFSMID").val());
         dialogContentPlaceHolder.find("#dwnBookStatus").val(dialogContentPlaceHolder.find("#hdnBookinStatus").val());
-        dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true });
+        dialogContentPlaceHolder.find(".txtVisitDate").datepicker({ autoclose: true, todayHighlight: true }).off("show").on("show", function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+        });
+        dialogContentPlaceHolder.find(".txtArrivalDate").datepicker({ autoclose: true, todayHighlight: true }).off("show").on("show", function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+        });
         audiences.BindHeaderAddAudienceDropDownChangeEvent(dialogContentPlaceHolder);
         dialogContentPlaceHolder.find("#dwnPeopleVistiType").val(dialogContentPlaceHolder.find("#hdnVisitTypeID").val()).change();
         audiences.ValidateModalAudienceForm(dialogContentPlaceHolder);

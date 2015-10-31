@@ -35,9 +35,11 @@
                         <label for="VisitDate">Visit Date</label>
                         <input type="text" name="VisitDate" class="form-control txtVisitDate" placeholder="Select Date" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
                     </div>
+                </div>
+                <div class="form-group">
                     <div class="col-sm-6">
-                        <label for="SelectUserRole">Select Visti Type</label>
-                        <select class="form-control" id="dwnPeopleVistiType">
+                        <label for="dwnPeopleVistiType">Select Visti Type</label>
+                        <select class="form-control" name="dwnPeopleVistiType" id="dwnPeopleVistiType">
                             <option value="0">Select Visit Type</option>
                             @foreach (var visitType in visitTypes)
                             {
@@ -106,6 +108,13 @@
                                     <option value="@service.ServiceId">@service.ServiceName</option>
                                 }
                             </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="ArrivalDate">Arrival Date</label>
+                            <input type="text" name="ArrivalDate" class="form-control txtArrivalDate" placeholder="Select Date" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
                         </div>
                         <div class="clearfix"></div>
                     </div>

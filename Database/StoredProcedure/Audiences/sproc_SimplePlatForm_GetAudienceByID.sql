@@ -26,6 +26,7 @@ BEGIN
 		[I].FSMName ,
 		[I].Amount ,
 		[I].[BookingStatus],
+		[I].[ArrivalDate],
 		[II].[ConventionId],
 		[II].[Name] AS [ConventionName],
 		[III].[EventId],
@@ -41,7 +42,7 @@ BEGIN
 		[VIII].[PhoneNumber] AS [FSMDetailPhoneNumber]
 	FROM dbo.Audiences AS [I]
 	LEFT JOIN dbo.Conventions AS  [II] ON [II].[ConventionId] = [I].[Convention_ConventionId]
-	LEFT JOIN dbo.Events AS  [III] ON [III].[EventId] = [I].[Event_EventId]
+	LEFT JOIN dbo.[Events] AS  [III] ON [III].[EventId] = [I].[Event_EventId]
 	LEFT JOIN dbo.Offices AS [IV] ON IV.OfficeId = I.Office_OfficeId
 	LEFT JOIN dbo.VisitTypes AS [V] ON V.VisitTypeId = I.VisitType_VisitTypeId
 	LEFT JOIN dbo.[Services] AS [VII] ON [VII].ServiceId = I.Sevice_ServiceId
