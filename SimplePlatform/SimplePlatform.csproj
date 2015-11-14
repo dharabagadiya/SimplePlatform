@@ -401,6 +401,8 @@
     <Content Include="Views\Audiences\Edit.cshtml" />
     <Content Include="Views\Audiences\FSMSelectionMail.cshtml" />
     <Content Include="Views\WarmUp\TestMail.cshtml" />
+    <Content Include="Views\WarmUp\WeeklyRecap.cshtml" />
+    <Content Include="Views\WarmUp\SendRecapMail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

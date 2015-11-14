@@ -317,4 +317,10 @@
   <ItemGroup>
     <None Include="StoredProcedure\Audiences\sproc_SimplePlatForm_GetSelectionSlipByAudienceID.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Reports\sproc_SimplePlatForm_GetFSMWeeklyCumulativeStatsByCurrentWeek.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\Reports\sproc_SimplePlatForm_GetFSMSelectionByCurrentWeek.sql" />
+  </ItemGroup>
 </Project>

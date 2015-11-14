@@ -120,5 +120,46 @@ namespace DataAccess
                 return null;
             }
         }
+
+        public List<int> GetSelectedFSMIDs()
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetFSMSelectionByCurrentWeek]"))
+                {
+                    dataSet = database.ExecuteDataSet(command);
+                }
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var ids = new List<int>();
+                ids = dataTable.AsEnumerable().Select(dataRow => dataRow.Field<int>("FSMDetailID")).ToList();
+                return ids;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public DataSet GetFSMWeeklyCumulativeStats(int fsmID)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetFSMWeeklyCumulativeStatsByCurrentWeek]"))
+                {
+                    database.AddInParameter(command, "@ID", DbType.Int32, fsmID);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                return dataSet;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

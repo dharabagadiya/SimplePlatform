@@ -110,12 +110,12 @@ namespace SimplePlatform.Controllers
             var audienceManager = new DataAccess.AudienceManager();
             var visitDateTime = Convert.ToDateTime(visitDate);
             DateTime? arrivalDateTime = string.IsNullOrEmpty(arrivalDate) ? (DateTime?)null : Convert.ToDateTime(arrivalDate);
-            var status = audienceManager.Add(name, contact, emailAddress, visitDateTime, arrivalDateTime, visitType, officeID, eventID, fsmID, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
-            if (status != 0)
+            var audienceID = audienceManager.Add(name, contact, emailAddress, visitDateTime, arrivalDateTime, visitType, officeID, eventID, fsmID, convensionID, serviceID, bookingStatus, gsbAmount, donationAmount);
+            if (audienceID != 0)
             {
                 using (var sw = new StringWriter())
                 {
-                    var fsmSelectionMail = audienceManager.GetFSMSelectionSlipByAudienceID(status);
+                    var fsmSelectionMail = audienceManager.GetFSMSelectionSlipByAudienceID(audienceID);
                     ViewData.Model = fsmSelectionMail;
                     ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, "FSMSelectionMail");
                     ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
@@ -128,7 +128,7 @@ namespace SimplePlatform.Controllers
                     { }
                 }
             }
-            return Json(status);
+            return Json(audienceID);
         }
 
         [HttpPost]
