@@ -87,7 +87,7 @@ BEGIN
 					  @ArrivalDate
 			        )
 
-			SET @Status = 1;
+			SET @Status = SCOPE_IDENTITY();
 
 		COMMIT TRANSACTION;
 	END TRY

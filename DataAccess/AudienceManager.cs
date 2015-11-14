@@ -13,7 +13,16 @@ namespace DataAccess
 {
     public class AudienceManager : DBManager
     {
-        public bool Add(string name, string contact, string emailAddress, DateTime visitDate, DateTime? arrivalDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
+        public void SendSelectionSlipMail(int fsmID, string toEmailID, string content)
+        {
+            if (fsmID == 0) { return; }
+            var fsmDetailManager = new FSMDetailManager();
+            var fsmDetail = fsmDetailManager.FSMDetail(fsmID);
+            if (fsmDetail == null) { return; }
+            new Utilities.Email.Invoke((new Utilities.Email()).SendMail).BeginInvoke(toEmailID, fsmDetail.EmailID, "Selection Slip / ASR", content, null, null);
+        }
+
+        public int Add(string name, string contact, string emailAddress, DateTime visitDate, DateTime? arrivalDate, int visitTypeID, int officeID, int eventID, int fsmID, int conventionID, int serviceID, int bookingStatus, float GSBAmount, float amount)
         {
             try
             {
@@ -38,11 +47,11 @@ namespace DataAccess
                     database.ExecuteNonQuery(command);
                     returnVale = (int)database.GetParameterValue(command, "@Status");
                 }
-                return returnVale == 1;
+                return returnVale;
             }
             catch (Exception ex)
             {
-                return false;
+                return 0;
             }
         }
 
@@ -153,6 +162,34 @@ namespace DataAccess
                                     Convention = dataRow.Field<int?>("ConventionId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Convention { ConventionId = dataRow.Field<int>("ConventionId"), Name = dataRow.Field<String>("ConventionName") },
                                     VisitType = dataRow.Field<int?>("VisitTypeId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.VisitType { VisitTypeId = dataRow.Field<int>("VisitTypeId"), VisitTypeName = dataRow.Field<String>("VisitTypeName") },
                                     Service = dataRow.Field<int?>("ServiceId").GetValueOrDefault(0) == 0 ? null : new DataModel.Modal.Service { ServiceId = dataRow.Field<int>("ServiceId"), ServiceName = dataRow.Field<String>("ServiceName") }
+                                }).FirstOrDefault();
+                return audience;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public DataModel.Modal.FSMSelectionMail GetFSMSelectionSlipByAudienceID(int id)
+        {
+            try
+            {
+                DataSet dataSet;
+                using (var command = database.GetStoredProcCommand("[dbo].[sproc_SimplePlatForm_GetSelectionSlipByAudienceID]"))
+                {
+                    database.AddInParameter(command, "@ID", DbType.Int32, id);
+                    dataSet = database.ExecuteDataSet(command);
+                }
+
+                if (dataSet == null || dataSet.Tables.Count <= 0) return null;
+                var dataTable = dataSet.Tables[0];
+                var audience = (from dataRow in dataTable.AsEnumerable()
+                                select new DataModel.Modal.FSMSelectionMail
+                                {
+                                    PublicName = dataRow.Field<String>("Name"),
+                                    FSMName = dataRow.Field<String>("FSMDetailName"),
+                                    ConventionServiceName = dataRow.Field<String>("ConventionServiceName")
                                 }).FirstOrDefault();
                 return audience;
             }

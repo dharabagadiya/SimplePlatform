@@ -385,7 +385,6 @@
     <Content Include="Views\Calender\Index.cshtml" />
     <Content Include="Views\Conventions\UploadAttachment.cshtml" />
     <Content Include="Views\Conventions\Detail.cshtml" />
-    <Content Include="Views\WarmUp\WarmpUpEF.cshtml" />
     <Content Include="Views\Tasks\UploadAttachment.cshtml" />
     <Content Include="Views\Users\ChangePassword.cshtml" />
     <Content Include="Views\Events\Detail.cshtml" />
@@ -400,6 +399,8 @@
     <Content Include="Views\Services\Edit.cshtml" />
     <Content Include="Views\Audiences\UpdateAudienceStatus.cshtml" />
     <Content Include="Views\Audiences\Edit.cshtml" />
+    <Content Include="Views\Audiences\FSMSelectionMail.cshtml" />
+    <Content Include="Views\WarmUp\TestMail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -444,7 +445,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51990</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51990/</IISUrl>
+          <IISUrl>http://localhost:51998/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
